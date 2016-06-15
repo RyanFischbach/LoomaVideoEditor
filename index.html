@@ -13,16 +13,19 @@
 		
 		<p id = "demo"> </p>
 		
+		<img id="myImage" src="VTS.jpg" width="100" height="180">
+		
 		<button onclick='getElementById("demo").innerHTML=helpText'> Help</button>
 		
-		<button onclick='getElementById("demo").innerHTML = video'> Show Videos</button>
+		<button onclick='getElementById("demo").innerHTML = myImage'> Show Videos</button>
 		
 		
 		
 		<script>
-			var video = "Video";
+			
 			var helpText = "Click on the show videos button, and select the video you want to modify.";
-		
+			
+			var image = document.getElementById('myImage');
 		</script>
 		
 		
