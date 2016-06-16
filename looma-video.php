@@ -59,10 +59,3 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
    	<?php include ('includes/js-includes.php'); ?>
   	<script src="js/looma-screenfull.js"></script>
    	<script src="js/looma-video.js"></script>
-        
-    <?php 
-    // Ryan's code will do this eventually
-    include ('textConverter.php');
-    $strArr = array("Team", "Aaron", "Ryan", "Connor");
-    writeJSONStringToFile($strArr);
-    ?>
