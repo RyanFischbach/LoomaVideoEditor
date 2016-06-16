@@ -60,6 +60,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
   	<script src="js/looma-screenfull.js"></script>
    	<script src="js/looma-video.js"></script>
         
-    <?php include ('textConverter.php');
-        writeToFile(5, "asdf", "abcd");
+    <?php 
+    // Ryan's code will do this eventually
+    include ('textConverter.php');
+    $strArr = array("Team", "Aaron", "Ryan", "Connor");
+    writeJSONStringToFile($strArr);
     ?>
