@@ -92,6 +92,12 @@ editButton.addEventListener("click", function() {
 		// change the edit button to say edit
 		editButton.innerHTML = "Edit";	
 		
+		// changes the play-pause button to correctly represent the situation
+		if(playButton.innerHTML == "Pause")
+			{
+				playButton.innerHTML = "Play";
+			}
+		
 		video.pause();
 	}
 });
@@ -101,18 +107,15 @@ textButton.addEventListener("click", function() {
 	// store the current video time in the array of video times
 	editedVideoTime.push(video.currentTime);
 	
-	// prompt user input for the string they want on the video
-	var inputString = prompt("Please enter the text for the video.", "");
+    //var inputString = 
 	
-	editedVideoText.push(inputString);
+	//editedVideoText.push(inputString);
+	
+	
 	
 	
 });
 	
-
-	
-
-
 // Event listener for the seek bar
 seekBar.addEventListener("change", function() {
   // Calculate the new time
@@ -138,7 +141,11 @@ seekBar.addEventListener("mousedown", function() {
 
 // Play the video when the slider handle is dropped
 seekBar.addEventListener("mouseup", function() {
-  video.play();
+  video.pause();
+  if(playButton.innerHTML == "Pause")
+  {
+	  playButton.innerHTML = "Play"
+  }
 });
 
 // Event listener for the volume bar
