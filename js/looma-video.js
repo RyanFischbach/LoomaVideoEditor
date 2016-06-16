@@ -19,6 +19,11 @@ $(document).ready(function() {
   // Buttons
   var playButton = document.getElementById("play-pause");
   var muteButton = document.getElementById("mute");
+  var editButton = document.getElementById("edit");
+  var textButton = document.getElementById("text");
+  textButton.style.display = 'none';
+  var editedVideoTime = [];
+  var editedVideoText = [];
 
   // Sliders
   var seekBar = document.getElementById("seek-bar");
@@ -63,6 +68,50 @@ muteButton.addEventListener("click", function() {
     muteButton.innerHTML = "Mute";
   }
 });
+	
+// Event listener for the edit button
+editButton.addEventListener("click", function() {
+	if(editButton.innerHTML == "Edit")
+	{
+		// display the text box
+		textButton.style.display = 'inline';
+		
+		// change the edit button to say done
+		editButton.innerHTML = "Done";
+		
+		video.pause();	
+		
+		// change the play-pause button to say play
+		playButton.innerHTML = "Play";
+	}
+	else // editButton.innerHTML == "Done"
+	{
+		// don't display the text box
+		textButton.style.display = 'none';
+		
+		// change the edit button to say edit
+		editButton.innerHTML = "Edit";	
+		
+		video.pause();
+	}
+});
+
+// Event listener for the text button
+textButton.addEventListener("click", function() {
+	// store the current video time in the array of video times
+	editedVideoTime.push(video.currentTime);
+	
+	// prompt user input for the string they want on the video
+	var inputString = prompt("Please enter the text for the video.", "");
+	
+	editedVideoText.push(inputString);
+	
+	
+});
+	
+
+	
+
 
 // Event listener for the seek bar
 seekBar.addEventListener("change", function() {
