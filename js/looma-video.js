@@ -87,20 +87,7 @@ $(document).ready(function () {
 
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
-		if (editButton.innerHTML == "Edit") {
-			// display the text box
-			textButton.style.display = 'inline';
-
-			// change the edit button to say done
-			editButton.innerHTML = "Done";
-
-			video.pause();
-
-			// change the play-pause button to say play
-			playButton.innerHTML = "Play";
-		} 
-		else //if(editButton.innerHTML == "Done")
-		{
+		if (editButton.innerHTML == "Done") {
 			// don't display the text box
 			textButton.style.display = 'none';
 
@@ -112,7 +99,19 @@ $(document).ready(function () {
 //			var jsonString = JSON.stringify(editsObj);
 			console.log(editsObj);
 			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
-			
+		} 
+		else //if(editButton.innerHTML == "Done")
+		{
+			// display the text box
+			textButton.style.display = 'inline';
+
+			// change the edit button to say done
+			editButton.innerHTML = "Done";
+
+			video.pause();
+
+			// change the play-pause button to say play
+			playButton.innerHTML = "Play";
 		}
 		
 	});
