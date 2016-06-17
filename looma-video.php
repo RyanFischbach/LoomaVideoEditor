@@ -90,6 +90,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
  <!-- Video Editing -->
 <?php
+        
+$jsonStr = $_GET['jsonString'];
+writeToFile("title", $strJSON);
+        
 function writeToFile($videoTitle, $strJSON)
 {
      $this_dir = dirname(__FILE__);
