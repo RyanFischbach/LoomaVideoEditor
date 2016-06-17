@@ -80,14 +80,18 @@ video.addEventListener("timeupdate", function() {
 
   // Update the slider value
   seekBar.value = value;
-    
+  
+
   while(commands.videoTimes.length > 0){
-    
+    //While there are still annotatins in the video
     if(commands.videoTimes[0] < video.currentTime)
     {
+        //If we have passed the time stamp for the next annotation 
+        //play check the type and delete that time stamp
         commands.videoTimes.splice(0, 1);
         if(commands.type == "text")
         { 
+            //If the type is a text file create a overlay and put the text there and pause the video
             var message = commands.videoText[0];
             commands.videoText.splice(0, 1);
             console.log(message)

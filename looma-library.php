@@ -48,6 +48,7 @@ Description:  displays and navigates content folders for Looma 2
 						   "' data-ft='" .  $ext . 
 						   "' data-zm='" .  160 .
 						   "' data-pg='1" .
+                //If the file is a .txt file (used to store edited videos) it pulls the information from the file
                            "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
 						   "'>";
 					   
@@ -66,6 +67,7 @@ Description:  displays and navigates content folders for Looma 2
 		};  //end makeButton()
 	
         function getJSON($file, $path, $ext) {
+            //Gets the path of the .txt file and return the information inside
             $realpath = realpath($path) . '/';
             return file_get_contents($realpath . $file, $realpath, null, 0);
         }
@@ -152,23 +154,25 @@ Description:  displays and navigates content folders for Looma 2
 		$file = $fileInfo -> getFilename();
 		$base = trim($fileInfo -> getBasename($ext), ".");  //$base is filename w/o the file extension
 		
-            if(substr($file, strlen($file) - 4) == ".txt")
-            {
-                $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
-            }
-            else
-            {
-                // look in the database to see if this file has a DISPLAYNAME
-                $query = array('fn' => $file);
-			
-                $projection = array('_id' => 0, 
-							    'dn' => 1, 
-								);		
-                $activity = $activities_collection -> findOne($query, $projection);
+        //If the file is a .txt file (used to store edited videos) it gives it the correct display name
+        if(substr($file, strlen($file) - 4) == ".txt")
+        {
+            $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
+        }
+        else
+        {
+            // look in the database to see if this file has a DISPLAYNAME
+            $query = array('fn' => $file);
+	
+            $projection = array('_id' => 0, 
+						    'dn' => 1, 
+				);		
+            $activity = $activities_collection -> findOne($query, $projection);
 
-                $dn = ($activity && array_key_exists('dn', $activity)) ? $activity['dn'] : $base;
-            }
-		//DEBUG   echo "activity is " . $activity['dn'] . " looked up '" . $file . "' and got '" . $dn . "'";
+            $dn = ($activity && array_key_exists('dn', $activity)) ? $activity['dn'] : $base;
+        }
+            
+        //DEBUG   echo "activity is " . $activity['dn'] . " looked up '" . $file . "' and got '" . $dn . "'";
 		
 			switch (strtolower($ext)) {
 				case "video":
