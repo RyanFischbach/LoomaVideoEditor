@@ -29,8 +29,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 			} //end function THUMBNAIL
 
 ?>
-    </head>
-
     <body>
         <?php
 		$filename = $_REQUEST['fn'];
