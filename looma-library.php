@@ -154,19 +154,20 @@ Description:  displays and navigates content folders for Looma 2
 		
             if(substr($file, strlen($file) - 4) == ".txt")
             {
-                $dn = substr($file, strlen($file) - 4);
+                $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
             }
-            
-		// look in the database to see if this file has a DISPLAYNAME
-			$query = array('fn' => $file);
+            else
+            {
+                // look in the database to see if this file has a DISPLAYNAME
+                $query = array('fn' => $file);
 			
-			$projection = array('_id' => 0, 
+                $projection = array('_id' => 0, 
 							    'dn' => 1, 
 								);		
-			$activity = $activities_collection -> findOne($query, $projection);
+                $activity = $activities_collection -> findOne($query, $projection);
 
-  			$dn = ($activity && array_key_exists('dn', $activity)) ? $activity['dn'] : $base;	
-		//
+                $dn = ($activity && array_key_exists('dn', $activity)) ? $activity['dn'] : $base;
+            }
 		//DEBUG   echo "activity is " . $activity['dn'] . " looked up '" . $file . "' and got '" . $dn . "'";
 		
 			switch (strtolower($ext)) {
