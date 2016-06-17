@@ -34,7 +34,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	<body>
 	<?php
 		$filename = $_REQUEST['fn'];
-        $filename = substr($filename, strlen($filename) - 4) . ".mp4";
+        $filename = substr($filename, 0, strlen($filename) - 4) . ".mp4";
 		$filepath = $_REQUEST['fp'];
 	?>
     <script>
