@@ -21,7 +21,19 @@ $(document).ready(function() {
   var muteButton = document.getElementById("mute");
   var editButton = document.getElementById("edit");
   var textButton = document.getElementById("text");
+	
+  // Text button doesn't show up
   textButton.style.display = 'none';
+	
+  var submitButton = docuent.getElementById("submit");
+
+  submitButton.style.display = 'none';
+	
+  var form = document.getElementById("comments");
+	
+  form.style.display = 'none';
+	
+  // Arrays of video annotation information
   var editedVideoTime = [];
   var editedVideoText = [];
 
@@ -86,17 +98,17 @@ editButton.addEventListener("click", function() {
 	}
 	else // editButton.innerHTML == "Done"
 	{
+		var object = {type: "text", title: "$document", timeArray: editedVideoTime, 
+				  textArray: editedVideoText};
+		
+		var jsonString = json.stringify(object);
+		
+		
 		// don't display the text box
 		textButton.style.display = 'none';
 		
 		// change the edit button to say edit
 		editButton.innerHTML = "Edit";	
-		
-		// changes the play-pause button to correctly represent the situation
-		if(playButton.innerHTML == "Pause")
-			{
-				playButton.innerHTML = "Play";
-			}
 		
 		video.pause();
 	}
@@ -107,15 +119,23 @@ textButton.addEventListener("click", function() {
 	// store the current video time in the array of video times
 	editedVideoTime.push(video.currentTime);
 	
-    //var inputString = 
+	form.style.display = 'inline';
 	
-	//editedVideoText.push(inputString);
+	submitButton.style.display = 'inline';
 	
-	
-	
+	submitButton.addEventListener("click", function(){
+		
+		var text = document.getElementById("comments");
+		editedVideoText.push(text);
+		return true;
+	})
 	
 });
 	
+
+	
+
+
 // Event listener for the seek bar
 seekBar.addEventListener("change", function() {
   // Calculate the new time
@@ -141,11 +161,7 @@ seekBar.addEventListener("mousedown", function() {
 
 // Play the video when the slider handle is dropped
 seekBar.addEventListener("mouseup", function() {
-  video.pause();
-  if(playButton.innerHTML == "Pause")
-  {
-	  playButton.innerHTML = "Play"
-  }
+  video.play();
 });
 
 // Event listener for the volume bar
