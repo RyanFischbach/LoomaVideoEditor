@@ -47,6 +47,13 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 			</div>
 		</div>
 	  <div id="video-controls">
+		  
+		  <!-- text box -->
+          <form class="media hidden_button">
+              <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:2%;font:22px/30px sans-serif;" placeholder= "Enter text..."></textarea>
+              <br><button type="button" class="media hidden_button" id="submit"><?php keyword('Submit') ?></button>
+          </form>
+          
 		  <br><button type="button" class="media hidden_button" id="text"><?php keyword('Text') ?></button>
    		  <br><button type="button" class="media" id="play-pause"><?php keyword('Play') ?></button>
   		  <input type="range"       class="video" id="seek-bar" value="0" style="display:inline-block">
