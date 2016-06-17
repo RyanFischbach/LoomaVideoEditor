@@ -21,21 +21,13 @@ $(document).ready(function() {
   var muteButton = document.getElementById("mute");
   var editButton = document.getElementById("edit");
   var textButton = document.getElementById("text");
-	
-  // Text button doesn't show up
   textButton.style.display = 'none';
-	
-  var submitButton = docuent.getElementById("submit");
-
+  var submitButton = document.getElementById("submit");
   submitButton.style.display = 'none';
-	
-  var form = document.getElementById("comments");
-	
-  form.style.display = 'none';
-	
-  // Arrays of video annotation information
   var editedVideoTime = [];
   var editedVideoText = [];
+  var form = document.getElementById("comments");
+  form.style.display = 'none';
 
   // Sliders
   var seekBar = document.getElementById("seek-bar");
@@ -98,12 +90,6 @@ editButton.addEventListener("click", function() {
 	}
 	else // editButton.innerHTML == "Done"
 	{
-		var object = {type: "text", title: "$document", timeArray: editedVideoTime, 
-				  textArray: editedVideoText};
-		
-		var jsonString = json.stringify(object);
-		
-		
 		// don't display the text box
 		textButton.style.display = 'none';
 		
@@ -119,19 +105,26 @@ textButton.addEventListener("click", function() {
 	// store the current video time in the array of video times
 	editedVideoTime.push(video.currentTime);
 	
-	form.style.display = 'inline';
+    form.style.display = "inline";
+    submitButton.style.display = "inline";
+    
+    submitButton.addEventListener("click", function() {
+        var text = document.getElementById("comments");
+        editedVideoText.push(text);
+        return true;
+    });
+    
+    //var inputString = 
 	
-	submitButton.style.display = 'inline';
+	editedVideoText.push(inputString);
 	
-	submitButton.addEventListener("click", function(){
-		
-		var text = document.getElementById("comments");
-		editedVideoText.push(text);
-		return true;
-	})
 	
 });
 	
+
+	
+
+
 // Event listener for the seek bar
 seekBar.addEventListener("change", function() {
   // Calculate the new time

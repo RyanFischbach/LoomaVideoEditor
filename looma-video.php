@@ -39,7 +39,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	<div id="main-container-horizontal">
 		<div height="95%">
 			<div id="fullscreen" class="viewer">
-				<video id="video"
+				<video id="video">
 				<?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
 				<?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
 				</video>
@@ -47,8 +47,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 			</div>
 		</div>
 	  <div id="video-controls">
-		  
-		  <!-- text box -->
+          
+           <!-- text box -->
           <form class="media hidden_button">
               <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:2%;font:22px/30px sans-serif;" placeholder= "Enter text..."></textarea>
               <br><button type="button" class="media hidden_button" id="submit"><?php keyword('Submit') ?></button>
@@ -68,4 +68,4 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
    	<?php include ('includes/toolbar.php'); ?>
    	<?php include ('includes/js-includes.php'); ?>
   	<script src="js/looma-screenfull.js"></script>
-   	 <script src="js/looma-video.js"></script>
+   	<script src="js/looma-video.js"></script>
