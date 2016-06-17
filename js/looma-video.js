@@ -114,9 +114,9 @@ textButton.addEventListener("click", function() {
         return true;
     });
     
-    //var inputString = 
+	form.style.display = 'none';
 	
-	editedVideoText.push(inputString);
+	submitButton.style.display = 'none';
 	
 	
 });
