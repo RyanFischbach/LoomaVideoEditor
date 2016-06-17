@@ -22,8 +22,12 @@ $(document).ready(function() {
   var editButton = document.getElementById("edit");
   var textButton = document.getElementById("text");
   textButton.style.display = 'none';
+  var submitButton = document.getElementById("submit");
+  submitButton.style.display = 'none';
   var editedVideoTime = [];
   var editedVideoText = [];
+  var form = document.getElementById("comments");
+  form.style.display = 'none';
 
   // Sliders
   var seekBar = document.getElementById("seek-bar");
@@ -101,8 +105,16 @@ textButton.addEventListener("click", function() {
 	// store the current video time in the array of video times
 	editedVideoTime.push(video.currentTime);
 	
-	// prompt user input for the string they want on the video
-	var inputString = prompt("Please enter the text for the video.", "");
+    form.style.display = "inline";
+    submitButton.style.display = "inline";
+    
+    submitButton.addEventListener("click", function() {
+        var text = document.getElementById("comments");
+        editedVideoText.push(text);
+        return true;
+    });
+    
+    //var inputString = 
 	
 	editedVideoText.push(inputString);
 	
