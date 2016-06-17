@@ -35,8 +35,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	<?php
 		$filename = $_REQUEST['fn'];
 		$filepath = $_REQUEST['fp'];
-        $JSON = explode(' ', $_REQUEST['txt']);
+        $JSON = JSON.parse($_REQUEST['txt']);
 	?>
+    <script>
+        var commands = <?php echo $_REQUEST['txt']; ?>;
+    </script>
 	<div id="main-container-horizontal">
 		<div height="95%">
 			<div id="fullscreen" class="viewer">

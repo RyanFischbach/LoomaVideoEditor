@@ -71,6 +71,17 @@ seekBar.addEventListener("change", function() {
 
   // Update the video time
   video.currentTime = time;
+    
+  if(commands.editedVideoTime[0] = time)
+  {
+      commands.editedVideoTime.remove(0);
+      if(commands.type == "text")
+      {
+          var message = commands.editedVideoText[0];
+          commands.editedVideoText.remove(0);
+          consol.log(message)
+      }
+  }
 });
 
 // Update the seek bar as the video plays
