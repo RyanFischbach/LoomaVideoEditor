@@ -29,63 +29,89 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 			} //end function THUMBNAIL
 
 ?>
-	</head>
+    </head>
 
-	<body>
-		<?php
+    <body>
+        <?php
 		$filename = $_REQUEST['fn'];
 		$filepath = $_REQUEST['fp'];
 	?>
-			<div id="main-container-horizontal">
-				<div height="95%">
-					<div id="fullscreen" class="viewer">
-						<video id="video">
-							<?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
-								<?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
-						</video>
-						<button id="fullscreen-control"></button>
-						<br>
-					</div>
-				</div>
-				<div id="video-controls">
+            <div id="main-container-horizontal">
+                <div height="95%">
+                    <div id="fullscreen" class="viewer">
+                        <video id="video">
+                            <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
+                                <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
+                        </video>
+                        <button id="fullscreen-control"></button>
+                        <br>
+                    </div>
+                </div>
+                <div id="video-controls">
 
-					<!-- text box -->
-					<form class="media hidden_button">
-						<textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:2%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
-						<br>
-						<button type="button" class="media hidden_button" id="submit">
-							<?php keyword('Submit') ?>
-						</button>
-					</form>
+                    <!-- text box -->
+                    <form class="media hidden_button">
+                        <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:2%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
+                        <br>
+                        <button type="button" class="media hidden_button" id="submit">
+                            <?php keyword('Submit') ?>
+                        </button>
+                    </form>
 
-					<div id = "rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>
+                    <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>
 
 
 
-					<br>
-					<button type="button" class="media hidden_button" id="text">
-						<?php keyword('Text') ?>
-					</button>
-					<br>
-					<button type="button" class="media" id="play-pause">
-						<?php keyword('Play') ?>
-					</button>
-					<input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
-					<br>
-					<button type="button" class="media" id="volume">
-						<?php keyword('Volume') ?>
-					</button>
-					<input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
-					<br>
-					<button type="button" class="media" id="mute">
-						<?php keyword('Mute') ?>
-					</button>
-					<button type="button" class="media" id="edit">
-						<?php keyword('Edit') ?>
-					</button>
-				</div>
-			</div>
-			<?php include ('includes/toolbar.php'); ?>
-				<?php include ('includes/js-includes.php'); ?>
-					<script src="js/looma-screenfull.js"></script>
-					<script src="js/looma-video.js"></script>
+                    <br>
+                    <button type="button" class="media hidden_button" id="text">
+                        <?php keyword('Text') ?>
+                    </button>
+                    <br>
+                    <button type="button" class="media" id="play-pause">
+                        <?php keyword('Play') ?>
+                    </button>
+                    <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
+                    <br>
+                    <button type="button" class="media" id="volume">
+                        <?php keyword('Volume') ?>
+                    </button>
+                    <input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
+                    <br>
+                    <button type="button" class="media" id="mute">
+                        <?php keyword('Mute') ?>
+                    </button>
+                    <button type="button" class="media" id="edit">
+                        <?php keyword('Edit') ?>
+                    </button>
+                </div>
+            </div>
+            <?php include ('includes/toolbar.php'); ?>
+                <?php include ('includes/js-includes.php'); ?>
+                    <script src="js/looma-screenfull.js"></script>
+                    <script src="js/looma-video.js"></script>
+
+ <!-- Video Editing -->
+<?php
+function writeToFile($videoTitle, $strJSON)
+{
+     $this_dir = dirname(__FILE__);
+
+    // admin's parent dir path can be represented by admin/..
+    $parent_dir = realpath($this_dir . '/..');
+
+    // concatenate the target path from the parent dir path
+    $target_path = $parent_dir . '/content/videos/' . $videoTitle . '.txt';
+    
+     // open the file
+    $myFile = fopen($target_path, 'w') or die("can't open file");
+    fwrite($myFile, $strJSON);
+    fclose($myFile);
+    
+    // Save File to DB
+}
+        
+function saveFileToDataBase($file) 
+{
+    $activities_collection.save($file);
+}
+?>
