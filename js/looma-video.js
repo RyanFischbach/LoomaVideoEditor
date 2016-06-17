@@ -24,7 +24,7 @@ $(document).ready(function () {
 	var submitButton = document.getElementById("submit");
 
 	// Form
-	var form = document.getElementById("comments");'
+	var form = document.getElementById("comments");
 	var rectangle = document.getElementById("rectangle");
 
 	// Don't Show Text Button, Submit Button, Form
@@ -35,10 +35,10 @@ $(document).ready(function () {
 
 	// Arrays of Edited Video Information
 	var editsObj = {
-		type = "text",
-		videoName = "name",
+		type : "text",
+		videoName : "name",
 		videoTimes: [],
-		videoText: []};
+		videoText: []
 	}
 
 	// Sliders
@@ -99,7 +99,7 @@ $(document).ready(function () {
 			// change the play-pause button to say play
 			playButton.innerHTML = "Play";
 		} 
-		else if(editButton.innerHTML == "Done")
+		else //if(editButton.innerHTML == "Done")
 		{
 			// don't display the text box
 			textButton.style.display = 'none';
@@ -109,11 +109,9 @@ $(document).ready(function () {
 
 			video.pause();
 			
-			var jsonString = JSON.stringify(editsObj);
-			
-			
-			
-			
+//			var jsonString = JSON.stringify(editsObj);
+			console.log(editsObj);
+			$.ajax("looma-video.php", {data : editsObj});
 			
 		}
 		
@@ -133,7 +131,7 @@ $(document).ready(function () {
 		// Event listener for submit button
 		submitButton.addEventListener("click", function () {
 			// get text from form
-			text = document.getElementById("comments");
+			text = document.getElementById("comments").value;
 
 			// push the text onto the array of edited video text
 			editsObj.videoText.push(text);
