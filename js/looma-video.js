@@ -21,7 +21,11 @@ $(document).ready(function() {
   var muteButton = document.getElementById("mute");
   var editButton = document.getElementById("edit");
   var textButton = document.getElementById("text");
+	
+  // text button doesn't show up
   textButton.style.display = 'none';
+	
+  // arrays of video annotation information
   var editedVideoTime = [];
   var editedVideoText = [];
 
@@ -86,6 +90,9 @@ editButton.addEventListener("click", function() {
 	}
 	else // editButton.innerHTML == "Done"
 	{
+		var object = {type: "text", title: "$document", timeArray: editedVideoTime, 
+				  textArray: editedVideoText};
+		
 		// don't display the text box
 		textButton.style.display = 'none';
 		
@@ -104,7 +111,10 @@ textButton.addEventListener("click", function() {
 	// prompt user input for the string they want on the video
 	var inputString = prompt("Please enter the text for the video.", "");
 	
+	// store the video text in an array
 	editedVideoText.push(inputString);
+	
+	}
 	
 	
 });
