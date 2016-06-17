@@ -1,5 +1,7 @@
 <!-- Video Editing -->
 <?php
+
+include ('includes/mongo-connect.php');
         
 $name = $_GET['videoName'];
 $strJSON = json_encode($_GET);
@@ -7,7 +9,7 @@ writeToFile($name, $strJSON);
         
 function writeToFile($videoTitle, $strJSON)
 {
-     $this_dir = dirname(__FILE__);
+    $this_dir = dirname(__FILE__);
 
     // admin's parent dir path can be represented by admin/..
     $parent_dir = realpath($this_dir . '/..');

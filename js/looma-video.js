@@ -10,6 +10,14 @@ Description: videoplayer controls for videoplayer.php
 Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
  */
 
+// Arrays of Edited Video Information
+var editsObj = {
+    type : "text",
+    videoName : "",
+    videoTimes : [],
+    videoText : []
+}
+    
 'use strict';
 $(document).ready(function () {
 
@@ -32,14 +40,6 @@ $(document).ready(function () {
 	submitButton.style.display = 'none';
 	form.style.display = 'none';
 	rectangle.style.display = 'none';
-
-	// Arrays of Edited Video Information
-	var editsObj = {
-		type : "text",
-		videoName : "name",
-		videoTimes: [],
-		videoText: []
-	}
 
 	// Sliders
 	var seekBar = document.getElementById("seek-bar");
@@ -97,7 +97,7 @@ $(document).ready(function () {
 			video.pause();
 			
 //			var jsonString = JSON.stringify(editsObj);
-			console.log(editsObj);
+			//console.log(editsObj);
 			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
 		} 
 		else //if(editButton.innerHTML == "Done")

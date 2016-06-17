@@ -31,9 +31,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 ?>
     <body>
         <?php
-		$filename = $_REQUEST['fn'];
-		$filepath = $_REQUEST['fp'];
-	?>
+            $filename = $_REQUEST['fn'];
+            $filepath = $_REQUEST['fp'];
+	    ?>
             <div id="main-container-horizontal">
                 <div height="95%">
                     <div id="fullscreen" class="viewer">
@@ -84,6 +84,20 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 </div>
             </div>
             <?php include ('includes/toolbar.php'); ?>
-                <?php include ('includes/js-includes.php'); ?>
-                    <script src="js/looma-screenfull.js"></script>
-                    <script src="js/looma-video.js"></script>
+            <?php include ('includes/js-includes.php'); ?>
+            <script src="js/looma-screenfull.js"></script>
+        
+        <script src="js/looma-video.js"></script>
+          
+        <!-- Update Video Name in looma-video.js -->
+        <script>
+            var videoName = "<?php echo $filename; ?>";
+            
+            // Remove extension from videoName
+            var strlen = videoName.length;
+            videoName = videoName.substring(0, strlen - 4);
+            editsObj.videoName = videoName;
+            console.log(editsObj.videoName);
+        </script>
+        
+</body>
