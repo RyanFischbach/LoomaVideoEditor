@@ -111,7 +111,7 @@ $(document).ready(function () {
 			
 //			var jsonString = JSON.stringify(editsObj);
 			console.log(editsObj);
-			$.ajax("looma-video.php", {data : editsObj});
+			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
 			
 		}
 		
