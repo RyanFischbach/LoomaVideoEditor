@@ -41,8 +41,15 @@ LOOMA.playMedia = function (button) {
             case "mp4":
             case "mov":
                 window.location = 'looma-video.php?fn=' + button.getAttribute('data-fn') +
-                                                 '&fp=' + button.getAttribute('data-fp');
+                                                 '&fp=' + button.getAttribute('data-fp');    
                 break;
+            
+            case"txt":
+                window.location = 'looma-edited-video.php?fn=' + button.getAttribute('data-fn') +
+                                                        '&fp=' + button.getAttribute('data-fp') +
+                                                        '&txt=' + button.getAttribute('data-txt');
+                break;
+                
             case "image":
             case "jpg":
             case "png":
@@ -50,11 +57,13 @@ LOOMA.playMedia = function (button) {
                 window.location = 'looma-image.php?fn=' + button.getAttribute('data-fn') +
                                                  '&fp=' + button.getAttribute('data-fp');
                 break;
+                
             case "audio":
             case "mp3":
                 window.location = 'looma-audio.php?fn=' + button.getAttribute('data-fn') +
                                                  '&fp=' + button.getAttribute('data-fp');
                 break;
+                
             case "pdf":
                 /*
                 //direct call to  ViewerJS replaced with looma-pdf.php with iframe

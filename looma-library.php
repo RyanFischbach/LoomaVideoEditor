@@ -48,6 +48,7 @@ Description:  displays and navigates content folders for Looma 2
 						   "' data-ft='" .  $ext . 
 						   "' data-zm='" .  160 .
 						   "' data-pg=1" .
+                           "'data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : "yolo") .
 						   ">";
 					   
 				//text and tooltip for BUTTON		   
@@ -64,6 +65,11 @@ Description:  displays and navigates content folders for Looma 2
 					   
 		};  //end makeButton()
 	
+        function getJSON($file, $path, $ext) {
+            $realpath = realpath($path) . '/';
+            return file_get_contents($realpath . $file, $realpath, null, 0);
+        }
+        
 		function isEpaath($fp) {
 		
 			//echo "<br>DEBUG: in isEpaath, FP is " . $fp . " Substr is " . mb_substr($fp, -7, 7);
@@ -146,6 +152,11 @@ Description:  displays and navigates content folders for Looma 2
 		$file = $fileInfo -> getFilename();
 		$base = trim($fileInfo -> getBasename($ext), ".");  //$base is filename w/o the file extension
 		
+            if(substr($file, strlen($file) - 4) == ".txt")
+            {
+                $dn = substr($file, strlen($file) - 4);
+            }
+            
 		// look in the database to see if this file has a DISPLAYNAME
 			$query = array('fn' => $file);
 			
@@ -162,6 +173,7 @@ Description:  displays and navigates content folders for Looma 2
 				case "video":
 				case "mp4":
 				case "mov":
+                case "txt":
 		
 				case "image":
 				case "jpg":
