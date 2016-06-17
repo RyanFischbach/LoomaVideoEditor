@@ -132,10 +132,6 @@ textButton.addEventListener("click", function() {
 	
 });
 	
-
-	
-
-
 // Event listener for the seek bar
 seekBar.addEventListener("change", function() {
   // Calculate the new time
