@@ -47,9 +47,9 @@ Description:  displays and navigates content folders for Looma 2
 						   "' data-fp='" .  $path .
 						   "' data-ft='" .  $ext . 
 						   "' data-zm='" .  160 .
-						   "' data-pg=1" .
-                           "'data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : "yolo") .
-						   ">";
+						   "' data-pg='1" .
+                           "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
+						   "'>";
 					   
 				//text and tooltip for BUTTON		   
 				echo "<span class='displayname' 

@@ -56,7 +56,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
    		  <br><button type="button" class="media" id="volume">    <?php keyword('Volume') ?></button>
     	  <input type="range"       class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
     	  <br><button type="button"     class="media" id="mute">      <?php keyword('Mute') ?></button>
-    	  <br><button type="button" id"mute"> <?php keyword('Edit') ?></button>
+    	  <!--<br><button type="button" id"mute"> <?//php keyword('Edit') ?></button> -->
  	 </div>
 	</div>
    	<?php include ('includes/toolbar.php'); ?>

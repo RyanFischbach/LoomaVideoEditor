@@ -71,19 +71,6 @@ seekBar.addEventListener("change", function() {
 
   // Update the video time
   video.currentTime = time;
-  
-  commands = JSON.parse(commands);
-    
-  if(commands.editedVideoTime[0] = time)
-  {
-      commands.editedVideoTime.remove(0);
-      if(commands.type == "text")
-      {
-          var message = commands.editedVideoText[0];
-          commands.editedVideoText.remove(0);
-          consol.log(message)
-      }
-  }
 });
 
 // Update the seek bar as the video plays
@@ -93,6 +80,21 @@ video.addEventListener("timeupdate", function() {
 
   // Update the slider value
   seekBar.value = value;
+    
+  while(commands.videoTimes.length > 0){
+    
+    if(commands.videoTimes[0] < video.currentTime)
+    {
+        commands.videoTimes.splice(0, 1);
+        if(commands.type == "text")
+        { 
+            var message = commands.videoText[0];
+            commands.videoText.splice(0, 1);
+            console.log(message)
+        }
+    }
+  }
+  
 });
 
 // Pause the video when the slider handle is being dragged
