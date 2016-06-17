@@ -111,12 +111,14 @@ textButton.addEventListener("click", function() {
     submitButton.addEventListener("click", function() {
         var text = document.getElementById("comments");
         editedVideoText.push(text);
+		submitButton.style.display = "none";
+		form.style.display = "none";
         return true;
     });
     
-	form.style.display = 'none';
 	
-	submitButton.style.display = 'none';
+	
+	
 	
 	
 });
