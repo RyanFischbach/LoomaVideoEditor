@@ -21,14 +21,21 @@ $(document).ready(function() {
   var muteButton = document.getElementById("mute");
   var editButton = document.getElementById("edit");
   var textButton = document.getElementById("text");
-  textButton.style.display = 'none';
   var submitButton = document.getElementById("submit");
-  submitButton.style.display = 'none';
-  var editedVideoTime = [];
-  var editedVideoText = [];
+ 
+	
+  // Form
   var form = document.getElementById("comments");
+
+  // Don't Show Text Button, Submit Button, Form
+  textButton.style.display = 'none';
+  submitButton.style.display = 'none';
   form.style.display = 'none';
 
+  // Arrays of Edited Video Information
+  var editedVideoTime = [];
+  var editedVideoText = [];
+  
   // Sliders
   var seekBar = document.getElementById("seek-bar");
   var volumeBar = document.getElementById("volume-bar");
@@ -105,28 +112,27 @@ textButton.addEventListener("click", function() {
 	// store the current video time in the array of video times
 	editedVideoTime.push(video.currentTime);
 	
+	// show the form and submit button
     form.style.display = "inline";
     submitButton.style.display = "inline";
     
+	// Event listener for submit button
     submitButton.addEventListener("click", function() {
+		// get text from form
         var text = document.getElementById("comments");
+		
+		// push the text onto the array of edited video text
         editedVideoText.push(text);
+		
+		// don't show the submit button and form
 		submitButton.style.display = "none";
 		form.style.display = "none";
+		
+		// return true for some reason
         return true;
     });
-    
-	
-	
-	
-	
-	
 });
 	
-
-	
-
-
 // Event listener for the seek bar
 seekBar.addEventListener("change", function() {
   // Calculate the new time
