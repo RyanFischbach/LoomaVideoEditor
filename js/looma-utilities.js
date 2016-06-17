@@ -47,7 +47,7 @@ LOOMA.playMedia = function (button) {
             case"txt":
                 window.location = 'looma-edited-video.php?fn=' + button.getAttribute('data-fn') +
                                                         '&fp=' + button.getAttribute('data-fp') +
-                                                        '&txt=' + butt.getAttribute('data-txt');
+                                                        '&txt=' + button.getAttribute('data-txt');
                 break;
                 
             case "image":

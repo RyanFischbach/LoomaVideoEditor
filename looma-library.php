@@ -152,6 +152,11 @@ Description:  displays and navigates content folders for Looma 2
 		$file = $fileInfo -> getFilename();
 		$base = trim($fileInfo -> getBasename($ext), ".");  //$base is filename w/o the file extension
 		
+            if(substr($file, strlen($file) - 4) == ".txt")
+            {
+                $dn = substr($file, strlen($file) - 4);
+            }
+            
 		// look in the database to see if this file has a DISPLAYNAME
 			$query = array('fn' => $file);
 			

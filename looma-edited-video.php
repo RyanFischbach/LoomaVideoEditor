@@ -34,11 +34,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	<body>
 	<?php
 		$filename = $_REQUEST['fn'];
+        $filename = substr($filename, strlen($filename) - 4) . ".mp4";
 		$filepath = $_REQUEST['fp'];
-        $JSON = JSON.parse($_REQUEST['txt']);
 	?>
     <script>
-        var commands = <?php echo $_REQUEST['txt']; ?>;
+        var commands = <?php echo JSON.parse($_REQUEST['txt']); ?>;
     </script>
 	<div id="main-container-horizontal">
 		<div height="95%">
