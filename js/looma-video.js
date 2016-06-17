@@ -22,10 +22,18 @@ $(document).ready(function() {
   var editButton = document.getElementById("edit");
   var textButton = document.getElementById("text");
 	
-  // text button doesn't show up
+  // Text button doesn't show up
   textButton.style.display = 'none';
 	
-  // arrays of video annotation information
+  var submitButton = docuent.getElementById("submit");
+
+  submitButton.style.display = 'none';
+	
+  var form = document.getElementById("comments");
+	
+  form.style.display = 'none';
+	
+  // Arrays of video annotation information
   var editedVideoTime = [];
   var editedVideoText = [];
 
@@ -93,6 +101,9 @@ editButton.addEventListener("click", function() {
 		var object = {type: "text", title: "$document", timeArray: editedVideoTime, 
 				  textArray: editedVideoText};
 		
+		var jsonString = json.stringify(object);
+		
+		
 		// don't display the text box
 		textButton.style.display = 'none';
 		
@@ -108,14 +119,16 @@ textButton.addEventListener("click", function() {
 	// store the current video time in the array of video times
 	editedVideoTime.push(video.currentTime);
 	
-	// prompt user input for the string they want on the video
-	var inputString = prompt("Please enter the text for the video.", "");
+	form.style.display = 'inline';
 	
-	// store the video text in an array
-	editedVideoText.push(inputString);
+	submitButton.style.display = 'inline';
 	
-	}
-	
+	submitButton.addEventListener("click", function(){
+		
+		var text = document.getElementById("comments");
+		editedVideoText.push(text);
+		return true;
+	})
 	
 });
 	
