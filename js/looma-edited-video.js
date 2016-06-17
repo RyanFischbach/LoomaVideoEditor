@@ -71,6 +71,8 @@ seekBar.addEventListener("change", function() {
 
   // Update the video time
   video.currentTime = time;
+  
+  commands = JSON.parse(commands);
     
   if(commands.editedVideoTime[0] = time)
   {

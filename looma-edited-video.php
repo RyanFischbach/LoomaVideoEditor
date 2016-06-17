@@ -38,7 +38,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 		$filepath = $_REQUEST['fp'];
 	?>
     <script>
-        var commands = <?php echo JSON.parse($_REQUEST['txt']); ?>;
+        var commands = <?php echo $_REQUEST['txt']; ?>;
     </script>
 	<div id="main-container-horizontal">
 		<div height="95%">
