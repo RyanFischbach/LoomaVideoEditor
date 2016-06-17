@@ -1,9 +1,9 @@
 /*
- * Name: Skip
+ * Name: Skip, Aaron, Connor, Ryan
 Email: skip@stritter.com
 Owner: VillageTech Solutions (villagetechsolutions.org)
-Date: 2015 03
-Revision: Looma 2.0.0
+Date: 2016 06
+Revision: Looma Video Editor 0.1
 
 filename: looma-video.js
 Description: videoplayer controls for videoplayer.php

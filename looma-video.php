@@ -1,12 +1,12 @@
 <!doctype html>
 <!--
-Name: Skip
+Name: Skip, Aaron, Connor, Ryan
 Email: skip@stritter.com
 Owner: VillageTech Solutions (villagetechsolutions.org)
-Date: 2015 03
-Revision: Looma 2.0.0
+Date: 2016 06
+Revision: Looma Video Editor 0.1
 File: video.php
-Description: Video viewer page for Looma 2
+Description: Video viewer/editor page for Looma 2
 
 Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 						 data-fp="resources/videos/"

@@ -1,4 +1,14 @@
-<!-- Video Editing -->
+<!doctype html>
+<!--
+Name: Aaron, Connor, Ryan
+Email: skip@stritter.com
+Owner: VillageTech Solutions (villagetechsolutions.org)
+Date: 2016 06
+Revision: Looma Video Editor 0.1
+File: looma-video-editor-textConverter.php
+Description: Video editor text converter
+-->
+
 <?php
 
 include ('includes/mongo-connect.php');
