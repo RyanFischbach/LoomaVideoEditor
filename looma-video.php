@@ -54,6 +54,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
               <br><button type="button" class="media hidden_button" id="submit"><?php keyword('Submit') ?></button>
           </form>
           
+
+          
 		  <br><button type="button" class="media hidden_button" id="text"><?php keyword('Text') ?></button>
    		  <br><button type="button" class="media" id="play-pause"><?php keyword('Play') ?></button>
   		  <input type="range"       class="video" id="seek-bar" value="0" style="display:inline-block">
