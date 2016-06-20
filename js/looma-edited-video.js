@@ -25,12 +25,22 @@ $(document).ready(function() {
   var volumeBar = document.getElementById("volume-bar");
     
   var showTextbox = false;
+    
+  var div = document.getElementById("text-box-area");
 
-        $('#fullscreen').click(function (e) {
-                e.preventDefault();
-                screenfull.toggle(this);
-            });
-//
+  $('#fullscreen-control').click(function (e) {
+      e.preventDefault();
+      screenfull.toggle(video);
+  });
+
+
+  video.addEventListener('loadeddata', function (){
+        var vidHeight = video.videoHeight;
+        var vidWidth = video.videoWidth;
+        var textArea = document.getElementById("comments");
+        div.style.height = parseInt(vidHeight) + "px";
+        div.style.width = parseInt(vidWidth) + "px";
+    });
 
 // Event listener for the play/pause button
 playButton.addEventListener("click", function() {
@@ -98,7 +108,9 @@ video.addEventListener("timeupdate", function() {
             //If the type is a text file create a overlay and put the text there and pause the video
             var message = commands.videoText[0];
             commands.videoText.splice(0, 1);
-            console.log(message)
+            div.textContent = message;
+            div.style.display = 'inline-block';
+            console.log("Called");
         }
     }
   }
