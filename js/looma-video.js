@@ -29,7 +29,7 @@ $(document).ready(function () {
         var vidWidth = video.videoWidth;
         var textArea = document.getElementById("comments");
         textArea.style.height = parseInt(vidHeight) + "px";
-        textArea.style.width = parseInt(vidWith) + "px";
+        textArea.style.width = parseInt(vidWidth) + "px";
     });
     
 	// Buttons
