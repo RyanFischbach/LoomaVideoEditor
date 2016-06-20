@@ -34,9 +34,11 @@ function writeToFile($videoTitle, $strJSON)
     
     // Save File to DB
 }
-        
+ 
+/*
 function saveFileToDataBase($file) 
 {
     $activities_collection.save($file);
 }
+*/
 ?>

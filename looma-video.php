@@ -55,16 +55,12 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         resize: none;
     }
     
-    /*
-    #comments {
-        z-index: 1;
-        left: 480px;
-        text-align: center;
-        margin: auto;
-        position: fixed;
+    #submit {
+        float: right;
+        margin-right: 10%;
     }
-    */
 </style>
+
     <body>
         <?php
             $filename = $_REQUEST['fn'];
@@ -72,6 +68,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	    ?>
             <div id="main-container-horizontal">
                 <div height="95%">
+                    <button type="button" class="media hidden_button" id="submit">
+                        <?php keyword('Submit') ?>
+                    </button>
                     <div id="overlay-container">
                         <div id="video-area">
                             <video id="video">
@@ -79,18 +78,14 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                 <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
                             </video>
                             <div id="text-box-area">
-                            <!-- text box -->
-                            <form class="media hidden_button">
-                            <textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
-                            </form>
-                        </div>
+                                <form class="media hidden_button">
+                                    <textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                        <br>
-                        <button type="button" class="media hidden_button" id="submit">
-                                <?php keyword('Submit') ?>
-                            </button>
                 </div>
+                
                 <div id="video-controls">
                     
                     <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>
@@ -99,14 +94,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                      <div id="fullscreen" class="viewer">
                         <br> 
                     </div>
-    -->
+                    -->
 
                     <br>
                     <button id="fullscreen-control"></button>
-                    <br>
-                    <button type="button" class="media hidden_button" id="text">
-                        <?php keyword('Text') ?>
-                    </button>
                     <br>
                     <button type="button" class="media" id="play-pause">
                         <?php keyword('Play') ?>
@@ -123,6 +114,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     </button>
                     <button type="button" class="media" id="edit">
                         <?php keyword('Edit') ?>
+                    </button>
+                    <button type="button" class="media hidden_button" id="text">
+                        <?php keyword('Text') ?>
                     </button>
                 </div>
             </div>

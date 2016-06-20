@@ -97,6 +97,8 @@ $(document).ready(function () {
 		if (editButton.innerHTML == "Done") {
 			// don't display the text box
 			textButton.style.display = 'none';
+            form.style.display = 'none';
+            submitButton.style.display = 'none';
 
 			// change the edit button to say edit
 			editButton.innerHTML = "Edit";
