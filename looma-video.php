@@ -29,6 +29,20 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 			} //end function THUMBNAIL
 
 ?>
+
+<style>
+    #comments {
+        z-index: 1;
+        top: 0px;
+        left: 480px;
+        align-content: center;
+        position: fixed;
+    }
+    
+    #video {
+        z-index: 0;
+    }
+</style>
     <body>
         <?php
             $filename = $_REQUEST['fn'];
@@ -37,24 +51,23 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
             <div id="main-container-horizontal">
                 <div height="95%">
                     <div id="fullscreen" class="viewer">
+                        <!-- text box -->
+                        <form class="media hidden_button">
+                            <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:2%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
+                        </form>
                         <video id="video">
                             <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
                                 <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
                         </video>
+                        <br>
+                        <button type="button" class="media hidden_button" id="submit">
+                                <?php keyword('Submit') ?>
+                            </button>
                         <button id="fullscreen-control"></button>
                         <br>
                     </div>
                 </div>
                 <div id="video-controls">
-
-                    <!-- text box -->
-                    <form class="media hidden_button">
-                        <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:2%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
-                        <br>
-                        <button type="button" class="media hidden_button" id="submit">
-                            <?php keyword('Submit') ?>
-                        </button>
-                    </form>
 
                     <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>
 
