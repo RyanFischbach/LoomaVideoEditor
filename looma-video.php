@@ -33,7 +33,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 <style>
     #comments {
         z-index: 1;
-        left: 477px;
+        left: 480spx;
         text-align: center;
         margin: auto;
         position: fixed;
@@ -51,17 +51,17 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
             <div id="main-container-horizontal">
                 <div height="95%">
                     <div id="overlay-container">
-                        <div id="text-box-area">
+                        <div id="video-area">
+                            <video id="video">
+                                <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
+                                <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
+                            </video>
+                            <div id="text-box-area">
                             <!-- text box -->
                             <form class="media hidden_button">
                             <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:0%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
                             </form>
                         </div>
-                        <div id="video-area">
-                        <video id="video">
-                                <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
-                                <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
-                            </video>
                         </div>
                     </div>
                         <br>
