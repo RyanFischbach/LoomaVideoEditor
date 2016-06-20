@@ -31,17 +31,30 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 ?>
 
 <style>
+    #video-area {
+        height: 270px;
+        width: 480px;
+        position: relative;
+        margin: auto;
+        z-index: 0;
+    }
+    
+    #text-box-area {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+    }
+    
+    /*
     #comments {
         z-index: 1;
-        left: 480spx;
+        left: 480px;
         text-align: center;
         margin: auto;
         position: fixed;
     }
-    
-    #video {
-        z-index: 0;
-    }
+    */
 </style>
     <body>
         <?php
