@@ -23,7 +23,12 @@ $(document).ready(function () {
 
 	// Video
 	var video = document.getElementById("video");
-
+    
+    video.addEventListener('loadeddata', function (){
+        $.ajax("looma-video.php", {data : video.videoWidth});
+        $.ajax("looma-video.php", {data : video.videoHeight});
+    })
+    
 	// Buttons
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
@@ -49,7 +54,6 @@ $(document).ready(function () {
 		e.preventDefault();
 		screenfull.toggle(this);
 	});
-	//
 
 	// Event listener for the play/pause button
 	playButton.addEventListener("click", function () {

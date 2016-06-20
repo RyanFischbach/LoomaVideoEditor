@@ -81,7 +81,6 @@ video.addEventListener("timeupdate", function() {
   // Update the slider value
   seekBar.value = value;
   
-
   while(commands.videoTimes.length > 0){
     //While there are still annotatins in the video
     if(commands.videoTimes[0] < video.currentTime)
