@@ -23,6 +23,8 @@ $(document).ready(function() {
   // Sliders
   var seekBar = document.getElementById("seek-bar");
   var volumeBar = document.getElementById("volume-bar");
+    
+  var showTextbox = false;
 
         $('#fullscreen').click(function (e) {
                 e.preventDefault();
@@ -38,6 +40,9 @@ playButton.addEventListener("click", function() {
 
     // Update the button text to 'Pause'
     playButton.innerHTML = "Pause";
+      
+    //Stop showing the textbox
+    showTextbox = false;
   } else {
     // Pause the video
     video.pause();

@@ -14,11 +14,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 			VIDEO TEST</button>
 	And: $("button#testvideo").click(LOOMA.playMedia);
 -->
+    <head>
+        <?php $page_title = 'Looma Video Player';
+        include ('includes/header.php');
 
-<?php $page_title = 'Looma Video Player';
-	  include ('includes/header.php');
-
-	  function thumbnail ($fn) {
+        function thumbnail ($fn) {
 				//given a CONTENT filename, generate the corresponding THUMBNAIL filename
 				//find the last '.' in the filename, insert '_thumb.jpg' after the dot
 				//returns "" if no '.' found
@@ -26,9 +26,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 		 		$dot = strrpos($fn, ".");
 				if ( ! ($dot === false)) { return substr_replace($fn, "_thumb.jpg", $dot, 10);}
 				else return "";
-			} //end function THUMBNAIL
-
-?>
+        } //end function THUMBNAIL
+        ?>
 	</head>
 
 	<body>
@@ -42,17 +41,48 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         //Sends the information from the .txt file to js
         var commands = <?php echo $_REQUEST['txt']; ?>;
     </script>
+        
+    <style>
+    #video-area {
+        height: 270px;
+        width: 480px;
+        position: relative;
+        margin: auto;
+        z-index: 0;
+    }
+    
+    #text-box-area {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+    }
+    
+    #comments {
+        background-color: white;
+        color:black;
+        border:none;
+        padding:0%;
+        font:22px/30px sans-serif;
+        resize: none;
+    }
+</style>    
+    
 	<div id="main-container-horizontal">
 		<div height="95%">
-			<div id="fullscreen" class="viewer">
-				<video id="video"
-				<?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
-				<?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
-				</video>
-				<button  id="fullscreen-control"></button><br>
-			</div>
-		</div>
+            <div id="overlay-container">
+                <div id="video-area">
+                    <video id="video">
+                        <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
+                        <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
+                    </video>
+                    <div id="text-box-area">
+                    </div>
+                </div>
+            </div>
+        </div>
 	  <div id="video-controls">
+          <br><button id="fullscreen-control"></button>
    		  <br><button type="button" class="media" id="play-pause"><?php keyword('Play') ?></button>
   		  <input type="range"       class="video" id="seek-bar" value="0" style="display:inline-block">
    		  <br><button type="button" class="media" id="volume">    <?php keyword('Volume') ?></button>
