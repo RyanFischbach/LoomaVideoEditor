@@ -34,9 +34,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
     #comments {
         z-index: 1;
         top: 0px;
-        left: 480px;
-        align-content: center;
+        left: 0px;
         position: fixed;
+        text-align: center;
+        margin: auto;
     }
     
     #video {
@@ -50,8 +51,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	    ?>
             <div id="main-container-horizontal">
                 <div height="95%">
-                    <div id="fullscreen" class="viewer">
-                        <!-- text box -->
+                    <!-- text box -->
                         <form class="media hidden_button">
                             <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:2%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
                         </form>
@@ -63,6 +63,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <button type="button" class="media hidden_button" id="submit">
                                 <?php keyword('Submit') ?>
                             </button>
+                    <div id="fullscreen" class="viewer">
                         <button id="fullscreen-control"></button>
                         <br>
                     </div>
