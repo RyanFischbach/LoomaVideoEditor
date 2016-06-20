@@ -32,8 +32,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 <style>
     #video-area {
+        /*
         height: 270px;
-        width: 480px;
+        width: 480px;*/
         position: relative;
         margin: auto;
         z-index: 0;
