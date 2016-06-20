@@ -33,11 +33,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 <style>
     #comments {
         z-index: 1;
-        top: 0px;
-        left: 0px;
-        position: fixed;
+        left: 477px;
         text-align: center;
         margin: auto;
+        position: fixed;
     }
     
     #video {
@@ -51,14 +50,20 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	    ?>
             <div id="main-container-horizontal">
                 <div height="95%">
-                    <!-- text box -->
-                        <form class="media hidden_button">
-                            <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:2%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
-                        </form>
+                    <div id="overlay-container">
+                        <div id="text-box-area">
+                            <!-- text box -->
+                            <form class="media hidden_button">
+                            <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:0%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
+                            </form>
+                        </div>
+                        <div id="video-area">
                         <video id="video">
-                            <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
+                                <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
                                 <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
-                        </video>
+                            </video>
+                        </div>
+                    </div>
                         <br>
                         <button type="button" class="media hidden_button" id="submit">
                                 <?php keyword('Submit') ?>
@@ -71,8 +76,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 <div id="video-controls">
 
                     <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>
-
-
 
                     <br>
                     <button type="button" class="media hidden_button" id="text">
