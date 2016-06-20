@@ -46,6 +46,15 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         z-index: 1;
     }
     
+    #comments {
+        background-color: white;
+        color:black;
+        border:none;
+        padding:0%;
+        font:22px/30px sans-serif;
+        resize: none;
+    }
+    
     /*
     #comments {
         z-index: 1;
@@ -72,7 +81,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             <div id="text-box-area">
                             <!-- text box -->
                             <form class="media hidden_button">
-                            <textarea name="comments" id="comments" style="width:96%;height:90px;background-color:white;color:black;border:none;padding:0%;font:22px/30px sans-serif;" placeholder="Enter text..."></textarea>
+                            <textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
                             </form>
                         </div>
                         </div>
@@ -81,15 +90,19 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <button type="button" class="media hidden_button" id="submit">
                                 <?php keyword('Submit') ?>
                             </button>
-                    <div id="fullscreen" class="viewer">
-                        <button id="fullscreen-control"></button>
-                        <br>
-                    </div>
                 </div>
                 <div id="video-controls">
-
+                    
                     <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>
 
+                    <!--
+                     <div id="fullscreen" class="viewer">
+                        <br> 
+                    </div>
+    -->
+
+                    <br>
+                    <button id="fullscreen-control"></button>
                     <br>
                     <button type="button" class="media hidden_button" id="text">
                         <?php keyword('Text') ?>

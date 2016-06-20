@@ -53,9 +53,9 @@ $(document).ready(function () {
 	var seekBar = document.getElementById("seek-bar");
 	var volumeBar = document.getElementById("volume-bar");
 
-	$('#fullscreen').click(function (e) {
+	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
-		screenfull.toggle(this);
+		screenfull.toggle(video);
 	});
 
 	// Event listener for the play/pause button
