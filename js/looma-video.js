@@ -25,9 +25,12 @@ $(document).ready(function () {
 	var video = document.getElementById("video");
     
     video.addEventListener('loadeddata', function (){
-        $.ajax("looma-video.php", {data : video.videoWidth});
-        $.ajax("looma-video.php", {data : video.videoHeight});
-    })
+        var vidHeight = video.videoHeight;
+        var vidWidth = video.videoWidth;
+        console.log(vidHeight);
+        var textArea = document.getElementById("comments");
+        //textArea.style.height = "";
+    });
     
 	// Buttons
 	var playButton = document.getElementById("play-pause");
