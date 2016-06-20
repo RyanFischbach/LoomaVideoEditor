@@ -27,9 +27,9 @@ $(document).ready(function () {
     video.addEventListener('loadeddata', function (){
         var vidHeight = video.videoHeight;
         var vidWidth = video.videoWidth;
-        console.log(vidHeight);
         var textArea = document.getElementById("comments");
-        //textArea.style.height = "";
+        textArea.style.height = parseInt(vidHeight) + "px";
+        textArea.style.width = parseInt(vidWith) + "px";
     });
     
 	// Buttons
