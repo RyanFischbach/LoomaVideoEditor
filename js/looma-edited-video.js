@@ -99,7 +99,7 @@ video.addEventListener("timeupdate", function() {
   // Update the slider value
   seekBar.value = value;
   
-  while(commands.videoTimes.length > 0){
+  if(commands.videoTimes.length > 0){
     //While there are still annotatins in the video
     if(commands.videoTimes[0] < video.currentTime)
     {
@@ -109,10 +109,8 @@ video.addEventListener("timeupdate", function() {
         if(commands.type == "text")
         { 
             //If the type is a text file create a overlay and put the text there and pause the video
-            console.log(commands);
             var message = commands.videoText[0];
-            console.log(message);
-            /*commands.videoText.splice(0, 1);*/
+            commands.videoText.splice(0, 1);
             textArea.value = message;
             textArea.style.display = 'inline-block';
             video.pause();
