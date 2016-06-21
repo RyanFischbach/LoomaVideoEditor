@@ -36,7 +36,10 @@ $(document).ready(function () {
         textArea.style.width = parseInt(vidWidth) + "px";
     });
     
-	// Buttons
+	// Media Controls (play, mute, volume) 
+    var mediaControls = document.getElementById("video-controls");
+    
+    // Buttons
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
 	var editButton = document.getElementById("edit");
@@ -103,6 +106,9 @@ $(document).ready(function () {
 			textButton.style.display = 'none';
             form.style.display = 'none';
             submitButton.style.display = 'none';
+            
+            // redisplay media controls
+            mediaControls.style.display = "block";
 
 			// change the edit button to say edit
 			editButton.innerHTML = "Edit";
@@ -115,6 +121,9 @@ $(document).ready(function () {
 		} 
 		else //if(editButton.innerHTML == "Done")
 		{
+            // Hide the media controls
+            mediaControls.style.display = "none";
+            
 			// display the text box
 			textButton.style.display = 'inline';
 
@@ -131,19 +140,27 @@ $(document).ready(function () {
 
 	// Event listener for the text button
 	textButton.addEventListener("click", function () {
-		// store the current video time in the array of video times
+		//Hide Controls
+        textButton.style.display = "none";
+        editButton.style.display = "none";
+        
+        // store the current video time in the array of video times
 		editsObj.videoTimes.push(video.currentTime);
 
 		// show the form and submit button
 		form.style.display = "inline";
 		submitButton.style.display = "inline";
+        
 		
-		var text;
-
-		// Event listener for submit button
+	});
+    
+    // Event listener for submit button
 		submitButton.addEventListener("click", function () {
-			// get text from form
-			text = document.getElementById("comments").value;
+			// Redisplay Controls
+            editButton.style.display = "inline";
+            
+            // get text from form
+			var text = document.getElementById("comments").value;
 
 			// push the text onto the array of edited video text
 			editsObj.videoText.push(text);
@@ -155,9 +172,6 @@ $(document).ready(function () {
 			// return true for some reason
 			return true;
 		});
-		
-		
-	});
 
 	// Event listener for the seek bar
 	seekBar.addEventListener("change", function () {

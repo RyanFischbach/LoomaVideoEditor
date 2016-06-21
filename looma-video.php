@@ -32,9 +32,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 <style>
     #video-area {
-        /*
-        height: 270px;
-        width: 480px;*/
         position: relative;
         margin: auto;
         z-index: 0;
@@ -49,16 +46,23 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
     
     #comments {
         background-color: white;
-        color:black;
-        border:none;
-        padding:0%;
-        font:22px/30px sans-serif;
+        color: black;
+        border: none;
+        padding: 0%;
+        font: 22px/30px sans-serif;
         resize: none;
     }
     
+    #edit {
+        margin-top: 0px;
+    }
+    
+    #text {
+        margin-top: 0px;
+    }
+    
     #submit {
-        float: right;
-        margin-right: 10%;
+        margin-top: 0px;
     }
 </style>
 
@@ -69,9 +73,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	    ?>
             <div id="main-container-horizontal">
                 <div height="95%">
-                    <button type="button" class="media hidden_button" id="submit">
-                        <?php keyword('Submit') ?>
-                    </button>
                     <div id="overlay-container">
                         <div id="video-area">
                             <video id="video">
@@ -85,6 +86,21 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <div id="edit-controls">
+                    <button type="button" class="media" id="edit">
+                        <?php keyword('Edit') ?>
+                    </button>
+                    
+                     <button type="button" class="media hidden_button" id="text">
+                        <?php keyword('Text') ?>
+                    </button>
+                    
+                    <button type="button" class="media hidden_button" id="submit">
+                        <?php keyword('Submit') ?>
+                    </button>
+                    
                 </div>
                 
                 <div id="video-controls">
@@ -112,12 +128,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <br>
                     <button type="button" class="media" id="mute">
                         <?php keyword('Mute') ?>
-                    </button>
-                    <button type="button" class="media" id="edit">
-                        <?php keyword('Edit') ?>
-                    </button>
-                    <button type="button" class="media hidden_button" id="text">
-                        <?php keyword('Text') ?>
                     </button>
                 </div>
             </div>
