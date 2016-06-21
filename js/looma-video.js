@@ -144,6 +144,10 @@ $(document).ready(function () {
         textButton.style.display = "none";
         editButton.style.display = "none";
         
+        // Clear Text Area
+        var textArea = document.getElementById("comments");
+        textArea.value = "";
+        
         // store the current video time in the array of video times
 		editsObj.videoTimes.push(video.currentTime);
 
