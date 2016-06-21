@@ -114,6 +114,7 @@ video.addEventListener("timeupdate", function() {
             textArea.value = message;
             textArea.style.display = 'inline-block';
             video.pause();
+            playButton.innerHTML = "Play";
         }
     }
   }
