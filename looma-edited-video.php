@@ -44,8 +44,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         
     <style>
     #video-area {
-        height: 270px;
-        width: 480px;
         position: relative;
         margin: auto;
         z-index: 0;
@@ -57,15 +55,17 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         left: 0px;
         z-index: 1;
     }
-    
-    #comments {
-        background-color: white;
-        color:black;
-        border:none;
-        padding:0%;
-        font:22px/30px sans-serif;
+            
+    #text-playback {
+        display: none;
         resize: none;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        color:black;
+        font:30px sans-serif;
     }
+        
 </style>    
     
 	<div id="main-container-horizontal">
@@ -77,6 +77,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
                     </video>
                     <div id="text-box-area">
+                        <textarea name="text-playback" id="text-playback" readonly="true"></textarea>
                     </div>
                 </div>
             </div>

@@ -23,10 +23,10 @@ $(document).ready(function() {
   // Sliders
   var seekBar = document.getElementById("seek-bar");
   var volumeBar = document.getElementById("volume-bar");
-    
-  var showTextbox = false;
-    
+  
+  var videoArea = document.getElementById("video-area");
   var div = document.getElementById("text-box-area");
+  var textArea = document.getElementById("text-playback");
 
   $('#fullscreen-control').click(function (e) {
       e.preventDefault();
@@ -40,6 +40,9 @@ $(document).ready(function() {
         var textArea = document.getElementById("comments");
         div.style.height = parseInt(vidHeight) + "px";
         div.style.width = parseInt(vidWidth) + "px";
+      
+        videoArea.style.height = parseInt(vidHeight) + "px";
+        videoArea.style.width = parseInt(vidWidth) + "px";
     });
 
 // Event listener for the play/pause button
@@ -52,7 +55,7 @@ playButton.addEventListener("click", function() {
     playButton.innerHTML = "Pause";
       
     //Stop showing the textbox
-    showTextbox = false;
+    textArea.style.display = "none";
   } else {
     // Pause the video
     video.pause();
@@ -106,11 +109,13 @@ video.addEventListener("timeupdate", function() {
         if(commands.type == "text")
         { 
             //If the type is a text file create a overlay and put the text there and pause the video
+            console.log(commands);
             var message = commands.videoText[0];
-            commands.videoText.splice(0, 1);
-            div.textContent = message;
-            div.style.display = 'inline-block';
-            console.log("Called");
+            console.log(message);
+            /*commands.videoText.splice(0, 1);*/
+            textArea.value = message;
+            textArea.style.display = 'inline-block';
+            video.pause();
         }
     }
   }
