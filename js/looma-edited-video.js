@@ -28,7 +28,7 @@ $(document).ready(function() {
   var div = document.getElementById("text-box-area");
   var textArea = document.getElementById("text-playback");
     
-  var currentImage;
+  var currentImage = null;
 
   $('#fullscreen-control').click(function (e) {
       e.preventDefault();
@@ -127,6 +127,12 @@ video.addEventListener("timeupdate", function() {
         else if(commands.fileTypes[0] == "image") 
         {
             commands.fileTypes.splice(0,1);
+            
+            if(currentImage != null)
+            {
+                document.getElementById("image-area").removeChild(currentImage);
+            }
+            
             show_image(commands.filePaths[0], 480, 270, "I just love images!")
             commands.filePaths.splice(0,1);
             video.pause();

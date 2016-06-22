@@ -68,6 +68,7 @@ $(document).ready(function () {
 	var volumeBar = document.getElementById("volume-bar");
     
     var edited = false;
+    var currentImage = null;
 
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
@@ -143,8 +144,12 @@ $(document).ready(function () {
             
             if(editsObj.filePaths.length != 0)
             {
-                show_image_timeline(image_src, 150, 90);
-                edited = true;
+                if(image_src != null){
+                    show_image_timeline(image_src, 150, 90);
+                    edited = true;
+                    image_src = null;
+                }
+                
             }
             
             //var jsonString = JSON.stringify(editsObj);
@@ -225,6 +230,11 @@ $(document).ready(function () {
             
             editsObj.filePaths.push(image_src);
             //editsObj.fileNames.push(image_name);
+            
+            if(currentImage != null)
+            {
+                document.getElementById("image-area").removeChild(currentImage);
+            }
             
             // Display image over video
             show_image_preview(image_src);
