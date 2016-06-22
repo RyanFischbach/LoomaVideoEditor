@@ -89,8 +89,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <div id="text-box-area">
                         <textarea name="text-playback" id="text-playback" readonly="true"></textarea>
                     </div>
-                    <div id="image-area">
-                    </div> 
+                    <div id="image-area"></div> 
                 </div>
             </div>
         </div>

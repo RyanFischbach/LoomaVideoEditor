@@ -72,6 +72,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                     <textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
                                 </form>
                             </div>
+                            <div id="image-area"></div>
                         </div>
                     </div>
                 </div>
