@@ -77,25 +77,31 @@ $(document).ready(function () {
 
 	// Event listener for the play/pause button
 	playButton.addEventListener("click", function () {
-		if (video.paused == true) {
-			// Play the video
-			video.play();
+    if (video.paused == true) {
+        // Play the video
+        video.play();
 
-			// Update the button text to 'Pause'
-			playButton.innerHTML = "Pause";
+        // Update the button text to 'Pause'
+        playButton.innerHTML = "Pause";
             
-            if(edited == true)
-            {
-                show_image(thumbFile, 150, 90);
-                edited = false;
-            }
-		} else {
-			// Pause the video
-			video.pause();
+        if(edited == true)
+        {
+            show_image_timeline(thumbFile, 150, 90);
+            edited = false;
+        }
+        if(currentImage != null)
+        {
+            document.getElementById("image-area").removeChild(currentImage);
+            currentImage = null;
+        }        
+    } 
+    else {
+        // Pause the video
+        video.pause();
 
-			// Update the button text to 'Play'
-			playButton.innerHTML = "Play";
-		}
+        // Update the button text to 'Play'
+        playButton.innerHTML = "Play";
+    }
 	});
 
 	// Event listener for the mute button
@@ -133,9 +139,12 @@ $(document).ready(function () {
 			editButton.innerHTML = "Edit";
 
 			video.pause();
+            
+            //Removes image overlay
+            
             if(editsObj.filePaths.length != 0)
             {
-                show_image(image_src, 150, 90);
+                show_image_timeline(image_src, 150, 90);
                 edited = true;
             }
             
@@ -160,7 +169,7 @@ $(document).ready(function () {
 		
 	});
     
-    function show_image(src, width, height) {
+    function show_image_timeline(src, width, height) {
         var img = document.createElement("img");
         img.src = src;
         img.width = width;
@@ -218,8 +227,17 @@ $(document).ready(function () {
             editsObj.filePaths.push(image_src);
             
             // Display image over video
-            
+            show_image_preview(image_src);
         });
+    }
+    
+    function show_image_preview(src) {
+        var img = document.createElement("img");
+        img.src = src;
+        img.width = '480';
+        img.height = '270';
+        currentImage = img;
+        document.getElementById("image-area").appendChild(img);
     }
     
     // Event listener for submit button

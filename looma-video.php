@@ -53,6 +53,13 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         resize: none;
     }
     
+    #image-area {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+    }
+    
     #timeline-area {
         top: 0px;
         left: 0px;
