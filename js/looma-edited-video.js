@@ -27,6 +27,8 @@ $(document).ready(function() {
   var videoArea = document.getElementById("video-area");
   var div = document.getElementById("text-box-area");
   var textArea = document.getElementById("text-playback");
+    
+  var currentImage;
 
   $('#fullscreen-control').click(function (e) {
       e.preventDefault();
@@ -54,8 +56,9 @@ playButton.addEventListener("click", function() {
     // Update the button text to 'Pause'
     playButton.innerHTML = "Pause";
       
-    //Stop showing the textbox
+    //Stop showing the textbox or the image
     textArea.style.display = "none";
+    document.getElementById("image-area").removeChild(currentImage);
   } else {
     // Pause the video
     video.pause();
@@ -134,6 +137,7 @@ function show_image(src, width, height, alt) {
     img.width = width;
     img.height = height;
     img.alt = alt;
+    currentImage = img;
     document.getElementById("image-area").appendChild(img);
 }
 
