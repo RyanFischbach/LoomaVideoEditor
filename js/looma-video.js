@@ -41,6 +41,9 @@ $(document).ready(function () {
 	// Media Controls (play, mute, volume) 
     var mediaControls = document.getElementById("video-controls");
     
+    // Image Preview Div
+    var imagePreviewDiv = document.getElementById("image-previews");
+    
     // Buttons
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
@@ -113,9 +116,7 @@ $(document).ready(function () {
             form.style.display = 'none';
             submitButton.style.display = 'none';
             
-            for (var i = 0; i < imageOptionButtons.length; i++) {
-                imageOptionButtons[i].style.display = "none";
-            }
+            imagePreviewDiv.style.display = "none";
             
             // redisplay media controls
             mediaControls.style.display = "block";
@@ -186,10 +187,7 @@ $(document).ready(function () {
         mediaControls.style.display = "none";
         
         // Show all images for images
-        document.getElementById("image-previews").style.display = "block";
-        for (var i = 0; i < imageOptionButtons.length; i++) {
-                imageOptionButtons[i].style.display = "inline";
-            }
+        imagePreviewDiv.style.display = "block";
     });
     
     var image_src = "";
