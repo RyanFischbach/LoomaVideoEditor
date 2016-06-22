@@ -52,13 +52,28 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         font: 22px/30px sans-serif;
         resize: none;
     }
+    
+    #timeline-area {
+        top: 0px;
+        left: 0px;
+        position: absolute;
+        height: 270px;
+        width: 480px;
+        text-align: left;
+        overflow-y: auto;
+    }
 </style>
 
     <body>
         <?php
             $filename = $_REQUEST['fn'];
             $filepath = $_REQUEST['fp'];
+            $thumbFile = $filepath . thumbnail($filename);
 	    ?>
+        <script>
+            var thumbFile = <?php echo json_encode($thumbFile); ?>;
+        </script>
+        
             <div id="main-container-horizontal">
                 <div height="95%">
                     <div id="overlay-container">

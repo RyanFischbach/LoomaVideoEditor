@@ -124,13 +124,12 @@ $(document).ready(function () {
 			editButton.innerHTML = "Edit";
 
 			video.pause();
-            
             if(editsObj.filePaths.length != 0)
             {
-                show_image(video.src + "_thumb", 200, 100);
-                show_image(image_src, 200, 100);
+                show_image(thumbFile, 150, 90);
+                show_image(image_src, 150, 90);
             }
-			
+            
 //			var jsonString = JSON.stringify(editsObj);
 			//console.log(editsObj);
 			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
@@ -154,6 +153,14 @@ $(document).ready(function () {
 		}
 		
 	});
+    
+    function show_image(src, width, height) {
+        var img = document.createElement("img");
+        img.src = src;
+        img.width = width;
+        img.height = height;
+        document.getElementById("timeline-area").appendChild(img);
+    }
 
 	// Event listener for the text button
 	textButton.addEventListener("click", function () {
@@ -204,6 +211,8 @@ $(document).ready(function () {
             image_src = this.src;
             console.log(image_src);
             
+            editsObj.filePaths.push(image_src);
+            
             // Display image over video
             
         });
@@ -233,14 +242,6 @@ $(document).ready(function () {
         // return true for some reason
         return true;
     });
-    
-    function show_image(src, width, height) {
-        var img = document.createElement("img");
-        img.src = src;
-        img.width = width;
-        img.height = height;
-        document.getElementById("timeline-area").appendChild(img);
-    }
 
 	// Event listener for the seek bar
 	seekBar.addEventListener("change", function () {
