@@ -8,7 +8,7 @@ Revision: Looma Video Editor 0.1
 File: looma-library.php
 Description:  displays and navigates content folders for Looma 2
 -->
-
+    <head>
 <?php $page_title = 'Looma Library';
 	  	include ('includes/header.php');  
     	include ('includes/mongo-connect.php'); 

@@ -66,6 +66,15 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         font:30px sans-serif;
     }
         
+    #image-area {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+        z-index: 2;
+    }
+        
 </style>    
     
 	<div id="main-container-horizontal">
@@ -75,10 +84,13 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <video id="video">
                         <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
                         <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
+                        <?php print $contents ?>
                     </video>
                     <div id="text-box-area">
                         <textarea name="text-playback" id="text-playback" readonly="true"></textarea>
                     </div>
+                    <div id="image-area">
+                    </div> 
                 </div>
             </div>
         </div>

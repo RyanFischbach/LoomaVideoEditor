@@ -98,17 +98,18 @@ video.addEventListener("timeupdate", function() {
 
   // Update the slider value
   seekBar.value = value;
-  
+    
   if(commands.videoTimes.length > 0){
     //While there are still annotatins in the video
-    if(commands.videoTimes[0] < video.currentTime)
+    if(commands.videoTimes[0] <= video.currentTime)
     {
         //If we have passed the time stamp for the next annotation 
         //play check the type and delete that time stamp
         commands.videoTimes.splice(0, 1);
-        if(commands.type == "text")
+        if(commands.fileTypes[0] == "text")
         { 
             //If the type is a text file create a overlay and put the text there and pause the video
+            commands.fileTypes.splice(0,1);
             var message = commands.videoText[0];
             commands.videoText.splice(0, 1);
             textArea.value = message;
@@ -116,10 +117,28 @@ video.addEventListener("timeupdate", function() {
             video.pause();
             playButton.innerHTML = "Play";
         }
+        else if(commands.fileTypes[0] == "image") 
+        {
+            show_image(commands.filePaths[0] + commands.fileNames[0], 480, 270, "I just love images!")
+            console.log("3");
+            video.pause();
+            playButton.innerHTML = "Play";
+        }
     }
   }
   
 });
+    
+function show_image(src, width, height, alt) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+    console.log("1");
+    document.getElementById("image-area").appendChild(img);
+    console.log("2");
+}
 
 // Pause the video when the slider handle is being dragged
 seekBar.addEventListener("mousedown", function() {
