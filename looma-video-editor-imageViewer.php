@@ -10,7 +10,6 @@
     //$dir = "/images/";
 
     $imageNameArr = array();
-    print count($imageNameArr);
 
     // Open a directory, and read its contents
     if (is_dir($imagePath))
@@ -26,7 +25,7 @@
     }
 
     //print realpath($imagePath);
-    print count($imageNameArr);
+    //print count($imageNameArr);
 
     //$imageExt = '.png';
 
