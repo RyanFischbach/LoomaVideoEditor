@@ -181,6 +181,8 @@ $(document).ready(function () {
             }
     });
     
+    console.log(imageOptionButtons.length);
+    var image_src = "";
     for (var i = 0; i < imageOptionButtons.length; i++)
     {
         imageOptionButtons[i].addEventListener("click", function () {
@@ -193,7 +195,7 @@ $(document).ready(function () {
             // Store the current video time
             editsObj.videoTimes.push(video.currentTime);
         
-            var image_src = this.src;
+            image_src = this.src;
             console.log(image_src);
             
             // Display image over video

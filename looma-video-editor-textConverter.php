@@ -11,7 +11,7 @@ Description: Video editor text converter
 
 <?php
 
-include ('includes/mongo-connect.php');
+//include ('includes/mongo-connect.php');
         
 $name = $_GET['videoName'];
 $strJSON = json_encode($_GET);
