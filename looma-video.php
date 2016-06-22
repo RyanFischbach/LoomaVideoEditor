@@ -74,6 +74,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             </div>
                             <div id="image-area"></div>
                         </div>
+                        <div id="timeline-area"></div>
                     </div>
                 </div>
                 

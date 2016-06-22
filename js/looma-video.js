@@ -221,10 +221,24 @@ $(document).ready(function () {
         // don't show the submit button and form
         submitButton.style.display = "none";
         form.style.display = "none";
-
+        
+        if(editsObj.filePaths.length != 0)
+        {
+            show_image(video.src + "_thumb", 200, 100);
+            show_image(image_src, 200, 100);
+        }
+        
         // return true for some reason
         return true;
     });
+    
+    function show_image(src, width, height) {
+        var img = document.createElement("img");
+        img.src = src;
+        img.width = width;
+        img.height = height;
+        document.getElementById("timeline-area").appendChild(img);
+    }
 
 	// Event listener for the seek bar
 	seekBar.addEventListener("change", function () {
