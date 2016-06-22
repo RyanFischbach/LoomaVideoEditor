@@ -62,6 +62,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         text-align: left;
         overflow-y: auto;
     }
+    
+    ::-webkit-scrollbar { 
+        width:30px;
+    }
 </style>
 
     <body>

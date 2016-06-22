@@ -136,10 +136,7 @@ $(document).ready(function () {
 		} 
 		else //if(editButton.innerHTML == "Done")
 		{
-            // Hide the media controls
-            mediaControls.style.display = "none";
-            
-			// display edit options
+            // display edit options
 			textButton.style.display = 'inline';
             imageButton.style.display = 'inline';
 
@@ -186,6 +183,7 @@ $(document).ready(function () {
         // Hide Controls
         textButton.style.display = "none";
         imageButton.style.display = "none";
+        mediaControls.style.display = "none";
         
         // Show all images for images
         document.getElementById("image-previews").style.display = "block";
@@ -194,7 +192,6 @@ $(document).ready(function () {
             }
     });
     
-    console.log(imageOptionButtons.length);
     var image_src = "";
     for (var i = 0; i < imageOptionButtons.length; i++)
     {
@@ -209,6 +206,7 @@ $(document).ready(function () {
             editsObj.videoTimes.push(video.currentTime);
         
             image_src = this.src;
+            editsObj.filePaths.push(image_src);
             console.log(image_src);
             
             editsObj.filePaths.push(image_src);
@@ -222,6 +220,9 @@ $(document).ready(function () {
     submitButton.addEventListener("click", function () {
         // Redisplay Controls
         editButton.style.display = "inline";
+        textButton.style.display = "inline";
+        imageButton.style.display = "inline";
+        mediaControls.style.display = "block";
             
         // get text from form
         var text = document.getElementById("comments").value;
