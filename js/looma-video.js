@@ -127,6 +127,7 @@ $(document).ready(function () {
 			
             // Hide Edit Controls
 			textButton.style.display = 'none';
+            imageButton.style.display = "none";
             form.style.display = 'none';
             submitButton.style.display = 'none';
             
@@ -156,7 +157,7 @@ $(document).ready(function () {
 			//console.log(editsObj.filePaths[0]);
 			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
 		} 
-		else //if(editButton.innerHTML == "Done")
+		else
 		{
             // display edit options
 			textButton.style.display = 'inline';
@@ -220,7 +221,7 @@ $(document).ready(function () {
             // Store the type of file
             editsObj.fileTypes.push("image");
                 
-            this.style.display = "none";
+            //this.style.display = "none";
                 
             // Store the current video time
             editsObj.videoTimes.push(video.currentTime);
