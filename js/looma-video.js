@@ -17,7 +17,7 @@ var editsObj = {
     videoTimes : [],
     videoText : [],
     filePaths : [],
-    fileNames: []
+    fileNames : []
 }
     
 'use strict';
@@ -107,10 +107,15 @@ $(document).ready(function () {
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Done") {
-			// don't display the text box
+			
+            // Hide Edit Controls
 			textButton.style.display = 'none';
             form.style.display = 'none';
             submitButton.style.display = 'none';
+            
+            for (var i = 0; i < imageOptionButtons.length; i++) {
+                imageOptionButtons[i].style.display = "none";
+            }
             
             // redisplay media controls
             mediaControls.style.display = "block";
@@ -164,10 +169,6 @@ $(document).ready(function () {
     
     // Event listener for image button
     imageButton.addEventListener("click", function () {
-        // Hide Controls
-        
-        // Store the type of file
-        editsObj.fileTypes.push("image");
         
         // Hide Controls
         textButton.style.display = "none";
@@ -175,42 +176,30 @@ $(document).ready(function () {
         
         // Show all images for images
         document.getElementById("image-previews").style.display = "block";
-        
-        // Create another event listener for when an image is chosen
-        // Push the file path and then push the file name into the corresponding arrays
+        for (var i = 0; i < imageOptionButtons.length; i++) {
+                imageOptionButtons[i].style.display = "inline";
+            }
     });
-    
-    console.log(imageOptionButtons.length);
-    //var buttonArr = new Array(imageOptionButtons.length);
     
     for (var i = 0; i < imageOptionButtons.length; i++)
     {
-            imageOptionButtons[i].addEventListener("click", function () {
+        imageOptionButtons[i].addEventListener("click", function () {
             
-            // Hide and Show Controls
-            //imageOptionButtons[i].style.display = "none";
-        
+            // Store the type of file
+            editsObj.fileTypes.push("image");
+                
+            this.style.display = "none";
+                
             // Store the current video time
             editsObj.videoTimes.push(video.currentTime);
         
-            var image_src = imageOptionButtons[i].src;
+            var image_src = this.src;
             console.log(image_src);
-        })
+            
+            // Display image over video
+            
+        });
     }
-    
-    /*
-    // Event listener for imageOptionButton
-    imageOptionButton.addEventListener("click", function () {
-        // Hide and Show Controls
-        imageOptionButton.style.display = "none";
-        
-        // Store the current video time
-		editsObj.videoTimes.push(video.currentTime);
-        
-        var image_src = imageOptionButton.src;
-        console.log(image_src);
-    })
-    */
     
     // Event listener for submit button
     submitButton.addEventListener("click", function () {
