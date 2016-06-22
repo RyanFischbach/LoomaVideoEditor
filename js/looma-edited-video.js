@@ -120,7 +120,6 @@ video.addEventListener("timeupdate", function() {
         else if(commands.fileTypes[0] == "image") 
         {
             show_image(commands.filePaths[0] + commands.fileNames[0], 480, 270, "I just love images!")
-            console.log("3");
             video.pause();
             playButton.innerHTML = "Play";
         }
@@ -135,9 +134,7 @@ function show_image(src, width, height, alt) {
     img.width = width;
     img.height = height;
     img.alt = alt;
-    console.log("1");
     document.getElementById("image-area").appendChild(img);
-    console.log("2");
 }
 
 // Pause the video when the slider handle is being dragged
