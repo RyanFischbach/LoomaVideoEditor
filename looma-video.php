@@ -114,10 +114,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <?php keyword('Submit') ?>
                     </button>
                     
-                    <div id="image-previews" class="scroll" style="display:none;">
-                        <!-- Call JS function to load image thumbnails -->
+                    <div id="image-previews" style="overflow:auto;display:none;width:480px;height:270px;margin:auto;">
                         <?php include ('looma-video-editor-imageViewer.php') ?>
-                        <!-- php include ('looma-library.php') -->
                     </div>
                     
                 </div>
