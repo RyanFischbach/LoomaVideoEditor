@@ -67,6 +67,8 @@ $(document).ready(function () {
 	// Sliders
 	var seekBar = document.getElementById("seek-bar");
 	var volumeBar = document.getElementById("volume-bar");
+    
+    var edited = false;
 
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
@@ -81,6 +83,12 @@ $(document).ready(function () {
 
 			// Update the button text to 'Pause'
 			playButton.innerHTML = "Pause";
+            
+            if(edited == true)
+            {
+                show_image(thumbFile, 150, 90);
+                edited = false;
+            }
 		} else {
 			// Pause the video
 			video.pause();
@@ -127,11 +135,11 @@ $(document).ready(function () {
 			video.pause();
             if(editsObj.filePaths.length != 0)
             {
-                show_image(thumbFile, 150, 90);
                 show_image(image_src, 150, 90);
+                edited = true;
             }
             
-//			var jsonString = JSON.stringify(editsObj);
+            //var jsonString = JSON.stringify(editsObj);
 			//console.log(editsObj);
 			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
 		} 
