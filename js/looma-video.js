@@ -124,6 +124,12 @@ $(document).ready(function () {
 			editButton.innerHTML = "Edit";
 
 			video.pause();
+            
+            if(editsObj.filePaths.length != 0)
+            {
+                show_image(video.src + "_thumb", 200, 100);
+                show_image(image_src, 200, 100);
+            }
 			
 //			var jsonString = JSON.stringify(editsObj);
 			//console.log(editsObj);
@@ -223,12 +229,6 @@ $(document).ready(function () {
         // don't show the submit button and form
         submitButton.style.display = "none";
         form.style.display = "none";
-        
-        if(editsObj.filePaths.length != 0)
-        {
-            show_image(video.src + "_thumb", 200, 100);
-            show_image(image_src, 200, 100);
-        }
         
         // return true for some reason
         return true;
