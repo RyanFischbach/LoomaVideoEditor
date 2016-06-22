@@ -17,7 +17,6 @@ var editsObj = {
     videoTimes : [],
     videoText : [],
     filePaths : [],
-    fileNames : []
 }
     
 'use strict';
@@ -149,7 +148,7 @@ $(document).ready(function () {
             }
             
             //var jsonString = JSON.stringify(editsObj);
-			//console.log(editsObj);
+			//console.log(editsObj.filePaths[0]);
 			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
 		} 
 		else //if(editButton.innerHTML == "Done")
@@ -208,6 +207,7 @@ $(document).ready(function () {
     });
     
     var image_src = "";
+    // var image_name = "";
     for (var i = 0; i < imageOptionButtons.length; i++)
     {
         imageOptionButtons[i].addEventListener("click", function () {
@@ -221,10 +221,10 @@ $(document).ready(function () {
             editsObj.videoTimes.push(video.currentTime);
         
             image_src = this.src;
-            editsObj.filePaths.push(image_src);
-            console.log(image_src);
+            // image_name = this.name;
             
             editsObj.filePaths.push(image_src);
+            //editsObj.fileNames.push(image_name);
             
             // Display image over video
             show_image_preview(image_src);

@@ -58,7 +58,11 @@ playButton.addEventListener("click", function() {
       
     //Stop showing the textbox or the image
     textArea.style.display = "none";
-    document.getElementById("image-area").removeChild(currentImage);
+      
+    if (currentImage != null) {
+        document.getElementById("image-area").removeChild(currentImage);
+        currentImage = null;
+    }
   } else {
     // Pause the video
     video.pause();
@@ -122,7 +126,9 @@ video.addEventListener("timeupdate", function() {
         }
         else if(commands.fileTypes[0] == "image") 
         {
-            show_image(commands.filePaths[0] + commands.fileNames[0], 480, 270, "I just love images!")
+            commands.fileTypes.splice(0,1);
+            show_image(commands.filePaths[0], 480, 270, "I just love images!")
+            commands.filePaths.splice(0,1);
             video.pause();
             playButton.innerHTML = "Play";
         }
