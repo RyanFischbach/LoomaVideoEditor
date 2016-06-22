@@ -52,18 +52,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         font: 22px/30px sans-serif;
         resize: none;
     }
-    
-    #edit {
-        margin-top: 0px;
-    }
-    
-    #text {
-        margin-top: 0px;
-    }
-    
-    #submit {
-        margin-top: 0px;
-    }
 </style>
 
     <body>
@@ -89,17 +77,27 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 </div>
                 
                 <div id="edit-controls">
-                    <button type="button" class="media" id="edit">
+                    <button type="button" class="media" id="edit" style="margin-top:0px;">
                         <?php keyword('Edit') ?>
                     </button>
                     
-                     <button type="button" class="media hidden_button" id="text">
+                     <button type="button" class="media hidden_button" id="text" style="margin-top:0px;">
                         <?php keyword('Text') ?>
                     </button>
                     
-                    <button type="button" class="media hidden_button" id="submit">
+                    <button type="button" class="media hidden_button" id="image" style="margin-top:0px;">
+                        <?php keyword('Image') ?>
+                    </button>
+                    
+                    <button type="button" class="media hidden_button" id="submit" style="margin-top:0px;">
                         <?php keyword('Submit') ?>
                     </button>
+                    
+                    <div id="image-previews" class="scroll" style="display:none;">
+                        <!-- Call JS function to load image thumbnails -->
+                        <?php include ('looma-video-editor-imageViewer.php') ?>
+                        <!-- php include ('looma-library.php') -->
+                    </div>
                     
                 </div>
                 
@@ -145,7 +143,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
             var strlen = videoName.length;
             videoName = videoName.substring(0, strlen - 4);
             editsObj.videoName = videoName;
-            console.log(editsObj.videoName);
+            //DEBUG console.log(editsObj.videoName);
         </script>
         
 </body>

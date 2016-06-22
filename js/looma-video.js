@@ -12,10 +12,12 @@ Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
 
 // Arrays of Edited Video Information
 var editsObj = {
-    type : "text",
+    fileTypes : [],
     videoName : "",
     videoTimes : [],
-    videoText : []
+    videoText : [],
+    filePaths : [],
+    fileNames: []
 }
     
 'use strict';
@@ -44,6 +46,8 @@ $(document).ready(function () {
 	var muteButton = document.getElementById("mute");
 	var editButton = document.getElementById("edit");
 	var textButton = document.getElementById("text");
+    var imageButton = document.getElementById("image");
+    var imageOptionButtons = document.getElementsByClassName("imageOption");
 	var submitButton = document.getElementById("submit");
 
 	// Form
@@ -52,6 +56,7 @@ $(document).ready(function () {
 
 	// Don't Show Text Button, Submit Button, Form
 	textButton.style.display = 'none';
+    imageButton.style.display = 'none';
 	submitButton.style.display = 'none';
 	form.style.display = 'none';
 	rectangle.style.display = 'none';
@@ -124,8 +129,9 @@ $(document).ready(function () {
             // Hide the media controls
             mediaControls.style.display = "none";
             
-			// display the text box
+			// display edit options
 			textButton.style.display = 'inline';
+            imageButton.style.display = 'inline';
 
 			// change the edit button to say done
 			editButton.innerHTML = "Done";
@@ -142,14 +148,12 @@ $(document).ready(function () {
 	textButton.addEventListener("click", function () {
 		//Hide Controls
         textButton.style.display = "none";
+        imageButton.style.display = "none";
         editButton.style.display = "none";
         
         // Clear Text Area
         var textArea = document.getElementById("comments");
         textArea.value = "";
-        
-        // store the current video time in the array of video times
-		editsObj.videoTimes.push(video.currentTime);
 
 		// show the form and submit button
 		form.style.display = "inline";
@@ -158,24 +162,80 @@ $(document).ready(function () {
 		
 	});
     
-    // Event listener for submit button
-		submitButton.addEventListener("click", function () {
-			// Redisplay Controls
-            editButton.style.display = "inline";
+    // Event listener for image button
+    imageButton.addEventListener("click", function () {
+        // Hide Controls
+        
+        // Store the type of file
+        editsObj.fileTypes.push("image");
+        
+        // Hide Controls
+        textButton.style.display = "none";
+        imageButton.style.display = "none";
+        
+        // Show all images for images
+        document.getElementById("image-previews").style.display = "block";
+        
+        // Create another event listener for when an image is chosen
+        // Push the file path and then push the file name into the corresponding arrays
+    });
+    
+    console.log(imageOptionButtons.length);
+    //var buttonArr = new Array(imageOptionButtons.length);
+    
+    for (var i = 0; i < imageOptionButtons.length; i++)
+    {
+            imageOptionButtons[i].addEventListener("click", function () {
             
-            // get text from form
-			var text = document.getElementById("comments").value;
+            // Hide and Show Controls
+            //imageOptionButtons[i].style.display = "none";
+        
+            // Store the current video time
+            editsObj.videoTimes.push(video.currentTime);
+        
+            var image_src = imageOptionButtons[i].src;
+            console.log(image_src);
+        })
+    }
+    
+    /*
+    // Event listener for imageOptionButton
+    imageOptionButton.addEventListener("click", function () {
+        // Hide and Show Controls
+        imageOptionButton.style.display = "none";
+        
+        // Store the current video time
+		editsObj.videoTimes.push(video.currentTime);
+        
+        var image_src = imageOptionButton.src;
+        console.log(image_src);
+    })
+    */
+    
+    // Event listener for submit button
+    submitButton.addEventListener("click", function () {
+        // Redisplay Controls
+        editButton.style.display = "inline";
+            
+        // get text from form
+        var text = document.getElementById("comments").value;
+            
+        // Store the current video time in the array of video times
+        editsObj.videoTimes.push(video.currentTime);
+        
+        // Store the type of file
+        editsObj.fileTypes.push("text");
 
-			// push the text onto the array of edited video text
-			editsObj.videoText.push(text);
+        // Push the text onto the array of edited video text
+        editsObj.videoText.push(text);
 
-			// don't show the submit button and form
-			submitButton.style.display = "none";
-			form.style.display = "none";
+        // don't show the submit button and form
+        submitButton.style.display = "none";
+        form.style.display = "none";
 
-			// return true for some reason
-			return true;
-		});
+        // return true for some reason
+        return true;
+    });
 
 	// Event listener for the seek bar
 	seekBar.addEventListener("change", function () {
