@@ -22,7 +22,6 @@ var editsObj = {
 'use strict';
 $(document).ready(function () {
 
-<<<<<<< Updated upstream
     // Video
     var video = document.getElementById("video");
 
@@ -125,131 +124,15 @@ $(document).ready(function () {
     editButton.addEventListener("click", function () {
         if (editButton.innerHTML == "Done") {
 
-=======
-	// Video
-	var video = document.getElementById("video");
-    
-    // Buttons
-    
-    // Media Controls (play, mute, volume) 
-    var mediaControls = document.getElementById("video-controls");
-	var playButton = document.getElementById("play-pause");
-	var muteButton = document.getElementById("mute");
-    
-    // Edit Controls
-	var editButton = document.getElementById("edit");
-	var textButton = document.getElementById("text");
-    var submitButton = document.getElementById("submit");
-
-	// Text Area
-	var textArea = document.getElementById("comments");
-	//var rectangle = document.getElementById("rectangle");
-
-    // Image Preview Div
-    var imagePreviewDiv = document.getElementById("image-previews");
-    var imageButton = document.getElementById("image");
-    var imageOptionButtons = document.getElementsByClassName("imageOption");
-	
-	// Sliders
-	var seekBar = document.getElementById("seek-bar");
-	var volumeBar = document.getElementById("volume-bar");
-    
-    // Other Variables
-    var edited = false;
-    var currentImage = null;
-
-    // Fullscreen Button
-	$('#fullscreen-control').click(function (e) {
-		e.preventDefault();
-		screenfull.toggle(video);
-	});
-    
-    // Event Listeners
-    
-    // Video Event Listener
-    video.addEventListener('loadeddata', function () {
-        var vidHeight = video.videoHeight;
-        var vidWidth = video.videoWidth;
-        var videoArea = document.getElementById("video-area");
-        videoArea.style.height = parseInt(vidHeight) + "px";
-        videoArea.style.width = parseInt(vidWidth) + "px";
-        
-        var textArea = document.getElementById("comments");
-        textArea.style.height = parseInt(vidHeight) + "px";
-        textArea.style.width = parseInt(vidWidth) + "px";
-    });
-
-	// Play Button Event Listener
-	playButton.addEventListener("click", function () {
-        if (video.paused == true) 
-        {
-            // Play the video
-            video.play();
-
-            // Update the button text to 'Pause'
-            playButton.innerHTML = "Pause";
-            
-            if(edited == true)
-            {
-                show_image_timeline(thumbFile, 150, 90);
-                edited = false;
-            }
-            if(currentImage != null)
-            {
-                document.getElementById("image-area").removeChild(currentImage);
-                currentImage = null;
-            }        
-        } 
-        else 
-        {
-            // Pause the video
-            video.pause();
-
-            // Update the button text to 'Play'
-            playButton.innerHTML = "Play";
-        }
-	});
-
-	// Event listener for the mute button
-	muteButton.addEventListener("click", function () {
-		if (video.muted == false)
-        {
-			// Mute the video
-			video.muted = true;
-
-			// Update the button text
-			muteButton.innerHTML = "Unmute";
-		}
-        else 
-        {
-			// Unmute the video
-			video.muted = false;
-
-			// Update the button text
-			muteButton.innerHTML = "Mute";
-		}
-	});
-
-	// Event listener for the edit button
-	editButton.addEventListener("click", function () {
-		if (editButton.innerHTML == "Done") 
-        {
-			
->>>>>>> Stashed changes
             // Hide Edit Controls
             textButton.style.display = 'none';
             imageButton.style.display = "none";
-            textArea.style.display = 'none';
+            form.style.display = 'none';
             submitButton.style.display = 'none';
 
             imagePreviewDiv.style.display = "none";
-<<<<<<< Updated upstream
 
             // redisplay media controls
-=======
-            
-            // Redisplay media controls
->>>>>>> Stashed changes
             mediaControls.style.display = "block";
 
             // change the edit button to say edit
@@ -258,17 +141,9 @@ $(document).ready(function () {
             video.pause();
 
             //Removes image overlay
-<<<<<<< Updated upstream
 
             if (editsObj.filePaths.length != 0) {
                 if (image_src != null) {
-=======
-            
-            if(editsObj.filePaths.length != 0)
-            {
-                if(image_src != null)
-                {
->>>>>>> Stashed changes
                     show_image_timeline(image_src, 150, 90);
                     edited = true;
                     image_src = null;
@@ -277,23 +152,12 @@ $(document).ready(function () {
             }
 
             //var jsonString = JSON.stringify(editsObj);
-<<<<<<< Updated upstream
             //console.log(editsObj.filePaths[0]);
             $.ajax("looma-video-editor-textConverter.php", {
                 data: editsObj
             });
         } 
         else {
-=======
-			//console.log(editsObj.filePaths[0]);
-			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
-		} 
-		else
-		{
-            // Hide Media controls
-            mediaControls.style.display = "none";
-            
->>>>>>> Stashed changes
             // display edit options
             textButton.style.display = 'inline';
             imageButton.style.display = 'inline';
@@ -309,7 +173,6 @@ $(document).ready(function () {
 
     });
 
-<<<<<<< Updated upstream
     function show_image_timeline(src, width, height) {
         var img = document.createElement("img");
         img.src = src;
@@ -325,26 +188,10 @@ $(document).ready(function () {
         imageButton.style.display = "none";
         editButton.style.display = "none";
 
-=======
-			// change the play-pause button to say play
-			playButton.innerHTML = "Play";
-		}
-		
-	});
-    
-    // Event listener for the text button
-	textButton.addEventListener("click", function () {
-		//Hide Controls
-        textButton.style.display = "none";
-        imageButton.style.display = "none";
-        editButton.style.display = "none";
-        mediaControls.style.display = "none";
-        
->>>>>>> Stashed changes
         // Clear Text Area
+        var textArea = document.getElementById("comments");
         textArea.value = "";
 
-<<<<<<< Updated upstream
         // show the form and submit button
         form.style.display = "inline";
         submitButton.style.display = "inline";
@@ -352,40 +199,6 @@ $(document).ready(function () {
 
     });
 
-=======
-		// show the text area and submit button
-		textArea.style.display = "inline";
-		submitButton.style.display = "inline";
-	});
-    
-    // Event listener for submit button
-    submitButton.addEventListener("click", function () {
-        // Redisplay Edit Controls
-        editButton.style.display = "inline";
-        textButton.style.display = "inline";
-        imageButton.style.display = "inline";
-            
-        // get text from text area
-        var text = textArea.value;
-            
-        // Store the current video time in the array of video times
-        editsObj.videoTimes.push(video.currentTime);
-        
-        // Store the type of file
-        editsObj.fileTypes.push("text");
-
-        // Push the text onto the array of edited video text
-        editsObj.videoText.push(text);
-
-        // don't show the submit button and text area
-        submitButton.style.display = "none";
-        textArea.style.display = "none";
-        
-        // return true for some reason
-        return true;
-    });
-    
->>>>>>> Stashed changes
     // Event listener for image button
     imageButton.addEventListener("click", function () {
 
@@ -397,22 +210,7 @@ $(document).ready(function () {
         // Show all images for images
         imagePreviewDiv.style.display = "block";
     });
-<<<<<<< Updated upstream
 
-=======
-    
-    // Functions for showing image previews
-    
-    function show_image_timeline(src, width, height) {
-        var img = document.createElement("img");
-        img.src = src;
-        img.width = width;
-        img.height = height;
-        document.getElementById("timeline-area").appendChild(img);
-    }
-    
-    
->>>>>>> Stashed changes
     var image_src = "";
     // var image_name = "";
     for (var i = 0; i < imageOptionButtons.length; i++) {
@@ -449,7 +247,6 @@ $(document).ready(function () {
         currentImage = img;
         document.getElementById("image-area").appendChild(img);
     }
-<<<<<<< Updated upstream
 
     // Event listener for submit button
     submitButton.addEventListener("click", function () {
@@ -478,9 +275,6 @@ $(document).ready(function () {
         // return true for some reason
         return true;
     });
-=======
-    
->>>>>>> Stashed changes
 
     // Event listener for the seek bar
     seekBar.addEventListener("change", function () {
