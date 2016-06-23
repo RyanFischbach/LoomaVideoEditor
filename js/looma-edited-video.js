@@ -140,6 +140,8 @@ $(document).ready(function () {
         // Update the video time
         video.currentTime = time;
         
+        playButton.innerHTML = "Play"
+        
         var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
         commands = moddedBackup;
         var counter = 0;
