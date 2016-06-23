@@ -32,6 +32,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 <link rel="stylesheet" type="text/css" href="css/looma-video.css">
 
+</head>
+
     <body>
         <?php
             $filename = $_REQUEST['fn'];
@@ -76,6 +78,17 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     
                     <button type="button" class="media hidden_button" id="submit" style="display:none;margin-top:0px;">
                         <?php keyword('Submit') ?>
+                    </button>
+                    
+                    <br>
+                    <br>
+                    
+                    <button type="button" class="media hidden_button" id="prev-frame" style="display:none;">
+                        <?php keyword('-') ?>
+                    </button>
+                    
+                    <button type="button" class="media hidden_button" id="next-frame" style="display:none;">
+                        <?php keyword('+') ?>
                     </button>
                     
                     <div id="image-previews" style="overflow:auto;display:none;width:480px;height:270px;margin:auto;">

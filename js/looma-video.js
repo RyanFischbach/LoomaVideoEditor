@@ -36,6 +36,8 @@ $(document).ready(function () {
 	var editButton = document.getElementById("edit");
 	var textButton = document.getElementById("text");
     var submitButton = document.getElementById("submit");
+    var nextFrameButton = document.getElementById("next-frame");
+    var prevFrameButton = document.getElementById("prev-frame");
 
 	// Text Area
 	var textArea = document.getElementById("comments");
@@ -135,6 +137,8 @@ $(document).ready(function () {
             imageButton.style.display = "none";
             textArea.style.display = 'none';
             submitButton.style.display = 'none';
+            nextFrameButton.style.display = "none";
+            prevFrameButton.style.display = "none";
 
             imagePreviewDiv.style.display = "none";
             
@@ -169,9 +173,11 @@ $(document).ready(function () {
             // Hide Media controls
             mediaControls.style.display = "none";
             
-            // display edit options
+            // Display edit options
             textButton.style.display = 'inline';
             imageButton.style.display = 'inline';
+            nextFrameButton.style.display = "inline";
+            prevFrameButton.style.display = "inline";
 
             // change the edit button to say done
             editButton.innerHTML = "Done";
@@ -183,26 +189,6 @@ $(document).ready(function () {
         }
 
     });
-
-    function show_image_timeline(src, width, height) {
-        var img = document.createElement("img");
-        img.src = src;
-        img.width = width;
-        img.height = height;
-        document.getElementById("timeline-area").appendChild(img);
-    }
-
-    // Event listener for the text button
-    textButton.addEventListener("click", function () {
-        //Hide Controls
-        textButton.style.display = "none";
-        imageButton.style.display = "none";
-        editButton.style.display = "none";
-
-        // change the play-pause button to say play
-        playButton.innerHTML = "Play";
-		
-	});
     
     // Event listener for the text button
 	textButton.addEventListener("click", function () {
@@ -211,6 +197,8 @@ $(document).ready(function () {
         imageButton.style.display = "none";
         editButton.style.display = "none";
         mediaControls.style.display = "none";
+        nextFrameButton.style.display = "none";
+        prevFrameButton.style.display = "none";
         
         // Clear Text Area
         textArea.value = "";
@@ -226,6 +214,8 @@ $(document).ready(function () {
         editButton.style.display = "inline";
         textButton.style.display = "inline";
         imageButton.style.display = "inline";
+        nextFrameButton.style.display = "inline";
+        prevFrameButton.style.display = "inline";
             
         // get text from text area
         var text = textArea.value;
@@ -254,12 +244,14 @@ $(document).ready(function () {
         textButton.style.display = "none";
         imageButton.style.display = "none";
         mediaControls.style.display = "none";
+        nextFrameButton.style.display = "none";
+        prevFrameButton.style.display = "none";
 
         // Show all images for images
         imagePreviewDiv.style.display = "block";
     });
     
-    // Functions for showing image previews
+    // Show image previews in timeline
     
     function show_image_timeline(src, width, height) {
         var img = document.createElement("img");
@@ -269,6 +261,7 @@ $(document).ready(function () {
         document.getElementById("timeline-area").appendChild(img);
     }
     
+    // Functions for showing image previews for selecting an image
     
     var image_src = "";
     // var image_name = "";
@@ -306,6 +299,16 @@ $(document).ready(function () {
         currentImage = img;
         document.getElementById("image-area").appendChild(img);
     }
+    
+    // nextFrameButton Event Listener
+    nextFrameButton.addEventListener("click", function () {
+        video.currentTime += (1 / 29.97);
+    });
+    
+    // prevFrameButton Event Listener
+    prevFrameButton.addEventListener("click", function () {
+        video.currentTime -= (1 / 29.97);
+    });
 
     // Event listener for the seek bar
     seekBar.addEventListener("change", function () {
