@@ -165,7 +165,8 @@ $(document).ready(function () {
             //var jsonString = JSON.stringify(editsObj);
             //console.log(editsObj.filePaths[0]);
             $.ajax("looma-video-editor-textConverter.php", {
-                data: editsObj
+                data: editsObj,
+                method: "POST"
             });
         } 
 		else

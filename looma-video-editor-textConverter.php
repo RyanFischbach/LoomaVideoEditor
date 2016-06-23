@@ -13,8 +13,8 @@ Description: Video editor text converter
 
 //include ('includes/mongo-connect.php');
         
-$name = $_GET['videoName'];
-$strJSON = json_encode($_GET);
+$name = $_POST['videoName'];
+$strJSON = json_encode($_POST);
 writeToFile($name, $strJSON);
         
 function writeToFile($videoTitle, $strJSON)
