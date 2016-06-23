@@ -22,111 +22,7 @@ var editsObj = {
 'use strict';
 $(document).ready(function () {
 
-<<<<<<< Updated upstream
     // Video
-    var video = document.getElementById("video");
-
-    video.addEventListener('loadeddata', function () {
-        var vidHeight = video.videoHeight;
-        var vidWidth = video.videoWidth;
-        var videoArea = document.getElementById("video-area");
-        videoArea.style.height = parseInt(vidHeight) + "px";
-        videoArea.style.width = parseInt(vidWidth) + "px";
-
-        var textArea = document.getElementById("comments");
-        textArea.style.height = parseInt(vidHeight) + "px";
-        textArea.style.width = parseInt(vidWidth) + "px";
-    });
-
-    // Media Controls (play, mute, volume) 
-    var mediaControls = document.getElementById("video-controls");
-
-    // Image Preview Div
-    var imagePreviewDiv = document.getElementById("image-previews");
-
-    // Buttons
-    var playButton = document.getElementById("play-pause");
-    var muteButton = document.getElementById("mute");
-    var editButton = document.getElementById("edit");
-    var textButton = document.getElementById("text");
-    var imageButton = document.getElementById("image");
-    var imageOptionButtons = document.getElementsByClassName("imageOption");
-    var submitButton = document.getElementById("submit");
-
-    // Form
-    var form = document.getElementById("comments");
-    var rectangle = document.getElementById("rectangle");
-
-    // Don't Show Text Button, Submit Button, Form
-    textButton.style.display = 'none';
-    imageButton.style.display = 'none';
-    submitButton.style.display = 'none';
-    form.style.display = 'none';
-    rectangle.style.display = 'none';
-
-    // Sliders
-    var seekBar = document.getElementById("seek-bar");
-    var volumeBar = document.getElementById("volume-bar");
-
-    var edited = false;
-    var currentImage = null;
-
-    $('#fullscreen-control').click(function (e) {
-        e.preventDefault();
-        screenfull.toggle(video);
-    });
-
-    // Event listener for the play/pause button
-    playButton.addEventListener("click", function () {
-        if (video.paused == true) {
-            // Play the video
-            video.play();
-
-            // Update the button text to 'Pause'
-            playButton.innerHTML = "Pause";
-
-            if (edited == true) {
-                show_image_timeline(thumbFile, 150, 90);
-                edited = false;
-            }
-            if (currentImage != null) {
-                document.getElementById("image-area").removeChild(currentImage);
-                currentImage = null;
-            }
-        } 
-        else {
-            // Pause the video
-            video.pause();
-
-            // Update the button text to 'Play'
-            playButton.innerHTML = "Play";
-        }
-    });
-
-    // Event listener for the mute button
-    muteButton.addEventListener("click", function () {
-        if (video.muted == false) {
-            // Mute the video
-            video.muted = true;
-
-            // Update the button text
-            muteButton.innerHTML = "Unmute";
-        } 
-        else {
-            // Unmute the video
-            video.muted = false;
-
-            // Update the button text
-            muteButton.innerHTML = "Mute";
-        }
-    });
-
-    // Event listener for the edit button
-    editButton.addEventListener("click", function () {
-        if (editButton.innerHTML == "Done") {
-
-=======
-	// Video
 	var video = document.getElementById("video");
     
     // Buttons
@@ -234,8 +130,6 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Done") 
         {
-			
->>>>>>> Stashed changes
             // Hide Edit Controls
             textButton.style.display = 'none';
             imageButton.style.display = "none";
@@ -243,13 +137,8 @@ $(document).ready(function () {
             submitButton.style.display = 'none';
 
             imagePreviewDiv.style.display = "none";
-<<<<<<< Updated upstream
-
-            // redisplay media controls
-=======
             
             // Redisplay media controls
->>>>>>> Stashed changes
             mediaControls.style.display = "block";
 
             // change the edit button to say edit
@@ -257,18 +146,11 @@ $(document).ready(function () {
 
             video.pause();
 
-            //Removes image overlay
-<<<<<<< Updated upstream
-
-            if (editsObj.filePaths.length != 0) {
-                if (image_src != null) {
-=======
-            
+            //Removes image overlay            
             if(editsObj.filePaths.length != 0)
             {
                 if(image_src != null)
                 {
->>>>>>> Stashed changes
                     show_image_timeline(image_src, 150, 90);
                     edited = true;
                     image_src = null;
@@ -277,23 +159,16 @@ $(document).ready(function () {
             }
 
             //var jsonString = JSON.stringify(editsObj);
-<<<<<<< Updated upstream
             //console.log(editsObj.filePaths[0]);
             $.ajax("looma-video-editor-textConverter.php", {
                 data: editsObj
             });
         } 
-        else {
-=======
-			//console.log(editsObj.filePaths[0]);
-			$.ajax("looma-video-editor-textConverter.php", {data : editsObj});
-		} 
 		else
 		{
             // Hide Media controls
             mediaControls.style.display = "none";
             
->>>>>>> Stashed changes
             // display edit options
             textButton.style.display = 'inline';
             imageButton.style.display = 'inline';
@@ -309,7 +184,6 @@ $(document).ready(function () {
 
     });
 
-<<<<<<< Updated upstream
     function show_image_timeline(src, width, height) {
         var img = document.createElement("img");
         img.src = src;
@@ -325,9 +199,8 @@ $(document).ready(function () {
         imageButton.style.display = "none";
         editButton.style.display = "none";
 
-=======
-			// change the play-pause button to say play
-			playButton.innerHTML = "Play";
+        // change the play-pause button to say play
+        playButton.innerHTML = "Play";
 		}
 		
 	});
@@ -340,19 +213,9 @@ $(document).ready(function () {
         editButton.style.display = "none";
         mediaControls.style.display = "none";
         
->>>>>>> Stashed changes
         // Clear Text Area
         textArea.value = "";
 
-<<<<<<< Updated upstream
-        // show the form and submit button
-        form.style.display = "inline";
-        submitButton.style.display = "inline";
-
-
-    });
-
-=======
 		// show the text area and submit button
 		textArea.style.display = "inline";
 		submitButton.style.display = "inline";
@@ -385,7 +248,6 @@ $(document).ready(function () {
         return true;
     });
     
->>>>>>> Stashed changes
     // Event listener for image button
     imageButton.addEventListener("click", function () {
 
@@ -397,9 +259,6 @@ $(document).ready(function () {
         // Show all images for images
         imagePreviewDiv.style.display = "block";
     });
-<<<<<<< Updated upstream
-
-=======
     
     // Functions for showing image previews
     
@@ -412,7 +271,6 @@ $(document).ready(function () {
     }
     
     
->>>>>>> Stashed changes
     var image_src = "";
     // var image_name = "";
     for (var i = 0; i < imageOptionButtons.length; i++) {
@@ -449,38 +307,6 @@ $(document).ready(function () {
         currentImage = img;
         document.getElementById("image-area").appendChild(img);
     }
-<<<<<<< Updated upstream
-
-    // Event listener for submit button
-    submitButton.addEventListener("click", function () {
-        // Redisplay Controls
-        editButton.style.display = "inline";
-        textButton.style.display = "inline";
-        imageButton.style.display = "inline";
-        mediaControls.style.display = "block";
-
-        // get text from form
-        var text = document.getElementById("comments").value;
-
-        // Store the current video time in the array of video times
-        editsObj.videoTimes.push(video.currentTime);
-
-        // Store the type of file
-        editsObj.fileTypes.push("text");
-
-        // Push the text onto the array of edited video text
-        editsObj.videoText.push(text);
-
-        // don't show the submit button and form
-        submitButton.style.display = "none";
-        form.style.display = "none";
-
-        // return true for some reason
-        return true;
-    });
-=======
-    
->>>>>>> Stashed changes
 
     // Event listener for the seek bar
     seekBar.addEventListener("change", function () {
