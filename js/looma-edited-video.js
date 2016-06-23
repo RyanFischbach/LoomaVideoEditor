@@ -36,7 +36,6 @@ $(document).ready(function () {
     });
 
     function checkTime() {
-        console.log(video.currentTime);
         if (commands.videoTimes.length > 0) {
             //While there are still annotatins in the video
             if (commands.videoTimes[0] <= video.currentTime) {
@@ -67,7 +66,9 @@ $(document).ready(function () {
                 } 
             }
             else {
-                window.requestAnimationFrame(checkTime);
+                if(!video.paused){
+                    window.requestAnimationFrame(checkTime);
+                }
             }
         }
     }
@@ -138,6 +139,32 @@ $(document).ready(function () {
 
         // Update the video time
         video.currentTime = time;
+        
+        var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
+        commands = moddedBackup;
+        var counter = 0;
+        for(var i = 0; i < commands.videoTimes.length; i++)
+        {
+            if(commands.videoTimes[i] < time)
+            {
+                counter++;
+            }
+        }
+        
+        for(var z = 0; z < counter; z++)
+        {
+            commands.videoTimes.splice(0,1);
+            if(commands.fileTypes[0] == "text")
+            {
+                commands.fileTypes.splice(0,1);
+                commands.videoText.splice(0,1);
+            }
+            else
+            {
+                commands.fileTypes.splice(0,1);
+                commands.filePaths.splice(0,1);
+            }
+        }
     });
 
     // Update the seek bar as the video plays

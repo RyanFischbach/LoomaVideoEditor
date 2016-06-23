@@ -37,11 +37,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         //Changes the filename from .txt to .mp4 so that the mp4 will play
         $filename = substr($filename, 0, strlen($filename) - 4) . ".mp4";
 		$filepath = $_REQUEST['fp'];
-        $contents = json_decode($_REQUEST['txt']);
 	?>
         <script>
             //Sends the information from the .txt file to js
             var commands = <?php echo $_REQUEST['txt']; ?>;
+            var commandsBackup = <?php echo $_REQUEST['txt']; ?>;
         </script>
 
         <style>
