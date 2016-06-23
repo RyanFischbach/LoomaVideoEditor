@@ -30,7 +30,50 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 ?>
 
-    <link rel="stylesheet" type="text/css" href="css/looma-video.css">
+<style>
+    #video-area {
+        position: relative;
+        margin: auto;
+        z-index: 0;
+    }
+    
+    #text-box-area {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+    }
+    
+    #comments {
+        background-color: white;
+        color: black;
+        border: none;
+        padding: 0%;
+        font: 22px/30px sans-serif;
+        resize: none;
+    }
+    
+    #image-area {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+    }
+    
+    #timeline-area {
+        top: 0px;
+        left: 0px;
+        position: absolute;
+        height: 270px;
+        width: 480px;
+        text-align: left;
+        overflow-y: auto;
+    }
+    
+    ::-webkit-scrollbar { 
+        width:30px;
+    }
+</style>
 
     <body>
         <?php
@@ -51,7 +94,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                 <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
                             </video>
                             <div id="text-box-area">
-                                <form class="media hidden_button" id="text-form">
+                                <form class="media hidden_button">
                                     <textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
                                 </form>
                             </div>
@@ -66,15 +109,15 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <?php keyword('Edit') ?>
                     </button>
                     
-                     <button type="button" class="media hidden_button" id="text" style="display:none;margin-top:0px;">
+                     <button type="button" class="media hidden_button" id="text" style="margin-top:0px;">
                         <?php keyword('Text') ?>
                     </button>
                     
-                    <button type="button" class="media hidden_button" id="image" style="display:none;margin-top:0px;">
+                    <button type="button" class="media hidden_button" id="image" style="margin-top:0px;">
                         <?php keyword('Image') ?>
                     </button>
                     
-                    <button type="button" class="media hidden_button" id="submit" style="display:none;margin-top:0px;">
+                    <button type="button" class="media hidden_button" id="submit" style="margin-top:0px;">
                         <?php keyword('Submit') ?>
                     </button>
                     
@@ -86,8 +129,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 
                 <div id="video-controls">
                     
-                    <!--
-                    <div id="rectangle" style="display:none;width:480px;height:270px;border:1px solid #000;">Stuff</div>-->
+                    <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>
 
                     <!--
                      <div id="fullscreen" class="viewer">
