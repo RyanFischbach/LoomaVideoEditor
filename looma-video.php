@@ -45,6 +45,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
     }
     
     #comments {
+        display: none;
         background-color: white;
         color: black;
         border: none;
@@ -109,15 +110,15 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <?php keyword('Edit') ?>
                     </button>
                     
-                     <button type="button" class="media hidden_button" id="text" style="margin-top:0px;">
+                     <button type="button" class="media hidden_button" id="text" style="display:none;margin-top:0px;">
                         <?php keyword('Text') ?>
                     </button>
                     
-                    <button type="button" class="media hidden_button" id="image" style="margin-top:0px;">
+                    <button type="button" class="media hidden_button" id="image" style="display:none;margin-top:0px;">
                         <?php keyword('Image') ?>
                     </button>
                     
-                    <button type="button" class="media hidden_button" id="submit" style="margin-top:0px;">
+                    <button type="button" class="media hidden_button" id="submit" style="display:none;margin-top:0px;">
                         <?php keyword('Submit') ?>
                     </button>
                     
@@ -129,7 +130,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 
                 <div id="video-controls">
                     
-                    <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>
+                    <!--
+                    <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>-->
 
                     <!--
                      <div id="fullscreen" class="viewer">

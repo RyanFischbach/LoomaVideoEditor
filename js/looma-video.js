@@ -201,7 +201,6 @@ $(document).ready(function () {
 
         // change the play-pause button to say play
         playButton.innerHTML = "Play";
-		}
 		
 	});
     
