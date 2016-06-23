@@ -318,6 +318,10 @@ $(document).ready(function () {
 
         // Update the video time
         video.currentTime = time;
+        
+        video.pause();
+        
+        playButton.innerHTML = "Play";
     });
 
     // Update the seek bar as the video plays
