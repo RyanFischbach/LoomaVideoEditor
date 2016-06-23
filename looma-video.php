@@ -81,7 +81,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     </button>
                     
                     <br>
-                    <br>
                     
                     <button type="button" class="media hidden_button" id="prev-frame" style="display:none;">
                         <?php keyword('-') ?>
@@ -135,10 +134,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         <!-- Update Video Name in looma-video.js -->
         <script>
             var videoName = "<?php echo $filename; ?>";
-            
+            /*
             // Remove extension from videoName
             var strlen = videoName.length;
-            videoName = videoName.substring(0, strlen - 4);
+            videoName = videoName.substring(0, strlen - 4);*/
             editsObj.videoName = videoName;
             //DEBUG console.log(editsObj.videoName);
         </script>
