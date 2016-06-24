@@ -51,10 +51,31 @@ button#fullscreen-control {
 #video-player {
     height: 70%;
 }
+
 #edit-controls {
     height: 10%;
 }
     
 #edit {
+    height: 50%;
+}
+
+#text {
+    height: 50%;
+}
+
+#image {
+    height: 50%;
+}
+
+#submit {
+    height: 50%;
+}
+
+#prev-frame {
+    height: 50%;
+}
+
+#next-frame {
     height: 50%;
 }
