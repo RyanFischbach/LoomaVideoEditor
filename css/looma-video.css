@@ -1,4 +1,5 @@
 #video-area {
+        height: 100%;
         position: relative;
         margin: auto;
         z-index: 0;

@@ -157,7 +157,7 @@ Description:  displays and navigates content folders for Looma 2
         //If the file is a .txt file (used to store edited videos) it gives it the correct display name
         if(substr($file, strlen($file) - 4) == ".txt")
         {
-            $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
+            $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 8) . "_Edited");
         }
         else
         {
@@ -178,7 +178,6 @@ Description:  displays and navigates content folders for Looma 2
 				case "video":
 				case "mp4":
 				case "mov":
-                case "txt":
 		
 				case "image":
 				case "jpg":
@@ -191,6 +190,10 @@ Description:  displays and navigates content folders for Looma 2
 				case "pdf":
 
 					makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
+					break;
+                    
+                case "txt":
+                    makeButton($file, $path, $ext, $base, $dn, $path . substr($base, 0, strlen($base) - 4) . "_thumb.jpg");
 					break;
 
 				default:

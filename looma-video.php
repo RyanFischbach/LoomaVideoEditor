@@ -14,7 +14,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 			VIDEO TEST</button>
 	And: $("button#testvideo").click(LOOMA.playMedia);
 -->
-
+<head>
 <?php $page_title = 'Looma Video Player';
 	  include ('includes/header.php');
 
@@ -45,8 +45,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         </script>
         
             <div id="main-container-horizontal">
-                <div height="95%">
-                    <div id="overlay-container">
+                    <div id="video-player">
                         <div id="video-area">
                             <video id="video">
                                 <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
@@ -61,9 +60,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         </div>
                         <div id="timeline-area"></div>
                     </div>
-                </div>
                 
-                <div id="edit-controls">
+                <!-- <div id="edit-controls">
                     <button type="button" class="media" id="edit" style="margin-top:0px;">
                         <?php keyword('Edit') ?>
                     </button>
@@ -92,11 +90,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     
                     <div id="image-previews" style="overflow:auto;display:none;width:480px;height:270px;margin:auto;">
                         <?php include ('looma-video-editor-imageViewer.php') ?>
-                    </div>
+                    </div> 
                     
-                </div>
+                </div>-->
                 
-                <div id="video-controls">
+                <div id="media-controls">
                     
                     <!--
                     <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>-->
@@ -107,9 +105,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     </div>
                     -->
 
-                    <br>
+                    <!--<br>-->
                     <button id="fullscreen-control"></button>
-                    <br>
+                    <!--<br>-->
                     <button type="button" class="media" id="play-pause">
                         <?php keyword('Play') ?>
                     </button>

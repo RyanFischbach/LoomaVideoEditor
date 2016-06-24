@@ -20,13 +20,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         include ('includes/header.php');
 
         function thumbnail ($fn) {
-				//given a CONTENT filename, generate the corresponding THUMBNAIL filename
-				//find the last '.' in the filename, insert '_thumb.jpg' after the dot
-				//returns "" if no '.' found
-				//example: input 'aaa.bbb.mp4' returns 'aaa.bbb_thumb.jpg' - this is the looma standard for naming THUMBNAILS
-		 		$dot = strrpos($fn, ".");
-				if ( ! ($dot === false)) { return substr_replace($fn, "_thumb.jpg", $dot, 10);}
-				else return "";
+				return substr($fn, 0, $fn.length - 8);
         } //end function THUMBNAIL
         ?>
 </head>
