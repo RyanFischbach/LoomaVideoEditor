@@ -52,7 +52,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                 <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
                             </video>
                             <div id="text-box-area">
-                                <form class="media hidden_button">
+                                <form class="media hidden_button" id="text-box">
                                     <textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
                                 </form>
                             </div>
@@ -60,8 +60,25 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         </div>
                         <div id="timeline-area"></div>
                     </div>
-                    
-                    
+
+                    <div id="media-controls">
+
+                    <button id="fullscreen-control"></button>
+                        
+                    <button type="button" class="media" id="play-pause">
+                        <?php keyword('Play') ?>
+                    </button>
+                    <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
+                    <br>
+                    <button type="button" class="media" id="volume">
+                        <?php keyword('Volume') ?>
+                    </button>
+                    <input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
+                    <br>
+                    <button type="button" class="media" id="mute">
+                        <?php keyword('Mute') ?>
+                    </button>
+                </div>
                 
                     <div id="edit-controls">
                         <button type="button" class="media" id="edit" style="margin-top:0px;">
@@ -95,25 +112,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         </div> 
                     
                     </div>
-                
-                    <div id="media-controls">
-
-                    <button id="fullscreen-control"></button>
-                        
-                    <button type="button" class="media" id="play-pause">
-                        <?php keyword('Play') ?>
-                    </button>
-                    <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
-                    <br>
-                    <button type="button" class="media" id="volume">
-                        <?php keyword('Volume') ?>
-                    </button>
-                    <input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
-                    <br>
-                    <button type="button" class="media" id="mute">
-                        <?php keyword('Mute') ?>
-                    </button>
-                </div>
                 
             </div>
             <?php include ('includes/toolbar.php'); ?>

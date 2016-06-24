@@ -66,15 +66,13 @@ $(document).ready(function () {
     
     // Video Event Listener
     video.addEventListener('loadeddata', function () {
-        var vidHeight = video.videoHeight;
-        var vidWidth = video.videoWidth;
-        /* var videoArea = document.getElementById("video-area");
-        videoArea.style.height = parseInt(vidHeight) + "px";
-        videoArea.style.width = parseInt(vidWidth) + "px"; */
+        var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
+        var videoArea = document.getElementById("video-area");
+        videoArea.style.width = parseInt(vidWidth) + "px"; 
         
-        var textArea = document.getElementById("comments");
+        /*var textArea = document.getElementById("comments");
         textArea.style.height = parseInt(vidHeight) + "px";
-        textArea.style.width = parseInt(vidWidth) + "px";
+        textArea.style.width = parseInt(vidWidth) + "px"; */
     });
 
 	// Play Button Event Listener
