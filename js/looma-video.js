@@ -307,8 +307,12 @@ $(document).ready(function () {
     function show_image_preview(src) {
         var img = document.createElement("img");
         img.src = src;
+        img.style.height = "100%";
+        img.style.width = "100%";
+        /*
         img.width = '480';
         img.height = '270';
+        */
         currentImage = img;
         document.getElementById("image-area").appendChild(img);
     }

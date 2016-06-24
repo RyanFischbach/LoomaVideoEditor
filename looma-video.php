@@ -14,7 +14,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 			VIDEO TEST</button>
 	And: $("button#testvideo").click(LOOMA.playMedia);
 -->
-<head>
 <?php $page_title = 'Looma Video Player';
 	  include ('includes/header.php');
 
