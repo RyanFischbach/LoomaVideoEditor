@@ -3,20 +3,21 @@
 <?php
 
     $imagePath = '../content/pictures/';
+    $dirImageArr = array();
     $imageArr = array();
     
     if (is_dir($imagePath))
     {
         //$imageArr = scandir($imagePath);
-        $imageArr = glob($imagePath . "*.{jpg,jpeg,gif,png}", GLOB_BRACE);
+        $dirImageArr = glob($imagePath . "*.{jpg,jpeg,gif,png}", GLOB_BRACE);
     }
 
     // Remove all thumbnails from array of image previews
-    for ($i = 0; $i < count($imageArr); $i++)
+    for ($i = 0; $i < count($dirImageArr); $i++)
     {
-        if (strpos($imageArr[$i], "_thumb"))
+        if (strrpos($dirImageArr[$i], "_thumb") == false)
         {
-            array_splice($imageArr, $i, 1);
+            array_push($imageArr, $dirImageArr[$i]);
         }
     }
     
