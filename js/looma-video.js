@@ -87,6 +87,7 @@ $(document).ready(function () {
             // Update the button text to 'Pause'
             playButton.innerHTML = "Pause";
             
+            /*
             if(edited == true)
             {
                 show_image_timeline(thumbFile, 150, 90);
@@ -96,7 +97,7 @@ $(document).ready(function () {
             {
                 document.getElementById("image-area").removeChild(currentImage);
                 currentImage = null;
-            }        
+            }*/        
         } 
         else 
         {
@@ -141,6 +142,17 @@ $(document).ready(function () {
             prevFrameButton.style.display = "none";
 
             imagePreviewDiv.style.display = "none";
+            
+            if(edited == true)
+            {
+                show_image_timeline(thumbFile, 150, 90);
+                edited = false;
+            }
+            if(currentImage != null)
+            {
+                document.getElementById("image-area").removeChild(currentImage);
+                currentImage = null;
+            }
             
             // Redisplay media controls
             mediaControls.style.display = "block";
@@ -213,10 +225,12 @@ $(document).ready(function () {
     submitButton.addEventListener("click", function () {
         // Redisplay Edit Controls
         editButton.style.display = "inline";
+        /*
         textButton.style.display = "inline";
         imageButton.style.display = "inline";
         nextFrameButton.style.display = "inline";
         prevFrameButton.style.display = "inline";
+        */
             
         // get text from text area
         var text = textArea.value;
