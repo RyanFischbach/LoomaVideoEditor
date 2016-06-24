@@ -32,7 +32,7 @@ $(document).ready(function () {
 
     $('#fullscreen-control').click(function (e) {
         e.preventDefault();
-        screenfull.toggle(video);
+        screenfull.toggle(videoArea);
     });
 
     function checkTime() {

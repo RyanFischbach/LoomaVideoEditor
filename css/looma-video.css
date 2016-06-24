@@ -2,14 +2,14 @@
     height: 100%;
     position: relative;
     margin: auto;
-    z-index: 0;
+    z-index: 1;
 }
     
 #text-box-area {
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 1;
+    z-index: 3;
     height: 100%;
     width: 100%;
     margin: auto;
@@ -50,6 +50,7 @@
     width: 480px;
     text-align: left;
     overflow-y: auto;
+    z-index: 0;
 }
     
 ::-webkit-scrollbar { 
