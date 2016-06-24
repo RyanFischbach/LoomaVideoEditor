@@ -60,54 +60,46 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         </div>
                         <div id="timeline-area"></div>
                     </div>
+                    
+                    
                 
-                <!-- <div id="edit-controls">
-                    <button type="button" class="media" id="edit" style="margin-top:0px;">
-                        <?php keyword('Edit') ?>
-                    </button>
+                    <div id="edit-controls">
+                        <button type="button" class="media" id="edit" style="margin-top:0px;">
+                            <?php keyword('Edit') ?>
+                        </button>
                     
-                     <button type="button" class="media hidden_button" id="text" style="display:none;margin-top:0px;">
-                        <?php keyword('Text') ?>
-                    </button>
+                        <button type="button" class="media hidden_button" id="text" style="display:none;margin-top:0px;">
+                            <?php keyword('Text') ?>
+                        </button>
                     
-                    <button type="button" class="media hidden_button" id="image" style="display:none;margin-top:0px;">
-                        <?php keyword('Image') ?>
-                    </button>
+                        <button type="button" class="media hidden_button" id="image" style="display:none;margin-top:0px;">
+                            <?php keyword('Image') ?>
+                        </button>
                     
-                    <button type="button" class="media hidden_button" id="submit" style="display:none;margin-top:0px;">
-                        <?php keyword('Submit') ?>
-                    </button>
+                        <button type="button" class="media hidden_button" id="submit" style="display:none;margin-top:0px;">
+                            <?php keyword('Submit') ?>
+                        </button>
                     
-                    <br>
+                        <br>
                     
-                    <button type="button" class="media hidden_button" id="prev-frame" style="display:none;">
-                        <?php keyword('-') ?>
-                    </button>
+                        <button type="button" class="media hidden_button" id="prev-frame" style="display:none;">
+                            <?php keyword('-') ?>
+                        </button>
                     
-                    <button type="button" class="media hidden_button" id="next-frame" style="display:none;">
-                        <?php keyword('+') ?>
-                    </button>
+                        <button type="button" class="media hidden_button" id="next-frame" style="display:none;">
+                            <?php keyword('+') ?>
+                        </button>
                     
-                    <div id="image-previews" style="overflow:auto;display:none;width:480px;height:270px;margin:auto;">
-                        <?php include ('looma-video-editor-imageViewer.php') ?>
-                    </div> 
+                        <div id="image-previews" style="overflow:auto;display:none;width:480px;height:270px;margin:auto;">
+                            <?php include ('looma-video-editor-imageViewer.php') ?>
+                        </div> 
                     
-                </div>-->
-                
-                <div id="media-controls">
-                    
-                    <!--
-                    <div id="rectangle" style="width:480px;height:270px;border:1px solid #000;">Stuff</div>-->
-
-                    <!--
-                     <div id="fullscreen" class="viewer">
-                        <br> 
                     </div>
-                    -->
+                
+                    <div id="media-controls">
 
-                    <!--<br>-->
                     <button id="fullscreen-control"></button>
-                    <!--<br>-->
+                        
                     <button type="button" class="media" id="play-pause">
                         <?php keyword('Play') ?>
                     </button>
@@ -122,6 +114,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <?php keyword('Mute') ?>
                     </button>
                 </div>
+                
             </div>
             <?php include ('includes/toolbar.php'); ?>
             <?php include ('includes/js-includes.php'); ?>

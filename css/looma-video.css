@@ -1,44 +1,60 @@
 #video-area {
-        height: 100%;
-        position: relative;
-        margin: auto;
-        z-index: 0;
-    }
+    height: 100%;
+    position: relative;
+    margin: auto;
+    z-index: 0;
+}
     
-    #text-box-area {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        z-index: 1;
-    }
+#text-box-area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
     
-    #comments {
-        display: none;
-        background-color: white;
-        color: black;
-        border: none;
-        padding: 0%;
-        font: 22px/30px sans-serif;
-        resize: none;
-    }
+#comments {
+    display: none;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 0%;
+    font: 22px/30px sans-serif;
+    resize: none;
+}
     
-    #image-area {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        z-index: 2;
-    }
+#image-area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
     
-    #timeline-area {
-        top: 0px;
-        left: 0px;
-        position: absolute;
-        height: 270px;
-        width: 480px;
-        text-align: left;
-        overflow-y: auto;
-    }
+#timeline-area {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    height: 270px;
+    width: 480px;
+    text-align: left;
+    overflow-y: auto;
+}
     
-    ::-webkit-scrollbar { 
-        width:30px;
-    }
+::-webkit-scrollbar { 
+    width:30px;
+}
+    
+button#fullscreen-control {
+    height: 13vh;
+    width: 13vh;
+}
+
+#video-player {
+    height: 70%;
+}
+#edit-controls {
+    height: 10%;
+}
+    
+#edit {
+    height: 50%;
+}

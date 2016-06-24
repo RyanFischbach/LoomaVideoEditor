@@ -28,7 +28,7 @@ $(document).ready(function () {
     // Buttons
     
     // Media Controls (play, mute, volume) 
-    var mediaControls = document.getElementById("video-controls");
+    var mediaControls = document.getElementById("media-controls");
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
     
