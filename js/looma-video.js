@@ -82,7 +82,7 @@ $(document).ready(function () {
         timelineArea.style.width = ((videoPlayer.offsetWidth/2) - (video.offsetWidth/2)) + "px";
         timelineArea.style.height = video.offsetHeight + "px";
         
-        timelineImageWidth = timelineArea.offsetWidth/2;
+        timelineImageWidth = (timelineArea.offsetWidth/2) - 15;
         timelineImageHeight = timelineArea.offsetHeight/6;
         /*var textArea = document.getElementById("comments");
         textArea.style.height = parseInt(vidHeight) + "px";
@@ -326,6 +326,9 @@ $(document).ready(function () {
         submitButton.style.display = "none";
         textArea.style.display = "none";
         
+        //Add timeline display
+        show_text_timeline(textArea.value);
+        
         // return true for some reason
         return true;
     });
@@ -359,6 +362,16 @@ $(document).ready(function () {
         img.width = timelineImageWidth;
         img.height = timelineImageHeight;
         document.getElementById("timeline-area").appendChild(img);
+    }
+    
+    function show_text_timeline(message) {
+        var text = document.createElement("textarea");
+        text.value = message;
+        text.width = timelineImageWidth;
+        text.height = timelineImageHeight;
+        text.style.resize = false;
+        text.style.color = black;
+        document.getElementById("timeline-area").appendChild(text);
     }
     
     // Functions for showing image previews for selecting an image
