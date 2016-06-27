@@ -247,9 +247,11 @@ $(document).ready(function () {
             editsObj.filePaths.pop();
             
             //Removes image overlay
-            currentImage = null;
-            edited = true;
-            image_src = null;
+            if(currentImage != null)
+            {
+                document.getElementById("image-area").removeChild(currentImage);
+                currentImage = null;
+            }
         }
         else if (currentEdit == "pdf")
         {
