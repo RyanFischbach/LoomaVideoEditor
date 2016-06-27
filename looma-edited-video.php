@@ -15,7 +15,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	And: $("button#testvideo").click(LOOMA.playMedia);
 -->
 
-<head>
     <?php $page_title = 'Looma Video Player';
         include ('includes/header.php');
 
@@ -23,6 +22,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 				return substr($fn, 0, $fn.length - 8);
         } //end function THUMBNAIL
         ?>
+
+<link rel="stylesheet" type="text/css" href="css/looma-video.css">
+
 </head>
 
 <body>
@@ -40,8 +42,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
         <style>
             #video-area {
-                position: relative;
-                margin: auto;
                 z-index: 0;
             }
             
@@ -69,23 +69,21 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 height: 100%;
                 width: 100%;
                 z-index: 2;
-            }
+    }
         </style>
 
         <div id="main-container-horizontal">
-            <div height="95%">
-                <div id="overlay-container">
+            <div id="video-player">
                     <div id="video-area">
                         <video id="video">
                             <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
-                                <?php echo '<source src="' . $filepath . $filename . '"type="video/mp4">' ?>
+                            <?php echo '<source src="' . $filepath . $filename . '"type="video/mp4">' ?>
                         </video>
                         <div id="text-box-area">
                             <textarea name="text-playback" id="text-playback" readonly="true"></textarea>
                         </div>
                         <div id="image-area"></div>
                     </div>
-                </div>
             </div>
             <div id="video-controls">
                 <br>

@@ -75,13 +75,7 @@ $(document).ready(function () {
 
 
     video.addEventListener('loadeddata', function () {
-        var vidHeight = video.videoHeight;
-        var vidWidth = video.videoWidth;
-        var textArea = document.getElementById("comments");
-        div.style.height = parseInt(vidHeight) + "px";
-        div.style.width = parseInt(vidWidth) + "px";
-
-        videoArea.style.height = parseInt(vidHeight) + "px";
+        var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
         videoArea.style.width = parseInt(vidWidth) + "px";
     });
 
