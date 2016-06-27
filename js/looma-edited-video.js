@@ -59,7 +59,7 @@ $(document).ready(function () {
                         document.getElementById("image-area").removeChild(currentImage);
                     }
 
-                    show_image(commands.filePaths[0], 480, 270, "I just love images!")
+                    show_image(commands.filePaths[0], "Image not found");
                     commands.filePaths.splice(0, 1);
                     video.pause();
                     playButton.innerHTML = "Play";
@@ -75,6 +75,15 @@ $(document).ready(function () {
 
 
     video.addEventListener('loadeddata', function () {
+        /*var vidHeight = video.videoHeight;
+        var vidWidth = video.videoWidth;
+        var textArea = document.getElementById("comments");
+        div.style.height = parseInt(vidHeight) + "px";
+        div.style.width = parseInt(vidWidth) + "px";
+
+        videoArea.style.height = parseInt(vidHeight) + "px";
+        videoArea.style.width = parseInt(vidWidth) + "px";*/
+        
         var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
         videoArea.style.width = parseInt(vidWidth) + "px";
     });
@@ -173,12 +182,13 @@ $(document).ready(function () {
 
     });
 
-    function show_image(src, width, height, alt) {
+    function show_image(src, alt) {
         var img = document.createElement("img");
         img.src = src;
-        img.width = width;
-        img.height = height;
+        //img.width = 100%;
+        //img.height = 100%;
         img.alt = alt;
+        img.setAttribute("id", "image");
         currentImage = img;
         document.getElementById("image-area").appendChild(img);
     }

@@ -95,3 +95,8 @@ button#fullscreen-control {
 #next-frame {
     height: 50%;
 }
+
+#image {
+    width: 100%;
+    height: 100%;
+}
