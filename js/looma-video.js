@@ -367,10 +367,11 @@ $(document).ready(function () {
     function show_text_timeline(message) {
         var text = document.createElement("textarea");
         text.value = message;
-        text.width = timelineImageWidth;
-        text.height = timelineImageHeight;
-        text.style.resize = false;
-        text.style.color = black;
+        text.style.width = timelineImageWidth + "px";
+        text.style.height = timelineImageHeight + "px";
+        text.style.resize = "none";
+        text.style.color = "black";
+        text.readOnly = "readOnly";
         document.getElementById("timeline-area").appendChild(text);
     }
     
