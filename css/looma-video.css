@@ -102,7 +102,8 @@ button#fullscreen-control {
 }
 
 #image-previews {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     display: none;
     white-space: nowrap;
     height: 10%;
