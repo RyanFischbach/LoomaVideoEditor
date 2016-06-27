@@ -80,36 +80,73 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 </div>
                 
                     <div id="edit-controls">
-                        <button type="button" class="media" id="edit" style="margin-top:0px;">
+                        <button type="button" class="media hidden_button" id="cancel">
+                            <?php keyword('Cancel') ?>
+                        </button>
+                        
+                        <button type="button" class="media" id="edit">
                             <?php keyword('Edit') ?>
                         </button>
                     
-                        <button type="button" class="media hidden_button" id="text" style="display:none;margin-top:0px;">
+                        <button type="button" class="media hidden_button" id="text">
                             <?php keyword('Text') ?>
                         </button>
                     
-                        <button type="button" class="media hidden_button" id="image" style="display:none;margin-top:0px;">
+                        <button type="button" class="media hidden_button" id="image">
                             <?php keyword('Image') ?>
                         </button>
+                        
+                        <button type="button" class="media hidden_button" id="pdf">
+                            <?php keyword('PDF') ?>
+                        </button>
                     
-                        <button type="button" class="media hidden_button" id="submit" style="display:none;margin-top:0px;">
+                        <button type="button" class="media hidden_button" id="submit">
                             <?php keyword('Submit') ?>
                         </button>
                     
                         <br>
                     
-                        <button type="button" class="media hidden_button" id="prev-frame" style="display:none;">
+                        <button type="button" class="media hidden_button" id="prev-frame">
                             <?php keyword('-') ?>
                         </button>
                     
-                        <button type="button" class="media hidden_button" id="next-frame" style="display:none;">
+                        <button type="button" class="media hidden_button" id="next-frame">
                             <?php keyword('+') ?>
                         </button>
                     
                     </div>
                 
                 <div id="image-previews">
-                    <?php include ('looma-video-editor-imageViewer.php') ?>
+                    <!-- include ('looma-video-editor-imageViewer.php') -->
+                    <?php
+
+                        $imagePath = '../content/pictures/';
+                        $dirImageArr = array();
+                        $imageArr = array();
+    
+                        if (is_dir($imagePath))
+                        {
+                            $dirImageArr = glob($imagePath . "*.{jpg,jpeg,gif,png}", GLOB_BRACE);
+                        }
+
+                        // Remove all thumbnails from array of image previews
+                        for ($i = 0; $i < count($dirImageArr); $i++)
+                        {
+                            if (strrpos($dirImageArr[$i], "_thumb") == false)
+                            {
+                                array_push($imageArr, $dirImageArr[$i]);
+                            }
+                        }
+    
+
+                        // Need to create a table with max buttons = 3
+
+                        for ($i = 0; $i < count($imageArr); $i++)
+                        {
+                            /*echo '<input class="imageOption" id="' . $imageArr[$i] . '" type="image" src="' . $imageArr[$i] . '" width="150" height="90" />';*/
+                            echo '<div class="img"><input class="image-option" type="image" src="' . $imageArr[$i] . '" /></div>';
+                        }
+                    ?>
                 </div>
                 
             </div>

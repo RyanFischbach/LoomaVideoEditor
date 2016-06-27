@@ -33,19 +33,20 @@ $(document).ready(function () {
 	var muteButton = document.getElementById("mute");
     
     // Edit Controls
+    var cancelButton = document.getElementById("cancel");
 	var editButton = document.getElementById("edit");
 	var textButton = document.getElementById("text");
+    var imageButton = document.getElementById("image");
+    var pdfButton = document.getElementById("pdf");
     var submitButton = document.getElementById("submit");
     var nextFrameButton = document.getElementById("next-frame");
     var prevFrameButton = document.getElementById("prev-frame");
 
 	// Text Area
 	var textArea = document.getElementById("comments");
-	//var rectangle = document.getElementById("rectangle");
 
     // Image Preview Div
     var imagePreviewDiv = document.getElementById("image-previews");
-    var imageButton = document.getElementById("image");
     var imageOptionButtons = document.getElementsByClassName("image-option");
 	
 	// Sliders
@@ -55,6 +56,7 @@ $(document).ready(function () {
     // Other Variables
     var edited = false;
     var currentImage = null;
+    var currentEdit = "";
 
     // Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
@@ -141,11 +143,13 @@ $(document).ready(function () {
 
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
-		if (editButton.innerHTML == "Done") 
+		if (editButton.innerHTML == "Save") 
         {
             // Hide Edit Controls
+            cancelButton.style.display = "none";
             textButton.style.display = 'none';
             imageButton.style.display = "none";
+            pdfButton.style.display = "none";
             textArea.style.display = 'none';
             submitButton.style.display = 'none';
             nextFrameButton.style.display = "none";
@@ -174,8 +178,7 @@ $(document).ready(function () {
 
             }
 
-            //var jsonString = JSON.stringify(editsObj);
-            //console.log(editsObj.filePaths[0]);
+            // Send to server to save as a txt file
             $.ajax("looma-video-editor-textConverter.php", {
                 data: editsObj,
                 method: "POST"
@@ -187,13 +190,16 @@ $(document).ready(function () {
             mediaControls.style.display = "none";
             
             // Display edit options
+            editButton.style.display = "none";
+            cancelButton.style.display = "inline";
             textButton.style.display = 'inline';
             imageButton.style.display = 'inline';
+            pdfButton.style.display = "inline";
             nextFrameButton.style.display = "inline";
             prevFrameButton.style.display = "inline";
 
-            // change the edit button to say done
-            editButton.innerHTML = "Done";
+            // change the edit button to say save
+            editButton.innerHTML = "Save";
 
             video.pause();
 
@@ -203,9 +209,65 @@ $(document).ready(function () {
 
     });
     
+    cancelButton.addEventListener("click", function () {
+        // Hide Edit Controls
+        cancelButton.style.display = "none";
+        textButton.style.display = 'none';
+        imageButton.style.display = "none";
+        pdfButton.style.display = "none";
+        textArea.style.display = 'none';
+        submitButton.style.display = 'none';
+        nextFrameButton.style.display = "none";
+        prevFrameButton.style.display = "none";
+
+        imagePreviewDiv.style.display = "none";
+        
+        // Redisplay media controls
+        mediaControls.style.display = "block";
+        
+        // Redisplay edit button
+        editButton.style.display = "inline";
+
+        // change the edit button to say edit
+        editButton.innerHTML = "Edit";
+
+        video.pause();
+        
+        // Remove edits
+        if (currentEdit == "text")
+        {
+            editsObj.fileTypes.pop();
+            editsObj.videoTimes.pop();
+            editsObj.videoText.pop();
+        }
+        else if (currentEdit == "image")
+        {
+            editsObj.fileTypes.pop();
+            editsObj.videoTimes.pop();
+            editsObj.filePaths.pop();
+            
+            //Removes image overlay
+            currentImage = null;
+            edited = true;
+            image_src = null;
+        }
+        else if (currentEdit == "pdf")
+        {
+            /*
+            editsObj.fileTypes.pop();
+            editsObj.videoTimes.pop();
+            editsObj.filePaths.pop();
+            */
+        }
+        
+        //playButton.innerHTML = "Play";
+    });
+    
     // Event listener for the text button
 	textButton.addEventListener("click", function () {
 		//Hide Controls
+        cancelButton.style.display = "none";
+        pdfButton.style.display = "none";
         textButton.style.display = "none";
         imageButton.style.display = "none";
         editButton.style.display = "none";
@@ -221,16 +283,30 @@ $(document).ready(function () {
 		submitButton.style.display = "inline";
 	});
     
+    pdfButton.addEventListener("click", function() {
+       // Hide controls
+        pdfButton.style.display = "none";
+        textButton.style.display = "none";
+        imageButton.style.display = "none";
+        mediaControls.style.display = "none";
+        nextFrameButton.style.display = "none";
+        prevFrameButton.style.display = "none";
+        
+        // Show edit button
+        editButton.style.display = "inline";
+        
+        // Update current edit state
+        currentEdit = "pdf";
+    });
+    
     // Event listener for submit button
     submitButton.addEventListener("click", function () {
         // Redisplay Edit Controls
+        cancelButton.style.display = "inline";
         editButton.style.display = "inline";
-        /*
-        textButton.style.display = "inline";
-        imageButton.style.display = "inline";
-        nextFrameButton.style.display = "inline";
-        prevFrameButton.style.display = "inline";
-        */
+        
+        // Update current edit state
+        currentEdit = "text";
             
         // get text from text area
         var text = textArea.value;
@@ -256,11 +332,18 @@ $(document).ready(function () {
     imageButton.addEventListener("click", function () {
 
         // Hide Controls
+        pdfButton.style.display = "none";
         textButton.style.display = "none";
         imageButton.style.display = "none";
         mediaControls.style.display = "none";
         nextFrameButton.style.display = "none";
         prevFrameButton.style.display = "none";
+        
+        // Show edit button
+        editButton.style.display = "inline";
+        
+        // Update current edit state
+        currentEdit = "image";
 
         // Show all images for images
         imagePreviewDiv.style.display = "block";
