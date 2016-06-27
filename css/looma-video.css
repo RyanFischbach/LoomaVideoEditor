@@ -106,7 +106,7 @@ button#fullscreen-control {
     overflow-y: hidden;
     display: none;
     white-space: nowrap;
-    height: 10%;
+    height: 20%;
 }
 
 div.img {
