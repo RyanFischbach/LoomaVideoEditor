@@ -62,6 +62,10 @@ $(document).ready(function () {
 		screenfull.toggle(video);
 	});
     
+    //Var for timeline
+    var timelineImageHeight;
+    var timelineImageWidth;
+    
     // Event Listeners
     
     // Video Event Listener
@@ -70,6 +74,14 @@ $(document).ready(function () {
         var videoArea = document.getElementById("video-area");
         videoArea.style.width = parseInt(vidWidth) + "px"; 
         
+        var videoPlayer = document.getElementById("video-player");
+        var timelineArea = document.getElementById("timeline-area");
+
+        timelineArea.style.width = ((videoPlayer.offsetWidth/2) - (video.offsetWidth/2)) + "px";
+        timelineArea.style.height = video.offsetHeight + "px";
+        
+        timelineImageWidth = timelineArea.offsetWidth/2;
+        timelineImageHeight = timelineArea.offsetHeight/6;
         /*var textArea = document.getElementById("comments");
         textArea.style.height = parseInt(vidHeight) + "px";
         textArea.style.width = parseInt(vidWidth) + "px"; */
@@ -85,17 +97,17 @@ $(document).ready(function () {
             // Update the button text to 'Pause'
             playButton.innerHTML = "Pause";
             
-            /*
+            
             if(edited == true)
             {
-                show_image_timeline(thumbFile, 150, 90);
+                show_image_timeline(thumbFile);
                 edited = false;
             }
             if(currentImage != null)
             {
                 document.getElementById("image-area").removeChild(currentImage);
                 currentImage = null;
-            }*/        
+            }        
         } 
         else 
         {
@@ -141,16 +153,6 @@ $(document).ready(function () {
 
             imagePreviewDiv.style.display = "none";
             
-            if(edited == true)
-            {
-                show_image_timeline(thumbFile, 150, 90);
-                edited = false;
-            }
-            if(currentImage != null)
-            {
-                document.getElementById("image-area").removeChild(currentImage);
-                currentImage = null;
-            }
             
             // Redisplay media controls
             mediaControls.style.display = "block";
@@ -165,7 +167,7 @@ $(document).ready(function () {
             {
                 if(image_src != null)
                 {
-                    show_image_timeline(image_src, 150, 90);
+                    show_image_timeline(image_src);
                     edited = true;
                     image_src = null;
                 }
@@ -266,11 +268,11 @@ $(document).ready(function () {
     
     // Show image previews in timeline
     
-    function show_image_timeline(src, width, height) {
+    function show_image_timeline(src) {
         var img = document.createElement("img");
         img.src = src;
-        img.width = width;
-        img.height = height;
+        img.width = timelineImageWidth;
+        img.height = timelineImageHeight;
         document.getElementById("timeline-area").appendChild(img);
     }
     
@@ -309,10 +311,6 @@ $(document).ready(function () {
         img.src = src;
         img.style.height = "100%";
         img.style.width = "100%";
-        /*
-        img.width = '480';
-        img.height = '270';
-        */
         currentImage = img;
         document.getElementById("image-area").appendChild(img);
     }
