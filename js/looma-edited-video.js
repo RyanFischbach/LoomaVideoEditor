@@ -188,7 +188,7 @@ $(document).ready(function () {
         //img.width = 100%;
         //img.height = 100%;
         img.alt = alt;
-        img.setAttribute("id", "image");
+        img.setAttribute("id", "image-overlay");
         currentImage = img;
         document.getElementById("image-area").appendChild(img);
     }

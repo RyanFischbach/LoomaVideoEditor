@@ -46,7 +46,7 @@ $(document).ready(function () {
     // Image Preview Div
     var imagePreviewDiv = document.getElementById("image-previews");
     var imageButton = document.getElementById("image");
-    var imageOptionButtons = document.getElementsByClassName("imageOption");
+    var imageOptionButtons = document.getElementsByClassName("image-option");
 	
 	// Sliders
 	var seekBar = document.getElementById("seek-bar");

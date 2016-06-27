@@ -60,7 +60,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <div id="timeline-area"></div>
                     </div>
 
-                    <div id="media-controls">
+                <div id="media-controls">
 
                     <button id="fullscreen-control"></button>
                         
@@ -106,11 +106,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             <?php keyword('+') ?>
                         </button>
                     
-                        <div id="image-previews" style="overflow:auto;display:none;width:480px;height:270px;margin:auto;">
-                            <?php include ('looma-video-editor-imageViewer.php') ?>
-                        </div> 
-                    
                     </div>
+                
+                <div id="image-previews">
+                    <?php include ('looma-video-editor-imageViewer.php') ?>
+                </div>
                 
             </div>
             <?php include ('includes/toolbar.php'); ?>

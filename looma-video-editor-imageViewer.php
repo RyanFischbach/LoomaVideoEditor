@@ -26,6 +26,7 @@
 
     for ($i = 0; $i < count($imageArr); $i++)
     {
-        echo '<input class="imageOption" id="' . $imageArr[$i] . '" type="image" src="' . $imageArr[$i] . '" width="150" height="90" />';
+        /*echo '<input class="imageOption" id="' . $imageArr[$i] . '" type="image" src="' . $imageArr[$i] . '" width="150" height="90" />';*/
+        echo '<div class="img"><input class="image-option" type="image" src="' . $imageArr[$i] . '" /></div>';
     }
 ?>
