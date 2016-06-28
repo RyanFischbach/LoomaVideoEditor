@@ -1,3 +1,13 @@
+<!--
+Name: Aaron, Connor, Ryan
+Email: skip@stritter.com
+Owner: VillageTech Solutions (villagetechsolutions.org)
+Date: 2016 06
+Revision: Looma Video Editor 0.1
+File: video-editor-file-viewer.php
+Description: Accesses files for the video editor
+-->
+
 <?php
     include ('includes/mongo-connect.php');
                                 
