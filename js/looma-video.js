@@ -87,21 +87,22 @@ $(document).ready(function () {
 
 	// Video Event Listener
 	video.addEventListener('loadeddata', function () {
+        //Sets the video-area to the size of the video by finding the calculated width of the video
 		var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
 		var videoArea = document.getElementById("video-area");
 		videoArea.style.width = parseInt(vidWidth) + "px";
 
 		var videoPlayer = document.getElementById("video-player");
 		var timelineArea = document.getElementById("timeline-area");
-
+        
+        //Makes the timline area fills the space to the left of the video
 		timelineArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
 		timelineArea.style.height = video.offsetHeight + "px";
-
+        
+        //The timeline puts 2 images across leaving 30px for the scrollbar
 		timelineImageWidth = (timelineArea.offsetWidth / 2) - 15;
+        //There can be 6 rows of images before a scrollbar is created
 		timelineImageHeight = timelineArea.offsetHeight / 6;
-		/*var textArea = document.getElementById("comments");
-		textArea.style.height = parseInt(vidHeight) + "px";
-		textArea.style.width = parseInt(vidWidth) + "px"; */
 	});
 
 	// Play Button Event Listener
@@ -113,16 +114,18 @@ $(document).ready(function () {
 			// Update the button text to 'Pause'
 			playButton.innerHTML = "Pause";
 
-
+            //When the user hits play after making an edit it adds the thumbnail of the video to the timeline
 			if (edited == true) {
 				show_image_timeline(thumbFile);
 				edited = false;
 			}
+            //If an image is showing it removes it
 			if (currentImage != null) {
 				document.getElementById("image-area").removeChild(currentImage);
 				currentImage = null;
 			}
-		} else {
+		} 
+        else {
 			// Pause the video
 			video.pause();
 
@@ -164,7 +167,7 @@ $(document).ready(function () {
 
             video.pause();
 
-            //Removes image overlay            
+            //Displays perview for image          
             if(editsObj.filePaths.length != 0)
             {
                 if(image_src != null)
@@ -245,11 +248,11 @@ $(document).ready(function () {
         }
         else if (currentEdit == "pdf")
         {
-            /*
+            
             editsObj.fileTypes.pop();
             editsObj.videoTimes.pop();
             editsObj.filePaths.pop();
-            */
+            
         }
         
         currentEdit = "";
@@ -338,6 +341,7 @@ $(document).ready(function () {
         
         //Add timeline display
         show_text_timeline(textArea.value);
+        edited = true;
         
         //If there is an image it removes it
         if (currentImage != null) {
@@ -365,7 +369,6 @@ $(document).ready(function () {
     });
     
     // Show image previews in timeline
-    
     function show_image_timeline(src) {
         var img = document.createElement("img");
         img.src = src;
@@ -374,6 +377,7 @@ $(document).ready(function () {
         document.getElementById("timeline-area").appendChild(img);
     }
     
+    //Displays text box for timeline
     function show_text_timeline(message) {
         var text = document.createElement("textarea");
         text.value = message;
@@ -387,9 +391,8 @@ $(document).ready(function () {
     }
     
     // Functions for showing image previews for selecting an image
-    
     var image_src = "";
-    // var image_name = "";
+    
     for (var i = 0; i < imageOptionButtons.length; i++) {
         imageOptionButtons[i].addEventListener("click", function () {
 
@@ -417,7 +420,8 @@ $(document).ready(function () {
         });
         image_src = "";
     }
-
+    
+    //Shows the image over the video as a preview
     function show_image_preview(src) {
         var img = document.createElement("img");
         img.src = src;
@@ -429,12 +433,12 @@ $(document).ready(function () {
     
     // nextFrameButton Event Listener
     nextFrameButton.addEventListener("click", function () {
-        video.currentTime += (1 / 29.97);
+        video.currentTime += (5 / 29.97);
     });
     
     // prevFrameButton Event Listener
     prevFrameButton.addEventListener("click", function () {
-        video.currentTime -= (1 / 29.97);
+        video.currentTime -= (5 / 29.97);
     });
 
     // Event listener for the seek bar
