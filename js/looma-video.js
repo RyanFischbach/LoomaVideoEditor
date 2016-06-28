@@ -69,6 +69,15 @@ $(document).ready(function () {
 	//Var for timeline
 	var timelineImageHeight;
 	var timelineImageWidth;
+    
+    // Useful Functions
+    function hideElements (elements)
+    {
+        for (var x = 0; x < elements.length; x++)
+        {
+            elements[x].style.display = "none";    
+        }
+    }
 
 	// Event Listeners
 
@@ -140,18 +149,8 @@ $(document).ready(function () {
 		if (editButton.innerHTML == "Save") 
         {
             // Hide Edit Controls
-            cancelButton.style.display = "none";
-            textButton.style.display = 'none';
-            imageButton.style.display = "none";
-            pdfButton.style.display = "none";
-            textArea.style.display = 'none';
-            submitButton.style.display = 'none';
-            nextFrameButton.style.display = "none";
-            prevFrameButton.style.display = "none";
-            textArea.style.display = "none";
-
-            imagePreviewDiv.style.display = "none";
-            
+            var elements = [cancelButton, textButton, imageButton, pdfButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv];
+            hideElements(elements);
             
             // Redisplay media controls
             mediaControls.style.display = "block";
@@ -182,10 +181,9 @@ $(document).ready(function () {
 		else
 		{
             // Hide Media controls
-            mediaControls.style.display = "none";
+            hideElements([mediaControls, editButton]);
             
             // Display edit options
-            editButton.style.display = "none";
             cancelButton.style.display = "inline";
             textButton.style.display = 'inline';
             imageButton.style.display = 'inline';
@@ -206,17 +204,7 @@ $(document).ready(function () {
     
     cancelButton.addEventListener("click", function () {
         // Hide Edit Controls
-        cancelButton.style.display = "none";
-        textButton.style.display = 'none';
-        imageButton.style.display = "none";
-        pdfButton.style.display = "none";
-        textArea.style.display = 'none';
-        submitButton.style.display = 'none';
-        nextFrameButton.style.display = "none";
-        prevFrameButton.style.display = "none";
-        textArea.style.display = "none";
-
-        imagePreviewDiv.style.display = "none";
+        hideElements([cancelButton, textButton, imageButton, pdfButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv]);
         
         // Redisplay media controls
         mediaControls.style.display = "block";
@@ -267,14 +255,7 @@ $(document).ready(function () {
 	// Event listener for the text button
 	textButton.addEventListener("click", function () {
 		//Hide Controls
-		cancelButton.style.display = "none";
-		pdfButton.style.display = "none";
-		textButton.style.display = "none";
-		imageButton.style.display = "none";
-		editButton.style.display = "none";
-		mediaControls.style.display = "none";
-		nextFrameButton.style.display = "none";
-		prevFrameButton.style.display = "none";
+        hideElements([cancelButton, pdfButton, textButton, imageButton, editButton, mediaControls, nextFrameButton, prevFrameButton]);
 
 		// Clear Text Area
 		textArea.value = "";
@@ -286,12 +267,7 @@ $(document).ready(function () {
     
     pdfButton.addEventListener("click", function() {
        // Hide controls
-        pdfButton.style.display = "none";
-        textButton.style.display = "none";
-        imageButton.style.display = "none";
-        mediaControls.style.display = "none";
-        nextFrameButton.style.display = "none";
-        prevFrameButton.style.display = "none";
+        hideElements([pdfButton, textButton, imageButton, mediaControls, nextFrameButton, prevFrameButton]);
         
         // Show edit button
         editButton.style.display = "inline";
@@ -340,12 +316,7 @@ $(document).ready(function () {
     imageButton.addEventListener("click", function () {
 
         // Hide Controls
-        pdfButton.style.display = "none";
-        textButton.style.display = "none";
-        imageButton.style.display = "none";
-        mediaControls.style.display = "none";
-        nextFrameButton.style.display = "none";
-        prevFrameButton.style.display = "none";
+        hideElements([pdfButton, textButton, imageButton, mediaControls, nextFrameButton, prevFrameButton]);
         
         // Show edit button
         editButton.style.display = "inline";
