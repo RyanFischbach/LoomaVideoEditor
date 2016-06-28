@@ -29,96 +29,96 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="css/looma-video.css">
+	<link rel="stylesheet" type="text/css" href="css/looma-video.css">
 
-</head>
+	</head>
 
-    <body>
-        <?php
+	<body>
+		<?php
             $filename = $_REQUEST['fn'];
             $filepath = $_REQUEST['fp'];
             $thumbFile = $filepath . thumbnail($filename);
 	    ?>
-        <script>
-            var thumbFile = <?php echo json_encode($thumbFile); ?>;
-        </script>
-        
-            <div id="main-container-horizontal">
-                    <div id="video-player">
-                        <div id="video-area">
-                            <video id="video">
-                                <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
-                                <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
-                            </video>
-                            <div id="text-box-area">
-                                <form class="media hidden_button" id="text-box">
-                                    <textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
-                                </form>
-                            </div>
-                            <div id="image-area"></div>
-                        </div>
-                        <div id="timeline-area"></div>
-                    </div>
+			<script>
+				var thumbFile = <?php echo json_encode($thumbFile); ?>;
+			</script>
 
-                <div id="media-controls">
+			<div id="main-container-horizontal">
+				<div id="video-player">
+					<div id="video-area">
+						<video id="video">
+							<?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
+								<?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
+						</video>
+						<div id="text-box-area">
+							<form class="media hidden_button" id="text-box">
+								<textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
+							</form>
+						</div>
+						<div id="image-area"></div>
+					</div>
+					<div id="timeline-area"></div>
+				</div>
 
-                    <button id="fullscreen-control"></button>
-                        
-                    <button type="button" class="media" id="play-pause">
-                        <?php keyword('Play') ?>
-                    </button>
-                    <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
-                    <br>
-                    <button type="button" class="media" id="volume">
-                        <?php keyword('Volume') ?>
-                    </button>
-                    <input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
-                    <br>
-                    <button type="button" class="media" id="mute">
-                        <?php keyword('Mute') ?>
-                    </button>
-                </div>
-                
-                    <div id="edit-controls">
-                        <button type="button" class="media hidden_button" id="cancel">
-                            <?php keyword('Cancel') ?>
-                        </button>
-                        
-                        <button type="button" class="media" id="edit">
-                            <?php keyword('Edit') ?>
-                        </button>
-                    
-                        <button type="button" class="media hidden_button" id="text">
-                            <?php keyword('Text') ?>
-                        </button>
-                    
-                        <button type="button" class="media hidden_button" id="image">
-                            <?php keyword('Image') ?>
-                        </button>
-                        
-                        <button type="button" class="media hidden_button" id="pdf">
-                            <?php keyword('PDF') ?>
-                        </button>
-                    
-                        <button type="button" class="media hidden_button" id="submit">
-                            <?php keyword('Submit') ?>
-                        </button>
-                    
-                        <br>
-                    
-                        <button type="button" class="media hidden_button" id="prev-frame">
-                            <?php keyword('-') ?>
-                        </button>
-                    
-                        <button type="button" class="media hidden_button" id="next-frame">
-                            <?php keyword('+') ?>
-                        </button>
-                    
-                    </div>
-                
-                <div id="image-previews">
-                    <!-- include ('looma-video-editor-imageViewer.php') -->
-                    <?php
+				<div id="media-controls">
+
+					<button id="fullscreen-control"></button>
+
+					<button type="button" class="media" id="play-pause">
+						<?php keyword('Play') ?>
+					</button>
+					<input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
+					<br>
+					<button type="button" class="media" id="volume">
+						<?php keyword('Volume') ?>
+					</button>
+					<input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
+					<br>
+					<button type="button" class="media" id="mute">
+						<?php keyword('Mute') ?>
+					</button>
+				</div>
+
+				<div id="edit-controls">
+					<button type="button" class="media hidden_button" id="cancel">
+						<?php keyword('Cancel') ?>
+					</button>
+
+					<button type="button" class="media" id="edit">
+						<?php keyword('Edit') ?>
+					</button>
+
+					<button type="button" class="media hidden_button" id="text">
+						<?php keyword('Text') ?>
+					</button>
+
+					<button type="button" class="media hidden_button" id="image">
+						<?php keyword('Image') ?>
+					</button>
+
+					<button type="button" class="media hidden_button" id="pdf">
+						<?php keyword('PDF') ?>
+					</button>
+
+					<button type="button" class="media hidden_button" id="submit">
+						<?php keyword('Submit') ?>
+					</button>
+
+					<br>
+
+					<button type="button" class="media hidden_button" id="prev-frame">
+						<?php keyword('-') ?>
+					</button>
+
+					<button type="button" class="media hidden_button" id="next-frame">
+						<?php keyword('+') ?>
+					</button>
+
+				</div>
+
+				<div id="image-previews">
+					<!-- include ('looma-video-editor-imageViewer.php') -->
+					<?php
 
                         $imagePath = '../content/pictures/';
                         $dirImageArr = array();
@@ -147,24 +147,24 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             echo '<div class="img"><input class="image-option" type="image" src="' . $imageArr[$i] . '" /></div>';
                         }
                     ?>
-                </div>
-                
-            </div>
-            <?php include ('includes/toolbar.php'); ?>
-            <?php include ('includes/js-includes.php'); ?>
-            <script src="js/looma-screenfull.js"></script>
-        
-        <script src="js/looma-video.js"></script>
-          
-        <!-- Update Video Name in looma-video.js -->
-        <script>
-            var videoName = "<?php echo $filename; ?>";
-            /*
-            // Remove extension from videoName
-            var strlen = videoName.length;
-            videoName = videoName.substring(0, strlen - 4);*/
-            editsObj.videoName = videoName;
-            //DEBUG console.log(editsObj.videoName);
-        </script>
-        
-</body>
+				</div>
+
+			</div>
+			<?php include ('includes/toolbar.php'); ?>
+				<?php include ('includes/js-includes.php'); ?>
+					<script src="js/looma-screenfull.js"></script>
+
+					<script src="js/looma-video.js"></script>
+
+					<!-- Update Video Name in looma-video.js -->
+					<script>
+						var videoName = "<?php echo $filename; ?>";
+						/*
+						// Remove extension from videoName
+						var strlen = videoName.length;
+						videoName = videoName.substring(0, strlen - 4);*/
+						editsObj.videoName = videoName;
+						//DEBUG console.log(editsObj.videoName);
+					</script>
+
+	</body>

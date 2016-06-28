@@ -13,194 +13,184 @@ Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
 'use strict';
 $(document).ready(function () {
 
-    // Video
-    var video = document.getElementById("video");
+	// Video
+	var video = document.getElementById("video");
 
-    // Buttons
-    var playButton = document.getElementById("play-pause");
-    var muteButton = document.getElementById("mute");
+	// Buttons
+	var playButton = document.getElementById("play-pause");
+	var muteButton = document.getElementById("mute");
 
-    // Sliders
-    var seekBar = document.getElementById("seek-bar");
-    var volumeBar = document.getElementById("volume-bar");
+	// Sliders
+	var seekBar = document.getElementById("seek-bar");
+	var volumeBar = document.getElementById("volume-bar");
 
-    var videoArea = document.getElementById("video-area");
-    var div = document.getElementById("text-box-area");
-    var textArea = document.getElementById("text-playback");
+	var videoArea = document.getElementById("video-area");
+	var div = document.getElementById("text-box-area");
+	var textArea = document.getElementById("text-playback");
 
-    var currentImage = null;
+	var currentImage = null;
 
-    $('#fullscreen-control').click(function (e) {
-        e.preventDefault();
-        screenfull.toggle(videoArea);
-    });
+	$('#fullscreen-control').click(function (e) {
+		e.preventDefault();
+		screenfull.toggle(videoArea);
+	});
 
-    function checkTime() {
-        if (commands.videoTimes.length > 0) {
-            //While there are still annotatins in the video
-            if (commands.videoTimes[0] <= video.currentTime) {
-                //If we have passed the time stamp for the next annotation 
-                //play check the type and delete that time stamp
-                commands.videoTimes.splice(0, 1);
-                if (commands.fileTypes[0] == "text") {
-                    //If the type is a text file create a overlay and put the text there and pause the video
-                    commands.fileTypes.splice(0, 1);
-                    var message = commands.videoText[0];
-                    commands.videoText.splice(0, 1);
-                    textArea.value = message;
-                    textArea.style.display = 'inline-block';
-                    video.pause();
-                    playButton.innerHTML = "Play";
-                } 
-                else if (commands.fileTypes[0] == "image") {
-                    commands.fileTypes.splice(0, 1);
+	function checkTime() {
+		if (commands.videoTimes.length > 0) {
+			//While there are still annotatins in the video
+			if (commands.videoTimes[0] <= video.currentTime) {
+				//If we have passed the time stamp for the next annotation 
+				//play check the type and delete that time stamp
+				commands.videoTimes.splice(0, 1);
+				if (commands.fileTypes[0] == "text") {
+					//If the type is a text file create a overlay and put the text there and pause the video
+					commands.fileTypes.splice(0, 1);
+					var message = commands.videoText[0];
+					commands.videoText.splice(0, 1);
+					textArea.value = message;
+					textArea.style.display = 'inline-block';
+					video.pause();
+					playButton.innerHTML = "Play";
+				} else if (commands.fileTypes[0] == "image") {
+					commands.fileTypes.splice(0, 1);
 
-                    if (currentImage != null) {
-                        document.getElementById("image-area").removeChild(currentImage);
-                    }
+					if (currentImage != null) {
+						document.getElementById("image-area").removeChild(currentImage);
+					}
 
-                    show_image(commands.filePaths[0], "Image not found");
-                    commands.filePaths.splice(0, 1);
-                    video.pause();
-                    playButton.innerHTML = "Play";
-                } 
-            }
-            else {
-                if(!video.paused){
-                    window.requestAnimationFrame(checkTime);
-                }
-            }
-        }
-    }
+					show_image(commands.filePaths[0], "Image not found");
+					commands.filePaths.splice(0, 1);
+					video.pause();
+					playButton.innerHTML = "Play";
+				}
+			} else {
+				if (!video.paused) {
+					window.requestAnimationFrame(checkTime);
+				}
+			}
+		}
+	}
 
 
-    video.addEventListener('loadeddata', function () {
-        /*var vidHeight = video.videoHeight;
-        var vidWidth = video.videoWidth;
-        var textArea = document.getElementById("comments");
-        div.style.height = parseInt(vidHeight) + "px";
-        div.style.width = parseInt(vidWidth) + "px";
+	video.addEventListener('loadeddata', function () {
+		/*var vidHeight = video.videoHeight;
+		var vidWidth = video.videoWidth;
+		var textArea = document.getElementById("comments");
+		div.style.height = parseInt(vidHeight) + "px";
+		div.style.width = parseInt(vidWidth) + "px";
 
-        videoArea.style.height = parseInt(vidHeight) + "px";
-        videoArea.style.width = parseInt(vidWidth) + "px";*/
-        
-        var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
-        videoArea.style.width = parseInt(vidWidth) + "px";
-    });
+		videoArea.style.height = parseInt(vidHeight) + "px";
+		videoArea.style.width = parseInt(vidWidth) + "px";*/
 
-    // Event listener for the play/pause button
-    playButton.addEventListener("click", function () {
-        if (video.paused == true) {
-            // Play the video
-            video.play();
+		var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
+		videoArea.style.width = parseInt(vidWidth) + "px";
+	});
 
-            // Update the button text to 'Pause'
-            playButton.innerHTML = "Pause";
+	// Event listener for the play/pause button
+	playButton.addEventListener("click", function () {
+		if (video.paused == true) {
+			// Play the video
+			video.play();
 
-            //Stop showing the textbox or the image
-            textArea.style.display = "none";
+			// Update the button text to 'Pause'
+			playButton.innerHTML = "Pause";
 
-            //Keeps checking for new things
-            window.requestAnimationFrame(checkTime);
+			//Stop showing the textbox or the image
+			textArea.style.display = "none";
 
-            if (currentImage != null) {
-                document.getElementById("image-area").removeChild(currentImage);
-                currentImage = null;
-            }
-        } 
-        else {
-            // Pause the video
-            video.pause();
+			//Keeps checking for new things
+			window.requestAnimationFrame(checkTime);
 
-            // Update the button text to 'Play'
-            playButton.innerHTML = "Play";
-        }
-    });
+			if (currentImage != null) {
+				document.getElementById("image-area").removeChild(currentImage);
+				currentImage = null;
+			}
+		} else {
+			// Pause the video
+			video.pause();
 
-    // Event listener for the mute button
-    muteButton.addEventListener("click", function () {
-        if (video.muted == false) {
-            // Mute the video
-            video.muted = true;
+			// Update the button text to 'Play'
+			playButton.innerHTML = "Play";
+		}
+	});
 
-            // Update the button text
-            muteButton.innerHTML = "Unmute";
-        } 
-        else {
-            // Unmute the video
-            video.muted = false;
+	// Event listener for the mute button
+	muteButton.addEventListener("click", function () {
+		if (video.muted == false) {
+			// Mute the video
+			video.muted = true;
 
-            // Update the button text
-            muteButton.innerHTML = "Mute";
-        }
-    });
+			// Update the button text
+			muteButton.innerHTML = "Unmute";
+		} else {
+			// Unmute the video
+			video.muted = false;
 
-    // Event listener for the seek bar
-    seekBar.addEventListener("change", function () {
-        // Calculate the new time
-        var time = video.duration * (seekBar.value / 100);
+			// Update the button text
+			muteButton.innerHTML = "Mute";
+		}
+	});
 
-        // Update the video time
-        video.currentTime = time;
-        
-        playButton.innerHTML = "Play"
-        
-        var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
-        commands = moddedBackup;
-        var counter = 0;
-        for(var i = 0; i < commands.videoTimes.length; i++)
-        {
-            if(commands.videoTimes[i] < time)
-            {
-                counter++;
-            }
-        }
-        
-        for(var z = 0; z < counter; z++)
-        {
-            commands.videoTimes.splice(0,1);
-            if(commands.fileTypes[0] == "text")
-            {
-                commands.fileTypes.splice(0,1);
-                commands.videoText.splice(0,1);
-            }
-            else
-            {
-                commands.fileTypes.splice(0,1);
-                commands.filePaths.splice(0,1);
-            }
-        }
-    });
+	// Event listener for the seek bar
+	seekBar.addEventListener("change", function () {
+		// Calculate the new time
+		var time = video.duration * (seekBar.value / 100);
 
-    // Update the seek bar as the video plays
-    video.addEventListener("timeupdate", function () {
-        // Calculate the slider value
-        var value = (100 / video.duration) * video.currentTime;
+		// Update the video time
+		video.currentTime = time;
 
-        // Update the slider value
-        seekBar.value = value;
+		playButton.innerHTML = "Play"
 
-    });
+		var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
+		commands = moddedBackup;
+		var counter = 0;
+		for (var i = 0; i < commands.videoTimes.length; i++) {
+			if (commands.videoTimes[i] < time) {
+				counter++;
+			}
+		}
 
-    function show_image(src, alt) {
-        var img = document.createElement("img");
-        img.src = src;
-        //img.width = 100%;
-        //img.height = 100%;
-        img.alt = alt;
-        img.setAttribute("id", "image-overlay");
-        currentImage = img;
-        document.getElementById("image-area").appendChild(img);
-    }
+		for (var z = 0; z < counter; z++) {
+			commands.videoTimes.splice(0, 1);
+			if (commands.fileTypes[0] == "text") {
+				commands.fileTypes.splice(0, 1);
+				commands.videoText.splice(0, 1);
+			} else {
+				commands.fileTypes.splice(0, 1);
+				commands.filePaths.splice(0, 1);
+			}
+		}
+	});
 
-    // Pause the video when the slider handle is being dragged
-    seekBar.addEventListener("mousedown", function () {
-        video.pause();
-    });
+	// Update the seek bar as the video plays
+	video.addEventListener("timeupdate", function () {
+		// Calculate the slider value
+		var value = (100 / video.duration) * video.currentTime;
 
-    // Event listener for the volume bar
-    volumeBar.addEventListener("change", function () {
-        // Update the video volume
-        video.volume = volumeBar.value;
-    });
+		// Update the slider value
+		seekBar.value = value;
+
+	});
+
+	function show_image(src, alt) {
+		var img = document.createElement("img");
+		img.src = src;
+		//img.width = 100%;
+		//img.height = 100%;
+		img.alt = alt;
+		img.setAttribute("id", "image-overlay");
+		currentImage = img;
+		document.getElementById("image-area").appendChild(img);
+	}
+
+	// Pause the video when the slider handle is being dragged
+	seekBar.addEventListener("mousedown", function () {
+		video.pause();
+	});
+
+	// Event listener for the volume bar
+	volumeBar.addEventListener("change", function () {
+		// Update the video volume
+		video.volume = volumeBar.value;
+	});
 });
