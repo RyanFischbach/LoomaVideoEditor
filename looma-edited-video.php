@@ -70,6 +70,16 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					width: 100%;
 					z-index: 2;
 				}
+                
+                #pdf-area {
+					position: absolute;
+					top: 0px;
+					left: 0px;
+					height: 100%;
+					width: 100%;
+					z-index: 3;
+				}
+                
 			</style>
 
 			<div id="main-container-horizontal">
@@ -83,6 +93,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 							<textarea name="text-playback" id="text-playback" readonly="true"></textarea>
 						</div>
 						<div id="image-area"></div>
+                        <div id="pdf-area"></div>
+                        
 					</div>
 				</div>
 				<div id="video-controls">

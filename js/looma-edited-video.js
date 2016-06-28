@@ -65,7 +65,7 @@ $(document).ready(function () {
 					playButton.innerHTML = "Play";
 				}
                 else if (commands.fileTypes[0] == "pdf") {
-                    
+                    show_pdf(commands.filePaths[0]);
                 }
 			} 
             else {
@@ -75,6 +75,12 @@ $(document).ready(function () {
 			}
 		}
 	}
+    
+    function show_pdf(src) {
+        var pdf = document.createElement("iframe");
+        pdf.src = src;
+        document.getElementById("pdf-area").appendChild(pdf);
+    }
 
 
 	video.addEventListener('loadeddata', function () {
