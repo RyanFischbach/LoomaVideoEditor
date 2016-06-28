@@ -148,6 +148,7 @@ $(document).ready(function () {
             submitButton.style.display = 'none';
             nextFrameButton.style.display = "none";
             prevFrameButton.style.display = "none";
+            textArea.style.display = "none";
 
             imagePreviewDiv.style.display = "none";
             
@@ -213,6 +214,7 @@ $(document).ready(function () {
         submitButton.style.display = 'none';
         nextFrameButton.style.display = "none";
         prevFrameButton.style.display = "none";
+        textArea.style.display = "none";
 
         imagePreviewDiv.style.display = "none";
         
@@ -319,9 +321,8 @@ $(document).ready(function () {
         // Push the text onto the array of edited video text
         editsObj.videoText.push(text);
 
-        // don't show the submit button and text area
+        // don't show the submit button
         submitButton.style.display = "none";
-        textArea.style.display = "none";
         
         //Add timeline display
         show_text_timeline(textArea.value);
