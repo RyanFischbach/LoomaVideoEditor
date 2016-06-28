@@ -48,7 +48,11 @@ $(document).ready(function () {
 
     // Image Preview Div
     var imagePreviewDiv = document.getElementById("image-previews");
-    var imageOptionButtons = document.getElementsByClassName("activity play img");
+    var imageOptionButtons = imagePreviewDiv.children;
+    
+    // PDF Preview Div
+    var pdfPreviewDiv = document.getElementById("pdf-previews");
+    var pdfOptionButtons = pdfPreviewDiv.children;
 
 	// Sliders
 	var seekBar = document.getElementById("seek-bar");
@@ -149,7 +153,7 @@ $(document).ready(function () {
 		if (editButton.innerHTML == "Save") 
         {
             // Hide Edit Controls
-            var elements = [cancelButton, textButton, imageButton, pdfButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv];
+            var elements = [cancelButton, textButton, imageButton, pdfButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv];
             hideElements(elements);
             
             // Redisplay media controls
@@ -204,7 +208,7 @@ $(document).ready(function () {
     
     cancelButton.addEventListener("click", function () {
         // Hide Edit Controls
-        hideElements([cancelButton, textButton, imageButton, pdfButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv]);
+        hideElements([cancelButton, textButton, imageButton, pdfButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv]);
         
         // Redisplay media controls
         mediaControls.style.display = "block";
@@ -274,7 +278,39 @@ $(document).ready(function () {
         
         // Update current edit state
         currentEdit = "pdf";
+        
+        pdfPreviewDiv.style.display = "inline-block";
     });
+    
+    // Functions for showing pdf previews for selecting a pdf
+    
+    var pdf_src = "";
+    for (var i = 0; i < pdfOptionButtons.length; i++)
+    {
+        pdfOptionButtons[i].addEventListener("click", function () {
+
+            // Store the type of file
+            editsObj.fileTypes.push("pdf");
+
+            //this.style.display = "none";
+
+            // Store the current video time
+            editsObj.videoTimes.push(video.currentTime);
+
+            pdf_src = $(this).data("fp") + $(this).data("fn");
+
+            editsObj.filePaths.push(pdf_src);
+
+            // Might not need this
+            if (currentImage != null) {
+                document.getElementById("image-area").removeChild(currentImage);
+            }
+
+            // Display pdf over video
+            //show_pdf_preview(pdf_src);
+        });
+        pdf_src = "";
+    }
     
     // Event listener for submit button
     submitButton.addEventListener("click", function () {
@@ -379,6 +415,7 @@ $(document).ready(function () {
             // Display image over video
             show_image_preview(image_src);
         });
+        image_src = "";
     }
 
     function show_image_preview(src) {
