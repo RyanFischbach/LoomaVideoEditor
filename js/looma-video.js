@@ -326,6 +326,11 @@ $(document).ready(function () {
         //Add timeline display
         show_text_timeline(textArea.value);
         
+        //If there is an image it removes it
+        if (currentImage != null) {
+            document.getElementById("image-area").removeChild(currentImage);
+            currentImage = null;
+        }
         // return true for some reason
         return true;
     });
