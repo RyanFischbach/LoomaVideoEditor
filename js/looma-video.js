@@ -57,6 +57,7 @@ $(document).ready(function () {
     var edited = false;
     var currentImage = null;
     var currentEdit = "";
+    var currentText = null;
 
     // Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
@@ -239,6 +240,8 @@ $(document).ready(function () {
             editsObj.fileTypes.pop();
             editsObj.videoTimes.pop();
             editsObj.videoText.pop();
+            document.getElementById("timeline-area").removeChild(currentText);
+            currentText = null;
         }
         else if (currentEdit == "image")
         {
@@ -373,6 +376,7 @@ $(document).ready(function () {
         text.style.resize = "none";
         text.style.color = "black";
         text.readOnly = "readOnly";
+        currentText = text;
         document.getElementById("timeline-area").appendChild(text);
     }
     
