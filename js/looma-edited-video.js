@@ -29,6 +29,7 @@ $(document).ready(function () {
 	var textArea = document.getElementById("text-playback");
 
 	var currentImage = null;
+    var currentPdf = null;
 
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
@@ -66,6 +67,8 @@ $(document).ready(function () {
 				}
                 else if (commands.fileTypes[0] == "pdf") {
                     show_pdf(commands.filePaths[0]);
+                    video.pause();
+					playButton.innerHTML = "Play";
                 }
 			} 
             else {
@@ -79,6 +82,7 @@ $(document).ready(function () {
     function show_pdf(src) {
         var pdf = document.createElement("iframe");
         pdf.src = src;
+        currentPdf = pdf;
         document.getElementById("pdf-area").appendChild(pdf);
     }
 
@@ -112,11 +116,16 @@ $(document).ready(function () {
 			//Keeps checking for new things
 			window.requestAnimationFrame(checkTime);
 
-			if (currentImage != null) {
+			if(currentImage != null) {
 				document.getElementById("image-area").removeChild(currentImage);
 				currentImage = null;
 			}
-		} else {
+            if(currentPdf != null) {
+                document.getElementById("pdf-area").removeChild(currentPdf);
+				currentPdf = null;
+            }
+		} 
+        else {
 			// Pause the video
 			video.pause();
 
