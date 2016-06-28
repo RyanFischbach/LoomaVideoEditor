@@ -51,7 +51,8 @@ $(document).ready(function () {
 					textArea.style.display = 'inline-block';
 					video.pause();
 					playButton.innerHTML = "Play";
-				} else if (commands.fileTypes[0] == "image") {
+				} 
+                else if (commands.fileTypes[0] == "image") {
 					commands.fileTypes.splice(0, 1);
 
 					if (currentImage != null) {
@@ -63,7 +64,11 @@ $(document).ready(function () {
 					video.pause();
 					playButton.innerHTML = "Play";
 				}
-			} else {
+                else if (commands.fileTypes[0] == "pdf") {
+                    
+                }
+			} 
+            else {
 				if (!video.paused) {
 					window.requestAnimationFrame(checkTime);
 				}
