@@ -132,6 +132,14 @@ button#fullscreen-control {
     height: 20%;
 }
 
+#pdf-previews {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: none;
+    white-space: nowrap;
+    height: 20%;
+}
+
 /*
 div.img {
     width: 10%;
