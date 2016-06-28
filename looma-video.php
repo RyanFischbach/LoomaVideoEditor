@@ -85,6 +85,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                 </form>
                             </div>
                             <div id="image-area"></div>
+                            <div id="pdf-area"></div>
                         </div>
                         <div id="timeline-area"></div>
                     </div>

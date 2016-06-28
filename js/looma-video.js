@@ -63,6 +63,7 @@ $(document).ready(function () {
     var currentImage = null;
     var currentEdit = "";
     var currentText = null;
+    var currentPdf = null;
 
 	// Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
@@ -124,6 +125,11 @@ $(document).ready(function () {
 				document.getElementById("image-area").removeChild(currentImage);
 				currentImage = null;
 			}
+            //If a pdf is showing it removes it
+            if(currentPdf != null) {
+                document.getElementById("pdf-area").removeChild(currentPdf);
+				currentPdf = null;
+            }
 		} 
         else {
 			// Pause the video
@@ -283,6 +289,7 @@ $(document).ready(function () {
         currentEdit = "pdf";
         
         pdfPreviewDiv.style.display = "inline-block";
+        
     });
     
     // Functions for showing pdf previews for selecting a pdf
@@ -310,7 +317,10 @@ $(document).ready(function () {
             }
 
             // Display pdf over video
-            //show_pdf_preview(pdf_src);
+            var pdf = document.createElement("iframe");
+            pdf.src = pdf_src;
+            currentPdf = pdf;
+            document.getElementById("pdf-area").appendChild(pdf);
         });
         pdf_src = "";
     }
