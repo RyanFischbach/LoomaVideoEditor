@@ -12,43 +12,44 @@ Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
 
 // Arrays of Edited Video Information
 var editsObj = {
-    fileTypes: [],
-    videoName: "",
-    videoTimes: [],
-    videoText: [],
-    filePaths: [],
-}
+	fileTypes: []
+	, videoName: ""
+	, videoTimes: []
+	, videoText: []
+	, filePaths: []
+, }
 
 'use strict';
 $(document).ready(function () {
 
-    // Video
+	// Video
 	var video = document.getElementById("video");
-    
-    // Buttons
-    
-    // Media Controls (play, mute, volume) 
-    var mediaControls = document.getElementById("media-controls");
+
+	// Buttons
+
+	// Media Controls (play, mute, volume) 
+	var mediaControls = document.getElementById("media-controls");
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
-    
-    // Edit Controls
-    var cancelButton = document.getElementById("cancel");
+
+	// Edit Controls
+	var cancelButton = document.getElementById("cancel");
 	var editButton = document.getElementById("edit");
 	var textButton = document.getElementById("text");
-    var imageButton = document.getElementById("image");
-    var pdfButton = document.getElementById("pdf");
-    var submitButton = document.getElementById("submit");
-    var nextFrameButton = document.getElementById("next-frame");
-    var prevFrameButton = document.getElementById("prev-frame");
+	var imageButton = document.getElementById("image");
+	var pdfButton = document.getElementById("pdf");
+	var submitButton = document.getElementById("submit");
+	var nextFrameButton = document.getElementById("next-frame");
+	var prevFrameButton = document.getElementById("prev-frame");
 
 	// Text Area
 	var textArea = document.getElementById("comments");
 
+
     // Image Preview Div
     var imagePreviewDiv = document.getElementById("image-previews");
     var imageOptionButtons = document.getElementsByClassName("activity play img");
-	
+
 	// Sliders
 	var seekBar = document.getElementById("seek-bar");
 	var volumeBar = document.getElementById("volume-bar");
@@ -57,82 +58,75 @@ $(document).ready(function () {
     var edited = false;
     var currentImage = null;
     var currentEdit = "";
+    var currentText = null;
 
-    // Fullscreen Button
+	// Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
 		screenfull.toggle(video);
 	});
-    
-    //Var for timeline
-    var timelineImageHeight;
-    var timelineImageWidth;
-    
-    // Event Listeners
-    
-    // Video Event Listener
-    video.addEventListener('loadeddata', function () {
-        var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
-        var videoArea = document.getElementById("video-area");
-        videoArea.style.width = parseInt(vidWidth) + "px"; 
-        
-        var videoPlayer = document.getElementById("video-player");
-        var timelineArea = document.getElementById("timeline-area");
 
-        timelineArea.style.width = ((videoPlayer.offsetWidth/2) - (video.offsetWidth/2)) + "px";
-        timelineArea.style.height = video.offsetHeight + "px";
-        
-        timelineImageWidth = (timelineArea.offsetWidth/2) - 15;
-        timelineImageHeight = timelineArea.offsetHeight/6;
-        /*var textArea = document.getElementById("comments");
-        textArea.style.height = parseInt(vidHeight) + "px";
-        textArea.style.width = parseInt(vidWidth) + "px"; */
-    });
+	//Var for timeline
+	var timelineImageHeight;
+	var timelineImageWidth;
+
+	// Event Listeners
+
+	// Video Event Listener
+	video.addEventListener('loadeddata', function () {
+		var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
+		var videoArea = document.getElementById("video-area");
+		videoArea.style.width = parseInt(vidWidth) + "px";
+
+		var videoPlayer = document.getElementById("video-player");
+		var timelineArea = document.getElementById("timeline-area");
+
+		timelineArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
+		timelineArea.style.height = video.offsetHeight + "px";
+
+		timelineImageWidth = (timelineArea.offsetWidth / 2) - 15;
+		timelineImageHeight = timelineArea.offsetHeight / 6;
+		/*var textArea = document.getElementById("comments");
+		textArea.style.height = parseInt(vidHeight) + "px";
+		textArea.style.width = parseInt(vidWidth) + "px"; */
+	});
 
 	// Play Button Event Listener
 	playButton.addEventListener("click", function () {
-        if (video.paused == true) 
-        {
-            // Play the video
-            video.play();
+		if (video.paused == true) {
+			// Play the video
+			video.play();
 
-            // Update the button text to 'Pause'
-            playButton.innerHTML = "Pause";
-            
-            
-            if(edited == true)
-            {
-                show_image_timeline(thumbFile);
-                edited = false;
-            }
-            if(currentImage != null)
-            {
-                document.getElementById("image-area").removeChild(currentImage);
-                currentImage = null;
-            }        
-        } 
-        else 
-        {
-            // Pause the video
-            video.pause();
+			// Update the button text to 'Pause'
+			playButton.innerHTML = "Pause";
 
-            // Update the button text to 'Play'
-            playButton.innerHTML = "Play";
-        }
+
+			if (edited == true) {
+				show_image_timeline(thumbFile);
+				edited = false;
+			}
+			if (currentImage != null) {
+				document.getElementById("image-area").removeChild(currentImage);
+				currentImage = null;
+			}
+		} else {
+			// Pause the video
+			video.pause();
+
+			// Update the button text to 'Play'
+			playButton.innerHTML = "Play";
+		}
 	});
 
 	// Event listener for the mute button
 	muteButton.addEventListener("click", function () {
-		if (video.muted == false)
-        {
+		if (video.muted == false) {
 			// Mute the video
 			video.muted = true;
 
 			// Update the button text
 			muteButton.innerHTML = "Unmute";
-		}
-        else 
-        {
+		} else {
 			// Unmute the video
 			video.muted = false;
 
@@ -239,6 +233,8 @@ $(document).ready(function () {
             editsObj.fileTypes.pop();
             editsObj.videoTimes.pop();
             editsObj.videoText.pop();
+            document.getElementById("timeline-area").removeChild(currentText);
+            currentText = null;
         }
         else if (currentEdit == "image")
         {
@@ -266,20 +262,20 @@ $(document).ready(function () {
         //playButton.innerHTML = "Play";
     });
     
-    // Event listener for the text button
+	// Event listener for the text button
 	textButton.addEventListener("click", function () {
 		//Hide Controls
-        cancelButton.style.display = "none";
-        pdfButton.style.display = "none";
-        textButton.style.display = "none";
-        imageButton.style.display = "none";
-        editButton.style.display = "none";
-        mediaControls.style.display = "none";
-        nextFrameButton.style.display = "none";
-        prevFrameButton.style.display = "none";
-        
-        // Clear Text Area
-        textArea.value = "";
+		cancelButton.style.display = "none";
+		pdfButton.style.display = "none";
+		textButton.style.display = "none";
+		imageButton.style.display = "none";
+		editButton.style.display = "none";
+		mediaControls.style.display = "none";
+		nextFrameButton.style.display = "none";
+		prevFrameButton.style.display = "none";
+
+		// Clear Text Area
+		textArea.value = "";
 
 		// show the text area and submit button
 		textArea.style.display = "inline";
@@ -373,6 +369,7 @@ $(document).ready(function () {
         text.style.resize = "none";
         text.style.color = "black";
         text.readOnly = "readOnly";
+        currentText = text;
         document.getElementById("timeline-area").appendChild(text);
     }
     
@@ -463,4 +460,5 @@ $(document).ready(function () {
         // Update the video volume
         video.volume = volumeBar.value;
     });
+    
 });

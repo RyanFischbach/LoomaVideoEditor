@@ -29,12 +29,12 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="css/looma-video.css">
+	<link rel="stylesheet" type="text/css" href="css/looma-video.css">
 
-</head>
+	</head>
 
-    <body>
-        <?php
+	<body>
+		<?php
             $filename = $_REQUEST['fn'];
             $filepath = $_REQUEST['fp'];
             $thumbFile = $filepath . thumbnail($filename);
@@ -248,24 +248,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     ?>
                 </div>
                 
-                <!--
-                <div id="pdf-previews">
-                    <?php
-                        $imagePath = '../content/pdfs/';
-                        $pdfArr = array();
-                    
-                        if (is_dir($imagePath))
-                        {
-                            $pdfArr = glob($imagePath . "*.{pdf}", GLOB_BRACE);
-                        }
-                    
-                    for ($i = 0; $i < count($pdfArr); $i++)
-                    {
-                        echo '<div class="pdf"><button class="activity play img" /></div>';
-                    }
-                    ?>
-                </div>
-                -->
                 
             </div>
             <?php include ('includes/toolbar.php'); ?>
