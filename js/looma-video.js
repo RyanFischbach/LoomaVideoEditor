@@ -262,6 +262,7 @@ $(document).ready(function () {
             */
         }
         
+        currentEdit = "";
         //playButton.innerHTML = "Play";
     });
     
