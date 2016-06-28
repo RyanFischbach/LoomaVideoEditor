@@ -6,7 +6,7 @@ Owner: VillageTech Solutions (villagetechsolutions.org)
 Date: 2016 06
 Revision: Looma Video Editor 0.1
 File: looma-video-editor-textConverter.php
-Description: Video editor text converter
+Description: Converts edit information into a txt file for the video editor
 -->
 
 <?php
