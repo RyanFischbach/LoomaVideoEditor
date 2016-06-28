@@ -47,7 +47,7 @@ $(document).ready(function () {
 
     // Image Preview Div
     var imagePreviewDiv = document.getElementById("image-previews");
-    var imageOptionButtons = document.getElementsByClassName("image-option");
+    var imageOptionButtons = document.getElementsByClassName("activity play img");
 	
 	// Sliders
 	var seekBar = document.getElementById("seek-bar");
@@ -391,7 +391,8 @@ $(document).ready(function () {
             // Store the current video time
             editsObj.videoTimes.push(video.currentTime);
 
-            image_src = this.src;
+            image_src = $(this).data("fp") + $(this).data("fn");
+            //image_src = this.src;
             // image_name = this.name;
 
             editsObj.filePaths.push(image_src);
