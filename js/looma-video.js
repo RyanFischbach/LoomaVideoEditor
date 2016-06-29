@@ -223,20 +223,16 @@ $(document).ready(function () {
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
-        {
-            if (currentAddedVideo != null)
-            {
-                // Send start and end time for video
-                editsObj.videoTimes.push(startTime);
-                editsObj.videoTimes.push(stopTime);    
-            }
-            
+        {   
             // Hide Edit Controls
             var elements = [cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton];
             hideElements(elements);
             
             // Redisplay media controls
             mediaControls.style.display = "block";
+            document.getElementById("volume").style.display = "inline";
+            volumeBar.style.display = "inline";
+            muteButton.style.display = "inline";
 
             // change the edit button to say edit
             editButton.innerHTML = "Edit";
@@ -257,6 +253,28 @@ $(document).ready(function () {
                     show_image_timeline(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg");
                     edited = true;
                     pdf_src = "";
+                }
+                else if (video_src != "")
+                {
+                    console.log(video_src);
+                    if (currentAddedVideo != null)
+                    {
+                        // Send start and end time for video
+                        editsObj.videoTimes.push(startTime);
+                        editsObj.videoTimes.push(stopTime);    
+                    }
+                    
+                    console.log(video_src);
+            
+                    // Stop Showing Added Video
+                    addedVideoArea.removeChild(currentAddedVideo);
+                    currentAddedVideo = null;
+                    
+                    console.log(video_src);
+                    
+                    show_image_timeline(video_src.substr(0, video_src.length - 4) + "_thumb.jpg");
+                    edited = true;
+                    video_src = "";
                 }
 
             }
