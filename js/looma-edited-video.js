@@ -31,6 +31,8 @@ $(document).ready(function () {
 	var currentImage = null;
     var currentPdf = null;
     var currentOverlayedVideo = null;
+    
+    var endTime;
 
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
@@ -74,7 +76,7 @@ $(document).ready(function () {
                 else if (commands.fileTypes[0] == "video") {
                     video.pause();  
                     var startTime = commands.videoTimes[0];
-                    var endTime = commands.videoTimes[1];
+                    endTime = commands.videoTimes[1];
                     commands.videoTimes.splice(0, 2);
                     var overlayedVideo = document.createElement("video");
                     overlayedVideo.src = commands.filePaths[0];
@@ -82,22 +84,28 @@ $(document).ready(function () {
                     currentOverlayedVideo = overlayedVideo;
                     document.getElementById("overlayed-video-area").appendChild(overlayedVideo);
                     overlayedVideo.currentTime = startTime;
-                    overlayedVideo.play();
+                    playButton.innerHTML = "Play";
                 }
 			} 
             else {
+                
 				if (!video.paused) {
-					window.requestAnimationFrame(checkTime);
+                    window.requestAnimationFrame(checkTime);
 				}
+                
 			}
-            if(currentOverlayedVideo != null) {
-                if(currentOverlayedVideo.currentTime >= endTime) {
-                    document.getElementById("overlayed-video-area").removeChild(currentOverlayedVideo);
-                    currentOverlayedVideo = null;
-                    playButton.innerHTML = "Play";
-                }
-            }
+            
 		}
+        if(currentOverlayedVideo != null) {
+            if(currentOverlayedVideo.currentTime >= endTime) {
+                document.getElementById("overlayed-video-area").removeChild(currentOverlayedVideo);
+                currentOverlayedVideo = null;
+                playButton.innerHTML = "Play";
+            }
+            else {
+                window.requestAnimationFrame(checkTime);
+            }
+        }
 	}
     
     function show_pdf(src) {
@@ -131,6 +139,8 @@ $(document).ready(function () {
 
                 // Update the button text to 'Pause'
                 playButton.innerHTML = "Pause";
+                
+                
             } 
             else {
                 // Pause the video
@@ -138,6 +148,9 @@ $(document).ready(function () {
 
                 // Update the button text to 'Play'
                 playButton.innerHTML = "Play";
+                
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
             }
         }
         else {

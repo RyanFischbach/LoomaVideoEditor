@@ -45,7 +45,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                        "' data-ft='" .  $ext . 
                        "' data-zm='" .  160 .
                        "' data-pg='1" .
-                       If the file is a .txt file (used to store edited videos) it pulls the information from the file
+                       //If the file is a .txt file (used to store edited videos) it pulls the information from the file
                        "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
                                     "'>";
 					   

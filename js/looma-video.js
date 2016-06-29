@@ -384,9 +384,8 @@ $(document).ready(function () {
             editsObj.videoTimes.push(video.currentTime);
             
             // Send start and end time for video
-            /*
-            editsObj.videoTimes.push(0);
-            editsObj.videoTimes.push(this.duration);*/
+            editsObj.videoTimes.push(60);
+            editsObj.videoTimes.push(65);
 
             video_src = $(this).data("fp") + $(this).data("fn");
 
