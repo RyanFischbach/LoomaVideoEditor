@@ -38,6 +38,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         {
             // Copied from looma library
             //DEBUG   echo "making button with path= $path  file= $file   ext= $ext"; //DEBUG 
+            
+            // ignore edited videos which are txt files
+            if ($ext != "txt")
+            {
 			
             echo "<button class='activity play img' 
                           data-fn='" .  $file . 
@@ -59,7 +63,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                  $dn . "</span>";
 
             //finish BUTTON
-            echo "</button>";	
+            echo "</button>";
+            
+            }
 
         };  //end makeButton()
 
@@ -96,6 +102,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             </div>
                             <div id="image-area"></div>
                             <div id="pdf-area"></div>
+                            <div id="added-video-area"></div>
                         </div>
                         <div id="timeline-area"></div>
                     </div>
@@ -109,6 +116,15 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     </button>
                     <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
                     <br>
+                    <!-- Edit Controls: Adding a video in a video -->
+                     <button type="button" class="media hidden_button" id="start-time">
+                            <?php keyword('Set Start Time') ?>
+                        </button>
+                        
+                        <button type="button" class="media hidden_button" id="stop-time">
+                            <?php keyword('Set Stop Time') ?>
+                        </button>
+                    <!-- -------- -->
                     <button type="button" class="media" id="volume">
                         <?php keyword('Volume') ?>
                     </button>
@@ -120,6 +136,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 </div>
                 
                     <div id="edit-controls">
+        
                         <button type="button" class="media hidden_button" id="cancel">
                             <?php keyword('Cancel') ?>
                         </button>
