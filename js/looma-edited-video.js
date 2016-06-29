@@ -30,6 +30,7 @@ $(document).ready(function () {
 
 	var currentImage = null;
     var currentPdf = null;
+    var currentOverlayedVideo = null;
 
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
@@ -70,12 +71,32 @@ $(document).ready(function () {
                     video.pause();
 					playButton.innerHTML = "Play";
                 }
+                else if (commands.fileTypes[0] == "video") {
+                    video.pause();  
+                    var startTime = commands.videoTimes[0];
+                    var endTime = commands.videoTimes[1];
+                    commands.videoTimes.splice(0, 2);
+                    var overlayedVideo = document.createElement("video");
+                    overlayedVideo.src = commands.filePaths[0];
+                    commands.filePaths.splice(0, 1);
+                    currentOverlayedVideo = overlayedVideo;
+                    document.getElementById("overlayed-video-area").appendChild(overlayedVideo);
+                    overlayedVideo.currentTime = startTime;
+                    overlayedVideo.play();
+                }
 			} 
             else {
 				if (!video.paused) {
 					window.requestAnimationFrame(checkTime);
 				}
 			}
+            if(currentOverlayedVideo != null) {
+                if(currentOverlayedVideo.currentTime >= endTime) {
+                    document.getElementById("overlayed-video-area").removeChild(currentOverlayedVideo);
+                    currentOverlayedVideo = null;
+                    playButton.innerHTML = "Play";
+                }
+            }
 		}
 	}
     
@@ -103,35 +124,53 @@ $(document).ready(function () {
 
 	// Event listener for the play/pause button
 	playButton.addEventListener("click", function () {
-		if (video.paused == true) {
-			// Play the video
-			video.play();
+        if(currentOverlayedVideo != null) {
+            if (currentOverlayedVideo.paused == true) {
+                // Play the video
+                currentOverlayedVideo.play();
 
-			// Update the button text to 'Pause'
-			playButton.innerHTML = "Pause";
+                // Update the button text to 'Pause'
+                playButton.innerHTML = "Pause";
+            } 
+            else {
+                // Pause the video
+                currentOverlayedVideo.pause();
 
-			//Stop showing the textbox or the image
-			textArea.style.display = "none";
-
-			//Keeps checking for new things
-			window.requestAnimationFrame(checkTime);
-
-			if(currentImage != null) {
-				document.getElementById("image-area").removeChild(currentImage);
-				currentImage = null;
-			}
-            if(currentPdf != null) {
-                document.getElementById("pdf-area").removeChild(currentPdf);
-				currentPdf = null;
+                // Update the button text to 'Play'
+                playButton.innerHTML = "Play";
             }
-		} 
+        }
         else {
-			// Pause the video
-			video.pause();
+            if (video.paused == true) {
+                // Play the video
+                video.play();
 
-			// Update the button text to 'Play'
-			playButton.innerHTML = "Play";
-		}
+                // Update the button text to 'Pause'
+                playButton.innerHTML = "Pause";
+
+                //Stop showing the textbox or the image
+                textArea.style.display = "none";
+
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
+
+                if(currentImage != null) {
+				    document.getElementById("image-area").removeChild(currentImage);
+				    currentImage = null;
+                }
+                if(currentPdf != null) {
+                    document.getElementById("pdf-area").removeChild(currentPdf);
+				    currentPdf = null;
+                }
+            } 
+            else {
+                // Pause the video
+                video.pause();
+
+                // Update the button text to 'Play'
+                playButton.innerHTML = "Play";
+            }
+        }
 	});
 
 	// Event listener for the mute button
