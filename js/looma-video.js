@@ -177,11 +177,18 @@ $(document).ready(function () {
             //Displays perview for image          
             if(editsObj.filePaths.length != 0)
             {
-                if(image_src != null)
+                if(image_src != "")
                 {
                     show_image_timeline(image_src);
                     edited = true;
-                    image_src = null;
+                    image_src = "";
+                }
+                else(pdf_src != "")
+                {
+                    console.log("Called");
+                    show_image_timeline(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg");
+                    edited = true;
+                    image_src = "";
                 }
 
             }
@@ -325,7 +332,6 @@ $(document).ready(function () {
             currentPdf = pdf;
             pdfArea.appendChild(pdf);
         });
-        pdf_src = "";
     }
     
     // Event listener for submit button
@@ -431,7 +437,6 @@ $(document).ready(function () {
             // Display image over video
             show_image_preview(image_src);
         });
-        image_src = "";
     }
     
     //Shows the image over the video as a preview
