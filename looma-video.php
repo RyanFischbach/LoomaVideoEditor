@@ -26,6 +26,13 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 				if ( ! ($dot === false)) { return substr_replace($fn, "_thumb.jpg", $dot, 10);}
 				else return "";
 			} //end function THUMBNAIL
+        
+
+        function getJSON($file, $path, $ext) {
+            //Gets the path of the .txt file and return the information inside
+            $realpath = realpath($path) . '/';
+            return file_get_contents($realpath . $file, $realpath, null, 0);
+        }
 
         function makeButton($file, $path, $ext, $base, $dn, $thumb)
         {
@@ -38,7 +45,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                        "' data-ft='" .  $ext . 
                        "' data-zm='" .  160 .
                        "' data-pg='1" .
-                       //If the file is a .txt file (used to store edited videos) it pulls the information from the file
+                       If the file is a .txt file (used to store edited videos) it pulls the information from the file
                        "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
                                     "'>";
 					   
@@ -130,7 +137,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         </button>
                         
                         <button type="button" class="media hidden_button" id="pdf">
-                            <?php keyword('PDF') ?>
+                            <?php keyword('Pdf') ?>
+                        </button>
+                        
+                        <button type="button" class="media hidden_button" id="video-button">
+                            <?php keyword('Video') ?>
                         </button>
                     
                         <button type="button" class="media hidden_button" id="submit">
@@ -165,6 +176,20 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         include ('includes/video-editor-file-viewer.php');
                     ?>
                 </div>
+                
+                <div id="video-previews">
+                    <?php
+                        $folder = "videos";
+                        include ('includes/video-editor-file-viewer.php');
+                    ?>
+                </div>
+                <!--
+                <div id="video-previews">
+                    php
+                        $folder = "videos";
+                        include ('includes/video-editor-file-viewer.php');
+                    ?>
+                </div> -->
                 
                 
             </div>
