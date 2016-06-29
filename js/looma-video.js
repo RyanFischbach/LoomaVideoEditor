@@ -42,10 +42,6 @@ $(document).ready(function () {
 	var nextFrameButton = document.getElementById("next-frame");
 	var prevFrameButton = document.getElementById("prev-frame");
 
-	// Text Area
-	var textArea = document.getElementById("comments");
-
-
     // Image Preview Div
     var imagePreviewDiv = document.getElementById("image-previews");
     var imageOptionButtons = imagePreviewDiv.children;
@@ -74,6 +70,17 @@ $(document).ready(function () {
 	//Var for timeline
 	var timelineImageHeight;
 	var timelineImageWidth;
+    
+    //Base zIndexs
+    var baseImageZ = 2;
+    var basePdfZ = 3;
+    var baseTextZ = 4;
+    var overlayZ = 5;
+    
+    //Overlay areas
+    var pdfArea = document.getElementById("pdf-area");
+    var imageArea = document.getElementById("image-area");
+    var textArea = document.getElementById("comments");
     
     // Useful Functions
     function hideElements (elements)
@@ -122,7 +129,7 @@ $(document).ready(function () {
 			}
             //If an image is showing it removes it
 			if (currentImage != null) {
-				document.getElementById("image-area").removeChild(currentImage);
+				imageArea.removeChild(currentImage);
 				currentImage = null;
 			}
             //If a pdf is showing it removes it
@@ -163,7 +170,7 @@ $(document).ready(function () {
 		if (editButton.innerHTML == "Save") 
         {
             // Hide Edit Controls
-            var elements = [cancelButton, textButton, imageButton, pdfButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv];
+            var elements = [cancelButton, textButton, imageButton, pdfButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv];
             hideElements(elements);
             
             // Redisplay media controls
@@ -183,12 +190,11 @@ $(document).ready(function () {
                     edited = true;
                     image_src = "";
                 }
-                else(pdf_src != "")
+                else if(pdf_src != "")
                 {
-                    console.log("Called");
                     show_image_timeline(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg");
                     edited = true;
-                    image_src = "";
+                    pdf_src = "";
                 }
 
             }
@@ -256,7 +262,7 @@ $(document).ready(function () {
             //Removes image overlay
             if(currentImage != null)
             {
-                document.getElementById("image-area").removeChild(currentImage);
+                imageArea.removeChild(currentImage);
                 currentImage = null;
             }
         }
@@ -284,6 +290,10 @@ $(document).ready(function () {
 		// show the text area and submit button
 		textArea.style.display = "inline";
 		submitButton.style.display = "inline";
+        
+        imageArea.style.zIndex = baseImageZ;
+        pdfArea.style.zIndex = basePdfZ;
+        textArea.style.zIndex = overlayZ;
 	});
     
     pdfButton.addEventListener("click", function() {
@@ -298,6 +308,9 @@ $(document).ready(function () {
         
         pdfPreviewDiv.style.display = "inline-block";
         
+        textArea.style.zIndex = baseTextZ;
+        imageArea.style.zIndex = baseImageZ;
+        pdfArea.style.zIndex = overlayZ;
     });
     
     // Functions for showing pdf previews for selecting a pdf
@@ -321,13 +334,12 @@ $(document).ready(function () {
 
             // Might not need this
             if (currentImage != null) {
-                document.getElementById("image-area").removeChild(currentImage);
+                imageArea.removeChild(currentImage);
             }
 
             // Display pdf over video
             var pdf = document.createElement("iframe");
             pdf.src = pdf_src;
-            var pdfArea = document.getElementById("pdf-area");
             pdfArea.style.zIndex = 5;
             currentPdf = pdf;
             pdfArea.appendChild(pdf);
@@ -364,7 +376,7 @@ $(document).ready(function () {
         
         //If there is an image it removes it
         if (currentImage != null) {
-            document.getElementById("image-area").removeChild(currentImage);
+            imageArea.removeChild(currentImage);
             currentImage = null;
         }
         // return true for some reason
@@ -385,6 +397,10 @@ $(document).ready(function () {
 
         // Show all images for images
         imagePreviewDiv.style.display = "block";
+        
+        pdfArea.style.zIndex = basePdfZ;
+        textArea.style.zIndex = baseTextZ
+        imageArea.style.zIndex = overlayZ;
     });
     
     // Show image previews in timeline
@@ -431,7 +447,7 @@ $(document).ready(function () {
             //editsObj.fileNames.push(image_name);
 
             if (currentImage != null) {
-                document.getElementById("image-area").removeChild(currentImage);
+                imageArea.removeChild(currentImage);
             }
 
             // Display image over video
@@ -446,7 +462,7 @@ $(document).ready(function () {
         img.style.height = "100%";
         img.style.width = "100%";
         currentImage = img;
-        document.getElementById("image-area").appendChild(img);
+        imageArea.appendChild(img);
     }
     
     // nextFrameButton Event Listener
