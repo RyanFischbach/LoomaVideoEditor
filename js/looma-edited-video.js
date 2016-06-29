@@ -188,60 +188,98 @@ $(document).ready(function () {
 
 	// Event listener for the mute button
 	muteButton.addEventListener("click", function () {
-		if (video.muted == false) {
-			// Mute the video
-			video.muted = true;
+        if(currentOverlayedVideo != null) {
+            if (currentOverlayedVideo.muted == false) {
+                // Mute the video
+                vcurrentOverlayedVideo.muted = true;
 
-			// Update the button text
-			muteButton.innerHTML = "Unmute";
-		} else {
-			// Unmute the video
-			video.muted = false;
+                // Update the button text
+                muteButton.innerHTML = "Unmute";
+            } 
+            else {
+                // Unmute the video
+                currentOverlayedVideo.muted = false;
 
-			// Update the button text
-			muteButton.innerHTML = "Mute";
-		}
+                // Update the button text
+                muteButton.innerHTML = "Mute";
+		    }
+        }
+        else {
+            if (video.muted == false) {
+                // Mute the video
+                video.muted = true;
+
+                // Update the button text
+                muteButton.innerHTML = "Unmute";
+            } 
+            else {
+                // Unmute the video
+                video.muted = false;
+
+                // Update the button text
+                muteButton.innerHTML = "Mute";
+		    }
+        }
 	});
 
 	// Event listener for the seek bar
 	seekBar.addEventListener("change", function () {
-		// Calculate the new time
-		var time = video.duration * (seekBar.value / 100);
+        if(currentOverlayedVideo != null) {
+            // Calculate the new time
+            var time = currentOverlayedVideo.duration * (seekBar.value / 100);
 
-		// Update the video time
-		video.currentTime = time;
+            // Update the video time
+            currentOverlayedVideo.currentTime = time;
 
-		playButton.innerHTML = "Play"
+            playButton.innerHTML = "Play"
+        }
+        else {
+            // Calculate the new time
+            var time = video.duration * (seekBar.value / 100);
 
-		var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
-		commands = moddedBackup;
-		var counter = 0;
-		for (var i = 0; i < commands.videoTimes.length; i++) {
-			if (commands.videoTimes[i] < time) {
-				counter++;
-			}
-		}
+            // Update the video time
+            video.currentTime = time;
 
-		for (var z = 0; z < counter; z++) {
-			commands.videoTimes.splice(0, 1);
-			if (commands.fileTypes[0] == "text") {
-				commands.fileTypes.splice(0, 1);
-				commands.videoText.splice(0, 1);
-			} else {
-				commands.fileTypes.splice(0, 1);
-				commands.filePaths.splice(0, 1);
-			}
-		}
+            playButton.innerHTML = "Play"
+
+            var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
+            commands = moddedBackup;
+            var counter = 0;
+            for (var i = 0; i < commands.videoTimes.length; i++) {
+                if (commands.videoTimes[i] < time) {
+                    counter++;
+                }
+            }
+
+            for (var z = 0; z < counter; z++) {
+                commands.videoTimes.splice(0, 1);
+                if (commands.fileTypes[0] == "text") {
+                    commands.fileTypes.splice(0, 1);
+                    commands.videoText.splice(0, 1);
+                } else {
+                    commands.fileTypes.splice(0, 1);
+                    commands.filePaths.splice(0, 1);
+                }
+            }
+        }
 	});
 
 	// Update the seek bar as the video plays
 	video.addEventListener("timeupdate", function () {
-		// Calculate the slider value
-		var value = (100 / video.duration) * video.currentTime;
+        if(currentOverlayedVideo != null) {
+            // Calculate the slider value
+            var value = (100 / currentOverlayedVideo.duration) * video.currentTime;
 
-		// Update the slider value
-		seekBar.value = value;
+            // Update the slider value
+            seekBar.value = value;
+        }
+        else {
+            // Calculate the slider value
+            var value = (100 / video.duration) * video.currentTime;
 
+            // Update the slider value
+            seekBar.value = value;
+        }
 	});
 
 	function show_image(src, alt) {
