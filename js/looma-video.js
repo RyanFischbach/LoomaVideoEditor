@@ -100,10 +100,10 @@ $(document).ready(function () {
 		timelineArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
 		timelineArea.style.height = video.offsetHeight + "px";
         
-        //The timeline puts 2 images across leaving 30px for the scrollbar
-		timelineImageWidth = (timelineArea.offsetWidth / 2) - 15;
+        //The timeline puts 1 image across leaving 30px for the scrollbar
+		timelineImageWidth = timelineArea.offsetWidth - 30;
         //There can be 6 rows of images before a scrollbar is created
-		timelineImageHeight = timelineArea.offsetHeight / 6;
+		timelineImageHeight = timelineArea.offsetHeight / 3;
 	});
 
 	// Play Button Event Listener
@@ -128,6 +128,7 @@ $(document).ready(function () {
             //If a pdf is showing it removes it
             if(currentPdf != null) {
                 document.getElementById("pdf-area").removeChild(currentPdf);
+                document.getElementById("pdf-area").style.zIndex = 3;
 				currentPdf = null;
             }
 		} 
@@ -319,8 +320,10 @@ $(document).ready(function () {
             // Display pdf over video
             var pdf = document.createElement("iframe");
             pdf.src = pdf_src;
+            var pdfArea = document.getElementById("pdf-area");
+            pdfArea.style.zIndex = 5;
             currentPdf = pdf;
-            document.getElementById("pdf-area").appendChild(pdf);
+            pdfArea.appendChild(pdf);
         });
         pdf_src = "";
     }
