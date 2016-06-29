@@ -32,29 +32,29 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
             // Copied from looma library
             //DEBUG   echo "making button with path= $path  file= $file   ext= $ext"; //DEBUG 
 			
-                            echo "<button class='activity play img' 
-                                          data-fn='" .  $file . 
-                                       "' data-fp='" .  $path .
-                                       "' data-ft='" .  $ext . 
-                                       "' data-zm='" .  160 .
-                                       "' data-pg='1" .
-                            //If the file is a .txt file (used to store edited videos) it pulls the information from the file
-                                       "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
-                                       "'>";
+            echo "<button class='activity play img' 
+                          data-fn='" .  $file . 
+                       "' data-fp='" .  $path .
+                       "' data-ft='" .  $ext . 
+                       "' data-zm='" .  160 .
+                       "' data-pg='1" .
+                       //If the file is a .txt file (used to store edited videos) it pulls the information from the file
+                       "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
+                                    "'>";
 					   
-                                //text and tooltip for BUTTON		   
-                                echo "<span class='displayname' 
-                                            class='btn btn-default'
-                                            data-toggle='tooltip' 
-                                            data-placement='top' 
-                                            title='" . $file . "'>" . 
-                                            "<img src='" . $thumb . "'>" . 
-                                            $dn . "</span>";
+            //text and tooltip for BUTTON		  
+            echo "<span class='displayname' 
+                        class='btn btn-default'
+                        data-toggle='tooltip' 
+                        data-placement='top' 
+                        title='" . $file . "'>" . 
+                  "<img src='" . $thumb . "'>" . 
+                                 $dn . "</span>";
 
-                                //finish BUTTON
-                                echo "</button>";	
+            //finish BUTTON
+            echo "</button>";	
 
-            };  //end makeButton()
+        };  //end makeButton()
 
 ?>
 
@@ -64,11 +64,13 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 	<body>
 		<?php
+            //Gets the filename, filepath, and the thumbnail location
             $filename = $_REQUEST['fn'];
             $filepath = $_REQUEST['fp'];
             $thumbFile = $filepath . thumbnail($filename);
 	    ?>
         <script>
+            //Converts thumbFile to js
             var thumbFile = <?php echo json_encode($thumbFile); ?>;
         </script>
         
@@ -76,6 +78,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <div id="video-player">
                         <div id="video-area">
                             <video id="video">
+                                <!--Gets the source of the video and the thumbnail of the video-->
                                 <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
                                 <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
                             </video>
@@ -146,6 +149,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     
                     </div>
                 
+                <!--Opens the pictures folder when you want to pick a picture-->
                 <div id="image-previews">
                     <!-- include ('looma-video-editor-imageViewer.php') -->
                     <?php
@@ -154,6 +158,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     ?>
                 </div>
                 
+                <!--Opens the pdf folder when you want to pick a pdf-->
                 <div id="pdf-previews">
                     <?php
                         $folder = "pdfs";
@@ -163,6 +168,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 
                 
             </div>
+            <!--Adds the toolbar to the video player screen-->
             <?php include ('includes/toolbar.php'); ?>
             <?php include ('includes/js-includes.php'); ?>
             <script src="js/looma-screenfull.js"></script>

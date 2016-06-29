@@ -291,6 +291,7 @@ $(document).ready(function () {
 		textArea.style.display = "inline";
 		submitButton.style.display = "inline";
         
+        //Puts textArea on top
         imageArea.style.zIndex = baseImageZ;
         pdfArea.style.zIndex = basePdfZ;
         textArea.style.zIndex = overlayZ;
@@ -308,6 +309,7 @@ $(document).ready(function () {
         
         pdfPreviewDiv.style.display = "inline-block";
         
+        //Puts PDFs on
         textArea.style.zIndex = baseTextZ;
         imageArea.style.zIndex = baseImageZ;
         pdfArea.style.zIndex = overlayZ;
@@ -398,6 +400,7 @@ $(document).ready(function () {
         // Show all images for images
         imagePreviewDiv.style.display = "block";
         
+        //Puts the image on top
         pdfArea.style.zIndex = basePdfZ;
         textArea.style.zIndex = baseTextZ
         imageArea.style.zIndex = overlayZ;
