@@ -291,6 +291,8 @@ $(document).ready(function () {
                     edited = true;
                     video_src = "";
                 }
+            
+            currentEdit = "";
 
 
             // Send to server to save as a txt file
