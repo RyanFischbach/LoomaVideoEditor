@@ -136,7 +136,12 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 </div>
                 
                     <div id="edit-controls">
-        
+                        
+                        <button type="button" class="media hidden_button" id="rename">
+                            <?php keyword('Rename') ?>
+                        </button>
+                        <br id="rename-line-break">
+                                
                         <button type="button" class="media hidden_button" id="cancel">
                             <?php keyword('Cancel') ?>
                         </button>

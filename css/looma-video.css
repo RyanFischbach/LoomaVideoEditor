@@ -89,6 +89,16 @@ button#fullscreen-control {
 }
 
 
+#rename {
+    height: 50%;
+    display: none;
+    margin-top: 0px;
+}
+
+#rename-line-break {
+    display: none;
+}
+
 #cancel {
     height: 50%;
     display: none;
