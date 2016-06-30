@@ -559,9 +559,9 @@ $(document).ready(function () {
 
             pdf_src = $(this).data("fp") + $(this).data("fn");
 
-            // Might not need this
-            if (currentImage != null) {
-                imageArea.removeChild(currentImage);
+            //Removes pdf currently displaying if there is one
+            if (currentPdf != null) {
+                pdfArea.removeChild(currentPdf);
             }
 
             // Display pdf over video

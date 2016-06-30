@@ -103,7 +103,10 @@ $(document).ready(function () {
             
 		}
         if(currentOverlaidVideo != null) {
+            console.log("1");
+            console.log(currentOverlaidVideo.paused);
             if(currentOverlaidVideo.paused == false) {
+                console.log("2");
                 // Calculate the slider value
                 var value = (100 / currentOverlaidVideo.duration) * currentOverlaidVideo.currentTime;
 
@@ -154,7 +157,8 @@ $(document).ready(function () {
                 // Update the button text to 'Pause'
                 playButton.innerHTML = "Pause";
                 
-                
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
             } 
             else {
                 // Pause the video
@@ -205,7 +209,7 @@ $(document).ready(function () {
         if(currentOverlaidVideo != null) {
             if (currentOverlaidVideo.muted == false) {
                 // Mute the video
-                vcurrentOverlaidVideo.muted = true;
+                currentOverlaidVideo.muted = true;
 
                 // Update the button text
                 muteButton.innerHTML = "Unmute";
