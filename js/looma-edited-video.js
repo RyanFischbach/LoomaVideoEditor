@@ -318,5 +318,6 @@ $(document).ready(function () {
             data: {fileSrc: fileSrc}, 
             method:'POST',
         });
+        window.location = 'looma-library.php';
     });
 });
