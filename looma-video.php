@@ -93,7 +93,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             <video id="video">
                                 <!--Gets the source of the video and the thumbnail of the video-->
                                 <?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
-                                <?php echo '<source src="' . $filepath . $filename . '" type="video/mp4">' ?>
+                                <?php echo '<source id="video-source" src="' . $filepath . $filename . '" type="video/mp4">' ?>
                             </video>
                             <div id="text-box-area">
                                 <form class="media hidden_button" id="text-box">
@@ -141,6 +141,16 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             <?php keyword('Rename') ?>
                         </button>
                         <br id="rename-line-break">
+                        
+                        <div id="rename-form-div" style="display:none;">
+                            <form>
+                                <input type="text" id="rename-text" placeholder="Enter new name" style="color: black;" />
+                            </form>
+                            <br>
+                            <button type="button" class="media hidden_button" id="rename-form-submit-button">
+                                <?php keyword("Submit") ?>
+                            </button>
+                        </div>
                                 
                         <button type="button" class="media hidden_button" id="cancel">
                             <?php keyword('Cancel') ?>

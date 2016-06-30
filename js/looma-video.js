@@ -24,6 +24,7 @@ $(document).ready(function () {
 
 	// Video
 	var video = document.getElementById("video");
+    var mainVideoSrc = document.getElementById("video-source").src;
 
 	// Buttons
 
@@ -54,6 +55,9 @@ $(document).ready(function () {
     // Edit Controls - Renaming a video
     var didSave = false;    // Set to true after user saves one time
     var didRename = false;
+    var renameFormDiv = document.getElementById("rename-form-div");
+    var renameInput = document.getElementById("rename-text");
+    var renameSubmitButton = document.getElementById("rename-form-submit-button");
 
     // Image Preview Div
     var imagePreviewDiv = document.getElementById("image-previews");
@@ -235,6 +239,25 @@ $(document).ready(function () {
     renameButton.addEventListener("click", function () {
         // Rename video
         hideElements([renameButton, renameButtonLineBreak, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton]);
+        renameFormDiv.style.display = "block";
+    });
+    
+    renameSubmitButton.addEventListener("click", function () {
+            var old = mainVideoSrc;
+            console.log(old);
+            var newName = renameInput.value;
+            console.log(newName);
+            var index = old.lastIndexOf("/videos/");
+            console.log(index);
+            console.log(old.substring(0, index));
+            var newP = old.substring(0, index) + "/videos/" + newName;
+            console.log(newP);
+            
+            $.ajax("looma-rename-edited-video.php", {
+                data: {oldPath: old, newPath: newP},
+                method: "POST"
+            });
+            return true;
     });
 
 	// Event listener for the edit button
