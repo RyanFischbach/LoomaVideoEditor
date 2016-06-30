@@ -65,6 +65,11 @@ $(document).ready(function () {
 	var seekBar = document.getElementById("seek-bar");
 	var volumeBar = document.getElementById("volume-bar");
     
+    // File Sources
+    var image_src = "";
+    var pdf_src = "";
+    var video_src = "";
+    
     // Other Variables
     var edited = false;
     var currentImage = null;
@@ -93,6 +98,7 @@ $(document).ready(function () {
     //Overlay areas
     var pdfArea = document.getElementById("pdf-area");
     var imageArea = document.getElementById("image-area");
+    var textBoxArea = document.getElementById("text-box-area");
     var textArea = document.getElementById("comments");
     var addedVideoArea = document.getElementById("added-video-area");
     
@@ -105,6 +111,7 @@ $(document).ready(function () {
         }
     }
     
+    /*
     function disableButton (button)
     {
         button.disabled = true;
@@ -115,7 +122,7 @@ $(document).ready(function () {
     {
         button.disabled = "false";
         button.style.opacity = "1";
-    }
+    }*/
 
 	// Event Listeners
 
@@ -256,7 +263,6 @@ $(document).ready(function () {
                 }
                 else if (video_src != "")
                 {
-                    console.log(video_src);
                     if (currentAddedVideo != null)
                     {
                         // Send start and end time for video
@@ -264,13 +270,11 @@ $(document).ready(function () {
                         editsObj.videoTimes.push(stopTime);    
                     }
                     
-                    console.log(video_src);
             
                     // Stop Showing Added Video
                     addedVideoArea.removeChild(currentAddedVideo);
                     currentAddedVideo = null;
                     
-                    console.log(video_src);
                     
                     show_image_timeline(video_src.substr(0, video_src.length - 4) + "_thumb.jpg");
                     edited = true;
@@ -358,13 +362,31 @@ $(document).ready(function () {
         else if (currentEdit == "video")
         {
             // cancel
-            enableButton(editButton);
+            //enableButton(editButton);
             editButton.innerHTML = "Edit";
             mediaControls.style.display = "block";
+            
+            // Remove Added Video
+            if (video_src != "")
+                {
+                    editsObj.fileTypes.pop();
+                    editsObj.videoTimes.pop();
+                    editsObj.filePaths.pop();
+            
+                    // Stop Showing Added Video
+                    addedVideoArea.removeChild(currentAddedVideo);
+                    currentAddedVideo = null;
+                }
         }
         
         currentEdit = "";
-        //playButton.innerHTML = "Play";
+        
+        // Redisplay media controls
+            mediaControls.style.display = "block";
+            document.getElementById("volume").style.display = "inline";
+            volumeBar.style.display = "inline";
+            muteButton.style.display = "inline";
+        playButton.innerHTML = "Play";
     });
     
 	// Event listener for the text button
@@ -383,135 +405,8 @@ $(document).ready(function () {
         imageArea.style.zIndex = baseImageZ;
         pdfArea.style.zIndex = basePdfZ;
         addedVideoArea.style.zIndex = baseAddedVideoZ;
-        textArea.style.zIndex = overlayZ;
+        textBoxArea.style.zIndex = overlayZ;
 	});
-    
-    pdfButton.addEventListener("click", function() {
-       // Hide controls
-        hideElements([pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
-        
-        // Show edit button
-        editButton.style.display = "inline";
-        
-        // Update current edit state
-        currentEdit = "pdf";
-        
-        pdfPreviewDiv.style.display = "inline-block";
-        
-        //Puts PDFs on top
-        textArea.style.zIndex = baseTextZ;
-        imageArea.style.zIndex = baseImageZ;
-        addedVideoArea.style.zIndex = baseAddedVideoZ;
-        pdfArea.style.zIndex = overlayZ;
-    });
-    
-    // Functions for showing pdf previews for selecting a pdf
-    
-    var pdf_src = "";
-    for (var i = 0; i < pdfOptionButtons.length; i++)
-    {
-        pdfOptionButtons[i].addEventListener("click", function () {
-
-            // Store the type of file
-            editsObj.fileTypes.push("pdf");
-
-            //this.style.display = "none";
-
-            // Store the current video time
-            editsObj.videoTimes.push(video.currentTime);
-
-            pdf_src = $(this).data("fp") + $(this).data("fn");
-
-            editsObj.filePaths.push(pdf_src);
-
-            // Might not need this
-            if (currentImage != null) {
-                imageArea.removeChild(currentImage);
-            }
-
-            // Display pdf over video
-            var pdf = document.createElement("iframe");
-            pdf.src = pdf_src;
-            currentPdf = pdf;
-            pdfArea.appendChild(pdf);
-        });
-    }
-    
-    videoButton.addEventListener("click", function () {
-        // Hide controls
-        hideElements([pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
-        
-        // Update current edit state
-        currentEdit = "video";
-        
-        videoPreviewDiv.style.display = "inline-block";
-        
-        // Put added video on top
-        textArea.style.zIndex = baseTextZ;
-        imageArea.style.zIndex = baseImageZ;
-        pdfArea.style.zIndex = basePdfZ;
-        addedVideoArea.style.zIndex = overlayZ;
-    });
-    
-    // Functions for showing video previews for selecting a video
-    
-    var video_src = "";
-    for (var i = 0; i < videoOptionButtons.length; i++)
-    {
-        videoOptionButtons[i].addEventListener("click", function () {
-
-            // Set Default Stop Time
-            stopTime = this.duration;
-            
-            // Store the type of file
-            editsObj.fileTypes.push("video");
-            
-            // Hide Elements
-            hideElements([muteButton, document.getElementById("volume"), volumeBar, videoPreviewDiv]);
-
-            // Redisplay media controls and hide video preview div
-            mediaControls.style.display = "block";
-            document.getElementById("volume").style.display = "none";
-            editButton.style.display = "inline";
-            addStartTimeButton.style.display = "inline";
-            addStopTimeButton.style.display = "inline";
-            //disableButton(editButton);
-
-            // Store the current video time
-            editsObj.videoTimes.push(video.currentTime);
-
-            video_src = $(this).data("fp") + $(this).data("fn");
-
-            editsObj.filePaths.push(video_src);
-
-            // Might not need this
-            /*
-            if (currentImage != null) {
-                imageArea.removeChild(currentImage);
-            }*/
-
-            // Display video over video
-            var addedVideo = document.createElement("video");
-            addedVideo.src = video_src;
-            currentAddedVideo = addedVideo;
-            document.getElementById("added-video-area").appendChild(addedVideo);
-            //playButton.innerHTML = "Play";
-        });
-    }
-    
-    addStartTimeButton.addEventListener("click", function () {
-        if (currentAddedVideo != null)
-        {
-            startTime = currentAddedVideo.currentTime;    
-        }
-    });
-    
-    addStopTimeButton.addEventListener("click", function () {
-        if (currentAddedVideo != null)
-        {
-            stopTime = currentAddedVideo.currentTime;    
-        }
-    });
     
     // Event listener for submit button
     submitButton.addEventListener("click", function () {
@@ -567,7 +462,7 @@ $(document).ready(function () {
         
         //Puts the image on top
         pdfArea.style.zIndex = basePdfZ;
-        textArea.style.zIndex = baseTextZ
+        textBoxArea.style.zIndex = baseTextZ
         addedVideoArea.style.zIndex = baseAddedVideoZ;
         imageArea.style.zIndex = overlayZ;
     });
@@ -595,8 +490,6 @@ $(document).ready(function () {
     }
     
     // Functions for showing image previews for selecting an image
-    var image_src = "";
-    
     for (var i = 0; i < imageOptionButtons.length; i++) {
         imageOptionButtons[i].addEventListener("click", function () {
 
@@ -633,6 +526,132 @@ $(document).ready(function () {
         currentImage = img;
         imageArea.appendChild(img);
     }
+    
+    pdfButton.addEventListener("click", function() {
+       // Hide controls
+        hideElements([pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        
+        // Show edit button
+        editButton.style.display = "inline";
+        
+        // Update current edit state
+        currentEdit = "pdf";
+        
+        pdfPreviewDiv.style.display = "inline-block";
+        
+        //Puts PDFs on top
+        textBoxArea.style.zIndex = baseTextZ;
+        imageArea.style.zIndex = baseImageZ;
+        addedVideoArea.style.zIndex = baseAddedVideoZ;
+        pdfArea.style.zIndex = overlayZ;
+    });
+    
+    // Functions for showing pdf previews for selecting a pdf
+    
+    for (var i = 0; i < pdfOptionButtons.length; i++)
+    {
+        pdfOptionButtons[i].addEventListener("click", function () {
+
+            // Store the type of file
+            editsObj.fileTypes.push("pdf");
+
+            //this.style.display = "none";
+
+            // Store the current video time
+            editsObj.videoTimes.push(video.currentTime);
+
+            pdf_src = $(this).data("fp") + $(this).data("fn");
+
+            editsObj.filePaths.push(pdf_src);
+
+            // Might not need this
+            if (currentImage != null) {
+                imageArea.removeChild(currentImage);
+            }
+
+            // Display pdf over video
+            var pdf = document.createElement("iframe");
+            pdf.src = pdf_src;
+            currentPdf = pdf;
+            pdfArea.appendChild(pdf);
+        });
+    }
+    
+    videoButton.addEventListener("click", function () {
+        // Hide controls
+        hideElements([pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        
+        // Update current edit state
+        currentEdit = "video";
+        
+        videoPreviewDiv.style.display = "inline-block";
+        
+        // Put added video on top
+        textBoxArea.style.zIndex = baseTextZ;
+        imageArea.style.zIndex = baseImageZ;
+        pdfArea.style.zIndex = basePdfZ;
+        addedVideoArea.style.zIndex = overlayZ;
+    });
+    
+    // Functions for showing video previews for selecting a video
+    
+    for (var i = 0; i < videoOptionButtons.length; i++)
+    {
+        videoOptionButtons[i].addEventListener("click", function () {
+
+            // Set Default Stop Time
+            startTime = 0;
+            stopTime = this.duration;
+            
+            // Store the type of file
+            editsObj.fileTypes.push("video");
+            
+            // Hide Elements
+            hideElements([muteButton, document.getElementById("volume"), volumeBar, videoPreviewDiv]);
+
+            // Redisplay media controls and hide video preview div
+            mediaControls.style.display = "block";
+            document.getElementById("volume").style.display = "none";
+            editButton.style.display = "inline";
+            addStartTimeButton.style.display = "inline";
+            addStopTimeButton.style.display = "inline";
+            //disableButton(editButton);
+
+            // Store the current video time
+            editsObj.videoTimes.push(video.currentTime);
+
+            video_src = $(this).data("fp") + $(this).data("fn");
+
+            editsObj.filePaths.push(video_src);
+
+            // Might not need this
+            /*
+            if (currentImage != null) {
+                imageArea.removeChild(currentImage);
+            }*/
+
+            // Display video over video
+            var addedVideo = document.createElement("video");
+            addedVideo.src = video_src;
+            currentAddedVideo = addedVideo;
+            document.getElementById("added-video-area").appendChild(addedVideo);
+            //playButton.innerHTML = "Play";
+        });
+    }
+    
+    addStartTimeButton.addEventListener("click", function () {
+        if (currentAddedVideo != null)
+        {
+            startTime = currentAddedVideo.currentTime;    
+        }
+    });
+    
+    addStopTimeButton.addEventListener("click", function () {
+        if (currentAddedVideo != null)
+        {
+            stopTime = currentAddedVideo.currentTime;    
+        }
+    });
     
     // nextFrameButton Event Listener
     nextFrameButton.addEventListener("click", function () {

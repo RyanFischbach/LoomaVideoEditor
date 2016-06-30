@@ -69,11 +69,15 @@ $(document).ready(function () {
 					playButton.innerHTML = "Play";
 				}
                 else if (commands.fileTypes[0] == "pdf") {
+                    commands.fileTypes.splice(0, 1);
                     show_pdf(commands.filePaths[0]);
+                    commands.filePaths.splice(0, 1);
                     video.pause();
 					playButton.innerHTML = "Play";
                 }
                 else if (commands.fileTypes[0] == "video") {
+                    console.log(commands.filePaths[0]);
+                    commands.fileTypes.splice(0, 1);
                     video.pause();  
                     var startTime = commands.videoTimes[0];
                     endTime = commands.videoTimes[1];
