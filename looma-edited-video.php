@@ -38,6 +38,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 				//Sends the information from the .txt file to js
 				var commands = <?php echo $_REQUEST['txt']; ?>;
 				var commandsBackup = <?php echo $_REQUEST['txt']; ?>;
+                var fileSrc = "<?php echo $_REQUEST['fp'] . $_REQUEST['fn']; ?>";
 			</script>
 
 			<style>
@@ -49,7 +50,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					position: absolute;
 					top: 0px;
 					left: 0px;
-					z-index: 1;
+					z-index: 3;
 				}
 				
 				#text-playback {
@@ -68,7 +69,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					left: 0px;
 					height: 100%;
 					width: 100%;
-					z-index: 2;
+					z-index: 1;
 				}
                 
                 #pdf-area {
@@ -85,7 +86,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					left: 0px;
 					height: 100%;
 					width: 100%;
-					z-index: 3;
+					z-index: 2;
 				}
                 
 			</style>
@@ -122,6 +123,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					<br>
 					<button type="button" class="media" id="mute">
 						<?php keyword('Mute') ?>
+					</button>
+                    <button type="button" class="media" id="delete">
+						<?php keyword('Delete') ?>
 					</button>
 					<!--<br><button type="button" id"mute"> <?//php keyword('Edit') ?></button> -->
 				</div>

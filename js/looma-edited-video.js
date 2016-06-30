@@ -19,14 +19,16 @@ $(document).ready(function () {
 	// Buttons
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
+    var deleteButton = document.getElementById("delete");
 
 	// Sliders
 	var seekBar = document.getElementById("seek-bar");
 	var volumeBar = document.getElementById("volume-bar");
 
 	var videoArea = document.getElementById("video-area");
-	var div = document.getElementById("text-box-area");
+	var textDiv = document.getElementById("text-box-area");
 	var textArea = document.getElementById("text-playback");
+    var pdfArea = document.getElementById("pdf-area");
 
 	var currentImage = null;
     var currentPdf = null;
@@ -55,6 +57,9 @@ $(document).ready(function () {
 					textArea.style.display = 'inline-block';
 					video.pause();
 					playButton.innerHTML = "Play";
+                    textDiv.style.zIndex = 4;
+                    pdfArea.style.zIndex = 3;
+                    
 				} 
                 else if (commands.fileTypes[0] == "image") {
 					commands.fileTypes.splice(0, 1);
@@ -75,6 +80,8 @@ $(document).ready(function () {
                     commands.filePaths.splice(0, 1);
                     video.pause();
 					playButton.innerHTML = "Play";
+                    textDiv.style.zIndex = 3;
+                    pdfArea.style.zIndex = 4;
                 }
                 else if (commands.fileTypes[0] == "video") {
                     //Overlays a video inside of OverlaidVideoArea
@@ -129,20 +136,11 @@ $(document).ready(function () {
         var pdf = document.createElement("iframe");
         pdf.src = src;
         currentPdf = pdf;
-        document.getElementById("pdf-area").appendChild(pdf);
+        pdfArea.appendChild(pdf);
     }
 
 
 	video.addEventListener('loadeddata', function () {
-		/*var vidHeight = video.videoHeight;
-		var vidWidth = video.videoWidth;
-		var textArea = document.getElementById("comments");
-		div.style.height = parseInt(vidHeight) + "px";
-		div.style.width = parseInt(vidWidth) + "px";
-
-		videoArea.style.height = parseInt(vidHeight) + "px";
-		videoArea.style.width = parseInt(vidWidth) + "px";*/
-
 		var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
 		videoArea.style.width = parseInt(vidWidth) + "px";
 	});
@@ -190,7 +188,7 @@ $(document).ready(function () {
 				    currentImage = null;
                 }
                 if(currentPdf != null) {
-                    document.getElementById("pdf-area").removeChild(currentPdf);
+                    pdfArea.removeChild(currentPdf);
 				    currentPdf = null;
                 }
             } 
@@ -313,4 +311,12 @@ $(document).ready(function () {
 		// Update the video volume
 		video.volume = volumeBar.value;
 	});
+    
+    deleteButton.addEventListener("click", function () {
+        $.ajax({
+            url:'looma-delete-edited-video.php', 
+            data: {fileSrc: fileSrc}, 
+            method:'POST',
+        });
+    });
 });
