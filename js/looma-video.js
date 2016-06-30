@@ -234,6 +234,7 @@ $(document).ready(function () {
     
     renameButton.addEventListener("click", function () {
         // Rename video
+        hideElements([renameButton, renameButtonLineBreak, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton]);
     });
 
 	// Event listener for the edit button
@@ -383,11 +384,15 @@ $(document).ready(function () {
         }
         else if (currentEdit == "pdf")
         {
-            
             editsObj.fileTypes.pop();
             editsObj.videoTimes.pop();
-            editsObj.filePaths.pop();
+            editsObj.filePaths.pop(); 
             
+            if (currentPdf != null)
+            {
+                pdfArea.removeChild(currentPdf);
+                currentPdf = null;
+            }
         }
         else if (currentEdit == "video")
         {
