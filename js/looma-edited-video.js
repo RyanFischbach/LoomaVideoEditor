@@ -30,7 +30,7 @@ $(document).ready(function () {
 
 	var currentImage = null;
     var currentPdf = null;
-    var currentOverlayedVideo = null;
+    var currentOverlaidVideo = null;
     
     var endTime;
 
@@ -77,19 +77,19 @@ $(document).ready(function () {
 					playButton.innerHTML = "Play";
                 }
                 else if (commands.fileTypes[0] == "video") {
-                    //Overlays a video inside of OverlayedVideoArea
+                    //Overlays a video inside of OverlaidVideoArea
                     console.log(commands.filePaths[0]);
                     commands.fileTypes.splice(0, 1);
                     video.pause();  
                     var startTime = commands.videoTimes[0];
                     endTime = commands.videoTimes[1];
                     commands.videoTimes.splice(0, 2);
-                    var overlayedVideo = document.createElement("video");
-                    overlayedVideo.src = commands.filePaths[0];
+                    var overlaidVideo = document.createElement("video");
+                    overlaidVideo.src = commands.filePaths[0];
                     commands.filePaths.splice(0, 1);
-                    currentOverlayedVideo = overlayedVideo;
-                    document.getElementById("overlayed-video-area").appendChild(overlayedVideo);
-                    overlayedVideo.currentTime = startTime;
+                    currentOverlaidVideo = overlaidVideo;
+                    document.getElementById("overlaid-video-area").appendChild(overlaidVideo);
+                    overlaidVideo.currentTime = startTime;
                     playButton.innerHTML = "Play";
                 }
 			} 
@@ -102,17 +102,17 @@ $(document).ready(function () {
 			}
             
 		}
-        if(currentOverlayedVideo != null) {
-            if(currentOverlayedVideo.paused == false) {
+        if(currentOverlaidVideo != null) {
+            if(currentOverlaidVideo.paused == false) {
                 // Calculate the slider value
-                var value = (100 / currentOverlayedVideo.duration) * currentOverlayedVideo.currentTime;
+                var value = (100 / currentOverlaidVideo.duration) * currentOverlaidVideo.currentTime;
 
                 // Update the slider value
                 seekBar.value = value;
 
-                if(currentOverlayedVideo.currentTime >= endTime) {
-                    document.getElementById("overlayed-video-area").removeChild(currentOverlayedVideo);
-                    currentOverlayedVideo = null;
+                if(currentOverlaidVideo.currentTime >= endTime) {
+                    document.getElementById("overlaid-video-area").removeChild(currentOverlaidVideo);
+                    currentOverlaidVideo = null;
                     playButton.innerHTML = "Play";
                 }
                 else {
@@ -146,10 +146,10 @@ $(document).ready(function () {
 
 	// Event listener for the play/pause button
 	playButton.addEventListener("click", function () {
-        if(currentOverlayedVideo != null) {
-            if (currentOverlayedVideo.paused == true) {
+        if(currentOverlaidVideo != null) {
+            if (currentOverlaidVideo.paused == true) {
                 // Play the video
-                currentOverlayedVideo.play();
+                currentOverlaidVideo.play();
 
                 // Update the button text to 'Pause'
                 playButton.innerHTML = "Pause";
@@ -158,7 +158,7 @@ $(document).ready(function () {
             } 
             else {
                 // Pause the video
-                currentOverlayedVideo.pause();
+                currentOverlaidVideo.pause();
 
                 // Update the button text to 'Play'
                 playButton.innerHTML = "Play";
@@ -202,17 +202,17 @@ $(document).ready(function () {
 
 	// Event listener for the mute button
 	muteButton.addEventListener("click", function () {
-        if(currentOverlayedVideo != null) {
-            if (currentOverlayedVideo.muted == false) {
+        if(currentOverlaidVideo != null) {
+            if (currentOverlaidVideo.muted == false) {
                 // Mute the video
-                vcurrentOverlayedVideo.muted = true;
+                vcurrentOverlaidVideo.muted = true;
 
                 // Update the button text
                 muteButton.innerHTML = "Unmute";
             } 
             else {
                 // Unmute the video
-                currentOverlayedVideo.muted = false;
+                currentOverlaidVideo.muted = false;
 
                 // Update the button text
                 muteButton.innerHTML = "Mute";
@@ -238,12 +238,12 @@ $(document).ready(function () {
 
 	// Event listener for the seek bar
 	seekBar.addEventListener("change", function () {
-        if(currentOverlayedVideo != null) {
+        if(currentOverlaidVideo != null) {
             // Calculate the new time
-            var time = currentOverlayedVideo.duration * (seekBar.value / 100);
+            var time = currentOverlaidVideo.duration * (seekBar.value / 100);
 
             // Update the video time
-            currentOverlayedVideo.currentTime = time;
+            currentOverlaidVideo.currentTime = time;
 
             playButton.innerHTML = "Play"
         }

@@ -79,7 +79,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					width: 100%;
 					z-index: 4;
 				}
-                 #overlayed-video-area {
+                 #overlaid-video-area {
 					position: absolute;
 					top: 0px;
 					left: 0px;
@@ -102,7 +102,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 						</div>
 						<div id="image-area"></div>
                         <div id="pdf-area"></div>
-                        <div id ="overlayed-video-area"></div>
+                        <div id ="overlaid-video-area"></div>
                         
 					</div>
 				</div>
