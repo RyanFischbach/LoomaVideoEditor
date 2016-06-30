@@ -246,31 +246,42 @@ $(document).ready(function () {
 
             video.pause();
 
-            //Displays perview for image          
-            if(editsObj.filePaths.length != 0)
-            {
+            //Displays preview for image          
+            
                 if(image_src != "")
                 {
+                    editsObj.fileTypes.push("image");
+                    editsObj.videoTimes.push(video.currentTime);
+                    editsObj.filePaths.push(image_src);
                     show_image_timeline(image_src);
                     edited = true;
                     image_src = "";
                 }
                 else if(pdf_src != "")
                 {
+                    editsObj.fileTypes.push("pdf");
+                editsObj.videoTimes.push(video.currentTime);
+                editsObj.filePaths.push(pdf_src);
+                    
                     show_image_timeline(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg");
                     edited = true;
                     pdf_src = "";
                 }
                 else if (video_src != "")
                 {
-                    if (currentAddedVideo != null)
+                    // Store the type of file
+                editsObj.fileTypes.push("video");
+                // Store the current video time
+                editsObj.videoTimes.push(video.currentTime);
+                editsObj.filePaths.push(video_src);
+                
+                if (currentAddedVideo != null)
                     {
                         // Send start and end time for video
                         editsObj.videoTimes.push(startTime);
                         editsObj.videoTimes.push(stopTime);    
                     }
                     
-            
                     // Stop Showing Added Video
                     addedVideoArea.removeChild(currentAddedVideo);
                     currentAddedVideo = null;
@@ -281,7 +292,6 @@ $(document).ready(function () {
                     video_src = "";
                 }
 
-            }
 
             // Send to server to save as a txt file
             $.ajax("looma-video-editor-textConverter.php", {
@@ -493,20 +503,13 @@ $(document).ready(function () {
     for (var i = 0; i < imageOptionButtons.length; i++) {
         imageOptionButtons[i].addEventListener("click", function () {
 
-            // Store the type of file
-            editsObj.fileTypes.push("image");
 
             //this.style.display = "none";
 
-            // Store the current video time
-            editsObj.videoTimes.push(video.currentTime);
 
             image_src = $(this).data("fp") + $(this).data("fn");
             //image_src = this.src;
             // image_name = this.name;
-
-            editsObj.filePaths.push(image_src);
-            //editsObj.fileNames.push(image_name);
 
             if (currentImage != null) {
                 imageArea.removeChild(currentImage);
@@ -552,17 +555,9 @@ $(document).ready(function () {
     {
         pdfOptionButtons[i].addEventListener("click", function () {
 
-            // Store the type of file
-            editsObj.fileTypes.push("pdf");
-
             //this.style.display = "none";
 
-            // Store the current video time
-            editsObj.videoTimes.push(video.currentTime);
-
             pdf_src = $(this).data("fp") + $(this).data("fn");
-
-            editsObj.filePaths.push(pdf_src);
 
             // Might not need this
             if (currentImage != null) {
@@ -603,9 +598,6 @@ $(document).ready(function () {
             startTime = 0;
             stopTime = this.duration;
             
-            // Store the type of file
-            editsObj.fileTypes.push("video");
-            
             // Hide Elements
             hideElements([muteButton, document.getElementById("volume"), volumeBar, videoPreviewDiv]);
 
@@ -617,12 +609,7 @@ $(document).ready(function () {
             addStopTimeButton.style.display = "inline";
             //disableButton(editButton);
 
-            // Store the current video time
-            editsObj.videoTimes.push(video.currentTime);
-
             video_src = $(this).data("fp") + $(this).data("fn");
-
-            editsObj.filePaths.push(video_src);
 
             // Might not need this
             /*
@@ -640,8 +627,8 @@ $(document).ready(function () {
             {
                 console.log("Added event listener");
                 currentAddedVideo.addEventListener("timeupdate", function () {
-                var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
-                seekBar.value = value;
+                    var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
+                    seekBar.value = value;
                 });
             }
         });
@@ -675,6 +662,7 @@ $(document).ready(function () {
     seekBar.addEventListener("change", function () {
         if (currentAddedVideo != null)
         {
+            console.log("Change");
             var time = currentAddedVideo.duration + (seekBar.value / 100);
             currentAddedVideo.currentTime = time;
             currentAddedVideo.pause();
@@ -707,6 +695,7 @@ $(document).ready(function () {
     seekBar.addEventListener("mousedown", function () {
         if(currentAddedVideo != null)
         {
+            console.log("Mouse Down");
             currentAddedVideo.pause();
         }
         else
