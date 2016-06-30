@@ -103,19 +103,21 @@ $(document).ready(function () {
             
 		}
         if(currentOverlayedVideo != null) {
-            // Calculate the slider value
-            var value = (100 / currentOverlayedVideo.duration) * currentOverlayedVideo.currentTime;
+            if(currentOverlayedVideo.paused == false) {
+                // Calculate the slider value
+                var value = (100 / currentOverlayedVideo.duration) * currentOverlayedVideo.currentTime;
 
-            // Update the slider value
-            seekBar.value = value;
-            
-            if(currentOverlayedVideo.currentTime >= endTime) {
-                document.getElementById("overlayed-video-area").removeChild(currentOverlayedVideo);
-                currentOverlayedVideo = null;
-                playButton.innerHTML = "Play";
-            }
-            else {
-                window.requestAnimationFrame(checkTime);
+                // Update the slider value
+                seekBar.value = value;
+
+                if(currentOverlayedVideo.currentTime >= endTime) {
+                    document.getElementById("overlayed-video-area").removeChild(currentOverlayedVideo);
+                    currentOverlayedVideo = null;
+                    playButton.innerHTML = "Play";
+                }
+                else {
+                    window.requestAnimationFrame(checkTime);
+                }
             }
         }
 	}
