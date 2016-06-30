@@ -636,6 +636,14 @@ $(document).ready(function () {
             currentAddedVideo = addedVideo;
             document.getElementById("added-video-area").appendChild(addedVideo);
             //playButton.innerHTML = "Play";
+            if (currentAddedVideo != null)
+            {
+                console.log("Added event listener");
+                currentAddedVideo.addEventListener("timeupdate", function () {
+                var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
+                seekBar.value = value;
+                });
+            }
         });
     }
     
@@ -665,13 +673,22 @@ $(document).ready(function () {
 
     // Event listener for the seek bar
     seekBar.addEventListener("change", function () {
-        // Calculate the new time
-        var time = video.duration * (seekBar.value / 100);
+        if (currentAddedVideo != null)
+        {
+            var time = currentAddedVideo.duration + (seekBar.value / 100);
+            currentAddedVideo.currentTime = time;
+            currentAddedVideo.pause();
+        }
+        else
+        {
+            // Calculate the new time
+            var time = video.duration * (seekBar.value / 100);
 
-        // Update the video time
-        video.currentTime = time;
+            // Update the video time
+            video.currentTime = time;
         
-        video.pause();
+            video.pause();
+        }
         
         playButton.innerHTML = "Play";
     });
@@ -684,15 +701,30 @@ $(document).ready(function () {
         // Update the slider value
         seekBar.value = value;
     });
+    
 
     // Pause the video when the slider handle is being dragged
     seekBar.addEventListener("mousedown", function () {
-        video.pause();
+        if(currentAddedVideo != null)
+        {
+            currentAddedVideo.pause();
+        }
+        else
+        {
+            video.pause();
+        }
     });
 
     // Play the video when the slider handle is dropped
     seekBar.addEventListener("mouseup", function () {
-        video.play();
+        if(currentAddedVideo != null)
+        {
+            currentAddedVideo.play();
+        }
+        else
+        {
+            video.play();
+        }
     });
 
     // Event listener for the volume bar
