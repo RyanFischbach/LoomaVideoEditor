@@ -69,6 +69,7 @@ $(document).ready(function () {
 					playButton.innerHTML = "Play";
 				}
                 else if (commands.fileTypes[0] == "pdf") {
+                    //Adds a pdf to pdfArea
                     commands.fileTypes.splice(0, 1);
                     show_pdf(commands.filePaths[0]);
                     commands.filePaths.splice(0, 1);
@@ -76,6 +77,7 @@ $(document).ready(function () {
 					playButton.innerHTML = "Play";
                 }
                 else if (commands.fileTypes[0] == "video") {
+                    //Overlays a video inside of OverlayedVideoArea
                     console.log(commands.filePaths[0]);
                     commands.fileTypes.splice(0, 1);
                     video.pause();  
@@ -101,6 +103,12 @@ $(document).ready(function () {
             
 		}
         if(currentOverlayedVideo != null) {
+            // Calculate the slider value
+            var value = (100 / currentOverlayedVideo.duration) * currentOverlayedVideo.currentTime;
+
+            // Update the slider value
+            seekBar.value = value;
+            
             if(currentOverlayedVideo.currentTime >= endTime) {
                 document.getElementById("overlayed-video-area").removeChild(currentOverlayedVideo);
                 currentOverlayedVideo = null;
@@ -270,20 +278,12 @@ $(document).ready(function () {
 
 	// Update the seek bar as the video plays
 	video.addEventListener("timeupdate", function () {
-        if(currentOverlayedVideo != null) {
-            // Calculate the slider value
-            var value = (100 / currentOverlayedVideo.duration) * video.currentTime;
-
-            // Update the slider value
-            seekBar.value = value;
-        }
-        else {
-            // Calculate the slider value
-            var value = (100 / video.duration) * video.currentTime;
-
-            // Update the slider value
-            seekBar.value = value;
-        }
+        // Calculate the slider value
+        var value = (100 / video.duration) * video.currentTime;
+        
+        // Update the slider value
+        seekBar.value = value;
+        
 	});
 
 	function show_image(src, alt) {

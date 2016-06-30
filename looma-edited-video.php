@@ -5,7 +5,7 @@ Email: skip@stritter.com
 Owner: VillageTech Solutions (villagetechsolutions.org)
 Date: 2016 06
 Revision: Looma Video Editor 0.1
-File: video.php
+File: looma-edited-video.php
 Description: Video viewer page for Looma 2
 
 Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
