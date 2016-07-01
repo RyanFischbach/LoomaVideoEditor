@@ -16,12 +16,12 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 -->
 
 <?php $page_title = 'Looma Video Player';
-        include ('includes/header.php');
+    include ('includes/header.php');
 
-        function thumbnail ($fn) {
-				return substr($fn, 0, $fn.length - 4) + "_thumb";
-        } //end function THUMBNAIL
-        ?>
+    function thumbnail ($fn) {
+            return substr($fn, 0, strlen($fn) - 4) + "_thumb";
+    } //end function THUMBNAIL
+?>
 
 	<link rel="stylesheet" type="text/css" href="css/looma-video.css">
 
@@ -31,7 +31,17 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 		<?php
             //Sets the filepath and filename
             $filepath = $_REQUEST['fp']; 
-            $filename = $_REQUEST['fn'];
+            $filename = findName($_REQUEST['txt']);
+        
+            //Finds the name of an edited video based of the text inside the file
+            function findName($txt)
+            {
+                //Finds the videoName from inside the text file
+                $startLoc = strpos($txt, "videoName") + 12;
+                $endLoc = strpos(substr($txt, $startLoc), '"') + $startLoc;
+                $len = $endLoc - $startLoc;
+                return substr($txt, $startLoc, $len);
+            }
         ?>   
         
 			<script>
