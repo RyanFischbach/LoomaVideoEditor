@@ -22,6 +22,8 @@ $(document).ready(function () {
 	var muteButton = document.getElementById("mute");
     var deleteButton = document.getElementById("delete");
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
+	
+	// Make fullscreenPlayPauseButton invisible when not in fullscreen
 	fullscreenPlayPauseButton.style.display = "none";
 
 	// Sliders
