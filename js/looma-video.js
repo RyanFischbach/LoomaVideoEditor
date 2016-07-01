@@ -81,7 +81,7 @@ $(document).ready(function () {
     var video_src = "";
     
     // Other Variables
-    var edited = false;
+    var edited = true;
     var currentImage = null;
     var currentEdit = "";
     var currentText = null;
