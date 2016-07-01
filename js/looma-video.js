@@ -24,7 +24,6 @@ $(document).ready(function () {
 
 	// Video
 	var video = document.getElementById("video");
-    var mainVideoSrc = document.getElementById("video-source").src;
 
 	// Buttons
 
@@ -248,6 +247,7 @@ $(document).ready(function () {
             
             mediaControls.style.display = "block";
             editButton.style.display = "inline";
+            editButton.innerHTML = "Edit";
         
             var newName = renameInput.value;
             
@@ -334,7 +334,7 @@ $(document).ready(function () {
 
             // Send to server to save as a txt file
             $.ajax("looma-video-editor-textConverter.php", {
-                data: editsObj,
+                data: {info: editsObj, location: oldName},
                 method: "POST"
             });
         } 

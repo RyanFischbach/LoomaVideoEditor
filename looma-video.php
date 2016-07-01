@@ -117,13 +117,13 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
                     <br>
                     <!-- Edit Controls: Adding a video in a video -->
-                     <button type="button" class="media hidden_button" id="start-time">
-                            <?php keyword('Set Start Time') ?>
-                        </button>
+                    <button type="button" class="media hidden_button" id="start-time">
+                        <?php keyword('Set Start Time') ?>
+                    </button>
                         
-                        <button type="button" class="media hidden_button" id="stop-time">
-                            <?php keyword('Set Stop Time') ?>
-                        </button>
+                    <button type="button" class="media hidden_button" id="stop-time">
+                        <?php keyword('Set Stop Time') ?>
+                    </button>
                     <!-- -------- -->
                     <button type="button" class="media" id="volume">
                         <?php keyword('Volume') ?>
@@ -140,11 +140,14 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <button type="button" class="media hidden_button" id="rename">
                             <?php keyword('Rename') ?>
                         </button>
-                        <br id="rename-line-break">
+                        <div id="rename-line-break">
+                            <br>
+                            <br>
+                        </div>
                         
                         <div id="rename-form-div" style="display:none;">
                             <form>
-                                <input type="text" id="rename-text" placeholder="Enter new name" style="color: black;" />
+                                <input type="text" id="rename-text" style="color: black;" />
                             </form>
                             <br>
                             <button type="button" class="media hidden_button" id="rename-form-submit-button">
@@ -215,13 +218,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         include ('includes/video-editor-file-viewer.php');
                     ?>
                 </div>
-                <!--
-                <div id="video-previews">
-                    php
-                        $folder = "videos";
-                        include ('includes/video-editor-file-viewer.php');
-                    ?>
-                </div> -->
                 
                 
             </div>
