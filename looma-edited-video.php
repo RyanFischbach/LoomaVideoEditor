@@ -29,11 +29,22 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 	<body>
 		<?php
-		$filename = $_REQUEST['fn'];
-        //Changes the filename from .txt to .mp4 so that the mp4 will play
-        $filename = substr($filename, 0, strlen($filename) - 4);
-		$filepath = $_REQUEST['fp'];
-	?>
+            /*$filename = $_REQUEST['fn'];
+            //Changes the filename from .txt to .mp4 so that the mp4 will play
+            $filename = substr($filename, 0, strlen($filename) - 4); */
+            $filepath = $_REQUEST['fp']; 
+            $filename = findName( $_REQUEST['txt']);
+            
+            
+            function findName($txt)
+            {
+                $startLoc = strpos($txt, "videoName") + 12;
+                $endLoc = strpos(substr($txt, $startLoc), '"') + $startLoc;
+                $len = $endLoc - $startLoc;
+                return substr($txt, $startLoc, $len);
+                
+            }
+	    ?>
 			<script>
 				//Sends the information from the .txt file to js
 				var commands = <?php echo $_REQUEST['txt']; ?>;

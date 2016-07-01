@@ -5,9 +5,9 @@ Owner: VillageTech Solutions (villagetechsolutions.org)
 Date: 2016 06
 Revision: Looma Video Editor 0.1
 
-filename: looma-video.js
-Description: videoplayer controls for videoplayer.php
-Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
+filename: looma-edited-video.js
+Description: Controls all interactions with an edited video, called by looma-edited-video.php
+Attribution: File copied fronm looma-video.js
  */
 
 'use strict';
