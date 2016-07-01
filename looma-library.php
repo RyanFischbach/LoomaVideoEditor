@@ -68,12 +68,14 @@ Modifications: Adds a case for edited videos (.txt files)
 				echo "</button>";	
 					   
 		};  //end makeButton()
-	
+	   
+        //Modified
         function getJSON($file, $path, $ext) {
             //Gets the path of the .txt file and return the information inside
             $realpath = realpath($path) . '/';
             return file_get_contents($realpath . $file, $realpath, null, 0);
         }
+        //*Modified
         
 		function isEpaath($fp) {
 		
