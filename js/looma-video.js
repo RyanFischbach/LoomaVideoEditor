@@ -31,6 +31,8 @@ $(document).ready(function () {
 	var mediaControls = document.getElementById("media-controls");
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
+	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
+	fullscreenPlayPauseButton.style.display = "none";
 
 	// Edit Controls - Important Buttons
     var renameButton = document.getElementById("rename");
@@ -88,10 +90,21 @@ $(document).ready(function () {
     var currentPdf = null;
     var currentAddedVideo = null;
 
+	var isFullscreen = false;
 	// Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
 		screenfull.toggle(video);
+		if(!isFullscreen)
+		{
+			fullscreenPlayPauseButton.style.display = "";
+			isFullscreen = true;
+		}
+		else
+		{
+			fullscreenPlayPauseButton.style.display = "none";
+			isFullscreen = false;
+		}
 	});
 
 	//Var for timeline
@@ -143,6 +156,18 @@ $(document).ready(function () {
 		timelineImageHeight = timelineArea.offsetHeight / 3;
 	});
 
+	
+	// Event listener for the play pause button that appears when in fullscreen
+	fullscreenPlayPauseButton.addEventListener("click", function() {
+		if(video.paused)
+		{
+			video.play();
+		}
+		else
+		{
+			video.pause();
+		}
+	});	
 	// Play Button Event Listener
 	playButton.addEventListener("click", function () {
         if(currentAddedVideo != null)
