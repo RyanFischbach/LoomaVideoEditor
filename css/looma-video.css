@@ -90,7 +90,7 @@ button#fullscreen-control {
 
 
 #rename {
-    height: 50%;
+    height: 52%;
     display: none;
     margin-top: 0px;
 }
@@ -100,13 +100,13 @@ button#fullscreen-control {
 }
 
 #cancel {
-    height: 50%;
+    height: 52%;
     display: none;
     margin-top: 0px;
 }
     
 #edit {
-    height: 50%;
+    height: 52%;
     display: inline;
     margin-top:0px;
     transform: translateX(3px);
@@ -114,25 +114,25 @@ button#fullscreen-control {
 
 
 #text {
-    height: 50%;
+    height: 52%;
     display:none;
     margin-top:0px;
 }
 
 #image {
-    height: 50%;
+    height: 52%;
     display: none;
     margin-top: 0px;
 }
 
 #pdf {
-    height: 50%;
+    height: 52%;
     display: none;
     margin-top: 0px;
 }
 
 #submit {
-    height: 50%;
+    height: 52%;
     transform: translateY(50%);
     display: none;
     margin-top: 0px;
@@ -140,12 +140,12 @@ button#fullscreen-control {
 
 
 #prev-frame {
-    height: 50%;
+    height: 52%;
     display: none;
 }
 
 #next-frame {
-    height: 50%;
+    height: 52%;
     display: none;
 }
 
@@ -160,7 +160,7 @@ button#fullscreen-control {
 }
 
 #video-button {
-    height: 50%;
+    height: 52%;
     display: none;
 }
 
