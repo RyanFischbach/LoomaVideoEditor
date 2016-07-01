@@ -7,6 +7,7 @@ Date: 2016 06
 Revision: Looma Video Editor 0.1
 File: looma-library.php
 Description:  displays and navigates content folders for Looma 2
+Modifications: Adds a case for edited videos (.txt files)
 -->
     <head>
 <?php $page_title = 'Looma Library';
@@ -48,8 +49,10 @@ Description:  displays and navigates content folders for Looma 2
 						   "' data-ft='" .  $ext . 
 						   "' data-zm='" .  160 .
 						   "' data-pg='1" .
-                //If the file is a .txt file (used to store edited videos) it pulls the information from the file
+                           //Modified
+                           //If the file is a .txt file (used to store edited videos) it pulls the information from the file
                            "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
+                           //*Modified
 						   "'>";
 					   
 				//text and tooltip for BUTTON		   
@@ -153,12 +156,14 @@ Description:  displays and navigates content folders for Looma 2
 		$ext = $fileInfo -> getExtension();
 		$file = $fileInfo -> getFilename();
 		$base = trim($fileInfo -> getBasename($ext), ".");  //$base is filename w/o the file extension
-		
+            
+		//Modified
         //If the file is a .txt file (used to store edited videos) it gives it the correct display name
         if(substr($file, strlen($file) - 4) == ".txt")
         {
             $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
         }
+        //*Modified
         else
         {
             // look in the database to see if this file has a DISPLAYNAME
@@ -191,10 +196,11 @@ Description:  displays and navigates content folders for Looma 2
 
 					makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
 					break;
-                    
+                //Modified   
                 case "txt":
                     makeButton($file, $path, $ext, $base, $dn, $path . thumbnail(findName(getJSON($file, $path, $ext))));
 					break;
+                //*Modified
 
 				default:
 					// ignore unknown filetypes
@@ -216,7 +222,8 @@ Description:  displays and navigates content folders for Looma 2
 			} 
 		} //end FOREACH file
 		echo "</tr></table>";	
-        
+        //Modified
+        //Finds the name of an edited video based of the text inside the file
         function findName($txt)
         {
             //Finds the videoName from inside the text file
@@ -225,6 +232,7 @@ Description:  displays and navigates content folders for Looma 2
             $len = $endLoc - $startLoc;
             return substr($txt, $startLoc, $len);
         }
+        //*Modified
 ?>
 
 
