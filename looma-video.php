@@ -237,7 +237,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         
         <script>
             var videoName = "<?php echo $filename; ?>";
-            videoName = videoName.substring(0, videoName.lastIndexOf("."));
+            //videoName = videoName.substring(0, videoName.lastIndexOf("."));
             editsObj.videoName = videoName;
         </script>
         
