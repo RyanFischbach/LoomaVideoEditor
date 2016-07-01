@@ -58,6 +58,8 @@ $(document).ready(function () {
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
     var renameSubmitButton = document.getElementById("rename-form-submit-button");
+    //var oldName = "/Applications/AMPPS/www/content" + mainVideoSrc.substring(mainVideoSrc.lastIndexOf("/videos/")) + ".txt";
+    var oldName = editsObj.videoName;
 
     // Image Preview Div
     var imagePreviewDiv = document.getElementById("image-previews");
@@ -242,21 +244,19 @@ $(document).ready(function () {
         renameFormDiv.style.display = "block";
     });
     
-    renameSubmitButton.addEventListener("click", function () {
-            var old = mainVideoSrc;
-            console.log(old);
+    renameSubmitButton.addEventListener("click", function () {   
+            //var old = "/Applications/AMPPS/www/content" + mainVideoSrc.substring(index) + ".txt";
+            //console.log(old);
+            //var newName = renameInput.value;
+            //console.log(newName);
             var newName = renameInput.value;
-            console.log(newName);
-            var index = old.lastIndexOf("/videos/");
-            console.log(index);
-            console.log(old.substring(0, index));
-            var newP = old.substring(0, index) + "/videos/" + newName;
-            console.log(newP);
             
             $.ajax("looma-rename-edited-video.php", {
-                data: {oldPath: old, newPath: newP},
+                data: {oldPath: oldName, newPath: newName},
                 method: "POST"
             });
+        
+            oldName = newName;
             return true;
     });
 

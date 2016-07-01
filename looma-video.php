@@ -235,6 +235,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         <!-- Update Video Name in looma-video.js -->
         <script>
             var videoName = "<?php echo $filename; ?>";
+            videoName = videoName.substring(0, videoName.lastIndexOf("."));
             /*
             // Remove extension from videoName
             var strlen = videoName.length;

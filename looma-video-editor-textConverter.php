@@ -13,7 +13,7 @@ Description: Converts edit information into a txt file for the video editor
 
 //include ('includes/mongo-connect.php');
         
-$name = $_POST['videoName'];
+$name = $_REQUEST['videoName'];
 $strJSON = json_encode($_POST);
 writeToFile($name, $strJSON);
         
