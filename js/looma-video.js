@@ -696,7 +696,8 @@ $(document).ready(function () {
         if (currentAddedVideo != null)
         {
             console.log("Change");
-            var time = currentAddedVideo.duration + (seekBar.value / 100);
+            var time = currentAddedVideo.duration * (seekBar.value / 100);
+            console.log(time);
             currentAddedVideo.currentTime = time;
             currentAddedVideo.pause();
         }
@@ -741,10 +742,12 @@ $(document).ready(function () {
     seekBar.addEventListener("mouseup", function () {
         if(currentAddedVideo != null)
         {
+            console.log("Mouse Up")
             currentAddedVideo.play();
         }
         else
         {
+            console.log("Mouse Up");
             video.play();
         }
     });
