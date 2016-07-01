@@ -4,6 +4,8 @@
     $newName = $_REQUEST['newPath'];
     $oldName = $_REQUEST['oldPath'];
 
+    $newName = str_replace(' ', '_', $newName);
+
     $this_dir = dirname(__FILE__);
 
     // admin's parent dir path can be represented by admin/..
@@ -15,6 +17,6 @@
     
     if (rename($oldPath, $newPath))
     {
-        print "renamed " . $oldPath . " to " . $newPath;
+        print "renamed to " . $newPath;
     }
 ?>

@@ -157,7 +157,7 @@ Description:  displays and navigates content folders for Looma 2
         //If the file is a .txt file (used to store edited videos) it gives it the correct display name
         if(substr($file, strlen($file) - 4) == ".txt")
         {
-            $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 8) . "_Edited");
+            $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
         }
         else
         {
