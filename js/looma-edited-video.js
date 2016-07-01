@@ -12,6 +12,7 @@ Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
 
 'use strict';
 $(document).ready(function () {
+	
 
 	// Video
 	var video = document.getElementById("video");
@@ -35,10 +36,28 @@ $(document).ready(function () {
     var currentOverlaidVideo = null;
     
     var endTime;
-
+	
+	var isFullscreen = false;
 	$('#fullscreen-control').click(function (e) {
+		if(!isFullscreen)
+		{
+		isFullscreen = true;
 		e.preventDefault();
 		screenfull.toggle(videoArea);
+		videoArea.className = "fullscreen";
+		videoArea.style.width = "100%";
+		}
+		else
+		{
+		isFullscreen = false;
+		e.preventDefault();
+		screenfull.toggle(videoArea);
+		videoArea.className = "";
+//		setTimeout(function() {
+//			var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
+//			videoArea.style.width = parseInt(vidWidth) + "px";
+//		}, 1000);
+		}
 	});
 
 	function checkTime() {
@@ -99,12 +118,12 @@ $(document).ready(function () {
                     overlaidVideo.currentTime = startTime;
                     playButton.innerHTML = "Play";
                 }
-			} 
+			}
             else {
                 
-				if (!video.paused) {
-                    window.requestAnimationFrame(checkTime);
-				}
+//				if (!video.paused) {
+//                    window.requestAnimationFrame(checkTime);
+//				}
                 
 			}
             
@@ -126,10 +145,17 @@ $(document).ready(function () {
                     playButton.innerHTML = "Play";
                 }
                 else {
-                    window.requestAnimationFrame(checkTime);
+//                    window.requestAnimationFrame(checkTime);
                 }
             }
         }
+		window.requestAnimationFrame(checkTime);
+		//Fullscreen Stuff
+		if (!isFullscreen) {
+			var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
+			videoArea.style.width = parseInt(vidWidth) + "px";
+		}
+		
 	}
     
     function show_pdf(src) {
@@ -143,6 +169,7 @@ $(document).ready(function () {
 	video.addEventListener('loadeddata', function () {
 		var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
 		videoArea.style.width = parseInt(vidWidth) + "px";
+		console.log(parseInt(vidWidth));
 	});
 
 	// Event listener for the play/pause button

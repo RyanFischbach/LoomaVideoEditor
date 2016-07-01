@@ -233,3 +233,11 @@ button.img.play, button.img.activity{
     margin-left: 10px;
     margin-right: 10px;
 }
+
+video {height: 100% }
+
+.fullscreen video {width: 100%}
+
+:-webkit-full-screen {
+    background-color: black;
+}
