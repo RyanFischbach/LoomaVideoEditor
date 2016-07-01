@@ -6,11 +6,11 @@ Owner: VillageTech Solutions (villagetechsolutions.org)
 Date: 2016 06
 Revision: Looma Video Editor 0.1
 File: looma-edited-video.php
-Description: Video viewer page for Looma 2
+Description: Edited Video viewer page for Looma 2
 
-Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
-						 data-fp="resources/videos/"
-						 data-ft="video">
+Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
+						 data-fp="content/videos/"
+						 data-txt="{"fileTypes":["],"videoName":"A_Day_On_Earth.mp4","videoTimes":[""],"filePaths":[""]}">
 			VIDEO TEST</button>
 	And: $("button#testvideo").click(LOOMA.playMedia);
 -->
@@ -19,7 +19,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         include ('includes/header.php');
 
         function thumbnail ($fn) {
-				return substr($fn, 0, $fn.length - 8);
+				return substr($fn, 0, $fn.length - 4) + "_thumb";
         } //end function THUMBNAIL
         ?>
 
@@ -29,22 +29,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 	<body>
 		<?php
-            /*$filename = $_REQUEST['fn'];
-            //Changes the filename from .txt to .mp4 so that the mp4 will play
-            $filename = substr($filename, 0, strlen($filename) - 4); */
+            //Sets the filepath and filename
             $filepath = $_REQUEST['fp']; 
-            $filename = findName( $_REQUEST['txt']);
-            
-            
-            function findName($txt)
-            {
-                $startLoc = strpos($txt, "videoName") + 12;
-                $endLoc = strpos(substr($txt, $startLoc), '"') + $startLoc;
-                $len = $endLoc - $startLoc;
-                return substr($txt, $startLoc, $len);
-                
-            }
-	    ?>
+            $filename = $_REQUEST['fn'];
+        ?>   
+        
 			<script>
 				//Sends the information from the .txt file to js
 				var commands = <?php echo $_REQUEST['txt']; ?>;

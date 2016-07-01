@@ -193,7 +193,7 @@ Description:  displays and navigates content folders for Looma 2
 					break;
                     
                 case "txt":
-                    makeButton($file, $path, $ext, $base, $dn, $path . substr($base, 0, strlen($base) - 4) . "_thumb.jpg");
+                    makeButton($file, $path, $ext, $base, $dn, $path . thumbnail(findName(getJSON($file, $path, $ext))));
 					break;
 
 				default:
@@ -215,8 +215,18 @@ Description:  displays and navigates content folders for Looma 2
 				}
 			} 
 		} //end FOREACH file
-		echo "</tr></table>";		
+		echo "</tr></table>";	
+        
+        function findName($txt)
+        {
+            //Finds the videoName from inside the text file
+            $startLoc = strpos($txt, "videoName") + 12;
+            $endLoc = strpos(substr($txt, $startLoc), '"') + $startLoc;
+            $len = $endLoc - $startLoc;
+            return substr($txt, $startLoc, $len);
+        }
 ?>
+
 
 	</div>
 	
