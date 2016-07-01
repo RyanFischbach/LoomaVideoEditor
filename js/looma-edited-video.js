@@ -21,6 +21,8 @@ $(document).ready(function () {
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
     var deleteButton = document.getElementById("delete");
+	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
+	fullscreenPlayPauseButton.style.display = "none";
 
 	// Sliders
 	var seekBar = document.getElementById("seek-bar");
@@ -42,6 +44,7 @@ $(document).ready(function () {
 		if(!isFullscreen)
 		{
 		isFullscreen = true;
+		fullscreenPlayPauseButton.style.display = "";
 		e.preventDefault();
 		screenfull.toggle(videoArea);
 		videoArea.className = "fullscreen";
@@ -50,6 +53,7 @@ $(document).ready(function () {
 		else
 		{
 		isFullscreen = false;
+		fullscreenPlayPauseButton.style.display = "none";
 		e.preventDefault();
 		screenfull.toggle(videoArea);
 		videoArea.className = "";
@@ -172,6 +176,51 @@ $(document).ready(function () {
 		console.log(parseInt(vidWidth));
 	});
 
+	// Event listener for the play pause button that appears when in fullscreen
+	fullscreenPlayPauseButton.addEventListener("click", function() {
+	if(currentOverlaidVideo != null) {
+            if (currentOverlaidVideo.paused == true) {
+                // Play the video
+                currentOverlaidVideo.play();
+                
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
+            } 
+            else {
+                // Pause the video
+                currentOverlaidVideo.pause();
+                
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
+            }
+        }
+        else {
+            if (video.paused == true) {
+                // Play the video
+                video.play();
+
+                //Stop showing the textbox or the image
+                textArea.style.display = "none";
+
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
+
+                if(currentImage != null) {
+				    document.getElementById("image-area").removeChild(currentImage);
+				    currentImage = null;
+                }
+                if(currentPdf != null) {
+                    pdfArea.removeChild(currentPdf);
+				    currentPdf = null;
+                }
+            } 
+            else {
+                // Pause the video
+                video.pause();
+            }
+        }    
+	});	
+	
 	// Event listener for the play/pause button
 	playButton.addEventListener("click", function () {
         if(currentOverlaidVideo != null) {
