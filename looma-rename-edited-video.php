@@ -1,3 +1,13 @@
+<!--
+Name: Aaron, Connor, Ryan
+Email: skip@stritter.com
+Owner: VillageTech Solutions (villagetechsolutions.org)
+Date: 2016 07
+Revision: Looma Video Editor 0.1
+File: looma-rename-edited-video.php
+Description: Renames an edited video
+-->
+
 <!doctype html>
 
 <?php

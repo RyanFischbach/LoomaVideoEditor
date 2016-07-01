@@ -2,7 +2,7 @@
  * Name: Skip, Aaron, Connor, Ryan
 Email: skip@stritter.com
 Owner: VillageTech Solutions (villagetechsolutions.org)
-Date: 2016 06
+Date: 2016 07
 Revision: Looma Video Editor 0.1
 
 filename: looma-video.js
@@ -57,7 +57,7 @@ $(document).ready(function () {
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
     var renameSubmitButton = document.getElementById("rename-form-submit-button");
-    var oldName = editsObj.videoName;
+    var oldName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
 
     // Edit Controls - Selecting Images
     var imagePreviewDiv = document.getElementById("image-previews");
@@ -119,18 +119,6 @@ $(document).ready(function () {
         {
             elements[x].style.display = "none";    
         }
-    }
-    
-    function disableButton (button)
-    {
-        button.disabled = true;
-        button.style.opacity = "0.7";
-    }
-    
-    function enableButton (button)
-    {
-        button.disabled = "false";
-        button.style.opacity = "1";
     }
 
 	// Event Listeners
@@ -672,14 +660,22 @@ $(document).ready(function () {
     addStartTimeButton.addEventListener("click", function () {
         if (currentAddedVideo != null)
         {
-            startTime = currentAddedVideo.currentTime;    
+            startTime = currentAddedVideo.currentTime;
+            addStartTimeButton.innerHTML = "Start: " + startTime;
+            
+            if (startTime > stopTime)
+            {
+                stopTime = startTime;
+                addStopTimeButton.innerHTML = "Set Stop Time";
+            }
         }
     });
     
     addStopTimeButton.addEventListener("click", function () {
         if (currentAddedVideo != null)
         {
-            stopTime = currentAddedVideo.currentTime;    
+            stopTime = currentAddedVideo.currentTime;
+            addStopTimeButton.innerHTML = "Stop: " + stopTime;
         }
     });
     

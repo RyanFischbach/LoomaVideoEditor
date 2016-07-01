@@ -3,7 +3,7 @@
 Name: Aaron, Connor, Ryan
 Email: skip@stritter.com
 Owner: VillageTech Solutions (villagetechsolutions.org)
-Date: 2016 06
+Date: 2016 07
 Revision: Looma Video Editor 0.1
 File: looma-video-editor-textConverter.php
 Description: Converts edit information into a txt file for the video editor

@@ -200,14 +200,6 @@ button.img {
 	text-align:center;
 }
 
-/*
-button.img img {
-	height:100%;
-	float:left;
-	max-width:50%;
-}
-*/
-
 button.img:hover {
 	transform:none;
 }
@@ -218,14 +210,6 @@ button.img img {
 	width:30%;
 	max-width:50%;
 }
-
-/*
-button.img.play {max-width:33vw;}
-
-button.img.subject {
-	font-size: 1.5em;
-}
-*/
 
 button.img.play, button.img.activity{
 	font-size: 30px;

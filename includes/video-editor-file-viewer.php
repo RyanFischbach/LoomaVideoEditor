@@ -2,10 +2,10 @@
 Name: Aaron, Connor, Ryan
 Email: skip@stritter.com
 Owner: VillageTech Solutions (villagetechsolutions.org)
-Date: 2016 06
+Date: 2016 07
 Revision: Looma Video Editor 0.1
 File: video-editor-file-viewer.php
-Description: Accesses files for the video editor
+Description: Accesses files for the video editor. Mainly copied from looma-library.php
 -->
 
 <?php
