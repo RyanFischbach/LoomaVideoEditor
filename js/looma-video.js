@@ -245,10 +245,11 @@ $(document).ready(function () {
     });
     
     renameSubmitButton.addEventListener("click", function () {   
-            //var old = "/Applications/AMPPS/www/content" + mainVideoSrc.substring(index) + ".txt";
-            //console.log(old);
-            //var newName = renameInput.value;
-            //console.log(newName);
+            hideElements([renameFormDiv]);
+            
+            mediaControls.style.display = "block";
+            editButton.style.display = "inline";
+        
             var newName = renameInput.value;
             
             $.ajax("looma-rename-edited-video.php", {
