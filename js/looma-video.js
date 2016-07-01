@@ -33,7 +33,7 @@ $(document).ready(function () {
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
 
-	// Edit Controls
+	// Edit Controls - Important Buttons
     var renameButton = document.getElementById("rename");
     var renameButtonLineBreak = document.getElementById("rename-line-break");
 	var cancelButton = document.getElementById("cancel");
@@ -58,18 +58,17 @@ $(document).ready(function () {
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
     var renameSubmitButton = document.getElementById("rename-form-submit-button");
-    //var oldName = "/Applications/AMPPS/www/content" + mainVideoSrc.substring(mainVideoSrc.lastIndexOf("/videos/")) + ".txt";
     var oldName = editsObj.videoName;
 
-    // Image Preview Div
+    // Edit Controls - Selecting Images
     var imagePreviewDiv = document.getElementById("image-previews");
     var imageOptionButtons = imagePreviewDiv.children;
     
-    // PDF Preview Div
+    // Edit Controls - Selecting Pdfs
     var pdfPreviewDiv = document.getElementById("pdf-previews");
     var pdfOptionButtons = pdfPreviewDiv.children;
     
-    // Video Preview Div
+    // Edit Controls - Selecting Videos
     var videoPreviewDiv = document.getElementById("video-previews");
     var videoOptionButtons = videoPreviewDiv.children;
 
@@ -650,15 +649,8 @@ $(document).ready(function () {
             editButton.style.display = "inline";
             addStartTimeButton.style.display = "inline";
             addStopTimeButton.style.display = "inline";
-            //disableButton(editButton);
 
             video_src = $(this).data("fp") + $(this).data("fn");
-
-            // Might not need this
-            /*
-            if (currentImage != null) {
-                imageArea.removeChild(currentImage);
-            }*/
 
             // Display video over video
             var addedVideo = document.createElement("video");
@@ -693,11 +685,13 @@ $(document).ready(function () {
     
     // nextFrameButton Event Listener
     nextFrameButton.addEventListener("click", function () {
+        // Move Forward 5 frames
         video.currentTime += (5 / 29.97);
     });
     
     // prevFrameButton Event Listener
     prevFrameButton.addEventListener("click", function () {
+        // Move Backward 5 frames
         video.currentTime -= (5 / 29.97);
     });
 
