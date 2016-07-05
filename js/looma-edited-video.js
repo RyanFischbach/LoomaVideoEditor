@@ -59,11 +59,6 @@ $(document).ready(function () {
 		e.preventDefault();
 		screenfull.toggle(videoArea);
 		videoArea.className = "";
-//		setTimeout(function() {
-//			var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
-//			videoArea.style.width = parseInt(vidWidth) + "px";
-//		}, 1000);
-		}
 	});
 
 	function checkTime() {
