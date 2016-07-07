@@ -673,7 +673,6 @@ $(document).ready(function () {
             //playButton.innerHTML = "Play";
             if (currentAddedVideo != null)
             {
-                console.log("Added event listener");
                 currentAddedVideo.addEventListener("timeupdate", function () {
                     var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
                     seekBar.value = value;
@@ -686,7 +685,15 @@ $(document).ready(function () {
         if (currentAddedVideo != null)
         {
             startTime = currentAddedVideo.currentTime;
-            addStartTimeButton.innerHTML = "Start: " + startTime;
+            var startTimeAsString = "" + startTime;
+            var seconds = startTimeAsString.substring(0, startTimeAsString.indexOf("."));
+            var minutes = Math.floor(Number(seconds) / 60);
+            seconds = Number(seconds) % 60;
+            if (seconds < 10)
+            {
+                seconds = "0" + seconds;
+            }
+            addStartTimeButton.innerHTML = "Start: " + minutes + ":" + seconds;
             
             if (startTime > stopTime)
             {
@@ -700,7 +707,15 @@ $(document).ready(function () {
         if (currentAddedVideo != null)
         {
             stopTime = currentAddedVideo.currentTime;
-            addStopTimeButton.innerHTML = "Stop: " + stopTime;
+            var stopTimeAsString = "" + stopTime;
+            var seconds = stopTimeAsString.substring(0, stopTimeAsString.indexOf("."));
+;           var minutes = Math.floor(Number(seconds) / 60);
+            seconds = Number(seconds) % 60;
+            if (seconds < 10)
+            {
+                seconds = "0" + seconds;
+            }
+            addStopTimeButton.innerHTML = "Stop: " + minutes + ":" + seconds;
         }
     });
     
@@ -720,9 +735,7 @@ $(document).ready(function () {
     seekBar.addEventListener("change", function () {
         if (currentAddedVideo != null)
         {
-            console.log("Change");
             var time = currentAddedVideo.duration * (seekBar.value / 100);
-            console.log(time);
             currentAddedVideo.currentTime = time;
             currentAddedVideo.pause();
         }
@@ -754,7 +767,6 @@ $(document).ready(function () {
     seekBar.addEventListener("mousedown", function () {
         if(currentAddedVideo != null)
         {
-            console.log("Mouse Down");
             currentAddedVideo.pause();
         }
         else
@@ -767,12 +779,10 @@ $(document).ready(function () {
     seekBar.addEventListener("mouseup", function () {
         if(currentAddedVideo != null)
         {
-            console.log("Mouse Up")
             currentAddedVideo.play();
         }
         else
         {
-            console.log("Mouse Up");
             video.play();
         }
     });
