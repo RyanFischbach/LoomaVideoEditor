@@ -122,6 +122,8 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 					<button id="fullscreen-control"></button>
 					
 					<button id="fullscreen-playpause"></button>
+                    
+                    <div id="time"></div>
 					
 					<br>
 					<button type="button" class="media" id="play-pause">

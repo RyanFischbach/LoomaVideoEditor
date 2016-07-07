@@ -16,6 +16,9 @@ $(document).ready(function () {
 
 	// Video
 	var video = document.getElementById("video");
+    
+    var timeDiv = document.getElementById("time");
+    timeDiv.innerHTML = "0:00";
 
 	// Buttons
 	var playButton = document.getElementById("play-pause");
@@ -118,6 +121,7 @@ $(document).ready(function () {
                     currentOverlaidVideo = overlaidVideo;
                     document.getElementById("overlaid-video-area").appendChild(overlaidVideo);
                     overlaidVideo.currentTime = startTime;
+                    timeDiv.innerHTML = minuteSecondTime(currentOverlaidVideo.currentTime);
                     playButton.innerHTML = "Play";
                 }
 			}
@@ -140,11 +144,14 @@ $(document).ready(function () {
 
                 // Update the slider value
                 seekBar.value = value;
+                
+                timeDiv.innerHTML = minuteSecondTime(currentOverlaidVideo.currentTime);
 
                 if(currentOverlaidVideo.currentTime >= endTime) {
                     document.getElementById("overlaid-video-area").removeChild(currentOverlaidVideo);
                     currentOverlaidVideo = null;
                     playButton.innerHTML = "Play";
+                    timeDiv.innerHTML = minuteSecondTime(video.currentTime);
                 }
                 else {
 //                    window.requestAnimationFrame(checkTime);
@@ -159,6 +166,19 @@ $(document).ready(function () {
 		}
 		
 	}
+    
+    function minuteSecondTime (time)
+    {
+        var timeAsString = "" + time;
+        var seconds = timeAsString.substring(0, timeAsString.indexOf("."));
+        var minutes = Math.floor(Number(seconds) / 60);
+        seconds = Number(seconds) % 60;
+        if (seconds < 10)
+        {
+            seconds = "0" + seconds;
+        }
+        return minutes + ":" + seconds;
+    }
     
     function show_pdf(src) {
         var pdf = document.createElement("iframe");
@@ -367,6 +387,8 @@ $(document).ready(function () {
         
         // Update the slider value
         seekBar.value = value;
+        
+        timeDiv.innerHTML = minuteSecondTime(video.currentTime);
         
 	});
 

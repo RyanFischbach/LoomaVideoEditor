@@ -538,11 +538,34 @@ $(document).ready(function () {
     
     // Show image previews in timeline
     function show_image_timeline(src) {
+        var imageDiv = document.createElement("div");
         var img = document.createElement("img");
+        var hoverDiv = document.createElement("div");
+        var button = document.createElement("button");
+        
+        button.innerHTML = "TIME";
+        hoverDiv.appendChild(button);
+        hoverDiv.style.display = "none";
+        hoverDiv.style.position = "absolute";
+        hoverDiv.style.top = "0px";
+        hoverDiv.style.left = "0px";
+        imageDiv.appendChild(hoverDiv);
+        
+        imageDiv.style.position = "relative";
+        imageDiv.width = timelineImageWidth;
+        imageDiv.height = timelineImageHeight;
+        imageDiv.onmouseover = function() {
+            hoverDiv.style.display = "block";
+        };
+        imageDiv.onmouseout = function() {
+            hoverDiv.style.display = "none";
+        };
+        
         img.src = src;
         img.width = timelineImageWidth;
-        img.height = timelineImageHeight;
-        document.getElementById("timeline-area").appendChild(img);
+        img.height= timelineImageHeight;
+        imageDiv.appendChild(img);
+        document.getElementById("timeline-area").appendChild(imageDiv);
     }
     
     //Displays text box for timeline
@@ -697,6 +720,19 @@ $(document).ready(function () {
         }
     });
     
+    function minuteSecondTime (time)
+    {
+        var timeAsString = "" + time;
+        var seconds = timeAsString.substring(0, timeAsString.indexOf("."));
+        var minutes = Math.floor(Number(seconds) / 60);
+        seconds = Number(seconds) % 60;
+        if (seconds < 10)
+        {
+            seconds = "0" + seconds;
+        }
+        return minutes + ":" + seconds;
+    }
+    
     addStopTimeButton.addEventListener("click", function () {
         if (currentAddedVideo != null)
         {
@@ -749,20 +785,6 @@ $(document).ready(function () {
         
         timeDiv.innerHTML = minuteSecondTime(video.currentTime);
     });
-    
-    function minuteSecondTime (time)
-    {
-        var timeAsString = "" + time;
-        var seconds = timeAsString.substring(0, timeAsString.indexOf("."));
-        var minutes = Math.floor(Number(seconds) / 60);
-        seconds = Number(seconds) % 60;
-        if (seconds < 10)
-        {
-            seconds = "0" + seconds;
-        }
-        return minutes + ":" + seconds;
-    }
-    
 
     // Pause the video when the slider handle is being dragged
     seekBar.addEventListener("mousedown", function () {
