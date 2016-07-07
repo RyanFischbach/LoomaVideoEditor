@@ -95,8 +95,12 @@ button#fullscreen-control {
     margin-top: 0px;
 }
 
-#rename-line-break {
+#rename-form-div {
     display: none;
+}
+
+#rename-text {
+    color: black;
 }
 
 #cancel {

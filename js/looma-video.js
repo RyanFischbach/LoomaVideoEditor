@@ -36,7 +36,6 @@ $(document).ready(function () {
 
 	// Edit Controls - Important Buttons
     var renameButton = document.getElementById("rename");
-    var renameButtonLineBreak = document.getElementById("rename-line-break");
 	var cancelButton = document.getElementById("cancel");
 	var editButton = document.getElementById("edit");
 	var textButton = document.getElementById("text");
@@ -251,7 +250,7 @@ $(document).ready(function () {
     
     renameButton.addEventListener("click", function () {
         // Rename video
-        hideElements([renameButton, renameButtonLineBreak, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton]);
         renameFormDiv.style.display = "block";
     });
     
@@ -282,7 +281,7 @@ $(document).ready(function () {
                 didSave = true;        
             }
             // Hide Edit Controls
-            var elements = [renameButton, renameButtonLineBreak, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton];
+            var elements = [renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton];
             hideElements(elements);
             
             // Redisplay media controls
@@ -360,7 +359,6 @@ $(document).ready(function () {
             if (didSave)
             {
                 renameButton.style.display = "inline";
-                renameButtonLineBreak.style.display = "inline";
             }
             cancelButton.style.display = "inline";
             textButton.style.display = 'inline';
@@ -383,7 +381,7 @@ $(document).ready(function () {
     
     cancelButton.addEventListener("click", function () {
         // Hide Edit Controls
-        hideElements([renameButton, renameButtonLineBreak, cancelButton, textButton, imageButton, pdfButton, videoButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton]);
         
         // Redisplay media controls
         mediaControls.style.display = "block";
@@ -463,7 +461,7 @@ $(document).ready(function () {
 	// Event listener for the text button
 	textButton.addEventListener("click", function () {
 		//Hide Controls
-        hideElements([renameButton, renameButtonLineBreak, cancelButton, pdfButton, textButton, imageButton, videoButton, editButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, cancelButton, pdfButton, textButton, imageButton, videoButton, editButton, mediaControls, nextFrameButton, prevFrameButton]);
 
 		// Clear Text Area
 		textArea.value = "";
@@ -520,7 +518,7 @@ $(document).ready(function () {
     imageButton.addEventListener("click", function () {
 
         // Hide Controls
-        hideElements([renameButton, renameButtonLineBreak, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
         
         // Update current edit state
         currentEdit = "image";
@@ -590,7 +588,7 @@ $(document).ready(function () {
     
     pdfButton.addEventListener("click", function() {
        // Hide controls
-        hideElements([renameButton, renameButtonLineBreak, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
         
         // Update current edit state
         currentEdit = "pdf";
@@ -629,7 +627,7 @@ $(document).ready(function () {
     
     videoButton.addEventListener("click", function () {
         // Hide controls
-        hideElements([renameButton, renameButtonLineBreak, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
         
         // Update current edit state
         currentEdit = "video";

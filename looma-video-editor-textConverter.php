@@ -11,7 +11,7 @@ Description: Converts edit information into a txt file for the video editor
 
 <?php
 
-//include ('includes/mongo-connect.php');
+include ('includes/mongo-connect.php');
         
 //$name = $_REQUEST['videoName'];
 $oldName = $_REQUEST['location'];
@@ -34,12 +34,19 @@ function writeToFile($videoTitle, $strJSON)
     fclose($myFile);
     
     // Save File to DB
+    // saveFileToDataBase($myFile);
 }
  
-/*
+
 function saveFileToDataBase($file) 
 {
-    //$activities_collection.save($file);
+    /*
+    $activities_collection.save(
+        {
+            src: $file
+        }
+    );
+    */
 }
-*/
+
 ?>

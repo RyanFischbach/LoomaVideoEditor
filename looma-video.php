@@ -127,6 +127,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <?php keyword('Set Stop Time') ?>
                     </button>
                     <!-- -------- -->
+                    
                     <button type="button" class="media" id="volume">
                         <?php keyword('Volume') ?>
                     </button>
@@ -139,17 +140,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 
                     <div id="edit-controls">
                         
-                        <button type="button" class="media hidden_button" id="rename">
-                            <?php keyword('Rename') ?>
-                        </button>
-                        <div id="rename-line-break">
-                            <br>
-                            <br>
-                        </div>
-                        
-                        <div id="rename-form-div" style="display:none;">
+                        <div id="rename-form-div">
                             <form>
-                                <input type="text" id="rename-text" style="color: black;" />
+                                <input type="text" id="rename-text" />
                             </form>
                             <br>
                             <button type="button" class="media hidden_button" id="rename-form-submit-button">
@@ -194,6 +187,12 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <button type="button" class="media hidden_button" id="next-frame">
                             <?php keyword('+') ?>
                         </button>
+                        
+                        <br>
+                        
+                        <button type="button" class="media hidden_button" id="rename">
+                            <?php keyword('Rename') ?>
+                        </button>
                     
                     </div>
                 
@@ -235,7 +234,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
         
         <script>
             var videoName = "<?php echo $filename; ?>";
-            //videoName = videoName.substring(0, videoName.lastIndexOf("."));
             editsObj.videoName = videoName;
         </script>
         
