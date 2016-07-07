@@ -33,6 +33,9 @@ $(document).ready(function () {
 	var muteButton = document.getElementById("mute");
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 	fullscreenPlayPauseButton.style.display = "none";
+    
+    var timeDiv = document.getElementById("time");
+    timeDiv.innerHTML = "0:00";
 
 	// Edit Controls - Important Buttons
     var renameButton = document.getElementById("rename");
@@ -674,6 +677,7 @@ $(document).ready(function () {
                 currentAddedVideo.addEventListener("timeupdate", function () {
                     var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
                     seekBar.value = value;
+                    timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
                 });
             }
         });
@@ -683,15 +687,7 @@ $(document).ready(function () {
         if (currentAddedVideo != null)
         {
             startTime = currentAddedVideo.currentTime;
-            var startTimeAsString = "" + startTime;
-            var seconds = startTimeAsString.substring(0, startTimeAsString.indexOf("."));
-            var minutes = Math.floor(Number(seconds) / 60);
-            seconds = Number(seconds) % 60;
-            if (seconds < 10)
-            {
-                seconds = "0" + seconds;
-            }
-            addStartTimeButton.innerHTML = "Start: " + minutes + ":" + seconds;
+            addStartTimeButton.innerHTML = "Start: " + minuteSecondTime(startTime);
             
             if (startTime > stopTime)
             {
@@ -705,15 +701,7 @@ $(document).ready(function () {
         if (currentAddedVideo != null)
         {
             stopTime = currentAddedVideo.currentTime;
-            var stopTimeAsString = "" + stopTime;
-            var seconds = stopTimeAsString.substring(0, stopTimeAsString.indexOf("."));
-;           var minutes = Math.floor(Number(seconds) / 60);
-            seconds = Number(seconds) % 60;
-            if (seconds < 10)
-            {
-                seconds = "0" + seconds;
-            }
-            addStopTimeButton.innerHTML = "Stop: " + minutes + ":" + seconds;
+            addStopTimeButton.innerHTML = "Stop: " + minuteSecondTime(stopTime);
         }
     });
     
@@ -758,7 +746,22 @@ $(document).ready(function () {
 
         // Update the slider value
         seekBar.value = value;
+        
+        timeDiv.innerHTML = minuteSecondTime(video.currentTime);
     });
+    
+    function minuteSecondTime (time)
+    {
+        var timeAsString = "" + time;
+        var seconds = timeAsString.substring(0, timeAsString.indexOf("."));
+        var minutes = Math.floor(Number(seconds) / 60);
+        seconds = Number(seconds) % 60;
+        if (seconds < 10)
+        {
+            seconds = "0" + seconds;
+        }
+        return minutes + ":" + seconds;
+    }
     
 
     // Pause the video when the slider handle is being dragged

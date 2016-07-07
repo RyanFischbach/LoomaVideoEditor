@@ -112,6 +112,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <button id="fullscreen-control"></button>
 					
 					<button id="fullscreen-playpause"></button>
+                    
+                    <div id="time"></div>
                         
                     <button type="button" class="media" id="play-pause">
                         <?php keyword('Play') ?>
