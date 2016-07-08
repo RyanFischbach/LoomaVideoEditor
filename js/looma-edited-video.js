@@ -201,7 +201,7 @@ $(document).ready(function () {
                 // Play the video
                 currentOverlaidVideo.play();
 				
-				fullscreenPlayPauseButton.style.backgroundImage = "url('../images/pause.png')";
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
                 
                 //Keeps checking for new things
                 window.requestAnimationFrame(checkTime);
@@ -210,7 +210,7 @@ $(document).ready(function () {
                 // Pause the video
                 currentOverlaidVideo.pause();
 				
-				fullscreenPlayPauseButton.style.backgroundImage = "url('../images/video.png')";
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
                 
                 //Keeps checking for new things
                 window.requestAnimationFrame(checkTime);
@@ -221,7 +221,7 @@ $(document).ready(function () {
                 // Play the video
                 video.play();
 				
-				fullscreenPlayPauseButton.style.backgroundImage = "url('../images/pause.png')";
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
                 //Stop showing the textbox or the image
                 textArea.style.display = "none";
 
@@ -240,7 +240,7 @@ $(document).ready(function () {
             else {
                 // Pause the video
                 video.pause();
-				fullscreenPlayPauseButton.style.backgroundImage = "url('../images/video.png')";
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
             }
         }    
 	});	
