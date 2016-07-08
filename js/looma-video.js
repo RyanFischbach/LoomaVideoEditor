@@ -206,7 +206,7 @@ $(document).ready(function () {
                 //When the user hits play after making an edit it adds the thumbnail of the video to the timeline
                 if (edited == true)
                 {
-				    show_image_timeline(thumbFile);
+				    show_image_timeline(false, thumbFile);
 				    edited = false;
                 }
                 //If an image is showing it removes it
@@ -305,29 +305,29 @@ $(document).ready(function () {
                     editsObj.fileTypes.push("image");
                     editsObj.videoTimes.push(video.currentTime);
                     editsObj.filePaths.push(image_src);
-                    show_image_timeline(image_src);
+                    show_image_timeline(true, image_src);
                     edited = true;
                     image_src = "";
                 }
                 else if(pdf_src != "")
                 {
                     editsObj.fileTypes.push("pdf");
-                editsObj.videoTimes.push(video.currentTime);
-                editsObj.filePaths.push(pdf_src);
+                    editsObj.videoTimes.push(video.currentTime);
+                    editsObj.filePaths.push(pdf_src);
                     
-                    show_image_timeline(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg");
+                    show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg");
                     edited = true;
                     pdf_src = "";
                 }
                 else if (video_src != "")
                 {
                     // Store the type of file
-                editsObj.fileTypes.push("video");
-                // Store the current video time
-                editsObj.videoTimes.push(video.currentTime);
-                editsObj.filePaths.push(video_src);
+                    editsObj.fileTypes.push("video");
+                    // Store the current video time
+                    editsObj.videoTimes.push(video.currentTime);
+                    editsObj.filePaths.push(video_src);
                 
-                if (currentAddedVideo != null)
+                    if (currentAddedVideo != null)
                     {
                         // Send start and end time for video
                         editsObj.videoTimes.push(startTime);
@@ -339,7 +339,7 @@ $(document).ready(function () {
                     currentAddedVideo = null;
                     
                     
-                    show_image_timeline(video_src.substr(0, video_src.length - 4) + "_thumb.jpg");
+                    show_image_timeline(true, video_src.substr(0, video_src.length - 4) + "_thumb.jpg");
                     edited = true;
                     video_src = "";
                 }
@@ -537,14 +537,23 @@ $(document).ready(function () {
     });
     
     // Show image previews in timeline
-    function show_image_timeline(src) {
+    function show_image_timeline(isAnEdit, src) {
         var imageDiv = document.createElement("div");
         var img = document.createElement("img");
         var hoverDiv = document.createElement("div");
-        var button = document.createElement("button");
         
-        button.innerHTML = "TIME";
-        hoverDiv.appendChild(button);
+        if (isAnEdit)
+        {
+            var button = document.createElement("button");
+            if (editsObj.videoTimes.length > 0) {
+                button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
+            }
+            else {
+                button.innerHTML = "error"
+            }
+            hoverDiv.appendChild(button);
+        }
+        
         hoverDiv.style.display = "none";
         hoverDiv.style.position = "absolute";
         hoverDiv.style.top = "0px";
