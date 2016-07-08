@@ -366,51 +366,36 @@ $(document).ready(function () {
     }
     
     function saveTimelineEdit() {
-        if (image_src != "") {
-            var index = editsObj.filePaths.indexOf(timelineImagePath);
-                    
+        if (image_src != "") {        
             // Insert Edit
-            if (index > -1) {
-                if (index < editsObj.filePaths.length - 1) {
-                    editsObj.filePaths.splice(index + 1, 0, image_src);
-                }
-                else {
-                    editsObj.filePaths.push(image_src);
-                }
-                // Remove old edit
-                editsObj.filePaths.splice(index, 1);
-                
-                console.log(editsObj.filePaths);
-                
-                show_image_timeline(true, image_src, image_src, "image", video.currentTime);
-                timelineImagePath = "";
-                timelineEdit = false;
-                timelineImageType = "";
-            }
+            insertSrc(image_src, image_src, "image");  
         }
         else if (pdf_src != "") {
             // Save pdf
-            var index = editsObj.filePaths.indexOf(timelineImagePath);
-            
-            if (index > -1) {
-                if (index < editsObj.filePaths.length -1) {
-                    editsObj.filePaths.splice(index + 1, 0, pdf_src);
-                }
-                else {
-                    editsObj.filePaths.push(pdf_src);
-                }
-                
-                editsObj.filePaths.splice(index, 1);
-                
-                show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src, "pdf", video.currentTime);
-                timelineImagePath = "";
-                timelineEdit = false;
-                timelineImageType = "";
-            }
+            insertSrc(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src, "pdf");
         }
         else if (video_src != "") {
             // Save video
         }
+    }
+    
+    function insertSrc(image_src, src, type) {
+        var index = editsObj.filePaths.indexOf(timelineImagePath);
+        if (index > -1) {
+                if (index < editsObj.filePaths.length - 1) {
+                    editsObj.filePaths.splice(index + 1, 0, src);
+                }
+                else {
+                    editsObj.filePaths.push(src);
+                }
+                // Remove old edit
+                editsObj.filePaths.splice(index, 1);
+                
+                show_image_timeline(true, image_src, src, type, video.currentTime);
+                timelineImagePath = "";
+                timelineEdit = false;
+                timelineImageType = "";
+            }
     }
     
     function saveEdit() {
