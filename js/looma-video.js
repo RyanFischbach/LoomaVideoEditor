@@ -295,6 +295,7 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {   
+            console.log("Video Time " + video.currentTime);
             if (!didSave)
             {
                 didSave = true;        
@@ -378,10 +379,13 @@ $(document).ready(function () {
                 }
                 // Remove old edit
                 editsObj.filePaths.splice(index, 1);
+                
+                console.log(editsObj.filePaths);
+                
                 show_image_timeline(true, image_src, image_src, "image", video.currentTime);
                 timelineImagePath = "";
                 timelineEdit = false;
-                timelineImageType - "";
+                timelineImageType = "";
             }
         }
     }
@@ -595,21 +599,22 @@ $(document).ready(function () {
     
     // Show image previews in timeline
     function show_image_timeline(isAnEdit, image_src, src, type, time) {
+        //console.log("Hi");
         if (timelineEdit) {
-            /* Find element and switch it with new element
-            var imageDivs = document.getElementById("timeline-area").children;
-            var imgs = [];
-            for (var i = 0; i < imageDivs.length; i++) {
-                imgs.push(imageDivs[i].children);
+            var buttons = document.getElementsByClassName("" + time);
+            var button;
+            console.log(buttons.length);
+            for (var i = 0; i < buttons.length; i++) {
+                if (buttons[i].src == timelineImagePath) {
+                    button = buttons[i];
+                }
             }
-            for (var i = 0; i < imgs.length; i++) {
-                var button = imgs[i]
-            }*/
-            var button = document.getElementById("" + time);
-            //console.log("Time: " + button.id);
-            var hoverDiv = button.parentElement;
-            var img = hoverDiv.nextElementSibling;
-            img.src = image_src;
+                
+            if (button != null) {
+                var hoverDiv = button.parentElement;
+                var img = hoverDiv.nextElementSibling;
+                img.src = image_src;
+            }
         }
         
         else {
@@ -623,7 +628,7 @@ $(document).ready(function () {
             {
                 var button = document.createElement("button");
                 if (editsObj.videoTimes.length > 0) {
-                    button.id = editsObj.videoTimes[editsObj.videoTimes.length - 1];
+                    button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
                     button.src = src;
                     button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
                 }
@@ -678,14 +683,14 @@ $(document).ready(function () {
     function addTimelineButtonEventListener(button, type) {
         button.addEventListener("click", function() {
                     // Open the edit
-                    video.currentTime = this.id;
+                    video.currentTime = this.className;
                     video.pause;
-                    console.log(button.src);
+                    //console.log(button.src);
 
                     if (type == "image") {
                         // Show Image to edit
                         for (var i = 0; i < editsObj.videoTimes.length; i++) {
-                            if (this.id == editsObj.videoTimes[i] && type == editsObj.fileTypes[i]) {
+                            if (this.className == editsObj.videoTimes[i] && type == editsObj.fileTypes[i]) {
                                 for (var j = 0; j < editsObj.filePaths.length; j++) {
                                     if (this.src == editsObj.filePaths[j]) {
                                         timelineImageTime = editsObj.videoTimes[i];
