@@ -51,55 +51,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                 var fileSrc = "<?php echo $_REQUEST['fp'] . $_REQUEST['fn']; ?>";
 			</script>
 
-			<style>
-				#video-area {
-					z-index: 0;
-				}
-				
-				#text-box-area {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					z-index: 3;
-				}
-				
-				#text-playback {
-					display: none;
-					resize: none;
-					position: relative;
-					height: 100%;
-					width: 100%;
-					color: black;
-					font: 22px/30px sans-serif;
-				}
-				
-				#image-area {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					height: 100%;
-					width: 100%;
-					z-index: 1;
-				}
-                
-                #pdf-area {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					height: 100%;
-					width: 100%;
-					z-index: 4;
-				}
-                 #overlaid-video-area {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					height: 100%;
-					width: 100%;
-					z-index: 2;
-				}
-                
-			</style>
+			<link rel="stylesheet" type="text/css" href="css/looma-edited-video.css">
 
 			<div id="main-container-horizontal">
 				<div id="video-player">
