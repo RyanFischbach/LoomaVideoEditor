@@ -91,6 +91,12 @@ $(document).ready(function () {
     var currentText = null;
     var currentPdf = null;
     var currentAddedVideo = null;
+    
+    // True when the user is editing through the timeline
+    var timelineEdit = false;
+    var timelineImageTime = -1;
+    var timelineImageType = "";
+    var timelineImagePath = "";
 
 	var isFullscreen = false;
 	// Fullscreen Button
@@ -206,7 +212,7 @@ $(document).ready(function () {
                 //When the user hits play after making an edit it adds the thumbnail of the video to the timeline
                 if (edited == true)
                 {
-				    show_image_timeline(false, thumbFile);
+				    show_image_timeline(false, thumbFile, thumbFile, "null");
 				    edited = false;
                 }
                 //If an image is showing it removes it
@@ -298,14 +304,37 @@ $(document).ready(function () {
 
             video.pause();
 
-            //Displays preview for image          
+            //Displays preview for image
+            
+            if (timelineEdit) {
+                if (image_src != "") {
+                    var index = editsObj.filePaths.indexOf(timelineImagePath);
+                    
+                    // Insert Edit
+                    if (index > -1) {
+                        if (index < editsObj.filePaths.length - 1) {
+                            editsObj.filePaths.splice(index + 1, 0, image_src);
+                        }
+                        else {
+                            console.log(timelineImagePath);
+                            editsObj.filePaths.push(image_src);
+                        }
+                        console.log(editsObj.filePaths);
+                        // Remove old edit
+                        editsObj.filePaths.splice(index, 1);
+                        console.log(editsObj.filePaths);
+                        timelineImagePath = "";
+                    }
+                }
+            }
+            else {
             
                 if(image_src != "")
                 {
                     editsObj.fileTypes.push("image");
                     editsObj.videoTimes.push(video.currentTime);
                     editsObj.filePaths.push(image_src);
-                    show_image_timeline(true, image_src);
+                    show_image_timeline(true, image_src, image_src, "image");
                     edited = true;
                     image_src = "";
                 }
@@ -315,7 +344,7 @@ $(document).ready(function () {
                     editsObj.videoTimes.push(video.currentTime);
                     editsObj.filePaths.push(pdf_src);
                     
-                    show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg");
+                    show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src), "pdf";
                     edited = true;
                     pdf_src = "";
                 }
@@ -339,10 +368,11 @@ $(document).ready(function () {
                     currentAddedVideo = null;
                     
                     
-                    show_image_timeline(true, video_src.substr(0, video_src.length - 4) + "_thumb.jpg");
+                    show_image_timeline(true, video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video");
                     edited = true;
                     video_src = "";
                 }
+            }
             
             currentEdit = "";
 
@@ -537,7 +567,7 @@ $(document).ready(function () {
     });
     
     // Show image previews in timeline
-    function show_image_timeline(isAnEdit, src) {
+    function show_image_timeline(isAnEdit, image_src, src, type) {
         var imageDiv = document.createElement("div");
         var img = document.createElement("img");
         var hoverDiv = document.createElement("div");
@@ -546,11 +576,62 @@ $(document).ready(function () {
         {
             var button = document.createElement("button");
             if (editsObj.videoTimes.length > 0) {
+                button.id = editsObj.videoTimes[editsObj.videoTimes.length - 1];
+                button.src = src;
                 button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
             }
             else {
-                button.innerHTML = "error"
+                button.innerHTML = "";
             }
+            button.addEventListener("click", function() {
+                // Open the edit
+                video.currentTime = this.id;
+                video.pause;
+                console.log(button.src);
+                
+                if (type == "image") {
+                    // Show Image to edit
+                    for (var i = 0; i < editsObj.videoTimes.length; i++) {
+                        if (this.id == editsObj.videoTimes[i] && type == editsObj.fileTypes[i]) {
+                            for (var j = 0; j < editsObj.filePaths.length; j++) {
+                                if (this.src == editsObj.filePaths[j]) {
+                                    timelineImageTime = editsObj.videoTimes[i];
+                                    timelineImageType = editsObj.fileTypes[i];
+                                    timelineImagePath = editsObj.filePaths[j];
+                                }
+                            } 
+                            
+                        }
+                    }
+                    
+                     // Hide Controls
+                    hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+                    
+                    editButton.innerHTML = "Save";
+        
+                    // Update current edit state
+                    currentEdit = "image";
+                    timelineEdit = true;
+
+                    // Show all images for images
+                    imagePreviewDiv.style.display = "block";
+
+                    //Puts the image on top
+                    pdfArea.style.zIndex = basePdfZ;
+                    textBoxArea.style.zIndex = baseTextZ
+                    addedVideoArea.style.zIndex = baseAddedVideoZ;
+                    imageArea.style.zIndex = overlayZ;
+                    
+                    show_image_preview(this.src);
+                    
+                }
+                else if (type == "pdf") {
+                    // Show Pdf to edit
+                }
+                else if (type == "video") {
+                    // Show video to edit
+                }
+            });
             hoverDiv.appendChild(button);
         }
         
@@ -570,7 +651,7 @@ $(document).ready(function () {
             hoverDiv.style.display = "none";
         };
         
-        img.src = src;
+        img.src = image_src;
         img.width = timelineImageWidth;
         img.height= timelineImageHeight;
         imageDiv.appendChild(img);
@@ -596,7 +677,6 @@ $(document).ready(function () {
 
 
             editButton.style.display = "inline";
-
 
             image_src = $(this).data("fp") + $(this).data("fn");
             //image_src = this.src;
