@@ -132,15 +132,6 @@ $(document).ready(function () {
     var textBoxArea = document.getElementById("text-box-area");
     var textArea = document.getElementById("comments");
     var addedVideoArea = document.getElementById("added-video-area");
-    
-    // Useful Functions
-    function hideElements (elements)
-    {
-        for (var x = 0; x < elements.length; x++)
-        {
-            elements[x].style.display = "none";    
-        }
-    }
 
 	// Event Listeners
 
@@ -175,12 +166,24 @@ $(document).ready(function () {
 		{
 			video.pause();
 		}
-	});	
+	});
+    
 	// Play Button Event Listener
 	playButton.addEventListener("click", function () {
         if(currentAddedVideo != null)
         {
-            if (currentAddedVideo.paused == true) 
+            // Play or Pause the Current Added Video
+            toggleCurrentAddedVideo();
+        }
+        else 
+        {
+            // Play or pause the video
+            toggleVideo();
+        }
+	});
+    
+    function toggleCurrentAddedVideo() {
+        if (currentAddedVideo.paused == true) 
             {
                 // Play the video
                 currentAddedVideo.play();
@@ -198,10 +201,10 @@ $(document).ready(function () {
                 // Update the button text to 'Play'
                 playButton.innerHTML = "Play";
             }
-        }
-        else 
-        {
-            if (video.paused == true)
+    }
+    
+    function toggleVideo() {
+        if (video.paused == true)
             {
                 // Play the video
                 video.play();
@@ -212,7 +215,7 @@ $(document).ready(function () {
                 //When the user hits play after making an edit it adds the thumbnail of the video to the timeline
                 if (edited == true)
                 {
-				    show_image_timeline(false, thumbFile, thumbFile, "null");
+				    show_image_timeline(false, thumbFile, thumbFile, "null", video.currentTime);
 				    edited = false;
                 }
                 //If an image is showing it removes it
@@ -237,8 +240,7 @@ $(document).ready(function () {
                 // Update the button text to 'Play'
                 playButton.innerHTML = "Play";
             }
-        }
-	});
+    }
 
 	// Event listener for the mute button
 	muteButton.addEventListener("click", function () {
@@ -262,6 +264,14 @@ $(document).ready(function () {
         hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton]);
         renameFormDiv.style.display = "block";
     });
+    
+    function hideElements (elements)
+    {
+        for (var x = 0; x < elements.length; x++)
+        {
+            elements[x].style.display = "none";    
+        }
+    }
     
     renameSubmitButton.addEventListener("click", function () {   
             hideElements([renameFormDiv]);
@@ -289,89 +299,17 @@ $(document).ready(function () {
             {
                 didSave = true;        
             }
-            // Hide Edit Controls
-            var elements = [renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton];
-            hideElements(elements);
             
-            // Redisplay media controls
-            mediaControls.style.display = "block";
-            document.getElementById("volume").style.display = "inline";
-            volumeBar.style.display = "inline";
-            muteButton.style.display = "inline";
-
-            // change the edit button to say edit
-            editButton.innerHTML = "Edit";
-
+            toggleControlsForSaveButton();
             video.pause();
 
             //Displays preview for image
             
             if (timelineEdit) {
-                if (image_src != "") {
-                    var index = editsObj.filePaths.indexOf(timelineImagePath);
-                    
-                    // Insert Edit
-                    if (index > -1) {
-                        if (index < editsObj.filePaths.length - 1) {
-                            editsObj.filePaths.splice(index + 1, 0, image_src);
-                        }
-                        else {
-                            console.log(timelineImagePath);
-                            editsObj.filePaths.push(image_src);
-                        }
-                        console.log(editsObj.filePaths);
-                        // Remove old edit
-                        editsObj.filePaths.splice(index, 1);
-                        console.log(editsObj.filePaths);
-                        timelineImagePath = "";
-                    }
-                }
+                saveTimelineEdit();
             }
             else {
-            
-                if(image_src != "")
-                {
-                    editsObj.fileTypes.push("image");
-                    editsObj.videoTimes.push(video.currentTime);
-                    editsObj.filePaths.push(image_src);
-                    show_image_timeline(true, image_src, image_src, "image");
-                    edited = true;
-                    image_src = "";
-                }
-                else if(pdf_src != "")
-                {
-                    editsObj.fileTypes.push("pdf");
-                    editsObj.videoTimes.push(video.currentTime);
-                    editsObj.filePaths.push(pdf_src);
-                    
-                    show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src), "pdf";
-                    edited = true;
-                    pdf_src = "";
-                }
-                else if (video_src != "")
-                {
-                    // Store the type of file
-                    editsObj.fileTypes.push("video");
-                    // Store the current video time
-                    editsObj.videoTimes.push(video.currentTime);
-                    editsObj.filePaths.push(video_src);
-                
-                    if (currentAddedVideo != null)
-                    {
-                        // Send start and end time for video
-                        editsObj.videoTimes.push(startTime);
-                        editsObj.videoTimes.push(stopTime);    
-                    }
-                    
-                    // Stop Showing Added Video
-                    addedVideoArea.removeChild(currentAddedVideo);
-                    currentAddedVideo = null;
-                    
-                    
-                    show_image_timeline(true, video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video");
-                    edited = true;
-                    video_src = "";
-                }
+                saveEdit();
             }
             
             currentEdit = "";
@@ -412,7 +350,103 @@ $(document).ready(function () {
 
     });
     
+    function toggleControlsForSaveButton() {
+        // Hide Edit Controls
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton]);
+            
+        // Redisplay media controls
+        mediaControls.style.display = "block";
+        document.getElementById("volume").style.display = "inline";
+        volumeBar.style.display = "inline";
+        muteButton.style.display = "inline";
+        
+        // change the edit button to say edit
+        editButton.innerHTML = "Edit";
+    }
+    
+    function saveTimelineEdit() {
+        if (image_src != "") {
+            var index = editsObj.filePaths.indexOf(timelineImagePath);
+                    
+            // Insert Edit
+            if (index > -1) {
+                if (index < editsObj.filePaths.length - 1) {
+                    editsObj.filePaths.splice(index + 1, 0, image_src);
+                }
+                else {
+                    editsObj.filePaths.push(image_src);
+                }
+                // Remove old edit
+                editsObj.filePaths.splice(index, 1);
+                show_image_timeline(true, image_src, image_src, "image", video.currentTime);
+                timelineImagePath = "";
+                timelineEdit = false;
+                timelineImageType - "";
+            }
+        }
+    }
+    
+    function saveEdit() {
+           if(image_src != "")
+            {
+                editsObj.fileTypes.push("image");
+                editsObj.videoTimes.push(video.currentTime);
+                editsObj.filePaths.push(image_src);
+                show_image_timeline(true, image_src, image_src, "image", video.currentTime);
+                edited = true;
+                image_src = "";
+            }
+            else if(pdf_src != "")
+            {
+                editsObj.fileTypes.push("pdf");
+                editsObj.videoTimes.push(video.currentTime);
+                editsObj.filePaths.push(pdf_src);
+                
+                show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src), "pdf", video.currentTime;
+                edited = true;
+                pdf_src = "";
+            }
+            else if (video_src != "")
+            {
+                // Store the type of file
+                editsObj.fileTypes.push("video");
+                // Store the current video time
+                editsObj.videoTimes.push(video.currentTime);
+                editsObj.filePaths.push(video_src);
+                
+                if (currentAddedVideo != null)
+                {
+                    // Send start and end time for video
+                    editsObj.videoTimes.push(startTime);
+                    editsObj.videoTimes.push(stopTime);    
+                }
+                    
+                // Stop Showing Added Video
+                addedVideoArea.removeChild(currentAddedVideo);
+                currentAddedVideo = null;
+                    
+                    
+                show_image_timeline(true, video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video", video.currentTime);
+                edited = true;
+                video_src = "";
+            }
+    }
+    
     cancelButton.addEventListener("click", function () {
+        toggleControlsForCancelButton();
+        video.pause();
+        
+        cancelEdit();
+        
+        // Redisplay media controls
+            mediaControls.style.display = "block";
+            document.getElementById("volume").style.display = "inline";
+            volumeBar.style.display = "inline";
+            muteButton.style.display = "inline";
+        playButton.innerHTML = "Play";
+    });
+    
+    function toggleControlsForCancelButton() {
         // Hide Edit Controls
         hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton]);
         
@@ -424,9 +458,9 @@ $(document).ready(function () {
 
         // change the edit button to say edit
         editButton.innerHTML = "Edit";
-
-        video.pause();
-        
+    }
+    
+    function cancelEdit() {
         // Remove edits
         if (currentEdit == "text")
         {
@@ -482,14 +516,7 @@ $(document).ready(function () {
         }
         
         currentEdit = "";
-        
-        // Redisplay media controls
-            mediaControls.style.display = "block";
-            document.getElementById("volume").style.display = "inline";
-            volumeBar.style.display = "inline";
-            muteButton.style.display = "inline";
-        playButton.innerHTML = "Play";
-    });
+    }
     
 	// Event listener for the text button
 	textButton.addEventListener("click", function () {
@@ -567,95 +594,137 @@ $(document).ready(function () {
     });
     
     // Show image previews in timeline
-    function show_image_timeline(isAnEdit, image_src, src, type) {
-        var imageDiv = document.createElement("div");
-        var img = document.createElement("img");
-        var hoverDiv = document.createElement("div");
-        
-        if (isAnEdit)
-        {
-            var button = document.createElement("button");
-            if (editsObj.videoTimes.length > 0) {
-                button.id = editsObj.videoTimes[editsObj.videoTimes.length - 1];
-                button.src = src;
-                button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
+    function show_image_timeline(isAnEdit, image_src, src, type, time) {
+        if (timelineEdit) {
+            /* Find element and switch it with new element
+            var imageDivs = document.getElementById("timeline-area").children;
+            var imgs = [];
+            for (var i = 0; i < imageDivs.length; i++) {
+                imgs.push(imageDivs[i].children);
             }
-            else {
-                button.innerHTML = "";
-            }
-            button.addEventListener("click", function() {
-                // Open the edit
-                video.currentTime = this.id;
-                video.pause;
-                console.log(button.src);
-                
-                if (type == "image") {
-                    // Show Image to edit
-                    for (var i = 0; i < editsObj.videoTimes.length; i++) {
-                        if (this.id == editsObj.videoTimes[i] && type == editsObj.fileTypes[i]) {
-                            for (var j = 0; j < editsObj.filePaths.length; j++) {
-                                if (this.src == editsObj.filePaths[j]) {
-                                    timelineImageTime = editsObj.videoTimes[i];
-                                    timelineImageType = editsObj.fileTypes[i];
-                                    timelineImagePath = editsObj.filePaths[j];
-                                }
-                            } 
-                            
-                        }
-                    }
-                    
-                     // Hide Controls
-                    hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
-                    
-                    editButton.innerHTML = "Save";
-        
-                    // Update current edit state
-                    currentEdit = "image";
-                    timelineEdit = true;
-
-                    // Show all images for images
-                    imagePreviewDiv.style.display = "block";
-
-                    //Puts the image on top
-                    pdfArea.style.zIndex = basePdfZ;
-                    textBoxArea.style.zIndex = baseTextZ
-                    addedVideoArea.style.zIndex = baseAddedVideoZ;
-                    imageArea.style.zIndex = overlayZ;
-                    
-                    show_image_preview(this.src);
-                    
-                }
-                else if (type == "pdf") {
-                    // Show Pdf to edit
-                }
-                else if (type == "video") {
-                    // Show video to edit
-                }
-            });
-            hoverDiv.appendChild(button);
+            for (var i = 0; i < imgs.length; i++) {
+                var button = imgs[i]
+            }*/
+            var button = document.getElementById("" + time);
+            //console.log("Time: " + button.id);
+            var hoverDiv = button.parentElement;
+            var img = hoverDiv.nextElementSibling;
+            img.src = image_src;
         }
         
-        hoverDiv.style.display = "none";
-        hoverDiv.style.position = "absolute";
-        hoverDiv.style.top = "0px";
-        hoverDiv.style.left = "0px";
-        imageDiv.appendChild(hoverDiv);
+        else {
         
-        imageDiv.style.position = "relative";
-        imageDiv.width = timelineImageWidth;
-        imageDiv.height = timelineImageHeight;
-        imageDiv.onmouseover = function() {
-            hoverDiv.style.display = "block";
-        };
-        imageDiv.onmouseout = function() {
+            var imageDiv = document.createElement("div");
+            var img = document.createElement("img");
+            var hoverDiv = document.createElement("div");
+
+            // Check to make sure timeline element is not the video thumbnail
+            if (isAnEdit)
+            {
+                var button = document.createElement("button");
+                if (editsObj.videoTimes.length > 0) {
+                    button.id = editsObj.videoTimes[editsObj.videoTimes.length - 1];
+                    button.src = src;
+                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
+                }
+                else {
+                    button.innerHTML = "";
+                }
+                
+                addTimelineButtonEventListener(button, type);
+                
+                hoverDiv.appendChild(button);
+            }
+
             hoverDiv.style.display = "none";
-        };
-        
-        img.src = image_src;
-        img.width = timelineImageWidth;
-        img.height= timelineImageHeight;
-        imageDiv.appendChild(img);
-        document.getElementById("timeline-area").appendChild(imageDiv);
+            hoverDiv.style.position = "absolute";
+            hoverDiv.style.top = "0px";
+            hoverDiv.style.left = "0px";
+            imageDiv.appendChild(hoverDiv);
+
+            imageDiv.style.position = "relative";
+            imageDiv.width = timelineImageWidth;
+            imageDiv.height = timelineImageHeight;
+            imageDiv.onmouseover = function() {
+                hoverDiv.style.display = "block";
+            };
+            imageDiv.onmouseout = function() {
+                hoverDiv.style.display = "none";
+            };
+
+            img.src = image_src;
+            img.width = timelineImageWidth;
+            img.height= timelineImageHeight;
+            imageDiv.appendChild(img);
+            document.getElementById("timeline-area").appendChild(imageDiv);
+        }
+    }
+    
+    function minuteSecondTime(time)
+    {
+        // Time should be in the form 0:00 (0 Min: 00 Sec)
+        // Note that this time is not accurate since it removes some sig figs
+        var timeAsString = "" + time;
+        var seconds = timeAsString.substring(0, timeAsString.indexOf("."));
+        var minutes = Math.floor(Number(seconds) / 60);
+        seconds = Number(seconds) % 60;
+        if (seconds < 10)
+        {
+            seconds = "0" + seconds;
+        }
+        return minutes + ":" + seconds;
+    }
+    
+    function addTimelineButtonEventListener(button, type) {
+        button.addEventListener("click", function() {
+                    // Open the edit
+                    video.currentTime = this.id;
+                    video.pause;
+                    console.log(button.src);
+
+                    if (type == "image") {
+                        // Show Image to edit
+                        for (var i = 0; i < editsObj.videoTimes.length; i++) {
+                            if (this.id == editsObj.videoTimes[i] && type == editsObj.fileTypes[i]) {
+                                for (var j = 0; j < editsObj.filePaths.length; j++) {
+                                    if (this.src == editsObj.filePaths[j]) {
+                                        timelineImageTime = editsObj.videoTimes[i];
+                                        timelineImageType = editsObj.fileTypes[i];
+                                        timelineImagePath = editsObj.filePaths[j];
+                                    }
+                                } 
+
+                            }
+                        }
+
+                         // Hide Controls
+                        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+
+                        editButton.innerHTML = "Save";
+
+                        // Update current edit state
+                        currentEdit = "image";
+                        timelineEdit = true;
+
+                        // Show all images for images
+                        imagePreviewDiv.style.display = "block";
+
+                        //Puts the image on top
+                        pdfArea.style.zIndex = basePdfZ;
+                        textBoxArea.style.zIndex = baseTextZ
+                        addedVideoArea.style.zIndex = baseAddedVideoZ;
+                        imageArea.style.zIndex = overlayZ;
+
+                        show_image_preview(this.src);
+
+                    }
+                    else if (type == "pdf") {
+                        // Show Pdf to edit
+                    }
+                    else if (type == "video") {
+                        // Show video to edit
+                    }
+        });
     }
     
     //Displays text box for timeline
@@ -766,15 +835,7 @@ $(document).ready(function () {
             startTime = 0;
             stopTime = this.duration;
             
-            // Hide Elements
-            hideElements([muteButton, document.getElementById("volume"), volumeBar, videoPreviewDiv]);
-
-            // Redisplay media controls and hide video preview div
-            mediaControls.style.display = "block";
-            document.getElementById("volume").style.display = "none";
-            editButton.style.display = "inline";
-            addStartTimeButton.style.display = "inline";
-            addStopTimeButton.style.display = "inline";
+            toggleControlsForVideoOptionButtons();
 
             video_src = $(this).data("fp") + $(this).data("fn");
 
@@ -795,6 +856,18 @@ $(document).ready(function () {
         });
     }
     
+    function toggleControlsForVideoOptionButtons() {
+        // Hide Elements
+            hideElements([muteButton, document.getElementById("volume"), volumeBar, videoPreviewDiv]);
+
+            // Redisplay media controls and hide video preview div
+            mediaControls.style.display = "block";
+            document.getElementById("volume").style.display = "none";
+            editButton.style.display = "inline";
+            addStartTimeButton.style.display = "inline";
+            addStopTimeButton.style.display = "inline";
+    }
+    
     addStartTimeButton.addEventListener("click", function () {
         if (currentAddedVideo != null)
         {
@@ -808,19 +881,6 @@ $(document).ready(function () {
             }
         }
     });
-    
-    function minuteSecondTime (time)
-    {
-        var timeAsString = "" + time;
-        var seconds = timeAsString.substring(0, timeAsString.indexOf("."));
-        var minutes = Math.floor(Number(seconds) / 60);
-        seconds = Number(seconds) % 60;
-        if (seconds < 10)
-        {
-            seconds = "0" + seconds;
-        }
-        return minutes + ":" + seconds;
-    }
     
     addStopTimeButton.addEventListener("click", function () {
         if (currentAddedVideo != null)
