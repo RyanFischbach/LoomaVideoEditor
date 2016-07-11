@@ -30,7 +30,7 @@ $(document).ready(function () {
 	// Media Controls (play, mute, volume) 
 	var mediaControls = document.getElementById("media-controls");
 	var playButton = document.getElementById("play-pause");
-	var muteButton = document.getElementById("mute");
+	var muteButton = document.getElementById("volume");
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 	fullscreenPlayPauseButton.style.display = "none";
     
@@ -191,7 +191,7 @@ $(document).ready(function () {
                 currentAddedVideo.play();
 
                 // Update the button text to 'Pause'
-                playButton.innerHTML = "Pause";
+                playButton.style.backgroundImage = 'url("images/pause.png")';
                 
                 
             } 
@@ -201,7 +201,7 @@ $(document).ready(function () {
                 currentAddedVideo.pause();
 
                 // Update the button text to 'Play'
-                playButton.innerHTML = "Play";
+                playButton.style.backgroundImage = 'url("images/video.png")';
             }
     }
     
@@ -212,7 +212,7 @@ $(document).ready(function () {
                 video.play();
 
                 // Update the button text to 'Pause'
-                playButton.innerHTML = "Pause";
+                playButton.style.backgroundImage = 'url("images/pause.png")';
 
                 //When the user hits play after making an edit it adds the thumbnail of the video to the timeline
                 if (edited == true)
@@ -240,7 +240,7 @@ $(document).ready(function () {
                 video.pause();
 
                 // Update the button text to 'Play'
-                playButton.innerHTML = "Play";
+                playButton.style.backgroundImage = 'url("images/video.png")';
             }
     }
 
@@ -251,13 +251,13 @@ $(document).ready(function () {
 			video.muted = true;
 
 			// Update the button text
-			muteButton.innerHTML = "Unmute";
+			muteButton.style.backgroundImage = 'url("images/mute.png")';
 		} else {
 			// Unmute the video
 			video.muted = false;
 
 			// Update the button text
-			muteButton.innerHTML = "Mute";
+			muteButton.style.backgroundImage = 'url("images/audio.png")';
 		}
 	});
     
@@ -347,7 +347,7 @@ $(document).ready(function () {
             video.pause();
 
             // change the play-pause button to say play
-            playButton.innerHTML = "Play";
+            playButton.style.backgroundImage = 'url("images/video.png")';
         }
 
     });
@@ -556,7 +556,7 @@ $(document).ready(function () {
             document.getElementById("volume").style.display = "inline";
             volumeBar.style.display = "inline";
             muteButton.style.display = "inline";
-        playButton.innerHTML = "Play";
+        playButton.style.backgroundImage = 'url("images/video.png")';
     });
     
     function toggleControlsForCancelButton() {
@@ -1207,7 +1207,7 @@ $(document).ready(function () {
             video.pause();
         }
         
-        playButton.innerHTML = "Play";
+        playButton.style.backgroundImage = 'url("images/video.png")';
     });
 
     // Update the seek bar as the video plays
