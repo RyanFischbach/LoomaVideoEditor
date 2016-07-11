@@ -34,6 +34,7 @@ $(document).ready(function () {
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 	fullscreenPlayPauseButton.style.display = "none";
     
+    // Video Time Tracker
     var timeDiv = document.getElementById("time");
     timeDiv.innerHTML = "0:00";
 
@@ -92,11 +93,12 @@ $(document).ready(function () {
     var currentPdf = null;
     var currentAddedVideo = null;
     
-    // True when the user is editing through the timeline
-    var timelineEdit = false;
+    // Timeline Edits
+    var timelineEdit = false; // True when the user is editing through the timeline
     var timelineImageTime = -1;
     var timelineImageType = "";
     var timelineImagePath = "";
+    var didEditPast = false; // True when user went back in time and added an edit
 
 	var isFullscreen = false;
 	// Fullscreen Button
@@ -295,7 +297,6 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {   
-            console.log("Video Time " + video.currentTime);
             if (!didSave)
             {
                 didSave = true;        
@@ -399,24 +400,33 @@ $(document).ready(function () {
     }
     
     function saveEdit() {
+       
            if(image_src != "")
             {
-                editsObj.fileTypes.push("image");
-                editsObj.videoTimes.push(video.currentTime);
-                editsObj.filePaths.push(image_src);
+                //editsObj.fileTypes.push("image");
+                //editsObj.videoTimes.push(video.currentTime);
+                insertVideoTime(video.currentTime);
+                insertFileType("image", video.currentTime);
+                insertFilePath(image_src, video.currentTime);
+                //editsObj.filePaths.push(image_src);
                 show_image_timeline(true, image_src, image_src, "image", video.currentTime);
                 edited = true;
                 image_src = "";
+                didEditPast = false;
             }
             else if(pdf_src != "")
             {
-                editsObj.fileTypes.push("pdf");
-                editsObj.videoTimes.push(video.currentTime);
-                editsObj.filePaths.push(pdf_src);
+//                editsObj.fileTypes.push("pdf");
+//                editsObj.videoTimes.push(video.currentTime);
+//                editsObj.filePaths.push(pdf_src);
+                insertVideoTime(video.currentTime);
+                insertFileType("pdf", video.currentTime);
+                insertFilePath(pdf_src, video.currentTime);
                 
                 show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src, "pdf", video.currentTime);
                 edited = true;
                 pdf_src = "";
+                didEditPast = false;
             }
             else if (video_src != "")
             {
@@ -441,7 +451,98 @@ $(document).ready(function () {
                 show_image_timeline(true, video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video", video.currentTime);
                 edited = true;
                 video_src = "";
+                didEditPast = false;
             }
+    }
+    
+    /**
+    * Inserts a video time into the editsObj.videoTimes array
+    */
+    function insertVideoTime(time)
+    {
+        var length = editsObj.videoTimes.length;
+        console.log("insert video time: " + time)
+        if (length > 0)
+        {
+            if (time > editsObj.videoTimes[length - 1])
+            {
+                editsObj.videoTimes.push(time);    
+            }
+            else
+            {
+                // Time is in between two other times
+                console.log(length);
+                for (var i = 0; i < length; i++) {
+                    console.log("i: " + i);
+                    if (time < editsObj.videoTimes[i]) {
+                        didEditPast = true;
+                        console.log("Time: " + time);
+                        editsObj.videoTimes.splice(i, 0, time);
+                        i += length;
+                    }
+                }
+                /**
+                for (var i = 0; i < editsObj.videoTimes.length; i++)
+                {
+                    console.log("i: " + i);
+                    if (time < editsObj.videoTimes[i])
+                    {
+                        // Insert time before and nextTime
+                        console.log("About to splice time");
+                        editsObj.videoTimes.splice(i, 0, time);
+                        console.log("Spliced time");
+                    }
+                }
+                */
+            }
+        }
+        else
+        {
+            // Empty array
+            editsObj.videoTimes.push(time);
+        }
+        
+    }
+
+    /**
+    * Must be called after insertVideoTime is called and must be called with insertFilePath
+    */
+    function insertFileType(fileType, time) {
+        if (editsObj.fileTypes.length > 0) {
+            var index = editsObj.videoTimes.indexOf(time);
+            editsObj.fileTypes.splice(index, 0, fileType);
+        }
+        else {
+            // Empty Array
+            editsObj.fileTypes.push(fileType);
+        }
+    }
+
+    /**
+    * Must be called after insertVideoTime is called and must be called with insertFileType
+    */
+    function insertFilePath(filePath, time) {
+        if (editsObj.filePaths.length > 0) {
+            // Get index from time
+            var index = editsObj.videoTimes.indexOf(time);
+            
+            // Find how many text files were added before this file
+            var textCount = 0;
+            for (var i = 0; i < editsObj.fileTypes.length; i++) {
+                if (editsObj.fileTypes[i] == "text") {
+                    textCount++;
+                }
+            }
+            
+            // Subtract number of text files from index because text files are not included in filePaths
+            index = index - textCount;
+            
+            editsObj.filePaths.splice(index, 0, filePath);
+        }
+        else {
+            // Empty array
+            editsObj.filePaths.push(filePath);
+        }
     }
     
     cancelButton.addEventListener("click", function () {
@@ -626,12 +727,91 @@ $(document).ready(function () {
                 button.src = src;
             }
         }
-        
+        else if (didEditPast) {
+            didEditPast = false;
+            
+            var newChild;
+            var imageDiv = document.createElement("div");
+            var img = document.createElement("img");
+            var hoverDiv = document.createElement("div");
+            
+            var button = document.createElement("button");
+            if (editsObj.videoTimes.length > 0) {
+                button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
+                button.src = src;
+                button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
+            }
+            else {
+                button.innerHTML = "";
+            }
+
+            // Check to make sure timeline element is not the video thumbnail
+            if (isAnEdit)
+            {
+                var button = document.createElement("button");
+                if (editsObj.videoTimes.length > 0) {
+                    button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
+                    button.src = src;
+                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
+                }
+                else {
+                    button.innerHTML = "";
+                }
+                
+                addTimelineButtonEventListener(button, type);
+                
+                hoverDiv.appendChild(button);
+            }
+
+            hoverDiv.style.display = "none";
+            hoverDiv.style.position = "absolute";
+            hoverDiv.style.top = "0px";
+            hoverDiv.style.left = "0px";
+            imageDiv.appendChild(hoverDiv);
+
+            imageDiv.style.position = "relative";
+            imageDiv.width = timelineImageWidth;
+            imageDiv.height = timelineImageHeight;
+            imageDiv.onmouseover = function() {
+                hoverDiv.style.display = "block";
+            };
+            imageDiv.onmouseout = function() {
+                hoverDiv.style.display = "none";
+            };
+
+            img.src = image_src;
+            img.width = timelineImageWidth;
+            img.height= timelineImageHeight;
+            imageDiv.appendChild(img);
+            newChild = imageDiv;
+            
+            
+            var children = document.getElementById("timeline-area").children;
+            for (var i = 0; i < children.count; i++) {
+                if (editsObj.videoTimes.indexOf(children[i].className) > editsObj.videoTimes.indexOf(time)) {
+                    // Add child before here
+                    console.log("Added Child To Timeline");
+                    document.getElementById("timeline-area").insertBefore(newChild, children[i]);
+                    i += children.count;
+                }
+            }
+            
+        }
         else {
         
             var imageDiv = document.createElement("div");
             var img = document.createElement("img");
             var hoverDiv = document.createElement("div");
+            
+            var button = document.createElement("button");
+            if (editsObj.videoTimes.length > 0) {
+                button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
+                button.src = src;
+                button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
+            }
+            else {
+                button.innerHTML = "";
+            }
 
             // Check to make sure timeline element is not the video thumbnail
             if (isAnEdit)
