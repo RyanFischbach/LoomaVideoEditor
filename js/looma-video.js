@@ -736,23 +736,15 @@ $(document).ready(function () {
             var hoverDiv = document.createElement("div");
             
             var button = document.createElement("button");
-            if (editsObj.videoTimes.length > 0) {
-                button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
-                button.src = src;
-                button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
-            }
-            else {
-                button.innerHTML = "";
-            }
 
             // Check to make sure timeline element is not the video thumbnail
             if (isAnEdit)
             {
                 var button = document.createElement("button");
                 if (editsObj.videoTimes.length > 0) {
-                    button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
+                    button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf[time]];
                     button.src = src;
-                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
+                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf[time]]);
                 }
                 else {
                     button.innerHTML = "";
@@ -785,16 +777,38 @@ $(document).ready(function () {
             imageDiv.appendChild(img);
             newChild = imageDiv;
             
-            
+            console.log("Looking at children");
             var children = document.getElementById("timeline-area").children;
-            for (var i = 0; i < children.count; i++) {
-                if (editsObj.videoTimes.indexOf(children[i].className) > editsObj.videoTimes.indexOf(time)) {
-                    // Add child before here
-                    console.log("Added Child To Timeline");
-                    document.getElementById("timeline-area").insertBefore(newChild, children[i]);
-                    i += children.count;
+            console.log(children.length);
+            for (var i = children.length - 1; i > -1; i--)
+            {
+                console.log(children[i]);
+                console.log("Class Name")
+                if (children[i].hasChildNodes)
+                {
+                    console.log(children[i].children);
+                    for (var j = 0; j < children[i].children.length; j++)
+                    {
+                        if (children[i].children[j].hasChildNodes)
+                        {
+                            console.log(children[i].children[j].children);
+                            for (var k = 0; k < children[i].children[j].children.length; k++)
+                            {
+                                console.log("Index " + editsObj.videoTimes.indexOf(children[i].children[j].children[k].className));
+                                //if (editsObj.videoTimes.indexOf(children[i].children[j].children[k].className) >    editsObj.videoTimes.indexOf(time)) {
+                                if (children[i].children[j].children[k].className > time)
+                                {
+                                    // Add child before here
+                                    console.log("Added Child To Timeline");
+                                    document.getElementById("timeline-area").insertBefore(newChild, children[i]);
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            console.log("Done with div");
             
         }
         else {
