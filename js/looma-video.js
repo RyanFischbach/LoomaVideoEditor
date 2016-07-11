@@ -742,9 +742,9 @@ $(document).ready(function () {
             {
                 var button = document.createElement("button");
                 if (editsObj.videoTimes.length > 0) {
-                    button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf[time]];
+                    button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
                     button.src = src;
-                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf[time]]);
+                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
                 }
                 else {
                     button.innerHTML = "";
