@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 	// Buttons
 	var playButton = document.getElementById("play-pause");
-	var muteButton = document.getElementById("mute");
+	var muteButton = document.getElementById("volume");
     var deleteButton = document.getElementById("delete");
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 	
@@ -80,7 +80,7 @@ $(document).ready(function () {
 					textArea.value = message;
 					textArea.style.display = 'inline-block';
 					video.pause();
-					playButton.innerHTML = "Play";
+					playButton.style.backgroundImage = 'url("images/video.png")';
                     textDiv.style.zIndex = 4;
                     pdfArea.style.zIndex = 3;
                     
@@ -95,7 +95,7 @@ $(document).ready(function () {
 					show_image(commands.filePaths[0], "Image not found");
 					commands.filePaths.splice(0, 1);
 					video.pause();
-					playButton.innerHTML = "Play";
+					playButton.style.backgroundImage = 'url("images/video.png")';
 				}
                 else if (commands.fileTypes[0] == "pdf") {
                     //Adds a pdf to pdfArea
@@ -103,7 +103,7 @@ $(document).ready(function () {
                     show_pdf(commands.filePaths[0]);
                     commands.filePaths.splice(0, 1);
                     video.pause();
-					playButton.innerHTML = "Play";
+					playButton.style.backgroundImage = 'url("images/video.png")';
                     textDiv.style.zIndex = 3;
                     pdfArea.style.zIndex = 4;
                 }
@@ -122,7 +122,7 @@ $(document).ready(function () {
                     document.getElementById("overlaid-video-area").appendChild(overlaidVideo);
                     overlaidVideo.currentTime = startTime;
                     timeDiv.innerHTML = minuteSecondTime(currentOverlaidVideo.currentTime);
-                    playButton.innerHTML = "Play";
+                    playButton.style.backgroundImage = 'url("images/video.png")';
                 }
 			}
             else {
@@ -150,7 +150,7 @@ $(document).ready(function () {
                 if(currentOverlaidVideo.currentTime >= endTime) {
                     document.getElementById("overlaid-video-area").removeChild(currentOverlaidVideo);
                     currentOverlaidVideo = null;
-                    playButton.innerHTML = "Play";
+                    playButton.style.backgroundImage = 'url("images/video.png")';
                     timeDiv.innerHTML = minuteSecondTime(video.currentTime);
                 }
                 else {
@@ -253,7 +253,7 @@ $(document).ready(function () {
                 currentOverlaidVideo.play();
 
                 // Update the button text to 'Pause'
-                playButton.innerHTML = "Pause";
+                playButton.style.backgroundImage = 'url("images/pause.png")';
                 
                 //Keeps checking for new things
                 window.requestAnimationFrame(checkTime);
@@ -263,7 +263,7 @@ $(document).ready(function () {
                 currentOverlaidVideo.pause();
 
                 // Update the button text to 'Play'
-                playButton.innerHTML = "Play";
+                playButton.style.backgroundImage = 'url("images/video.png")';
                 
                 //Keeps checking for new things
                 window.requestAnimationFrame(checkTime);
@@ -275,7 +275,7 @@ $(document).ready(function () {
                 video.play();
 
                 // Update the button text to 'Pause'
-                playButton.innerHTML = "Pause";
+                playButton.style.backgroundImage = 'url("images/pause.png")';
 
                 //Stop showing the textbox or the image
                 textArea.style.display = "none";
@@ -297,7 +297,7 @@ $(document).ready(function () {
                 video.pause();
 
                 // Update the button text to 'Play'
-                playButton.innerHTML = "Play";
+                playButton.style.backgroundImage = 'url("images/video.png")';
             }
         }
 	});
@@ -310,14 +310,14 @@ $(document).ready(function () {
                 currentOverlaidVideo.muted = true;
 
                 // Update the button text
-                muteButton.innerHTML = "Unmute";
+               muteButton.style.backgroundImage = 'url("images/mute.png")';
             } 
             else {
                 // Unmute the video
                 currentOverlaidVideo.muted = false;
 
                 // Update the button text
-                muteButton.innerHTML = "Mute";
+                muteButton.style.backgroundImage = 'url("images/auido.png")';
 		    }
         }
         else {
@@ -326,14 +326,14 @@ $(document).ready(function () {
                 video.muted = true;
 
                 // Update the button text
-                muteButton.innerHTML = "Unmute";
+                muteButton.style.backgroundImage = 'url("images/mute.png")';
             } 
             else {
                 // Unmute the video
                 video.muted = false;
 
                 // Update the button text
-                muteButton.innerHTML = "Mute";
+                muteButton.style.backgroundImage = 'url("images/audio.png")';
 		    }
         }
 	});
@@ -347,7 +347,7 @@ $(document).ready(function () {
             // Update the video time
             currentOverlaidVideo.currentTime = time;
 
-            playButton.innerHTML = "Play"
+            playButton.style.backgroundImage = 'url("images/video.png")';
         }
         else {
             // Calculate the new time
@@ -356,7 +356,7 @@ $(document).ready(function () {
             // Update the video time
             video.currentTime = time;
 
-            playButton.innerHTML = "Play"
+            playButton.style.backgroundImage = 'url("images/video.png")';
 
             var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
             commands = moddedBackup;

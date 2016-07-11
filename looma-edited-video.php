@@ -79,20 +79,17 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 					
 					<br>
 					<button type="button" class="media" id="play-pause">
-						<?php keyword('Play') ?>
+						<?php keyword('') ?>
 					</button>
 					<input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
 					<br>
 					<button type="button" class="media" id="volume">
-						<?php keyword('Volume') ?>
+						<?php keyword('') ?>
 					</button>
 					<input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
 					<br>
-					<button type="button" class="media" id="mute">
-						<?php keyword('Mute') ?>
-					</button>
                     <button type="button" class="media" id="delete">
-						<?php keyword('Delete') ?>
+						<?php keyword('') ?>
 					</button>
 					<!--<br><button type="button" id"mute"> <?//php keyword('Edit') ?></button> -->
 				</div>

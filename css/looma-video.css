@@ -243,3 +243,27 @@ button#fullscreen-playpause {
     background-size: 100% 100%;
 	background-color:rgba(200,200,200,0.3);  /*transparent light gray*/
 }
+button#play-pause {
+	 background-image: url("../images/video.png");
+   	background-size: 100% 100%;
+	background-color:rgba(255,255,255,1);  
+	height: 5vh;
+	width:  5vh;
+	background-repeat: no-repeat;
+}
+button#volume {
+	background-image: url("../images/audio.png");
+   	background-size: 100% 100%;
+	background-color:rgba(255,255,255,1); 
+	height: 5vh;
+	width:  5vh;
+	background-repeat: no-repeat;
+}
+button#delete {
+	 background-image: url("../images/trash.png");
+   	background-size: 100% 100%;
+	background-color:rgba(255,255,255,1);  
+	height: 5vh;
+	width:  5vh;
+	background-repeat: no-repeat;
+}
