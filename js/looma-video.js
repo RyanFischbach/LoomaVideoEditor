@@ -370,6 +370,7 @@ $(document).ready(function () {
     function saveTimelineEdit() {
         if (timelineImageText != "") {
             insertText();
+            currentEdit.readOnly = true;
         }
         else if (image_src != "") {        
             // Insert Edit
@@ -416,6 +417,7 @@ $(document).ready(function () {
         show_text_timeline(textArea.value, video.currentTime);
         timelineImageText = "";
         timelineEdit = false;
+        //currentText = null;
     }
     
     function insertSrc(image_src, src, type) {
@@ -442,8 +444,19 @@ $(document).ready(function () {
     
     function saveEdit() {
        
-           if(image_src != "")
-            {
+        if (currentText != null)
+        {
+            insertVideoTime(video.currentTime);
+            insertFileType("text", video.currentTime);
+            insertVideoText(currentText.value, video.currentTime);
+            show_text_timeline(currentText.value, video.currentTime);
+            edited = true;
+            currentEdit = "text";
+            //currentText = null;
+            didEditPast = false;
+        }
+        else if (image_src != "")
+        {
                 //editsObj.fileTypes.push("image");
                 //editsObj.videoTimes.push(video.currentTime);
                 insertVideoTime(video.currentTime);
@@ -454,9 +467,9 @@ $(document).ready(function () {
                 edited = true;
                 image_src = "";
                 didEditPast = false;
-            }
-            else if(pdf_src != "")
-            {
+        }
+        else if (pdf_src != "")
+        {
 //                editsObj.fileTypes.push("pdf");
 //                editsObj.videoTimes.push(video.currentTime);
 //                editsObj.filePaths.push(pdf_src);
@@ -468,9 +481,9 @@ $(document).ready(function () {
                 edited = true;
                 pdf_src = "";
                 didEditPast = false;
-            }
-            else if (video_src != "")
-            {
+        }
+        else if (video_src != "")
+        {
                 // Store the type of file
                 editsObj.fileTypes.push("video");
                 // Store the current video time
@@ -493,7 +506,7 @@ $(document).ready(function () {
                 edited = true;
                 video_src = "";
                 didEditPast = false;
-            }
+        }
     }
     
     /**
@@ -502,7 +515,6 @@ $(document).ready(function () {
     function insertVideoTime(time)
     {
         var length = editsObj.videoTimes.length;
-        console.log("insert video time: " + time)
         if (length > 0)
         {
             if (time > editsObj.videoTimes[length - 1])
@@ -512,29 +524,13 @@ $(document).ready(function () {
             else
             {
                 // Time is in between two other times
-                console.log(length);
                 for (var i = 0; i < length; i++) {
-                    console.log("i: " + i);
                     if (time < editsObj.videoTimes[i]) {
                         didEditPast = true;
-                        console.log("Time: " + time);
                         editsObj.videoTimes.splice(i, 0, time);
                         i += length;
                     }
                 }
-                /**
-                for (var i = 0; i < editsObj.videoTimes.length; i++)
-                {
-                    console.log("i: " + i);
-                    if (time < editsObj.videoTimes[i])
-                    {
-                        // Insert time before and nextTime
-                        console.log("About to splice time");
-                        editsObj.videoTimes.splice(i, 0, time);
-                        console.log("Spliced time");
-                    }
-                }
-                */
             }
         }
         else
@@ -557,6 +553,38 @@ $(document).ready(function () {
             // Empty Array
             editsObj.fileTypes.push(fileType);
         }
+    }
+    
+    function insertVideoText(text, time) {
+        if (editsObj.videoText.length > 0)
+        {
+            var timeIndex = editsObj.videoTimes.indexOf(time);
+            var numTextFiles = 0;
+
+            for (var i = 0; i < timeIndex; i++)
+            {
+                if (editsObj.fileTypes[i] == "text")
+                {
+                    numTextFiles++;
+                }
+            }
+            
+            if (numTextFiles < editsObj.videoText.length)
+            {
+                editsObj.videoText.splice(numTextFiles, 0, text);    
+            }
+            else
+            {
+                // Append text to array
+                editsObj.videoText.push(text);
+            }
+        }
+        else
+        {
+            // Empty array
+            editsObj.videoText.push(text);
+        }
+        
     }
 
     /**
@@ -697,6 +725,9 @@ $(document).ready(function () {
         cancelButton.style.display = "inline";
         editButton.style.display = "inline";
         
+        currentText = textArea;
+        
+        /*
         // Update current edit state
         currentEdit = "text";
             
@@ -711,13 +742,16 @@ $(document).ready(function () {
 
         // Push the text onto the array of edited video text
         editsObj.videoText.push(text);
+        */
 
         // don't show the submit button
         submitButton.style.display = "none";
         
+        /*
         //Add timeline display
         show_text_timeline(textArea.value, video.currentTime);
         edited = true;
+        */
         
         //If there is an image it removes it
         if (currentImage != null) {
@@ -754,7 +788,6 @@ $(document).ready(function () {
         if (timelineEdit) {
             var buttons = document.getElementsByClassName("" + time);
             var button;
-            console.log(buttons.length);
             for (var i = 0; i < buttons.length; i++) {
                 if (buttons[i].src == timelineImagePath) {
                     button = buttons[i];
@@ -818,12 +851,9 @@ $(document).ready(function () {
             imageDiv.appendChild(img);
             newChild = imageDiv;
             
-            console.log("Looking at children");
             var children = document.getElementById("timeline-area").children;
-            console.log(children.length);
             var child = findChild(children, time);
             document.getElementById("timeline-area").insertBefore(newChild, child);
-            console.log("Done with div");
             
         }
         else {
@@ -831,16 +861,6 @@ $(document).ready(function () {
             var imageDiv = document.createElement("div");
             var img = document.createElement("img");
             var hoverDiv = document.createElement("div");
-            
-           // var button = document.createElement("button");
-//            if (editsObj.videoTimes.length > 0) {
-//                button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
-//                button.src = src;
-//                button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
-//            }
-//            else {
-//                button.innerHTML = "";
-//            }
 
             // Check to make sure timeline element is not the video thumbnail
             if (isAnEdit)
@@ -904,14 +924,10 @@ $(document).ready(function () {
             // Open the edit
             video.currentTime = this.className;
             video.pause;
-
-            console.log("Button Event Listener");
-
                     
             if (type == "text") 
             {
                 // Show text to edit
-                console.log("Adding text button to timeline");
                 findText(this);
                 toggleTimelineControls();
                 editButton.style.display = "none";
@@ -919,7 +935,8 @@ $(document).ready(function () {
                 currentEdit = "text";
                 timelineEdit = true;
                 
-                textArea.value = currentText.value;
+                //textArea = currentText;
+                textArea.value = timelineImageText;
 
                 // show the text area and submit button
                 textArea.style.display = "inline";
@@ -1060,7 +1077,6 @@ $(document).ready(function () {
             {
                 for (var j = 0; j < editsObj.videoText.length; j++)
                 {
-                    //console.log(button.parentNode.parentNode.getElementsByTagName("p")[0].innerHTML);
                     if (button.parentNode.parentNode.getElementsByTagName("p")[0].innerHTML == editsObj.videoText[j]) {
                         // text in textDiv == videoText stored in txt file
                         console.log("Found Text File");
@@ -1085,15 +1101,12 @@ $(document).ready(function () {
             {
                 if (children[i].hasChildNodes)
                 {
-                    console.log(children[i].children);
                     for (var j = 0; j < children[i].children.length; j++)
                     {
                         if (children[i].children[j].hasChildNodes)
                         {
-                            console.log(children[i].children[j].children);
                             for (var k = 0; k < children[i].children[j].children.length; k++)
                             {
-                                //if (editsObj.videoTimes.indexOf(children[i].children[j].children[k].className) >    editsObj.videoTimes.indexOf(time)) {
                                 if (children[i].children[j].children[k].className > time)
                                 {
                                     // Add child before here
@@ -1117,7 +1130,6 @@ $(document).ready(function () {
             var textDiv;
             var textDivs = document.getElementsByClassName("timeline-text-div");
             for (var i = 0; i < textDivs.length; i++) {
-                console.log(textDivs[i]);
                 if (textDivs[i].children[1].children[0].className == time) {
                     // textDivs[i].children[1] is the hoverDiv in the textDiv
                     textDiv = textDivs[i];
@@ -1128,25 +1140,74 @@ $(document).ready(function () {
                 // Change text inside of <p> tags
                 textDiv.children[0].innerHTML = message;
             }
+        }
+        else if (didEditPast)
+        {
+            didEditPast = false;
             
-            /*
-            var buttons = document.getElementsByClassName("" + time);
-            var button;
-            //console.log(buttons.length);
-            for (var i = 0; i < buttons.length; i++)
+            var newChild;
+            var textDiv = document.createElement("div");
+            var hoverDiv = document.createElement("div");
+            
+var timelineButton = document.createElement("button");
+            if (editsObj.videoTimes.length > 0)
             {
-                if (buttons[i].parentElement.innerHTML == timelineImageText) {
-                    button = buttons[i];
-                }
+                //timelineButton.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
+                timelineButton.className = time;
+                timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
             }
-                
-            if (button != null) {
-                var hoverDiv = button.parentElement;
-                var img = hoverDiv.nextElementSibling;
-                img.src = image_src;
-                button.src = src;
+            else
+            {
+                timelineButton.innerHTML = "";
             }
-            */
+
+            addTimelineButtonEventListener(timelineButton, "text");
+
+            hoverDiv.appendChild(timelineButton);
+            hoverDiv.style.backgroundColor = "black";
+            hoverDiv.style.display = "none";
+            hoverDiv.style.position = "absolute";
+            hoverDiv.style.top = "0px";
+            hoverDiv.style.left = "0px";
+            hoverDiv.style.zIndex = "1";
+
+
+            textDiv.className = "timeline-text-div";
+            //textDiv.style.overflow = "none";
+            textDiv.style.position = "relative";
+            textDiv.style.backgroundColor = "white";
+            textDiv.style.color = "black";
+            textDiv.style.width = timelineImageWidth + "px";
+            textDiv.style.height = timelineImageHeight + "px";
+            textDiv.style.zIndex = "0";
+            textDiv.onmouseover = function() {
+                hoverDiv.style.display = "block";
+            };
+            textDiv.onmouseout = function() {
+                hoverDiv.style.display = "none";
+            };
+
+            textDiv.innerHTML = "<p>" + message + "</p>";
+
+
+            // Update current Text
+            var text = document.createElement("textarea");
+            text.value = message;
+            text.style.width = timelineImageWidth + "px";
+            text.style.height = timelineImageHeight + "px";
+            text.style.resize = "none";
+            text.style.color = "black";
+            text.readOnly = "readOnly";
+            currentText = text;
+            //textDiv.appendChild(text);
+            textDiv.appendChild(hoverDiv);
+            newChild = textDiv;
+            
+            var children = document.getElementById("timeline-area").children;
+            //var child = findChild(children, time);
+            var child = findChild(children, time);
+            document.getElementById("timeline-area").insertBefore(newChild, child);
+            
         }
         else
         {
@@ -1178,6 +1239,7 @@ $(document).ready(function () {
 
 
             textDiv.className = "timeline-text-div";
+            //textDiv.style.overflow = "none";
             textDiv.style.position = "relative";
             textDiv.style.backgroundColor = "white";
             textDiv.style.color = "black";
@@ -1185,7 +1247,6 @@ $(document).ready(function () {
             textDiv.style.height = timelineImageHeight + "px";
             textDiv.style.zIndex = "0";
             textDiv.onmouseover = function() {
-                console.log("Mouse OVer");
                 hoverDiv.style.display = "block";
             };
             textDiv.onmouseout = function() {
@@ -1210,7 +1271,6 @@ $(document).ready(function () {
             //document.getElementById("timeline-area").appendChild(text);
         }
     }
-
     
     // Functions for showing image previews for selecting an image
     for (var i = 0; i < imageOptionButtons.length; i++) {
