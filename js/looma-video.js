@@ -861,6 +861,10 @@ $(document).ready(function () {
             var imageDiv = document.createElement("div");
             var img = document.createElement("img");
             var hoverDiv = document.createElement("div");
+            
+            img.src = image_src;
+            img.width = timelineImageWidth;
+            img.height= timelineImageHeight;
 
             // Check to make sure timeline element is not the video thumbnail
             if (isAnEdit)
@@ -875,7 +879,7 @@ $(document).ready(function () {
                     button.innerHTML = "";
                 }
                 
-                addTimelineButtonEventListener(button, type);
+                addTimelineButtonEventListener(button, type, img);
                 
                 hoverDiv.appendChild(button);
             }
@@ -896,9 +900,6 @@ $(document).ready(function () {
                 hoverDiv.style.display = "none";
             };
 
-            img.src = image_src;
-            img.width = timelineImageWidth;
-            img.height= timelineImageHeight;
             imageDiv.appendChild(img);
             document.getElementById("timeline-area").appendChild(imageDiv);
         }
@@ -919,7 +920,7 @@ $(document).ready(function () {
         return minutes + ":" + seconds;
     }
     
-    function addTimelineButtonEventListener(button, type) {
+    function addTimelineButtonEventListener(button, type, img) {
         button.addEventListener("click", function() {
             // Open the edit
             video.currentTime = this.className;
@@ -937,6 +938,7 @@ $(document).ready(function () {
                 
                 //textArea = currentText;
                 textArea.value = timelineImageText;
+                // Need to do something with currentText so that cancelButton can remove it from timeline
 
                 // show the text area and submit button
                 textArea.style.display = "inline";
@@ -973,6 +975,7 @@ $(document).ready(function () {
                         // Update current edit state
                         currentEdit = "image";
                         timelineEdit = true;
+                        currentImage = img;
 
                         // Show all images for images
                         imagePreviewDiv.style.display = "block";
@@ -1161,7 +1164,7 @@ var timelineButton = document.createElement("button");
                 timelineButton.innerHTML = "";
             }
 
-            addTimelineButtonEventListener(timelineButton, "text");
+            addTimelineButtonEventListener(timelineButton, "text", null);
 
             hoverDiv.appendChild(timelineButton);
             hoverDiv.style.backgroundColor = "black";
