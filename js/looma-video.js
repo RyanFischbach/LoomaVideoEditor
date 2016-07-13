@@ -497,16 +497,20 @@ $(document).ready(function () {
         else if (video_src != "")
         {
                 // Store the type of file
-                editsObj.fileTypes.push("video");
+                //editsObj.fileTypes.push("video");
                 // Store the current video time
-                editsObj.videoTimes.push(video.currentTime);
-                editsObj.filePaths.push(video_src);
+//                editsObj.videoTimes.push(video.currentTime);
+//                editsObj.filePaths.push(video_src);
+            insertVideoTime(video.currentTime);
+            insertFileType("video", video.currentTime);
+            insertFilePath(video_src, video.currentTime);
                 
                 if (currentAddedVideo != null)
                 {
                     // Send start and end time for video
-                    editsObj.addedVideoTimes.push(startTime);
-                    editsObj.addedVideoTimes.push(stopTime);    
+//                    editsObj.addedVideoTimes.push(startTime);
+//                    editsObj.addedVideoTimes.push(stopTime);
+                    insertAddedVideoTimes(startTime, stopTime, video.currentTime);
                 }
                     
                 // Stop Showing Added Video
@@ -623,6 +627,30 @@ $(document).ready(function () {
         else {
             // Empty array
             editsObj.filePaths.push(filePath);
+        }
+    }
+    
+    /**
+    * Must be called for all added videos
+    */
+    function insertAddedVideoTimes(start, stop, time) {
+        if (editsObj.addedVideoTimes.length > 0)
+        {
+            var timeIndex = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
+            var numVideos = 0;
+            for (var i = 0; i < editsObj.fileTypes.length; i++)
+            {
+                numVideos++;
+            }
+            // Get proper index for addedVideoTimes array
+            var index = 
+            editsObj.addedVideoTimes.splice(index, 0, start, stop);
+        }
+        else
+        {
+            // Empty array
+            editsObj.addedVideoTimes.push(start);
+            editsObj.addedVideoTimes.push(stop);
         }
     }
     
@@ -1031,6 +1059,12 @@ $(document).ready(function () {
                         textBoxArea.style.zIndex = baseTextZ
                         addedVideoArea.style.zIndex = baseAddedVideoZ;
                         imageArea.style.zIndex = baseImageZ;
+            
+                        if (currentPdf != null) {
+                            pdfArea.removeChild(currentPdf);
+                        }
+            
+                        editButton.innerHTML = "Save";
                         
                         var pdf = document.createElement("iframe");
                         pdf_src = this.src;
@@ -1057,6 +1091,8 @@ $(document).ready(function () {
                         // Update current edit state
                         currentEdit = "video";
                         timelineEdit = true;
+            
+                        toggleTimelineControls();
                         
                         videoPreviewDiv.style.display = "block";
                         
@@ -1065,6 +1101,12 @@ $(document).ready(function () {
                         textBoxArea.style.zIndex = baseTextZ
                         addedVideoArea.style.zIndex = overlayZ;
                         imageArea.style.zIndex = baseImageZ;
+            
+                        if (currentAddedVideo != null) {
+                            addedVideoArea.removeChild(currentAddedVideo);
+                        }
+            
+                        editButton.innerHTML = "Save";
                         
                         // Display video over video
                         var addedVideo = document.createElement("video");
@@ -1072,7 +1114,8 @@ $(document).ready(function () {
                         addedVideo.src = video_src;
                         currentAddedVideo = addedVideo;
                         document.getElementById("added-video-area").appendChild(addedVideo);
-                        //playButton.innerHTML = "Play";
+                        //playButton.innerHTML = "Play"
+                        /*;
                         if (currentAddedVideo != null)
                         {
                             currentAddedVideo.addEventListener("timeupdate", function () {
@@ -1081,6 +1124,7 @@ $(document).ready(function () {
                                 timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
                             });
                         }
+                        */
         }
         });
     }
@@ -1106,9 +1150,11 @@ $(document).ready(function () {
     
     function toggleTimelineControls() {
          // Hide Controls
-        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, editButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        
+        cancelButton.style.display = "inline";
 
-        editButton.innerHTML = "Save";
+        //editButton.innerHTML = "Save";
     }
     
     function findChild(children, time) {
@@ -1386,6 +1432,10 @@ var timelineButton = document.createElement("button");
 
             video_src = $(this).data("fp") + $(this).data("fn");
 
+            if (currentAddedVideo != null) {
+                addedVideoArea.removeChild(currentAddedVideo);
+            }
+            
             // Display video over video
             var addedVideo = document.createElement("video");
             addedVideo.src = video_src;
