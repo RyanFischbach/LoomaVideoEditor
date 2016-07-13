@@ -136,15 +136,17 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
                     <br>
 
-                    </button>
                 </div>
                 
                     <div id="edit-controls">
                         
                         <div id="rename-form-div">
+                            <p> Save As </p>
+                            
                             <form>
                                 <input type="text" id="rename-text" />
                             </form>
+                            
                             <br>
                             <button type="button" class="media hidden_button" id="rename-form-submit-button">
                                 <?php keyword("Submit") ?>

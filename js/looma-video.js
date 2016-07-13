@@ -25,31 +25,55 @@ $(document).ready(function () {
 
 	// Video
 	var video = document.getElementById("video");
+    
+    // Video Time Tracker
+    var timeDiv = document.getElementById("time");
+    timeDiv.innerHTML = "0:00";
 
-	// Buttons
-
-	// Media Controls (play, mute, volume) 
+	// Media Controls - play, mute, volume 
 	var mediaControls = document.getElementById("media-controls");
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("volume");
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 	fullscreenPlayPauseButton.style.display = "none";
     
-    // Video Time Tracker
-    var timeDiv = document.getElementById("time");
-    timeDiv.innerHTML = "0:00";
-
-	// Edit Controls - Important Buttons
+    // Media Controls - Sliders
+	var seekBar = document.getElementById("seek-bar");
+	var volumeBar = document.getElementById("volume-bar");
+    
+    // Edit Controls - Renaming a video
     var renameButton = document.getElementById("rename");
-	var cancelButton = document.getElementById("cancel");
-	var editButton = document.getElementById("edit");
-	var textButton = document.getElementById("text");
-	var imageButton = document.getElementById("image");
-	var pdfButton = document.getElementById("pdf");
+    var didSave = false;    // Set to true after user saves one time
+    var didRename = false;
+    var renameFormDiv = document.getElementById("rename-form-div");
+    var renameInput = document.getElementById("rename-text");
+    var renameSubmitButton = document.getElementById("rename-form-submit-button");
+    var oldName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
+    
+    // Edit Controls - Cancelling an edit
+    var cancelButton = document.getElementById("cancel");
+    
+    // Edit Controls - Making an edit
+    var editButton = document.getElementById("edit");
+    
+    // Edit Controls - Adding Text
+    var textButton = document.getElementById("text");
+
+    // Edit Controls - Selecting Images
+    var imageButton = document.getElementById("image");
+    var submitButton = document.getElementById("submit");
+    var imagePreviewDiv = document.getElementById("image-previews");
+    var imageOptionButtons = imagePreviewDiv.children;
+    
+    // Edit Controls - Selecting Pdfs
+    var pdfButton = document.getElementById("pdf");
+    var pdfPreviewDiv = document.getElementById("pdf-previews");
+    var pdfOptionButtons = pdfPreviewDiv.children;
+    
+    // Edit Controls - Selecting Videos
     var videoButton = document.getElementById("video-button");
-	var submitButton = document.getElementById("submit");
-	var nextFrameButton = document.getElementById("next-frame");
-	var prevFrameButton = document.getElementById("prev-frame");
+    var videoPreviewDiv = document.getElementById("video-previews");
+    var videoOptionButtons = videoPreviewDiv.children;
     
     // Edit Controls - Adding a video
     var addStartTimeButton = document.getElementById("start-time");
@@ -57,42 +81,38 @@ $(document).ready(function () {
     var startTime = 0;
     var stopTime = 0;
     
-    // Edit Controls - Renaming a video
-    var didSave = false;    // Set to true after user saves one time
-    var didRename = false;
-    var renameFormDiv = document.getElementById("rename-form-div");
-    var renameInput = document.getElementById("rename-text");
-    var renameSubmitButton = document.getElementById("rename-form-submit-button");
-    var oldName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
-
-    // Edit Controls - Selecting Images
-    var imagePreviewDiv = document.getElementById("image-previews");
-    var imageOptionButtons = imagePreviewDiv.children;
-    
-    // Edit Controls - Selecting Pdfs
-    var pdfPreviewDiv = document.getElementById("pdf-previews");
-    var pdfOptionButtons = pdfPreviewDiv.children;
-    
-    // Edit Controls - Selecting Videos
-    var videoPreviewDiv = document.getElementById("video-previews");
-    var videoOptionButtons = videoPreviewDiv.children;
-
-	// Sliders
-	var seekBar = document.getElementById("seek-bar");
-	var volumeBar = document.getElementById("volume-bar");
+    // Edit Controls - Frame by Frame Controls
+    var nextFrameButton = document.getElementById("next-frame");
+	var prevFrameButton = document.getElementById("prev-frame");
     
     // File Sources
     var image_src = "";
     var pdf_src = "";
     var video_src = "";
     
-    // Other Variables
-    var edited = true;
-    var currentImage = null;
+    // Displaying Edits - Media overlays
+    var edited = true;  // true when the user makes an edit, false when the edit has been saved and disappears
+    var currentImage = null;    // Used for image overlay - displays the selected image over the video
     var currentEdit = "";
-    var currentText = null;
+    var currentText = null;     // Used for text overlay - displays text over the video
     var currentPdf = null;
     var currentAddedVideo = null;
+    
+    // Displaying Edits - Overlays
+    
+    //Base zIndexs
+    var baseImageZ = 2;
+    var basePdfZ = 3;
+    var baseAddedVideoZ = 4;
+    var baseTextZ = 5;
+    var overlayZ = 6;
+    
+    //Overlay areas
+    var pdfArea = document.getElementById("pdf-area");
+    var imageArea = document.getElementById("image-area");
+    var textBoxArea = document.getElementById("text-box-area");
+    var textArea = document.getElementById("comments");
+    var addedVideoArea = document.getElementById("added-video-area");
     
     // Timeline Edits - Clicking on a button in the timeline
     var timelineEdit = false; // True when the user is editing through the timeline
@@ -101,6 +121,10 @@ $(document).ready(function () {
     var timelineImagePath = ""; // For displaying the image when user clicks on button in timeline
     var timelineImageText = ""; // For displaying text when user clicks on button in timeline
     var didEditPast = false; // True when user went back in time and added an edit
+    
+    // Other var for timeline
+	var timelineImageHeight;
+	var timelineImageWidth;
 
 	var isFullscreen = false;
 	// Fullscreen Button
@@ -118,24 +142,7 @@ $(document).ready(function () {
 			isFullscreen = false;
 		}
 	});
-
-	//Var for timeline
-	var timelineImageHeight;
-	var timelineImageWidth;
     
-    //Base zIndexs
-    var baseImageZ = 2;
-    var basePdfZ = 3;
-    var baseAddedVideoZ = 4;
-    var baseTextZ = 5;
-    var overlayZ = 6;
-    
-    //Overlay areas
-    var pdfArea = document.getElementById("pdf-area");
-    var imageArea = document.getElementById("image-area");
-    var textBoxArea = document.getElementById("text-box-area");
-    var textArea = document.getElementById("comments");
-    var addedVideoArea = document.getElementById("added-video-area");
 
 	// Event Listeners
 
@@ -301,29 +308,17 @@ $(document).ready(function () {
         {   
             if (!didSave)
             {
-                didSave = true;        
+                // Save file as...
+                saveAs();
+                save();
             }
             
-            toggleControlsForSaveButton();
-            video.pause();
-
-            //Displays preview for image
+            else
+            {
             
-            if (timelineEdit) {
-                saveTimelineEdit();
+                toggleControlsForSaveButton();
+                save();
             }
-            else {
-                saveEdit();
-            }
-            
-            currentEdit = "";
-
-
-            // Send to server to save as a txt file
-            $.ajax("looma-video-editor-textConverter.php", {
-                data: {info: editsObj, location: oldName},
-                method: "POST"
-            });
         } 
 		else
 		{
@@ -354,6 +349,32 @@ $(document).ready(function () {
 
     });
     
+    function saveAs() {
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, mediaControls, imagePreviewDiv, textArea, videoPreviewDiv, pdfPreviewDiv, editButton]);
+        renameFormDiv.style.display = "block";
+        didSave = true;  
+    }
+    
+    function save() {
+        video.pause();
+                //Displays preview for image
+                if (timelineEdit) {
+                    saveTimelineEdit();
+                }
+                else {
+                    saveEdit();
+                }
+
+                currentEdit = "";
+
+
+                // Send to server to save as a txt file
+                $.ajax("looma-video-editor-textConverter.php", {
+                    data: {info: editsObj, location: oldName},
+                    method: "POST"
+                });
+    }
+    
     function toggleControlsForSaveButton() {
         // Hide Edit Controls
         hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton]);
@@ -371,7 +392,8 @@ $(document).ready(function () {
     function saveTimelineEdit() {
         if (timelineImageText != "") {
             insertText();
-            currentEdit.readOnly = true;
+            //currentEdit.readOnly = true;
+            textArea.readOnly = true;
         }
         else if (image_src != "") {        
             // Insert Edit
@@ -388,14 +410,6 @@ $(document).ready(function () {
     }
     
     function insertText() {
-        /*
-        var numTextFiles = 0;
-        for (var i = 0; i < editsObj.fileTypes.length; i++) {
-            if (editsObj.fileTypes[i] == "text") {
-                numTextFiles++;
-            }
-        }
-        */
         
         var timeIndex = editsObj.videoTimes.indexOf(video.currentTime);
         
@@ -456,14 +470,13 @@ $(document).ready(function () {
             insertVideoText(currentText.value, video.currentTime);
             show_text_timeline(currentText.value, video.currentTime);
             edited = true;
-            currentEdit = "text";
+            currentText = null;
+            //currentEdit = "text";
             //currentText = null;
-            didEditPast = false;
+            //didEditPast = false;
         }
         else if (image_src != "")
         {
-                //editsObj.fileTypes.push("image");
-                //editsObj.videoTimes.push(video.currentTime);
                 insertVideoTime(video.currentTime);
                 insertFileType("image", video.currentTime);
                 insertFilePath(image_src, video.currentTime);
@@ -471,7 +484,7 @@ $(document).ready(function () {
                 show_image_timeline(true, image_src, image_src, "image", video.currentTime);
                 edited = true;
                 image_src = "";
-                didEditPast = false;
+                //didEditPast = false;
         }
         else if (pdf_src != "")
         {
@@ -485,7 +498,7 @@ $(document).ready(function () {
                 show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src, "pdf", video.currentTime);
                 edited = true;
                 pdf_src = "";
-                didEditPast = false;
+                //didEditPast = false;
         }
         else if (video_src != "")
         {
@@ -514,7 +527,7 @@ $(document).ready(function () {
                 show_image_timeline(true, video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video", video.currentTime);
                 edited = true;
                 video_src = "";
-                didEditPast = false;
+                //didEditPast = false;
         }
     }
     
@@ -1203,7 +1216,7 @@ $(document).ready(function () {
             var textDiv = document.createElement("div");
             var hoverDiv = document.createElement("div");
             
-var timelineButton = document.createElement("button");
+            var timelineButton = document.createElement("button");
             if (editsObj.videoTimes.length > 0)
             {
                 //timelineButton.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
@@ -1261,6 +1274,9 @@ var timelineButton = document.createElement("button");
             //var child = findChild(children, time);
             var child = findChild(children, time);
             document.getElementById("timeline-area").insertBefore(newChild, child);
+            
+            // Add video thumbnail after for cleaner User interface
+            //show_image_timeline(false, thumbFile, thumbFile, "null", video.currentTime);
             
         }
         else
