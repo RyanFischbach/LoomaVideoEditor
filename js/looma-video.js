@@ -426,12 +426,6 @@ $(document).ready(function () {
     * Replace old information with new information and update timeline
     */
     function insertSrc(image_src, src, type) {
-        if (type == "video")
-        {
-            //var index = editsObj.filePaths.indexOf
-        }
-        else
-        {
             var index = editsObj.filePaths.indexOf(timelineImagePath);
             if (index > -1)
             {
@@ -451,7 +445,6 @@ $(document).ready(function () {
                 timelineEdit = false;
                 timelineImageType = "";
             }
-        }
     }
     
     function saveEdit() {
