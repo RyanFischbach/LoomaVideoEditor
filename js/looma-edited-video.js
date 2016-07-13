@@ -111,10 +111,12 @@ $(document).ready(function () {
                     //Overlays a video inside of OverlaidVideoArea
                     console.log(commands.filePaths[0]);
                     commands.fileTypes.splice(0, 1);
-                    video.pause();  
-                    var startTime = commands.videoTimes[0];
-                    endTime = commands.videoTimes[1];
-                    commands.videoTimes.splice(0, 2);
+                    video.pause(); 
+                    var startTime = commands.addedVideoTimes[0];
+                    endTime = commands.addedVideoTimes[1];
+                    //var startTime = commands.videoTimes[0];
+                    //endTime = commands.videoTimes[1];
+                    commands.addedVideoTimes.splice(0, 2);
                     var overlaidVideo = document.createElement("video");
                     overlaidVideo.src = commands.filePaths[0];
                     commands.filePaths.splice(0, 1);

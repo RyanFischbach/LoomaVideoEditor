@@ -17,6 +17,7 @@ var editsObj = {
 	, videoTimes: []
 	, videoText: []
 	, filePaths: []
+    , addedVideoTimes: []
 , }
 
 'use strict';
@@ -382,6 +383,7 @@ $(document).ready(function () {
         }
         else if (video_src != "") {
             // Save video
+            insertSrc(video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video");
         }
     }
     
@@ -420,25 +422,35 @@ $(document).ready(function () {
         //currentText = null;
     }
     
+    /**
+    * Replace old information with new information and update timeline
+    */
     function insertSrc(image_src, src, type) {
-        var index = editsObj.filePaths.indexOf(timelineImagePath);
-        if (index > -1)
+        if (type == "video")
         {
-            if (index < editsObj.filePaths.length - 1)
+            //var index = editsObj.filePaths.indexOf
+        }
+        else
+        {
+            var index = editsObj.filePaths.indexOf(timelineImagePath);
+            if (index > -1)
             {
-                editsObj.filePaths.splice(index + 1, 0, src);
+                if (index < editsObj.filePaths.length - 1)
+                {
+                    editsObj.filePaths.splice(index + 1, 0, src);
+                }
+                else
+                {
+                    editsObj.filePaths.push(src);
+                }
+                // Remove old edit
+                editsObj.filePaths.splice(index, 1);
+
+                show_image_timeline(true, image_src, src, type, video.currentTime);
+                timelineImagePath = "";
+                timelineEdit = false;
+                timelineImageType = "";
             }
-            else
-            {
-                editsObj.filePaths.push(src);
-            }
-            // Remove old edit
-            editsObj.filePaths.splice(index, 1);
-                
-            show_image_timeline(true, image_src, src, type, video.currentTime);
-            timelineImagePath = "";
-            timelineEdit = false;
-            timelineImageType = "";
         }
     }
     
@@ -493,8 +505,8 @@ $(document).ready(function () {
                 if (currentAddedVideo != null)
                 {
                     // Send start and end time for video
-                    editsObj.videoTimes.push(startTime);
-                    editsObj.videoTimes.push(stopTime);    
+                    editsObj.addedVideoTimes.push(startTime);
+                    editsObj.addedVideoTimes.push(stopTime);    
                 }
                     
                 // Stop Showing Added Video
