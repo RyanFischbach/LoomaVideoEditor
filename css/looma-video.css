@@ -232,6 +232,7 @@ video {height: 100% }
 
 button#fullscreen-playpause {
 	position: absolute;
+    display: none;
 	opacity: 0.4;
 	bottom:5%;
 	left:5%;

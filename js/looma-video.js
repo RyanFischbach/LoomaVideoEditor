@@ -35,7 +35,6 @@ $(document).ready(function () {
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("volume");
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
-	fullscreenPlayPauseButton.style.display = "none";
     
     // Media Controls - Sliders
 	var seekBar = document.getElementById("seek-bar");
@@ -133,7 +132,7 @@ $(document).ready(function () {
 		screenfull.toggle(video);
 		if(!isFullscreen)
 		{
-			fullscreenPlayPauseButton.style.display = "";
+			fullscreenPlayPauseButton.style.display = "inline";
 			isFullscreen = true;
 		}
 		else
@@ -700,17 +699,46 @@ $(document).ready(function () {
         // Remove edits
         if (currentEdit == "text")
         {
-            editsObj.fileTypes.pop();
-            editsObj.videoTimes.pop();
-            editsObj.videoText.pop();
+            if (didEditPast)
+            {
+                if (timelineEdit)
+                {
+                    // Need to determine if user saved the edit or not
+                }
+                else
+                {
+                    // Added a new edit in the past
+                }
+            }
+            else
+            {
+                editsObj.fileTypes.pop();
+                editsObj.videoTimes.pop();
+                editsObj.videoText.pop();
+            }
             document.getElementById("timeline-area").removeChild(currentText);
             currentText = null;
         }
         else if (currentEdit == "image")
         {
-            editsObj.fileTypes.pop();
-            editsObj.videoTimes.pop();
-            editsObj.filePaths.pop();
+            if (didEditPast)
+            {
+                if (timelineEdit)
+                {
+                    // Need to determine if user saved the edit or not
+                }
+                else
+                {
+                    // Added a new edit in the past
+                }
+            }
+            else
+            {
+                editsObj.fileTypes.pop();
+                editsObj.videoTimes.pop();
+                editsObj.filePaths.pop(); 
+            }
+            
             
             //Removes image overlay
             if(currentImage != null)
@@ -718,37 +746,69 @@ $(document).ready(function () {
                 imageArea.removeChild(currentImage);
                 currentImage = null;
             }
+            image_src = "";
         }
         else if (currentEdit == "pdf")
         {
-            editsObj.fileTypes.pop();
-            editsObj.videoTimes.pop();
-            editsObj.filePaths.pop(); 
+            if (didEditPast)
+            {
+                if (timelineEdit)
+                {
+                    // Need to determine if user saved the edit or not
+                }
+                else
+                {
+                    // Added a new edit in the past
+                }
+            }
+            else
+            {
+                editsObj.fileTypes.pop();
+                editsObj.videoTimes.pop();
+                editsObj.filePaths.pop(); 
+            }
             
             if (currentPdf != null)
             {
                 pdfArea.removeChild(currentPdf);
                 currentPdf = null;
             }
+            pdf_src = "";
         }
         else if (currentEdit == "video")
         {
-            // cancel
-            //enableButton(editButton);
             editButton.innerHTML = "Edit";
             mediaControls.style.display = "block";
             
             // Remove Added Video
             if (video_src != "")
                 {
-                    editsObj.fileTypes.pop();
-                    editsObj.videoTimes.pop();
-                    editsObj.filePaths.pop();
+                    if (didEditPast)
+                    {
+                        if (timelineEdit)
+                        {
+                            // Need to determine if user saved the edit or not
+                        }
+                        else
+                        {
+                            // Added a new edit in the past
+                        }
+                    }
+                    else
+                    {
+                        editsObj.fileTypes.pop();
+                        editsObj.videoTimes.pop();
+                        editsObj.filePaths.pop();
+                        editsObj.addedVideoTimes.pop();
+                        editsObj.addedVideoTimes.pop();
+                    }
             
                     // Stop Showing Added Video
                     addedVideoArea.removeChild(currentAddedVideo);
                     currentAddedVideo = null;
                 }
+            
+            video_src = "";
         }
         
         currentEdit = "";
@@ -1555,12 +1615,10 @@ $(document).ready(function () {
         {
             if (video.currentTime < editsObj.videoTimes[editsObj.videoTimes.length - 1])
             {
-                console.log("Past");
                 didEditPast = true;
             }
             else
             {
-                console.log("Future");
                 didEditPast = false;
             }
         }
