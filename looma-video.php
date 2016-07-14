@@ -116,19 +116,14 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <div id="time"></div>
                         
                     <button type="button" class="media" id="play-pause">
-                        <?php keyword('Play/Pause') ?>
+                        <?php
+                            $TKW['Play/Pause'] = 'प्ले / पज';
+                            keyword('Play/Pause');
+                        ?>
                     </button>
                     <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
                     <br>
-                    <!-- Edit Controls: Adding a video in a video -->
-                    <button type="button" class="media hidden_button" id="start-time">
-                        <?php keyword('Set Start Time') ?>
-                    </button>
-                        
-                    <button type="button" class="media hidden_button" id="stop-time">
-                        <?php keyword('Set Stop Time') ?>
-                    </button>
-                    <!-- -------- -->
+                    
                     <button type="button" class="media" id="volume">
                         <?php keyword('Volume') ?>
                     </button>
@@ -137,7 +132,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
                 </div>
                 
-                    <div id="edit-controls">
+                <div id="edit-controls">
                         
                         <div id="rename-form-div">
                             <p> Save As </p>
@@ -151,21 +146,40 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                 <?php keyword("Submit") ?>
                             </button>
                         </div>
+                    
+                    <div id="add-time-div">
+                        <button type="button" class="media hidden_button" id="start-time">
+                            <?php keyword('Set Start Time') ?>
+                        </button>
+                        
+                        <button type="button" class="media hidden_button" id="stop-time">
+                            <?php keyword('Set Stop Time') ?>
+                        </button>
+                    </div>
                                 
                         <button type="button" class="media hidden_button" id="cancel">
-                            <?php keyword('Cancel') ?>
+                            <?php
+                                $TKW['Cancel'] = 'रद्द';
+                                keyword('Cancel'); ?>
                         </button>
                         
                         <button type="button" class="media" id="edit">
-                            <?php keyword('Edit') ?>
+                            <?php $TKW['Edit'] = 'सम्पादन'; ?>
+                            <?php keyword('Edit'); ?>
                         </button>
                     
                         <button type="button" class="media hidden_button" id="text">
-                            <?php keyword('Text') ?>
+                            <?php 
+                                $TKW['Text'] = 'पाठ';
+                                keyword('Text');
+                            ?>
                         </button>
                     
                         <button type="button" class="media hidden_button" id="image">
-                            <?php keyword('Image') ?>
+                            <?php
+                                $TKW['Image'] = 'छवि';
+                                keyword('Image') 
+                            ?>
                         </button>
                         
                         <button type="button" class="media hidden_button" id="pdf">
@@ -184,12 +198,18 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     
                         <button type="button" class="media hidden_button" id="prev-frame">
                             -
-                            <?php tooltip('Previous Frame') ?>
+                            <?php
+                                $TKW['Previous Frame'] = 'अघिल्लो फ्रेम';
+                                tooltip('Previous Frame')
+                            ?>
                         </button>
                     
                         <button type="button" class="media hidden_button" id="next-frame">
                             +
-                            <?php tooltip('Next Frame') ?>
+                            <?php
+                                $TKW['Next Frame'] = 'अर्को फ्रेम';
+                                tooltip('Next Frame')
+                            ?>
                         </button>
                         
                         <br>
@@ -198,7 +218,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             <?php keyword('Rename') ?>
                         </button>
                     
-                    </div>
+                </div>
                 
                 <!--Opens the pictures folder when you want to pick a picture-->
                 <div id="image-previews">

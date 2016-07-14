@@ -40,6 +40,9 @@ $(document).ready(function () {
 	var seekBar = document.getElementById("seek-bar");
 	var volumeBar = document.getElementById("volume-bar");
     
+    //Edit Controls
+    var editControls = document.getElementById("edit-controls");
+    
     // Edit Controls - Renaming a video
     var renameButton = document.getElementById("rename");
     var didSave = false;    // Set to true after user saves one time
@@ -315,6 +318,13 @@ $(document).ready(function () {
             // Set timeDiv back to normal video time
             timeDiv.innerHTML = minuteSecondTime(video.currentTime);
             seekBar.value = (100 / video.duration) * video.currentTime;
+            // Set other changes back to normal
+            mediaControls.style.height = "20%";
+            editControls.style.height = "10%";
+            cancelButton.style.height = "52%";
+            editButton.style.height = "52%";
+            editButton.disabled = false;
+            editButton.style.opacity = "1.0";
             if (!didSave)
             {
                 // Save file as...
@@ -1557,14 +1567,19 @@ $(document).ready(function () {
     for (var i = 0; i < videoOptionButtons.length; i++)
     {
         videoOptionButtons[i].addEventListener("click", function () {
-            
+            mediaControls.style.height = "10%";
+            editControls.style.height = "20%";
+            cancelButton.style.height = "26%";
+            editButton.style.height = "26%";
+            editButton.disabled = true;
+            editButton.style.opacity = "0.7";
             // Reset start and stoptime buttons
             addStartTimeButton.innerHTML = "Add Start Time";
             addStopTimeButton.innerHTML = "Add Stop Time";
 
             // Set Default Stop Time
-            startTime = 0;
-            stopTime = this.duration;
+            startTime = -1;
+            stopTime = -1;
             
             toggleControlsForVideoOptionButtons();
 
@@ -1611,12 +1626,18 @@ $(document).ready(function () {
         if (currentAddedVideo != null)
         {
             startTime = currentAddedVideo.currentTime;
-            addStartTimeButton.innerHTML = "Start: " + minuteSecondTime(startTime);
-            
-            if (startTime > stopTime)
+            addStartTimeButton.innerHTML = "Start Time: " + minuteSecondTime(startTime);
+            if (stopTime >= 0 && stopTime >= startTime)
             {
-                stopTime = startTime;
+                editButton.disabled = false;
+                editButton.style.opacity = "1.0";
+            }
+            else
+            {
                 addStopTimeButton.innerHTML = "Set Stop Time";
+                stopTime = -1;
+                editButton.disabled = true;
+                editButton.style.opacity = "0.7";
             }
         }
     });
@@ -1625,7 +1646,19 @@ $(document).ready(function () {
         if (currentAddedVideo != null)
         {
             stopTime = currentAddedVideo.currentTime;
-            addStopTimeButton.innerHTML = "Stop: " + minuteSecondTime(stopTime);
+            addStopTimeButton.innerHTML = "Stop Time: " + minuteSecondTime(stopTime);
+            if (startTime >= 0 && stopTime >= startTime)
+            {
+                editButton.disabled = false;
+                editButton.style.opacity = "1.0";
+            }
+            else
+            {
+                addStartTimeButton.innerHTML = "Set Start Time";
+                startTime = -1;
+                editButton.disabled = true;
+                editButton.style.opacity = "0.7";
+            }
         }
     });
     

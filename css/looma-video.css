@@ -153,12 +153,12 @@ button#next-frame {
     display: none;
 }
 
-#start-time {
+button#start-time {
     height: 50%;
     display: none;
 }
 
-#stop-time {
+button#stop-time {
     height: 50%;
     display: none;
 }
