@@ -104,13 +104,13 @@ button#fullscreen-control {
 }
 
 #cancel {
-    height: 52%;
+    height: 50%;
     display: none;
     margin-top: 0px;
 }
     
 #edit {
-    height: 52%;
+    height: 50%;
     display: inline;
     margin-top:0px;
     transform: translateX(3px);
@@ -153,14 +153,41 @@ button#next-frame {
     display: none;
 }
 
-button#start-time {
+div#add-time-div {
     height: 50%;
     display: none;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+}
+
+div#add-start-stop-time-div {
+    height: 100%;
+    display: inline-block;
+}
+
+button#start-time {
+    height: 100%;
+    width: 40%;
 }
 
 button#stop-time {
-    height: 50%;
-    display: none;
+    height: 100%;
+    width: 40%;
+}
+
+div#default-start-stop-time-div{
+    height: 0;
+    display: inline-block;
+    position: absolute;
+    width: 0;
+    vertical-align: top;
+    text-align: left;
+}
+
+button#default-start-stop-time{
+    height: 100%;
+    width: 25%;
 }
 
 #video-button {

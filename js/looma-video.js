@@ -78,10 +78,14 @@ $(document).ready(function () {
     var videoOptionButtons = videoPreviewDiv.children;
     
     // Edit Controls - Adding a video
+    var addTimeDiv = document.getElementById("add-time-div");
     var addStartTimeButton = document.getElementById("start-time");
     var addStopTimeButton = document.getElementById("stop-time");
+    var addDefaultButton = document.getElementById("default-start-stop-time");
     var startTime = 0;
     var stopTime = 0;
+    document.getElementById("default-start-stop-time-div").style.width = "50%";
+    document.getElementById("default-start-stop-time-div").style.height = "50%";
     
     // Edit Controls - Frame by Frame Controls
     var nextFrameButton = document.getElementById("next-frame");
@@ -370,7 +374,7 @@ $(document).ready(function () {
     });
     
     function saveAs() {
-        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, mediaControls, imagePreviewDiv, textArea, videoPreviewDiv, pdfPreviewDiv, editButton, addStartTimeButton, addStopTimeButton]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, mediaControls, imagePreviewDiv, textArea, videoPreviewDiv, pdfPreviewDiv, editButton, addTimeDiv]);
         
         renameFormDiv.style.display = "block";
         didSave = true;  
@@ -398,7 +402,7 @@ $(document).ready(function () {
     
     function toggleControlsForSaveButton() {
         // Hide Edit Controls
-        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addTimeDiv]);
             
         // Redisplay media controls
         mediaControls.style.display = "block";
@@ -704,6 +708,12 @@ $(document).ready(function () {
     }
     
     cancelButton.addEventListener("click", function () {
+        mediaControls.style.height = "20%";
+        editControls.style.height = "10%";
+        cancelButton.style.height = "52%";
+        editButton.style.height = "52%";
+        editButton.disabled = false;
+        editButton.style.opacity = "1.0";
         toggleControlsForCancelButton();
         video.pause();
         
@@ -719,7 +729,7 @@ $(document).ready(function () {
     
     function toggleControlsForCancelButton() {
         // Hide Edit Controls
-        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addStartTimeButton, addStopTimeButton]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addTimeDiv]);
         
         // Redisplay media controls
         mediaControls.style.display = "block";
@@ -1293,8 +1303,6 @@ $(document).ready(function () {
         hideElements([renameButton, editButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
         
         cancelButton.style.display = "inline";
-
-        //editButton.innerHTML = "Save";
     }
     
     function findChild(children, time) {
@@ -1569,13 +1577,13 @@ $(document).ready(function () {
         videoOptionButtons[i].addEventListener("click", function () {
             mediaControls.style.height = "10%";
             editControls.style.height = "20%";
-            cancelButton.style.height = "26%";
-            editButton.style.height = "26%";
+            cancelButton.style.height = "25%";
+            editButton.style.height = "25%";
             editButton.disabled = true;
             editButton.style.opacity = "0.7";
             // Reset start and stoptime buttons
-            addStartTimeButton.innerHTML = "Add Start Time";
-            addStopTimeButton.innerHTML = "Add Stop Time";
+            addStartTimeButton.innerHTML = "Set Start Time";
+            addStopTimeButton.innerHTML = "Set Stop Time";
 
             // Set Default Stop Time
             startTime = -1;
@@ -1611,15 +1619,13 @@ $(document).ready(function () {
     }
     
     function toggleControlsForVideoOptionButtons() {
-        // Hide Elements
+            // Hide Elements
             hideElements([videoPreviewDiv, document.getElementById("volume"), volumeBar]);
 
             // Redisplay media controls and hide video preview div
             mediaControls.style.display = "block";
-            //document.getElementById("volume").style.display = "none";
             editButton.style.display = "inline";
-            addStartTimeButton.style.display = "inline";
-            addStopTimeButton.style.display = "inline";
+            addTimeDiv.style.display = "block";
     }
     
     addStartTimeButton.addEventListener("click", function () {

@@ -134,46 +134,64 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                 
                 <div id="edit-controls">
                         
-                        <div id="rename-form-div">
-                            <p> Save As </p>
+                    <div id="rename-form-div">
+                        <p> Save As </p>
                             
-                            <form>
-                                <input type="text" id="rename-text" />
-                            </form>
+                        <form>
+                            <input type="text" id="rename-text" />
+                        </form>
                             
-                            <br>
-                            <button type="button" class="media hidden_button" id="rename-form-submit-button">
-                                <?php keyword("Submit") ?>
-                            </button>
-                        </div>
-                    
-                    <div id="add-time-div">
-                        <button type="button" class="media hidden_button" id="start-time">
-                            <?php keyword('Set Start Time') ?>
-                        </button>
-                        
-                        <button type="button" class="media hidden_button" id="stop-time">
-                            <?php keyword('Set Stop Time') ?>
+                        <br>
+                        <button type="button" class="media hidden_button" id="rename-form-submit-button">
+                            <?php keyword("Submit") ?>
                         </button>
                     </div>
+                    
+                    <div id="add-time-div">
+                        <div id="add-start-stop-time-div">
+                            <button type="button" class="media hidden_button" id="start-time">
+                                <?php
+                                    $TKW['Set Start Time'] = 'समय सुरु सेट';
+                                    keyword('Set Start Time')
+                                ?>
+                            </button>
+
+                            <button type="button" class="media hidden_button" id="stop-time">
+                                <?php
+                                    $TKW['Set Stop Time'] = 'स्टप समय सेट';
+                                    keyword('Set Stop Time')
+                                ?>
+                            </button>
+                        </div>
+                        
+                        <div id="default-start-stop-time-div">
+                            <button type="button" class="media hidden_button" id="default-start-stop-time">
+                                <?php
+                                    $TKW['Default'] = 'पूर्वनिर्धारित';
+                                    keyword('Default');
+                                ?>
+                            </button>
+                        </div>
+                    </div>
                                 
-                        <button type="button" class="media hidden_button" id="cancel">
+                    <button type="button" class="media hidden_button" id="cancel">
                             <?php
                                 $TKW['Cancel'] = 'रद्द';
-                                keyword('Cancel'); ?>
-                        </button>
+                                keyword('Cancel');
+                            ?>
+                    </button>
                         
-                        <button type="button" class="media" id="edit">
-                            <?php $TKW['Edit'] = 'सम्पादन'; ?>
+                    <button type="button" class="media hidden_button" id="edit">
+                            <?php $TKW['Edit'] = 'सम्पादन'; $TKW['Save'] = 'सुरक्षित' ?>
                             <?php keyword('Edit'); ?>
-                        </button>
+                    </button>
                     
-                        <button type="button" class="media hidden_button" id="text">
+                    <button type="button" class="media hidden_button" id="text">
                             <?php 
                                 $TKW['Text'] = 'पाठ';
                                 keyword('Text');
                             ?>
-                        </button>
+                    </button>
                     
                         <button type="button" class="media hidden_button" id="image">
                             <?php
