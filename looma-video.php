@@ -129,7 +129,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <?php keyword('Set Stop Time') ?>
                     </button>
                     <!-- -------- -->
-                    
                     <button type="button" class="media" id="volume">
                         <?php keyword('Volume') ?>
                     </button>

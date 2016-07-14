@@ -289,27 +289,32 @@ $(document).ready(function () {
     }
     
     renameSubmitButton.addEventListener("click", function () {   
-            hideElements([renameFormDiv]);
+        hideElements([renameFormDiv]);
             
-            mediaControls.style.display = "block";
-            editButton.style.display = "inline";
-            editButton.innerHTML = "Edit";
+        mediaControls.style.display = "block";
+        document.getElementById("volume").style.display = "inline";
+        volumeBar.style.display = "inline";
+        editButton.style.display = "inline";
+        editButton.innerHTML = "Edit";
         
-            var newName = renameInput.value;
+        var newName = renameInput.value;
             
-            $.ajax("looma-rename-edited-video.php", {
-                data: {oldPath: oldName, newPath: newName},
-                method: "POST"
-            });
+        $.ajax("looma-rename-edited-video.php", {
+            data: {oldPath: oldName, newPath: newName},
+            method: "POST"
+        });
         
-            oldName = newName;
-            return true;
+        oldName = newName;
+        return true;
     });
 
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {   
+            // Set timeDiv back to normal video time
+            timeDiv.innerHTML = minuteSecondTime(video.currentTime);
+            seekBar.value = (100 / video.duration) * video.currentTime;
             if (!didSave)
             {
                 // Save file as...
@@ -1072,6 +1077,11 @@ $(document).ready(function () {
                     
             if (type == "text") 
             {
+                if (currentText != null)
+                {
+                    textArea.style.display = "none";
+                    currentText = null;
+                }
                 // Show text to edit
                 findText(this);
                 toggleTimelineControls();
@@ -1099,6 +1109,11 @@ $(document).ready(function () {
             }        
             else if (type == "image") 
             {
+                if (currentImage != null)
+                {
+                    imageArea.removeChild(currentImage);
+                    currentImage = null;
+                }
                 // Show Image to edit
                 for (var i = 0; i < editsObj.videoTimes.length; i++)
                 {
@@ -1138,50 +1153,61 @@ $(document).ready(function () {
             }
             else if (type == "pdf") 
             {
-                        // Show Pdf to edit
-                        // Show Image to edit
-                        for (var i = 0; i < editsObj.videoTimes.length; i++) {
-                            if (this.className == editsObj.videoTimes[i] && type == editsObj.fileTypes[i]) {
-                                for (var j = 0; j < editsObj.filePaths.length; j++) {
-                                    if (this.src == editsObj.filePaths[j]) {
-                                        timelineImageTime = editsObj.videoTimes[i];
-                                        timelineImageType = editsObj.fileTypes[i];
-                                        timelineImagePath = editsObj.filePaths[j];
-                                    }
-                                } 
-
+                if (currentPdf != null)
+                {
+                    pdfArea.removeChild(currentPdf);
+                    currentPdf = null;
+                }
+                // Show Pdf to edit
+                // Show Image to edit
+                for (var i = 0; i < editsObj.videoTimes.length; i++)
+                {
+                    if (this.className == editsObj.videoTimes[i] && type == editsObj.fileTypes[i])
+                    {
+                        for (var j = 0; j < editsObj.filePaths.length; j++)
+                        {
+                            if (this.src == editsObj.filePaths[j])
+                            {
+                                timelineImageTime = editsObj.videoTimes[i];
+                                timelineImageType = editsObj.fileTypes[i];
+                                timelineImagePath = editsObj.filePaths[j];
                             }
-                        }
+                        } 
+
+                    }
+                }
                         
-                        toggleTimelineControls();
+                toggleTimelineControls();
                         
-                        // Update current edit state
-                        currentEdit = "pdf";
-                        timelineEdit = true;
+                // Update current edit state
+                currentEdit = "pdf";
+                timelineEdit = true;
                         
-                        pdfPreviewDiv.style.display = "block";
+                pdfPreviewDiv.style.display = "block";
                         
-                        //Puts the pdf on top
-                        pdfArea.style.zIndex = overlayZ;
-                        textBoxArea.style.zIndex = baseTextZ
-                        addedVideoArea.style.zIndex = baseAddedVideoZ;
-                        imageArea.style.zIndex = baseImageZ;
+                //Puts the pdf on top
+                pdfArea.style.zIndex = overlayZ;
+                textBoxArea.style.zIndex = baseTextZ
+                addedVideoArea.style.zIndex = baseAddedVideoZ;
+                imageArea.style.zIndex = baseImageZ;
             
-                        if (currentPdf != null) {
-                            pdfArea.removeChild(currentPdf);
-                        }
-            
-                        editButton.innerHTML = "Save";
+                editButton.innerHTML = "Save";
                         
-                        var pdf = document.createElement("iframe");
-                        pdf_src = this.src;
-                        pdf.src = pdf_src;
-                        currentPdf = pdf;
-                        pdfArea.appendChild(pdf);
+                var pdf = document.createElement("iframe");
+                pdf_src = this.src;
+                pdf.src = pdf_src;
+                currentPdf = pdf;
+                pdfArea.appendChild(pdf);
             }
             else if (type == "video") 
             {
-                            // Show video to edit
+                if (currentAddedVideo != null)
+                {
+                    addedVideoArea.removeChild(currentAddedVideo);
+                    currentAddedVideo = null;
+                }
+                
+                // Show video to edit
                 for (var i = 0; i < editsObj.videoTimes.length; i++)
                 {
                     if (this.className == editsObj.videoTimes[i] && type == editsObj.fileTypes[i])
@@ -1531,6 +1557,10 @@ $(document).ready(function () {
     for (var i = 0; i < videoOptionButtons.length; i++)
     {
         videoOptionButtons[i].addEventListener("click", function () {
+            
+            // Reset start and stoptime buttons
+            addStartTimeButton.innerHTML = "Add Start Time";
+            addStopTimeButton.innerHTML = "Add Stop Time";
 
             // Set Default Stop Time
             startTime = 0;
@@ -1552,6 +1582,10 @@ $(document).ready(function () {
             //playButton.innerHTML = "Play";
             if (currentAddedVideo != null)
             {
+                // Update timeDiv
+                timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
+                // Set seekbar to beginning of video
+                seekBar.value = 0;
                 currentAddedVideo.addEventListener("timeupdate", function () {
                     var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
                     seekBar.value = value;
@@ -1563,11 +1597,11 @@ $(document).ready(function () {
     
     function toggleControlsForVideoOptionButtons() {
         // Hide Elements
-            hideElements([muteButton, document.getElementById("volume"), volumeBar, videoPreviewDiv]);
+            hideElements([videoPreviewDiv, document.getElementById("volume"), volumeBar]);
 
             // Redisplay media controls and hide video preview div
             mediaControls.style.display = "block";
-            document.getElementById("volume").style.display = "none";
+            //document.getElementById("volume").style.display = "none";
             editButton.style.display = "inline";
             addStartTimeButton.style.display = "inline";
             addStopTimeButton.style.display = "inline";
