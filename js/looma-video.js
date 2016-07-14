@@ -396,22 +396,43 @@ $(document).ready(function () {
     }
     
     function saveTimelineEdit() {
-        if (timelineImageText != "") {
+        if (currentText != null) {
             insertText();
             //currentEdit.readOnly = true;
             textArea.readOnly = true;
+            currentText = null;
+            textArea.style.display = "none";
         }
         else if (image_src != "") {        
             // Insert Edit
-            insertSrc(image_src, image_src, "image");  
+            insertSrc(image_src, image_src, "image");
+            
+            if (currentImage != null)
+            {
+                imageArea.removeChild(currentImage);
+                currentImage = null;
+                image_src = "";
+            }
         }
         else if (pdf_src != "") {
             // Save pdf
             insertSrc(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src, "pdf");
+            if (currentPdf != null)
+            {
+                pdfArea.removeChild(currentImage);
+                currentPdf = null;
+                pdf_src = "";
+            }
         }
         else if (video_src != "") {
             // Save video
             insertSrc(video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video");
+            if (currentAddedVideo != null)
+            {
+                addedVideoArea.removeChild(currentImage);
+                currentAddedVideo = null;
+                video_src = "";
+            }
         }
     }
     
@@ -699,45 +720,52 @@ $(document).ready(function () {
         // Remove edits
         if (currentEdit == "text")
         {
-            if (didEditPast)
+            if (timelineEdit)
             {
-                if (timelineEdit)
+                // Need to determine if user saved the edit or not
+            }
+            /*
+            else if (didEditPast)
+            {
+                // Added a new edit in the past
+                var timeIndex = editsObj.videoTimes.indexOf(video.currentTime);
+                var numTextFiles = 0;
+                for (var i = 0; i < timeIndex; i++)
                 {
-                    // Need to determine if user saved the edit or not
+                    numtextFiles++;
                 }
-                else
-                {
-                    // Added a new edit in the past
-                }
+                editsObj.videoTimes.splice(timeIndex, 1);
+                editsObj.fileTypes.splice(timeIndex, 1);
+                editsObj.videoText.splice(numTextFiles, 1);
             }
             else
             {
                 editsObj.fileTypes.pop();
                 editsObj.videoTimes.pop();
                 editsObj.videoText.pop();
-            }
+            }*/
             document.getElementById("timeline-area").removeChild(currentText);
             currentText = null;
         }
         else if (currentEdit == "image")
         {
-            if (didEditPast)
+            if (timelineEdit)
             {
-                if (timelineEdit)
-                {
-                    // Need to determine if user saved the edit or not
-                }
-                else
-                {
-                    // Added a new edit in the past
-                }
+                // Need to determine if user saved the edit or not
+            }
+            /*
+            else if (didEditPast)
+            {
+                // Added a new edit in the past
+                
             }
             else
             {
+                
                 editsObj.fileTypes.pop();
                 editsObj.videoTimes.pop();
-                editsObj.filePaths.pop(); 
-            }
+                editsObj.filePaths.pop();
+            }*/
             
             
             //Removes image overlay
@@ -750,23 +778,21 @@ $(document).ready(function () {
         }
         else if (currentEdit == "pdf")
         {
-            if (didEditPast)
+            if (timelineEdit)
             {
-                if (timelineEdit)
-                {
-                    // Need to determine if user saved the edit or not
-                }
-                else
-                {
-                    // Added a new edit in the past
-                }
+                // Need to determine if user saved the edit or not
+            }
+            /*
+            else if (didEditPast)
+            {
+                // Added a new edit in the past
             }
             else
             {
                 editsObj.fileTypes.pop();
                 editsObj.videoTimes.pop();
                 editsObj.filePaths.pop(); 
-            }
+            }*/
             
             if (currentPdf != null)
             {
@@ -783,16 +809,14 @@ $(document).ready(function () {
             // Remove Added Video
             if (video_src != "")
                 {
-                    if (didEditPast)
+                    if (timelineEdit)
                     {
-                        if (timelineEdit)
-                        {
-                            // Need to determine if user saved the edit or not
-                        }
-                        else
-                        {
-                            // Added a new edit in the past
-                        }
+                        // Need to determine if user saved the edit or not
+                    }
+                    /*
+                    else if (didEditPast)
+                    {
+                        // Added a new edit in the past
                     }
                     else
                     {
@@ -802,6 +826,7 @@ $(document).ready(function () {
                         editsObj.addedVideoTimes.pop();
                         editsObj.addedVideoTimes.pop();
                     }
+                    */
             
                     // Stop Showing Added Video
                     addedVideoArea.removeChild(currentAddedVideo);
@@ -908,7 +933,8 @@ $(document).ready(function () {
                 }
             }
                 
-            if (button != null) {
+            if (button != null)
+            {
                 var hoverDiv = button.parentElement;
                 var img = hoverDiv.nextElementSibling;
                 img.src = image_src;
@@ -929,12 +955,14 @@ $(document).ready(function () {
             if (isAnEdit)
             {
                 var button = document.createElement("button");
-                if (editsObj.videoTimes.length > 0) {
+                if (editsObj.videoTimes.length > 0)
+                {
                     button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
                     button.src = src;
                     button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
                 }
-                else {
+                else
+                {
                     button.innerHTML = "";
                 }
                 
@@ -1234,7 +1262,8 @@ $(document).ready(function () {
     }
     
     function findChild(children, time) {
-        for (var i = children.length - 1; i > -1; i--)
+        //for (var i = children.length - 1; i > -1; i--)
+        for (var i = 0; i < children.length; i++)
             {
                 if (children[i].hasChildNodes)
                 {

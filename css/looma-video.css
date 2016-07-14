@@ -143,12 +143,12 @@ button#fullscreen-control {
 }
 
 
-#prev-frame {
+button#prev-frame {
     height: 52%;
     display: none;
 }
 
-#next-frame {
+button#next-frame {
     height: 52%;
     display: none;
 }
@@ -245,13 +245,15 @@ button#fullscreen-playpause {
 	background-color:rgba(200,200,200,0.3);  /*transparent light gray*/
 }
 button#play-pause {
-	 background-image: url("../images/video.png");
+    background-image: url("../images/video.png");
    	background-size: 100% 100%;
-	background-color:rgba(255,255,255,1);  
+	background-color:rgba(255,255,255,1);
 	height: 5vh;
 	width:  5vh;
 	background-repeat: no-repeat;
+    color: transparent;
 }
+
 button#volume {
 	background-image: url("../images/audio.png");
    	background-size: 100% 100%;
@@ -259,6 +261,7 @@ button#volume {
 	height: 5vh;
 	width:  5vh;
 	background-repeat: no-repeat;
+    color: transparent;
 }
 button#delete {
 	 background-image: url("../images/trash.png");

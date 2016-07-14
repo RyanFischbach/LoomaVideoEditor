@@ -116,7 +116,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <div id="time"></div>
                         
                     <button type="button" class="media" id="play-pause">
-                        <?php keyword('') ?>
+                        <?php keyword('Play/Pause') ?>
                     </button>
                     <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
                     <br>
@@ -131,7 +131,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <!-- -------- -->
                     
                     <button type="button" class="media" id="volume">
-                        <?php keyword('') ?>
+                        <?php keyword('Volume') ?>
                     </button>
                     <input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
                     <br>
@@ -184,11 +184,13 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         <br>
                     
                         <button type="button" class="media hidden_button" id="prev-frame">
-                            <?php keyword('-') ?>
+                            -
+                            <?php tooltip('Previous Frame') ?>
                         </button>
                     
                         <button type="button" class="media hidden_button" id="next-frame">
-                            <?php keyword('+') ?>
+                            +
+                            <?php tooltip('Next Frame') ?>
                         </button>
                         
                         <br>
