@@ -14,39 +14,46 @@ Description: Converts edit information into a txt file for the video editor
 include ('includes/mongo-connect.php');
         
 //$name = $_REQUEST['videoName'];
-$oldName = $_REQUEST['location'];
+$dn = $_REQUEST['location'];
 $strJSON = json_encode($_REQUEST['info']);
-writeToFile($oldName, $strJSON);
-        
-function writeToFile($videoTitle, $strJSON)
-{
-    $this_dir = dirname(__FILE__);
 
-    // admin's parent dir path can be represented by admin/..
-    $parent_dir = realpath($this_dir . '/..');
+$this_dir = dirname(__FILE__);
 
-    // concatenate the target path from the parent dir path
-    $target_path = $parent_dir . '/content/videos/' . $videoTitle . '.txt';
+// admin's parent dir path can be represented by admin/..
+$parent_dir = realpath($this_dir . '/..');
+
+// concatenate the target path from the parent dir path
+$target_path = $parent_dir . '/content/videos/' . $dn . '.txt';
     
-     // open the file
-    $myFile = fopen($target_path, 'w') or die("can't open file");
-    fwrite($myFile, $strJSON);
-    fclose($myFile);
+// open the file
+$myFile = fopen($target_path, 'w') or die("can't open file");
+fwrite($myFile, $strJSON);
+fclose($myFile);
     
-    // Save File to DB
-    // saveFileToDataBase($myFile);
+// Save File to DB
+/*
+if (isset($dn)) {
+    $activities_collection->insert(array("test" => "count"));
+    $toinsert = array(
+        "ft" => "txt",
+        "dn" => $dn,
+        "fn" => $dn + ".txt");
+    if (isset($_POST["_id"])) {
+        $id = new MongoID($_POST["_id"]);
+        $collection->update(array("_id" => $id), $toinsert, array("upsert"=>"true"));
+    }
+    else
+    {
+        // Saving new file
+        $id = new MongoID();
+        $toinsert["_id"] = $id;
+        $collection->insert($toinsert);
+    }
+    echo $id;
 }
- 
-
-function saveFileToDataBase($file) 
-{
-    /*
-    $activities_collection.save(
-        {
-            src: $file
-        }
-    );
-    */
+else if (isset($_GET)) {
+    echo $collection->findOne(array("ft" => "pp", "dn" => $_GET["dn"]))["_id"];
 }
+*/
 
 ?>
