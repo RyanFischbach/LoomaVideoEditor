@@ -46,14 +46,17 @@
 				}
 
 div#wrapper {
-    position:relative;
+    position: relative;
 }
 div#left {
-    position:absolute;
-    float:left;
+    position: absolute;
+    float: left;
 }
 div#right {
     display: inline-block;
+}
+button#delete{
+    display: none;
 }
 button#login {
     height: 100%;
