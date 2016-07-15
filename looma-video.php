@@ -112,6 +112,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <button id="fullscreen-control"></button>
 					
 					<button id="fullscreen-playpause"></button>
+					
+					<button id="scroll-right"></button>
+					
+					<button id="scroll-left"></button>
                     
                     <div id="time"></div>
                         
