@@ -137,7 +137,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <div id="rename-form-div">
                         <p> Save As </p>
                             
-                        <form>
+                        <form autocomplete="off">
                             <input type="text" id="rename-text" />
                         </form>
                             

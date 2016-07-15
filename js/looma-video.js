@@ -82,6 +82,7 @@ $(document).ready(function () {
     var addStartTimeButton = document.getElementById("start-time");
     var addStopTimeButton = document.getElementById("stop-time");
     var addDefaultButton = document.getElementById("default-start-stop-time");
+    var addDefaultButtonPressed = false;
     var startTime = 0;
     var stopTime = 0;
     document.getElementById("default-start-stop-time-div").style.width = "50%";
@@ -291,7 +292,7 @@ $(document).ready(function () {
     {
         for (var x = 0; x < elements.length; x++)
         {
-            elements[x].style.display = "none";    
+            elements[x].style.display = "none";
         }
     }
     
@@ -317,6 +318,7 @@ $(document).ready(function () {
 
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
+        console.log("Edit Button Pressed");
 		if (editButton.innerHTML == "Save") 
         {   
             // Set timeDiv back to normal video time
@@ -419,6 +421,7 @@ $(document).ready(function () {
             insertText();
             //currentEdit.readOnly = true;
             textArea.readOnly = true;
+            textArea.removeChild(currentText);
             currentText = null;
             textArea.style.display = "none";
         }
@@ -476,6 +479,7 @@ $(document).ready(function () {
         }
         editsObj.videoText.splice(index, 1);
         
+        console.log("1");
         show_text_timeline(textArea.value, video.currentTime);
         timelineImageText = "";
         timelineEdit = false;
@@ -514,6 +518,7 @@ $(document).ready(function () {
             insertVideoTime(video.currentTime);
             insertFileType("text", video.currentTime);
             insertVideoText(currentText.value, video.currentTime);
+            console.log("2");
             show_text_timeline(currentText.value, video.currentTime);
             edited = true;
             
@@ -743,6 +748,12 @@ $(document).ready(function () {
     
     function cancelEdit() {
         // Remove edits
+        timelineEdit = false;
+        timelineImagePath = "";
+        timelineImageTime = -1;
+        timelineImageType = "";
+        timelineImageText = "";
+        currentText = null;
         if (currentEdit == "text")
         {
             if (timelineEdit)
@@ -769,8 +780,11 @@ $(document).ready(function () {
                 editsObj.videoTimes.pop();
                 editsObj.videoText.pop();
             }*/
-            document.getElementById("timeline-area").removeChild(currentText);
-            currentText = null;
+            if (currentText != null)
+            {
+                document.getElementById("timeline-area").removeChild(currentText);
+                currentText = null;
+            }
         }
         else if (currentEdit == "image")
         {
@@ -913,6 +927,7 @@ $(document).ready(function () {
         
         /*
         //Add timeline display
+        console.log("3");
         show_text_timeline(textArea.value, video.currentTime);
         edited = true;
         */
@@ -944,6 +959,36 @@ $(document).ready(function () {
         addedVideoArea.style.zIndex = baseAddedVideoZ;
         imageArea.style.zIndex = overlayZ;
     });
+    
+    // Functions for showing image previews for selecting an image
+    for (var i = 0; i < imageOptionButtons.length; i++) {
+        imageOptionButtons[i].addEventListener("click", function () {
+
+
+            editButton.style.display = "inline";
+
+            image_src = $(this).data("fp") + $(this).data("fn");
+            //image_src = this.src;
+            // image_name = this.name;
+
+            if (currentImage != null) {
+                imageArea.removeChild(currentImage);
+            }
+
+            // Display image over video
+            show_image_preview(image_src);
+        });
+    }
+    
+    //Shows the image over the video as a preview
+    function show_image_preview(src) {
+        var img = document.createElement("img");
+        img.src = src;
+        img.style.height = "100%";
+        img.style.width = "100%";
+        currentImage = img;
+        imageArea.appendChild(img);
+    }
     
     // Show image previews in timeline
     function show_image_timeline(isAnEdit, image_src, src, type, time) {
@@ -1334,7 +1379,7 @@ $(document).ready(function () {
     
     //Displays text box for timeline
     function show_text_timeline(message, time) {
-        
+        console.log("Show Text Timeline");
         if (timelineEdit)
         {
             var textDiv;
@@ -1485,36 +1530,6 @@ $(document).ready(function () {
         }
     }
     
-    // Functions for showing image previews for selecting an image
-    for (var i = 0; i < imageOptionButtons.length; i++) {
-        imageOptionButtons[i].addEventListener("click", function () {
-
-
-            editButton.style.display = "inline";
-
-            image_src = $(this).data("fp") + $(this).data("fn");
-            //image_src = this.src;
-            // image_name = this.name;
-
-            if (currentImage != null) {
-                imageArea.removeChild(currentImage);
-            }
-
-            // Display image over video
-            show_image_preview(image_src);
-        });
-    }
-    
-    //Shows the image over the video as a preview
-    function show_image_preview(src) {
-        var img = document.createElement("img");
-        img.src = src;
-        img.style.height = "100%";
-        img.style.width = "100%";
-        currentImage = img;
-        imageArea.appendChild(img);
-    }
-    
     pdfButton.addEventListener("click", function() {
        // Hide controls
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
@@ -1662,6 +1677,32 @@ $(document).ready(function () {
             {
                 addStartTimeButton.innerHTML = "Set Start Time";
                 startTime = -1;
+                editButton.disabled = true;
+                editButton.style.opacity = "0.7";
+            }
+        }
+    });
+    
+    addDefaultButton.addEventListener("click", function () {
+        if (currentAddedVideo != null)
+        {
+            addDefaultButtonPressed = !addDefaultButtonPressed;
+            console.log(addDefaultButtonPressed);
+            if (addDefaultButtonPressed)
+            {
+                startTime = 0;
+                stopTime = currentAddedVideo.duration;
+                addStartTimeButton.innerHTML = "Start Time: " + minuteSecondTime(startTime);
+                addStopTimeButton.innerHTML = "Stop Time: " + minuteSecondTime(stopTime);
+                editButton.disabled = false;
+                editButton.style.opacity = "1.0";
+            }
+            else
+            {
+                startTime = -1;
+                stopTime = -1;
+                addStartTimeButton.innerHTML = "Set Start Time";
+                addStopTimeButton.innerHTML = "Set Stop Time";
                 editButton.disabled = true;
                 editButton.style.opacity = "0.7";
             }
