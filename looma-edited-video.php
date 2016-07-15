@@ -88,10 +88,20 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 					</button>
 					<input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
 					<br>
-                    <button type="button" class="media" id="delete">
-						<?php tooltip('Delete') ?>
-					</button>
-					<!--<br><button type="button" id"mute"> <?//php keyword('Edit') ?></button> -->
+                    
+                    <div id="wrapper">
+                        <div id="left">
+                        <button type="button" class="media" id="login">
+                            <?php keyword('Log In') ?>
+                        </button>
+                        </div>
+                        <div id="right">
+                        <button type="button" class="media" id="delete">
+                            <?php tooltip('Delete') ?>
+                        </button>
+                        </div>
+                    </div>
+					<!--<br><button type="button" id"mute"> </button> -->
 				</div>
 			</div>
 			<?php include ('includes/toolbar.php'); ?>
