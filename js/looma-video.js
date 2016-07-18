@@ -322,7 +322,7 @@ $(document).ready(function () {
             prevFrameButton.style.display = "inline";
 			next5FrameButton.style.display = "inline";
 			prev5FrameButton.style.display = "inline";
-			mediaControls.style.display = "block";
+			mediaControls.style.display = "inline";
 			volumeBar.style.display = "none";
 			muteButton.style.display = "none";
             renameFormDiv.style.display = "none";

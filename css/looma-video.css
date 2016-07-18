@@ -310,3 +310,7 @@ button#delete {
 	width:  5vh;
 	background-repeat: no-repeat;
 }
+input#seek-bar
+{
+	display: inline;
+}
