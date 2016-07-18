@@ -221,8 +221,16 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     
                         <br>
                     
+					    <button type="button" class="media hidden_button" id="prev-frame5">
+                            <<<
+                            <?php
+                                $TKW['Previous Frame'] = 'अघिल्लो फ्रेम';
+                                tooltip('Previous Frame')
+                            ?>
+						</button>
+					
                         <button type="button" class="media hidden_button" id="prev-frame">
-                            -
+                            <
                             <?php
                                 $TKW['Previous Frame'] = 'अघिल्लो फ्रेम';
                                 tooltip('Previous Frame')
@@ -230,7 +238,16 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         </button>
                     
                         <button type="button" class="media hidden_button" id="next-frame">
-                            +
+                            >
+                            <?php
+                                $TKW['Next Frame'] = 'अर्को फ्रेम';
+                                tooltip('Next Frame')
+                            ?>
+                        </button>
+					
+							
+						 <button type="button" class="media hidden_button" id="next-frame5">
+                            >>>
                             <?php
                                 $TKW['Next Frame'] = 'अर्को फ्रेम';
                                 tooltip('Next Frame')

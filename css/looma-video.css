@@ -155,6 +155,16 @@ button#next-frame {
     display: none;
 }
 
+button#next-frame5 {
+    height: 52%;
+    display: none;
+}
+
+button#prev-frame5 {
+    height: 52%;
+    display: none;
+}
+
 div#add-time-div {
     height: 50%;
     display: none;

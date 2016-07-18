@@ -91,6 +91,8 @@ $(document).ready(function () {
     // Edit Controls - Frame by Frame Controls
     var nextFrameButton = document.getElementById("next-frame");
 	var prevFrameButton = document.getElementById("prev-frame");
+	var next5FrameButton = document.getElementById("next-frame5");
+	var prev5FrameButton = document.getElementById("prev-frame5");
     
     // File Sources
     var image_src = "";
@@ -286,7 +288,7 @@ $(document).ready(function () {
     
     renameButton.addEventListener("click", function () {
         // Rename video
-        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, prev5FrameButton, next5FrameButton]);
         renameFormDiv.style.display = "block";
     });
     
@@ -317,6 +319,8 @@ $(document).ready(function () {
             videoButton.style.display = "inline";
             nextFrameButton.style.display = "inline";
             prevFrameButton.style.display = "inline";
+			next5FrameButton.style.display = "inline";
+			prev5FrameButton.style.display = "inline";
             didSave = true;
         }
         
@@ -394,7 +398,7 @@ $(document).ready(function () {
     });
     
     function saveAs() {
-        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, mediaControls, imagePreviewDiv, textArea, videoPreviewDiv, pdfPreviewDiv, editButton, addTimeDiv]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, mediaControls, imagePreviewDiv, textArea, videoPreviewDiv, pdfPreviewDiv, editButton, addTimeDiv]);
         
         renameFormDiv.style.display = "block";
         //didSave = true;  
@@ -422,7 +426,7 @@ $(document).ready(function () {
     
     function toggleControlsForSaveButton() {
         // Hide Edit Controls
-        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addTimeDiv]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton,  imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addTimeDiv]);
             
         // Redisplay media controls
         mediaControls.style.display = "block";
@@ -752,7 +756,7 @@ $(document).ready(function () {
     
     function toggleControlsForCancelButton() {
         // Hide Edit Controls
-        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, textArea, submitButton, nextFrameButton, prevFrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addTimeDiv]);
+        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, textArea, submitButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, addTimeDiv]);
         
         // Redisplay media controls
         mediaControls.style.display = "block";
@@ -822,7 +826,7 @@ $(document).ready(function () {
 	// Event listener for the text button
 	textButton.addEventListener("click", function () {
 		//Hide Controls
-        hideElements([renameButton, cancelButton, pdfButton, textButton, imageButton, videoButton, editButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, cancelButton, pdfButton, textButton, imageButton, videoButton, editButton, mediaControls, nextFrameButton, next5FrameButton, prev5FrameButton, prevFrameButton]);
 
 		// Clear Text Area
 		textArea.value = "";
@@ -886,7 +890,8 @@ $(document).ready(function () {
     imageButton.addEventListener("click", function () {
 
         // Hide Controls
-        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton,
+					 prev5FrameButton]);
         
         // Update current edit state
         currentEdit = "image";
@@ -1286,7 +1291,7 @@ $(document).ready(function () {
     
     function toggleTimelineControls() {
          // Hide Controls
-        hideElements([renameButton, editButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, editButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton]);
         
         cancelButton.style.display = "inline";
     }
@@ -1473,7 +1478,8 @@ $(document).ready(function () {
     
     pdfButton.addEventListener("click", function() {
        // Hide controls
-        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, 
+					 prev5FrameButton]);
         
         // Update current edit state
         currentEdit = "pdf";
@@ -1512,7 +1518,7 @@ $(document).ready(function () {
     
     videoButton.addEventListener("click", function () {
         // Hide controls
-        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton]);
+        hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton]);
         
         // Update current edit state
         currentEdit = "video";
@@ -1659,43 +1665,24 @@ $(document).ready(function () {
     
     var mouseDown = false;
     
-    nextFrameButton.addEventListener("mousedown", function () {
-        mouseDown = true;
-        step();
+    nextFrameButton.addEventListener("click", function () {
+        video.currentTime += (3 / 29.97);
     });
     
-    nextFrameButton.addEventListener("mouseup", function () {
-        mouseDown = false;    
-    });
-    
-    function step(forward)
-    {
-        if (mouseDown)
-        {
-            if (forward)
-            {
-                video.currentTime += (1 / 29.97);
-                setTimeout(step, 200);
-            }
-            else
-            {
-                video.currentTime -= (1 / 29.97);
-                setTimeout(step, 200);
-            }
-        }
-    }
-    
-    
-    // prevFrameButton Event Listener
+	// prevFrameButton Event Listener
     prevFrameButton.addEventListener("click", function () {
         // Move Backward 1 frames
-        mouseDown = true;
-        step();
+		video.currentTime -= (3 / 29.97);
     });
     
-    prevFrameButton.addEventListener("mouseup", function () {
-        mouseDown = false;
-    })
+	next5FrameButton.addEventListener("click", function () {
+		video.currentTime += (10 / 29.97);
+	});
+	
+	prev5FrameButton.addEventListener("click", function () {
+        video.currentTime -= (10 / 29.97);
+    });
+	
 
     // Event listener for the seek bar
     seekBar.addEventListener("change", function () {
