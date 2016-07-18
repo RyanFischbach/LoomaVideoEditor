@@ -10,6 +10,15 @@ Description: Controls all interactions with an edited video, called by looma-edi
 Attribution: File copied fronm looma-video.js
  */
 
+var editsObj = {
+	fileTypes: []
+	, videoName: ""
+	, videoTimes: []
+	, videoText: []
+	, filePaths: []
+    , addedVideoTimes: []
+, }
+
 'use strict';
 $(document).ready(function () {
 	
@@ -111,7 +120,7 @@ $(document).ready(function () {
                 }
                 else if (commands.fileTypes[0] == "video") {
                     //Overlays a video inside of OverlaidVideoArea
-                    console.log(commands.filePaths[0]);
+                    //console.log(commands.filePaths[0]);
                     commands.fileTypes.splice(0, 1);
                     video.pause(); 
                     var startTime = commands.addedVideoTimes[0];
@@ -195,7 +204,6 @@ $(document).ready(function () {
 	video.addEventListener('loadeddata', function () {
 		var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
 		videoArea.style.width = parseInt(vidWidth) + "px";
-		console.log(parseInt(vidWidth));
 	});
 
 	// Event listener for the play pause button that appears when in fullscreen
@@ -427,7 +435,7 @@ $(document).ready(function () {
         }
         else {
             loginButton.innerHTML = "Log Out";
-            deleteButton.style.display = "inline-block";
+            deleteButton.style.display = "inline";
             editButton.style.display = "inline";
         }
     });
@@ -440,4 +448,78 @@ $(document).ready(function () {
         });
         window.location = 'looma-library.php';
     });
+    
+    // Edit
+    function hideElements (elements)
+    {
+        for (var x = 0; x < elements.length; x++)
+        {
+            elements[x].style.display = "none";
+        }
+    }
+    
+    editButton.addEventListener("click", function () {
+        if (editButton.innerHTML == "Save") 
+        {  
+            /*
+            // Set timeDiv back to normal video time
+            timeDiv.innerHTML = minuteSecondTime(video.currentTime);
+            seekBar.value = (100 / video.duration) * video.currentTime;
+            // Set other changes back to normal
+            mediaControls.style.height = "20%";
+            editControls.style.height = "10%";
+            cancelButton.style.height = "52%";
+            editButton.style.height = "52%";
+            editButton.disabled = false;
+            editButton.style.opacity = "1.0";
+            if (!didSave)
+            {
+                // Save file as...
+                save();
+            }
+            
+            else
+            {
+            
+                toggleControlsForSaveButton();
+                save();
+            }
+            playButton.style.backgroundImage = 'url("images/video.png")';
+            */
+        } 
+		else
+		{
+            // Hide Media controls
+            hideElements([mediaControls, loginButton, deleteButton, editButton]);
+            /*
+            
+            // Display edit options
+            if (didSave)
+            {
+                renameButton.style.display = "inline";
+                cancelButton.style.display = "inline";
+                textButton.style.display = 'inline';
+                imageButton.style.display = 'inline';
+                pdfButton.style.display = "inline";
+                videoButton.style.display = "inline";
+                nextFrameButton.style.display = "inline";
+                prevFrameButton.style.display = "inline";
+            }
+            else
+            {
+                saveAs();
+            }
+
+            // change the edit button to say save
+            editButton.innerHTML = "Save";
+
+            video.pause();
+
+            // change the play-pause button to say play
+            playButton.style.backgroundImage = 'url("images/video.png")';
+            */
+        }
+        
+    });
+    
 });

@@ -304,9 +304,9 @@ $(document).ready(function () {
         if (didSave)
         {
             hideElements([renameFormDiv]);
-        mediaControls.style.display = "block";
-        document.getElementById("volume").style.display = "inline";
-        volumeBar.style.display = "inline";
+            mediaControls.style.display = "block";
+            document.getElementById("volume").style.display = "inline";
+            volumeBar.style.display = "inline";
             editButton.innerHTML = "Edit";
            editButton.style.display = "inline"; 
         }
@@ -321,6 +321,7 @@ $(document).ready(function () {
             prevFrameButton.style.display = "inline";
 			next5FrameButton.style.display = "inline";
 			prev5FrameButton.style.display = "inline";
+            renameFormDiv.style.display = "none";
             didSave = true;
         }
         

@@ -49,56 +49,27 @@
 div#video-controls-wrapper {
     width: 100%;
     height: 30%;
+    text-align: center;
     position: relative;
 }
 
-div#wrapper {
-    position: absolute;
-    width: 25%;
-    height: 50%;
-    bottom: 0;
-}
-div#top {
-    position: absolute;
-    width: 100%;
-    height: 50%;
-    top: 0;
-}
-div#bottom {
-    position: absolute;
-    width: 100%;
-    height: 50%;
-    bottom: 0;
-}
-div#top-left {
-    position: absolute;
-    display: inline-block;
+div#login-div {
     float: left;
-    height: 100%;
-    width: 50%;
 }
-div#top-right {
-    display: inline-block;
+
+button#login {
     height: 100%;
-    width: 50%;
+    width: 100%;
 }
-button#delete{
+
+div#video-controls-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+button#delete {
     display: none;
 }
 button#edit {
-    height: 50%;
-    width: 50%;
     display: none;
-}
-button#login {
-    height: 50%;
-    width: 50%;
-    position: absolute;
-}
-
-div#video-controls {
-    width: 75%;
-    position: absolute;
-    right: 0;
-    bottom: 0;
 }
