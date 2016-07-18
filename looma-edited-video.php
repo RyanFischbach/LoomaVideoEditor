@@ -69,36 +69,45 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         
 					</div>
 				</div>
-				<div id="video-controls">
-					<br>
-					<button id="fullscreen-control"></button>
-					
-					<button id="fullscreen-playpause"></button>
-                    
-                    <div id="time"></div>
-					
-					<br>
-					<button type="button" class="media" id="play-pause">
-						<?php tooltip('Play/Pause'); ?>
-					</button>
-					<input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
-					<br>
-					<button type="button" class="media" id="volume">
-						<?php tooltip('Volume') ?>
-					</button>
-					<input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
-					<br>
+				<div id="video-controls-wrapper">
+                    <div id="video-controls">
+                        <br>
+                        <button id="fullscreen-control"></button>
+
+                        <button id="fullscreen-playpause"></button>
+
+                        <div id="time"></div>
+
+                        <br>
+                        <button type="button" class="media" id="play-pause">
+                            <?php tooltip('Play/Pause'); ?>
+                        </button>
+                        <input type="range" class="video" id="seek-bar" value="0" style="display:inline-block">
+                        <br>
+                        <button type="button" class="media" id="volume">
+                            <?php tooltip('Volume') ?>
+                        </button>
+                        <input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
+                        <br>
+                    </div>
                     
                     <div id="wrapper">
-                        <div id="left">
+                        <div id="top">
+                        <div id="top-left">
                         <button type="button" class="media" id="login">
                             <?php keyword('Log In') ?>
                         </button>
                         </div>
-                        <div id="right">
-                        <button type="button" class="media" id="delete">
-                            <?php tooltip('Delete') ?>
+                        <div id="top-right">
+                        <button type ="button" class="media" id="edit">
+                            <?php keyword('Edit') ?>
                         </button>
+                        </div>
+                        </div>
+                        <div id="bottom">
+                            <button type="button" class="media" id="delete">
+                            <?php tooltip('Delete') ?>
+                            </button>
                         </div>
                     </div>
 					<!--<br><button type="button" id"mute"> </button> -->

@@ -297,13 +297,27 @@ $(document).ready(function () {
     }
     
     renameSubmitButton.addEventListener("click", function () {   
-        hideElements([renameFormDiv]);
-            
+        if (didSave)
+        {
+            hideElements([renameFormDiv]);
         mediaControls.style.display = "block";
         document.getElementById("volume").style.display = "inline";
         volumeBar.style.display = "inline";
-        editButton.style.display = "inline";
-        editButton.innerHTML = "Edit";
+            editButton.innerHTML = "Edit";
+           editButton.style.display = "inline"; 
+        }
+        else
+        {
+            cancelButton.style.display = "inline";
+            textButton.style.display = 'inline';
+            imageButton.style.display = 'inline';
+            pdfButton.style.display = "inline";
+            videoButton.style.display = "inline";
+            nextFrameButton.style.display = "inline";
+            prevFrameButton.style.display = "inline";
+            didSave = true;
+        }
+        
         
         var newName = renameInput.value;
             
@@ -318,7 +332,6 @@ $(document).ready(function () {
 
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
-        console.log("Edit Button Pressed");
 		if (editButton.innerHTML == "Save") 
         {   
             // Set timeDiv back to normal video time
@@ -334,7 +347,6 @@ $(document).ready(function () {
             if (!didSave)
             {
                 // Save file as...
-                saveAs();
                 save();
             }
             
@@ -355,14 +367,18 @@ $(document).ready(function () {
             if (didSave)
             {
                 renameButton.style.display = "inline";
+                cancelButton.style.display = "inline";
+                textButton.style.display = 'inline';
+                imageButton.style.display = 'inline';
+                pdfButton.style.display = "inline";
+                videoButton.style.display = "inline";
+                nextFrameButton.style.display = "inline";
+                prevFrameButton.style.display = "inline";
             }
-            cancelButton.style.display = "inline";
-            textButton.style.display = 'inline';
-            imageButton.style.display = 'inline';
-            pdfButton.style.display = "inline";
-            videoButton.style.display = "inline";
-            nextFrameButton.style.display = "inline";
-            prevFrameButton.style.display = "inline";
+            else
+            {
+                saveAs();
+            }
 
             // change the edit button to say save
             editButton.innerHTML = "Save";
@@ -379,7 +395,7 @@ $(document).ready(function () {
         hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, mediaControls, imagePreviewDiv, textArea, videoPreviewDiv, pdfPreviewDiv, editButton, addTimeDiv]);
         
         renameFormDiv.style.display = "block";
-        didSave = true;  
+        //didSave = true;  
     }
     
     function save() {
@@ -756,30 +772,6 @@ $(document).ready(function () {
         currentText = null;
         if (currentEdit == "text")
         {
-            if (timelineEdit)
-            {
-                // Need to determine if user saved the edit or not
-            }
-            /*
-            else if (didEditPast)
-            {
-                // Added a new edit in the past
-                var timeIndex = editsObj.videoTimes.indexOf(video.currentTime);
-                var numTextFiles = 0;
-                for (var i = 0; i < timeIndex; i++)
-                {
-                    numtextFiles++;
-                }
-                editsObj.videoTimes.splice(timeIndex, 1);
-                editsObj.fileTypes.splice(timeIndex, 1);
-                editsObj.videoText.splice(numTextFiles, 1);
-            }
-            else
-            {
-                editsObj.fileTypes.pop();
-                editsObj.videoTimes.pop();
-                editsObj.videoText.pop();
-            }*/
             if (currentText != null)
             {
                 document.getElementById("timeline-area").removeChild(currentText);
@@ -787,26 +779,7 @@ $(document).ready(function () {
             }
         }
         else if (currentEdit == "image")
-        {
-            if (timelineEdit)
-            {
-                // Need to determine if user saved the edit or not
-            }
-            /*
-            else if (didEditPast)
-            {
-                // Added a new edit in the past
-                
-            }
-            else
-            {
-                
-                editsObj.fileTypes.pop();
-                editsObj.videoTimes.pop();
-                editsObj.filePaths.pop();
-            }*/
-            
-            
+        {      
             //Removes image overlay
             if(currentImage != null)
             {
@@ -817,22 +790,6 @@ $(document).ready(function () {
         }
         else if (currentEdit == "pdf")
         {
-            if (timelineEdit)
-            {
-                // Need to determine if user saved the edit or not
-            }
-            /*
-            else if (didEditPast)
-            {
-                // Added a new edit in the past
-            }
-            else
-            {
-                editsObj.fileTypes.pop();
-                editsObj.videoTimes.pop();
-                editsObj.filePaths.pop(); 
-            }*/
-            
             if (currentPdf != null)
             {
                 pdfArea.removeChild(currentPdf);
@@ -848,24 +805,6 @@ $(document).ready(function () {
             // Remove Added Video
             if (video_src != "")
                 {
-                    if (timelineEdit)
-                    {
-                        // Need to determine if user saved the edit or not
-                    }
-                    /*
-                    else if (didEditPast)
-                    {
-                        // Added a new edit in the past
-                    }
-                    else
-                    {
-                        editsObj.fileTypes.pop();
-                        editsObj.videoTimes.pop();
-                        editsObj.filePaths.pop();
-                        editsObj.addedVideoTimes.pop();
-                        editsObj.addedVideoTimes.pop();
-                    }
-                    */
             
                     // Stop Showing Added Video
                     addedVideoArea.removeChild(currentAddedVideo);
@@ -1709,17 +1648,52 @@ $(document).ready(function () {
         }
     });
     
-    // nextFrameButton Event Listener
+    // nextFrameButton Event Listener\
+    /*
     nextFrameButton.addEventListener("click", function () {
-        // Move Forward 5 frames
-        video.currentTime += (5 / 29.97);
+        // Move Forward 1 frames
+        video.currentTime += (1 / 29.97);
+    });*/
+    
+    var mouseDown = false;
+    
+    nextFrameButton.addEventListener("mousedown", function () {
+        mouseDown = true;
+        step();
     });
+    
+    nextFrameButton.addEventListener("mouseup", function () {
+        mouseDown = false;    
+    });
+    
+    function step(forward)
+    {
+        if (mouseDown)
+        {
+            if (forward)
+            {
+                video.currentTime += (1 / 29.97);
+                setTimeout(step, 200);
+            }
+            else
+            {
+                video.currentTime -= (1 / 29.97);
+                setTimeout(step, 200);
+            }
+        }
+    }
+    
     
     // prevFrameButton Event Listener
     prevFrameButton.addEventListener("click", function () {
-        // Move Backward 5 frames
-        video.currentTime -= (5 / 29.97);
+        // Move Backward 1 frames
+        mouseDown = true;
+        step();
     });
+    
+    prevFrameButton.addEventListener("mouseup", function () {
+        mouseDown = false;
+    })
 
     // Event listener for the seek bar
     seekBar.addEventListener("change", function () {

@@ -24,6 +24,7 @@ $(document).ready(function () {
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("volume");
     var deleteButton = document.getElementById("delete");
+    var editButton = document.getElementById("edit");
     var loginButton = document.getElementById("login");
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 	
@@ -422,10 +423,12 @@ $(document).ready(function () {
         if (loginButton.innerHTML == "Log Out") {
             loginButton.innerHTML = "Log In";
             deleteButton.style.display = "none";
+            editButton.style.display = "none"
         }
         else {
             loginButton.innerHTML = "Log Out";
             deleteButton.style.display = "inline-block";
+            editButton.style.display = "inline";
         }
     });
     

@@ -93,6 +93,8 @@ button#fullscreen-control {
     height: 52%;
     display: none;
     margin-top: 0px;
+    float: right;
+    margin-right: 20px;
 }
 
 #rename-form-div {

@@ -1,65 +1,104 @@
-	#video-area {
-					z-index: 0;
-				}
+#video-area {
+    z-index: 0;
+}
 				
-				#text-box-area {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					z-index: 3;
-				}
+#text-box-area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 3;
+}
 				
-				#text-playback {
-					display: none;
-					resize: none;
-					position: relative;
-					height: 100%;
-					width: 100%;
-					color: black;
-					font: 22px/30px sans-serif;
-				}
+#text-playback {
+    display: none;
+    resize: none;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    color: black;
+    font: 22px/30px sans-serif;
+}
 				
-				#image-area {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					height: 100%;
-					width: 100%;
-					z-index: 1;
-				}
+#image-area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
                 
-                #pdf-area {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					height: 100%;
-					width: 100%;
-					z-index: 4;
-				}
-                 #overlaid-video-area {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					height: 100%;
-					width: 100%;
-					z-index: 2;
-				}
+#pdf-area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 4;
+}
 
-div#wrapper {
+#overlaid-video-area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
+div#video-controls-wrapper {
+    width: 100%;
+    height: 30%;
     position: relative;
 }
-div#left {
+
+div#wrapper {
     position: absolute;
-    float: left;
+    width: 25%;
+    height: 50%;
+    bottom: 0;
 }
-div#right {
+div#top {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    top: 0;
+}
+div#bottom {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+}
+div#top-left {
+    position: absolute;
     display: inline-block;
+    float: left;
+    height: 100%;
+    width: 50%;
+}
+div#top-right {
+    display: inline-block;
+    height: 100%;
+    width: 50%;
 }
 button#delete{
     display: none;
 }
+button#edit {
+    height: 50%;
+    width: 50%;
+    display: none;
+}
 button#login {
-    height: 100%;
-    width: 100%;
-    vertical-align: top;
+    height: 50%;
+    width: 50%;
+    position: absolute;
+}
+
+div#video-controls {
+    width: 75%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
