@@ -80,6 +80,10 @@ button#fullscreen-control {
     width: 13vh;
 }
 
+button#rename {
+	left: 5%;
+}
+
 #video-player {
     height: 70%;
 }

@@ -386,6 +386,9 @@ $(document).ready(function () {
                 videoButton.style.display = "inline";
                 nextFrameButton.style.display = "inline";
                 prevFrameButton.style.display = "inline";
+				mediaControls.style.display = "inline";
+				muteButton.style.display = "none";
+				volumeBar.style.display = "none";
             }
             else
             {
