@@ -101,7 +101,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         </div>
                         <div id="login-div">
                             <button type="button" class="media" id="login">
-                                <?php keyword('Log In') ?>
+                                <?php keyword('Teacher') ?>
                             </button>
                         </div>
                     </div>

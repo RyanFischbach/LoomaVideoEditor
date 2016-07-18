@@ -308,7 +308,7 @@ $(document).ready(function () {
             document.getElementById("volume").style.display = "inline";
             volumeBar.style.display = "inline";
             editButton.innerHTML = "Edit";
-           editButton.style.display = "inline"; 
+            editButton.style.display = "inline"; 
         }
         else
         {
@@ -321,6 +321,9 @@ $(document).ready(function () {
             prevFrameButton.style.display = "inline";
 			next5FrameButton.style.display = "inline";
 			prev5FrameButton.style.display = "inline";
+			mediaControls.style.display = "block";
+			volumeBar.style.display = "none";
+			muteButton.style.display = "none";
             renameFormDiv.style.display = "none";
             didSave = true;
         }
