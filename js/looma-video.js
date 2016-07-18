@@ -122,6 +122,7 @@ $(document).ready(function () {
     var textBoxArea = document.getElementById("text-box-area");
     var textArea = document.getElementById("comments");
     var addedVideoArea = document.getElementById("added-video-area");
+    var videoArea = document.getElementById("video-area");
     
     // Timeline Edits - Clicking on a button in the timeline
     var timelineEdit = false; // True when the user is editing through the timeline
@@ -137,6 +138,10 @@ $(document).ready(function () {
     
     // Fulscreen var
 	var isFullscreen = false;
+    
+    // Playback var
+    var endTime;
+    var index = 0;
     
 	// Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
@@ -183,10 +188,12 @@ $(document).ready(function () {
 		if(video.paused)
 		{
 			video.play();
+            window.requestAnimationFrame(checkTime);
 		}
 		else
 		{
 			video.pause();
+            window.requestAnimationFrame(checkTime);
 		}
 	});
     
@@ -196,11 +203,26 @@ $(document).ready(function () {
         {
             // Play or Pause the Current Added Video
             toggleCurrentAddedVideo();
+            window.requestAnimationFrame(checkTime);
         }
         else 
         {
             // Play or pause the video
             toggleVideo();
+            window.requestAnimationFrame(checkTime);
+            
+            //Stop showing the textbox
+            textArea.style.display = "none";
+            
+            if(currentImage != null) {
+                document.getElementById("image-area").removeChild(currentImage);
+				currentImage = null;
+            }
+            
+            if(currentPdf != null) {
+                pdfArea.removeChild(currentPdf);
+		        currentPdf = null
+            }
         }
 	});
     
@@ -364,6 +386,7 @@ $(document).ready(function () {
                 save();
             }
             playButton.style.backgroundImage = 'url("images/video.png")';
+            index++;
         } 
 		else
 		{
@@ -1573,9 +1596,12 @@ $(document).ready(function () {
                 // Set seekbar to beginning of video
                 seekBar.value = 0;
                 currentAddedVideo.addEventListener("timeupdate", function () {
-                    var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
-                    seekBar.value = value;
-                    timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
+                    if (currentAddedVideo != null)
+                    { 
+                        var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
+                        seekBar.value = value;
+                        timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
+                    }
                 });
             }
         });
@@ -1702,6 +1728,29 @@ $(document).ready(function () {
             video.currentTime = time;
         
             video.pause();
+            var checking = true;
+            var i = 0;
+            while(checking == true)
+            {
+                if(i < editsObj.videoTimes.length)
+                {
+                    if(time <= editsObj.videoTimes[i])
+                    {    
+                        index = i;
+                        console.log(i);
+                        checking = false;
+                    }
+                    else
+                    {    
+                        i++
+                    }
+                }
+                else
+                {
+                    checking = false;
+                    i = editsObj.videoTimes.length;
+                }
+            }
         }
         
         playButton.style.backgroundImage = 'url("images/video.png")';
@@ -1760,5 +1809,138 @@ $(document).ready(function () {
         // Update the video volume
         video.volume = volumeBar.value;
     });
+    
+    function checkTime() {
+		if (editsObj.videoTimes.length > 0) {
+            if(index < editsObj.videoTimes.length)
+            {
+                //While there are still annotatins in the video
+                if (editsObj.videoTimes[index] <= video.currentTime) {
+                    //If we have passed the time stamp for the next annotation
+                    if (editsObj.fileTypes[index] == "text") {
+                        //If the type is a text file create a overlay and put the text there and pause the video
+                        var textsBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "text")
+                                textsBefore++;
+                        }
+                        var message = editsObj.videoText[textsBefore];
+                        textArea.value = message;
+                        textArea.style.display = 'inline-block';
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        textArea.style.zIndex = overlayZ;
+                        pdfArea.style.zIndex = basePdfZ;
+
+                    } 
+                    else if (editsObj.fileTypes[index] == "image") {
+
+                        if (currentImage != null) {
+                            document.getElementById("image-area").removeChild(currentImage);
+                        }
+                        
+                        var filesBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "image" && editsObj.fileTypes[i] == "pdf" && editsObj.fileTypes[i] == "video")
+                                filesBefore++;
+                        }
+                        
+                        show_image(editsObj.filePaths[filesBefore], "Image not found");
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                    }
+                    else if (editsObj.fileTypes[index] == "pdf") {
+                        
+                        var filesBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "image" && editsObj.fileTypes[i] == "pdf" && editsObj.fileTypes[i] == "video")
+                                filesBefore++;
+                        }
+                        
+                        //Adds a pdf to pdfArea
+                        show_pdf(editsObj.filePaths[filesBefore]);
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        textArea.style.zIndex = baseTextZ;
+                        pdfArea.style.zIndex = overlayZ;
+                    }
+                    else if (editsObj.fileTypes[index] == "video") {
+                        
+                        var filesBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "image" && editsObj.fileTypes[i] == "pdf" && editsObj.fileTypes[i] == "video")
+                                filesBefore++;
+                        }
+                        
+                        //Overlays a video inside of OverlaidVideoArea
+                        console.log(editsObj.filePaths[filesBefore]);
+                        video.pause();
+                        
+                        var videosBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "video")
+                                videosBefore += 2;
+                        }
+                        
+                        var startTime = editsObj.addedVideoTimes[videosBefore];
+                        endTime = editsObj.addedVideoTimes[videosBefore + 1];
+                        var addedVideo = document.createElement("video");
+                        addedVideo.src = editsObj.filePaths[filesBefore];
+                        currentAddedVideo = addedVideo;
+                        document.getElementById("added-video-area").appendChild(addedVideo);
+                        addedVideo.currentTime = startTime;
+                        timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                    }
+                    index++;
+                }
+            }
+		}
+        if(currentAddedVideo != null) {
+            if(currentAddedVideo.paused == false) {
+                // Calculate the slider value
+                var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
+
+                // Update the slider value
+                seekBar.value = value;
+                
+                timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
+                if(currentAddedVideo.currentTime >= endTime) {
+                    document.getElementById("added-video-area").removeChild(currentAddedVideo);
+                    currentAddedVideo = null;
+                    playButton.style.backgroundImage = 'url("images/video.png")';
+                    timeDiv.innerHTML = minuteSecondTime(video.currentTime);
+                }
+            }
+        }
+		window.requestAnimationFrame(checkTime);
+		//Fullscreen Stuff
+		if (!isFullscreen) {
+			var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
+			videoArea.style.width = parseInt(vidWidth) + "px";
+		}
+		
+	}
+    
+    function show_image(src, alt) {
+		var img = document.createElement("img");
+		img.src = src;
+		img.alt = alt;
+		img.setAttribute("id", "image-overlay");
+		currentImage = img;
+		document.getElementById("image-area").appendChild(img);
+	}
+    
+     function show_pdf(src) {
+        var pdf = document.createElement("iframe");
+        pdf.src = src;
+        currentPdf = pdf;
+        pdfArea.appendChild(pdf);
+    }
    
 });

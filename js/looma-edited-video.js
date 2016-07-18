@@ -138,20 +138,10 @@ $(document).ready(function () {
                     playButton.style.backgroundImage = 'url("images/video.png")';
                 }
 			}
-            else {
-                
-//				if (!video.paused) {
-//                    window.requestAnimationFrame(checkTime);
-//				}
-                
-			}
-            
 		}
         if(currentOverlaidVideo != null) {
-            console.log("1");
             console.log(currentOverlaidVideo.paused);
             if(currentOverlaidVideo.paused == false) {
-                console.log("2");
                 // Calculate the slider value
                 var value = (100 / currentOverlaidVideo.duration) * currentOverlaidVideo.currentTime;
 
@@ -165,9 +155,6 @@ $(document).ready(function () {
                     currentOverlaidVideo = null;
                     playButton.style.backgroundImage = 'url("images/video.png")';
                     timeDiv.innerHTML = minuteSecondTime(video.currentTime);
-                }
-                else {
-//                    window.requestAnimationFrame(checkTime);
                 }
             }
         }
@@ -289,7 +276,7 @@ $(document).ready(function () {
                 // Update the button text to 'Pause'
                 playButton.style.backgroundImage = 'url("images/pause.png")';
 
-                //Stop showing the textbox or the image
+                //Stop showing the textbox
                 textArea.style.display = "none";
 
                 //Keeps checking for new things
@@ -407,8 +394,6 @@ $(document).ready(function () {
 	function show_image(src, alt) {
 		var img = document.createElement("img");
 		img.src = src;
-		//img.width = 100%;
-		//img.height = 100%;
 		img.alt = alt;
 		img.setAttribute("id", "image-overlay");
 		currentImage = img;
