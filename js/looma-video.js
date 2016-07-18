@@ -114,7 +114,7 @@ $(document).ready(function () {
     var baseTextZ = 5;
     var overlayZ = 6;
     
-    //Overlay areas
+    // Overlay areas
     var pdfArea = document.getElementById("pdf-area");
     var imageArea = document.getElementById("image-area");
     var textBoxArea = document.getElementById("text-box-area");
@@ -132,8 +132,10 @@ $(document).ready(function () {
     // Other var for timeline
 	var timelineImageHeight;
 	var timelineImageWidth;
-
+    
+    // Fulscreen var
 	var isFullscreen = false;
+    
 	// Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
@@ -1770,5 +1772,5 @@ $(document).ready(function () {
         // Update the video volume
         video.volume = volumeBar.value;
     });
-    
+   
 });
