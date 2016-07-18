@@ -80,6 +80,10 @@ button#fullscreen-control {
     width: 13vh;
 }
 
+button#rename {
+	left: 5%;
+}
+
 #video-player {
     height: 70%;
 }
@@ -309,4 +313,8 @@ button#delete {
 	height: 5vh;
 	width:  5vh;
 	background-repeat: no-repeat;
+}
+input#seek-bar
+{
+	display: inline;
 }

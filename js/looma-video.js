@@ -14,6 +14,7 @@ Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
 var editsObj = {
 	fileTypes: []
 	, videoName: ""
+    , fileName: ""
 	, videoTimes: []
 	, videoText: []
 	, filePaths: []
@@ -50,7 +51,7 @@ $(document).ready(function () {
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
     var renameSubmitButton = document.getElementById("rename-form-submit-button");
-    var oldName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
+    var oldName = editsObj.fileName.substring(0, editsObj.fileName.lastIndexOf("."));
     
     // Edit Controls - Cancelling an edit
     var cancelButton = document.getElementById("cancel");
@@ -330,7 +331,7 @@ $(document).ready(function () {
             document.getElementById("volume").style.display = "inline";
             volumeBar.style.display = "inline";
             editButton.innerHTML = "Edit";
-           editButton.style.display = "inline"; 
+            editButton.style.display = "inline"; 
         }
         else
         {
@@ -343,12 +344,16 @@ $(document).ready(function () {
             prevFrameButton.style.display = "inline";
 			next5FrameButton.style.display = "inline";
 			prev5FrameButton.style.display = "inline";
+			mediaControls.style.display = "inline";
+			volumeBar.style.display = "none";
+			muteButton.style.display = "none";
             renameFormDiv.style.display = "none";
             didSave = true;
         }
         
         
         var newName = renameInput.value;
+        editsObj.fileName = newName;
             
         $.ajax("looma-rename-edited-video.php", {
             data: {oldPath: oldName, newPath: newName},
@@ -404,6 +409,9 @@ $(document).ready(function () {
                 videoButton.style.display = "inline";
                 nextFrameButton.style.display = "inline";
                 prevFrameButton.style.display = "inline";
+				mediaControls.style.display = "inline";
+				muteButton.style.display = "none";
+				volumeBar.style.display = "none";
             }
             else
             {
