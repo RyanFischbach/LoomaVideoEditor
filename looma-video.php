@@ -293,6 +293,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					<script>
 						var videoName = "<?php echo $filename; ?>";
 						editsObj.videoName = videoName;
+                        editsObj.fileName = videoName;
 					</script>
 
 	</body>

@@ -14,6 +14,7 @@ Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
 var editsObj = {
 	fileTypes: []
 	, videoName: ""
+    , fileName: ""
 	, videoTimes: []
 	, videoText: []
 	, filePaths: []
@@ -50,7 +51,7 @@ $(document).ready(function () {
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
     var renameSubmitButton = document.getElementById("rename-form-submit-button");
-    var oldName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
+    var oldName = editsObj.fileName.substring(0, editsObj.fileName.lastIndexOf("."));
     
     // Edit Controls - Cancelling an edit
     var cancelButton = document.getElementById("cancel");
@@ -327,6 +328,7 @@ $(document).ready(function () {
         
         
         var newName = renameInput.value;
+        editsObj.fileName = newName;
             
         $.ajax("looma-rename-edited-video.php", {
             data: {oldPath: oldName, newPath: newName},

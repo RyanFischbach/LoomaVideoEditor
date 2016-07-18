@@ -2,11 +2,11 @@
     z-index: 0;
 }
 				
-#text-box-area {
+div#text-box-area {
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 3;
+    z-index: 15;
 }
 				
 #text-playback {
@@ -72,4 +72,176 @@ button#delete {
 }
 button#edit {
     display: none;
+}
+#rename {
+    height: 52%;
+    display: none;
+    margin-top: 0px;
+    float: right;
+    margin-right: 20px;
+}
+
+#rename-form-div {
+    display: none;
+}
+
+#rename-text {
+    color: black;
+}
+
+#cancel {
+    height: 50%;
+    display: none;
+    margin-top: 0px;
+}
+
+#text {
+    height: 52%;
+    display:none;
+    margin-top:0px;
+}
+
+#image {
+    height: 52%;
+    display: none;
+    margin-top: 0px;
+}
+
+#pdf {
+    height: 52%;
+    display: none;
+    margin-top: 0px;
+}
+
+#submit {
+    height: 52%;
+    transform: translateY(50%);
+    display: none;
+    margin-top: 0px;
+}
+
+
+button#prev-frame {
+    height: 52%;
+    display: none;
+}
+
+button#next-frame {
+    height: 52%;
+    display: none;
+}
+
+button#next-frame5 {
+    height: 52%;
+    display: none;
+}
+
+button#prev-frame5 {
+    height: 52%;
+    display: none;
+}
+
+div#add-time-div {
+    height: 50%;
+    display: none;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+}
+
+div#add-start-stop-time-div {
+    height: 100%;
+    display: inline-block;
+}
+
+button#start-time {
+    height: 100%;
+    width: 40%;
+}
+
+button#stop-time {
+    height: 100%;
+    width: 40%;
+}
+
+div#default-start-stop-time-div{
+    height: 0;
+    display: inline-block;
+    position: absolute;
+    width: 0;
+    vertical-align: top;
+    text-align: left;
+}
+
+button#default-start-stop-time{
+    height: 100%;
+    width: 25%;
+}
+
+#video-button {
+    height: 52%;
+    display: none;
+}
+
+#image-overlay {
+    width: 100%;
+    height: 100%;
+}
+
+#image-previews {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: none;
+    white-space: nowrap;
+    height: 20%;
+}
+
+#pdf-previews {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: none;
+    white-space: nowrap;
+    height: 20%;
+}
+
+#video-previews {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: none;
+    white-space: nowrap;
+    height: 20%;
+}
+
+
+button.img {
+	height: 100%;
+	vertical-align:middle;
+	text-align:center;
+}
+
+button.img:hover {
+	transform:none;
+}
+
+
+button.img img {
+	height:100%;
+	width:30%;
+	max-width:50%;
+}
+
+button.img.play, button.img.activity{
+	font-size: 30px;
+	font-weight:bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#timeline-area {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    text-align: left;
+    overflow-y: auto;
+    z-index: 0;
 }
