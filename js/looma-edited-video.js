@@ -27,28 +27,21 @@ $(document).ready(function () {
 	// Video
 	var video = document.getElementById("video");
     
+    // Time Tracker
     var timeDiv = document.getElementById("time");
     timeDiv.innerHTML = "0:00";
-    
-    console.log(editsObj.fileName);
 
 	// Media Controls - play, mute, volume 
 	var mediaControls = document.getElementById("media-controls");
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("volume");
     
-    // Edit Controls
-    var deleteButton = document.getElementById("delete");
-    var editButton = document.getElementById("edit");
-    var loginButton = document.getElementById("login");
-	
-	// Make fullscreenPlayPauseButton invisible when not in fullscreen
-	//fullscreenPlayPauseButton.style.display = "none";
-    var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
-
-	// Sliders
+    // Sliders
 	var seekBar = document.getElementById("seek-bar");
 	var volumeBar = document.getElementById("volume-bar");
+	
+	// Make fullscreenPlayPauseButton invisible when not in fullscreen
+    var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 
 	//var videoArea = document.getElementById("video-area");
 	var textPlaybackDiv = document.getElementById("text-box-area");
@@ -63,12 +56,16 @@ $(document).ready(function () {
     var index = 0;
     var endTime;
     
+    /**************************************************************/
+    
     //Edit Controls
     var editControls = document.getElementById("edit-controls");
+    var deleteButton = document.getElementById("delete");
+    var editButton = document.getElementById("edit");
+    var loginButton = document.getElementById("login");
     
     // Edit Controls - Renaming a video
     var renameButton = document.getElementById("rename");
-    var didSave = false;    // Set to true after user saves one time
     var didRename = false;
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
@@ -77,9 +74,6 @@ $(document).ready(function () {
     
     // Edit Controls - Cancelling an edit
     var cancelButton = document.getElementById("cancel");
-    
-    // Edit Controls - Making an edit
-    var editButton = document.getElementById("edit");
     
     // Edit Controls - Adding Text
     var textButton = document.getElementById("text");
@@ -146,18 +140,6 @@ $(document).ready(function () {
     var textArea = document.getElementById("comments");
     var addedVideoArea = document.getElementById("added-video-area");
     var videoArea = document.getElementById("video-area");
-    
-    // Timeline Edits - Clicking on a button in the timeline
-    var timelineEdit = false; // True when the user is editing through the timeline
-    var timelineImageTime = -1; // For keeping the time when the image is displayed
-    var timelineImageType = ""; // For displaying the image the user clicks on in the timeline
-    var timelineImagePath = ""; // For displaying the image when user clicks on button in timeline
-    var timelineImageText = ""; // For displaying text when user clicks on button in timeline
-    var didEditPast = false; // True when user went back in time and added an edit
-    
-    // Other var for timeline
-	var timelineImageHeight;
-	var timelineImageWidth;
 	
 	var isFullscreen = false;
 	$('#fullscreen-control').click(function (e) {
@@ -179,108 +161,17 @@ $(document).ready(function () {
 		videoArea.className = "";
 		}
 	});
-
-    /*
-	function checkTime() {
-		if (commands.videoTimes.length > 0) {
-            if (index < commands.videoTimes.length) {
-			//While there are still annotatins in the video
-                if (commands.videoTimes[index] <= video.currentTime) {
-                    //If we have passed the time stamp for the next annotation 
-                    //play check the type and delete that time stamp
-                    //commands.videoTimes.splice(0, 1);
-                    if (commands.fileTypes[index] == "text") {
-                        //If the type is a text file create a overlay and put the text there and pause the video
-                        //commands.fileTypes.splice(0, 1);
-                        var message = commands.videoText[0];
-                        //commands.videoText.splice(0, 1);
-                        textPlaybackArea.value = message;
-                        textPlaybackArea.style.display = 'inline-block';
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
-                        textPlaybackDiv.style.zIndex = 4;
-                        pdfArea.style.zIndex = 3;
-
-                    } 
-                    else if (commands.fileTypes[0] == "image") {
-                        //commands.fileTypes.splice(0, 1);
-
-                        if (currentPlaybackImage != null) {
-                            document.getElementById("image-area").removeChild(currentPlaybackImage);
-                        }
-
-                        show_image(commands.filePaths[0], "Image not found");
-                        //commands.filePaths.splice(0, 1);
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
-                    }
-                    else if (commands.fileTypes[0] == "pdf") {
-                        //Adds a pdf to pdfArea
-                        //commands.fileTypes.splice(0, 1);
-                        show_pdf(commands.filePaths[0]);
-                        //commands.filePaths.splice(0, 1);
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
-                        textPlaybackDiv.style.zIndex = 3;
-                        pdfArea.style.zIndex = 4;
-                    }
-                    else if (commands.fileTypes[0] == "video") {
-                        //Overlays a video inside of OverlaidVideoArea
-                        //console.log(commands.filePaths[0]);
-                        //commands.fileTypes.splice(0, 1);
-                        video.pause(); 
-                        var startTime = commands.addedVideoTimes[0];
-                        endTime = commands.addedVideoTimes[1];
-                        //var startTime = commands.videoTimes[0];
-                        //endTime = commands.videoTimes[1];
-                        //commands.addedVideoTimes.splice(0, 2);
-                        var overlaidVideo = document.createElement("video");
-                        overlaidVideo.src = commands.filePaths[0];
-                       // commands.filePaths.splice(0, 1);
-                        currentPlaybackOverlaidVideo = overlaidVideo;
-                        document.getElementById("overlaid-video-area").appendChild(overlaidVideo);
-                        overlaidVideo.currentTime = startTime;
-                        timeDiv.innerHTML = minuteSecondTime(currentPlaybackOverlaidVideo.currentTime);
-                        playButton.style.backgroundImage = 'url("images/video.png")';
-                    }
-                }
-            }
-		}
-        if(currentPlaybackOverlaidVideo != null) {
-            if(currentPlaybackOverlaidVideo.paused == false) {
-                // Calculate the slider value
-                var value = (100 / currentPlaybackOverlaidVideo.duration) * currentPlaybackOverlaidVideo.currentTime;
-
-                // Update the slider value
-                seekBar.value = value;
-                
-                timeDiv.innerHTML = minuteSecondTime(currentPlaybackOverlaidVideo.currentTime);
-
-                if(currentPlaybackOverlaidVideo.currentTime >= endTime) {
-                    document.getElementById("overlaid-video-area").removeChild(currentPlaybackOverlaidVideo);
-                    currentPlaybackOverlaidVideo = null;
-                    playButton.style.backgroundImage = 'url("images/video.png")';
-                    timeDiv.innerHTML = minuteSecondTime(video.currentTime);
-                }
-            }
-        }
-		window.requestAnimationFrame(checkTime);
-		//Fullscreen Stuff
-		if (!isFullscreen) {
-			var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
-			videoArea.style.width = parseInt(vidWidth) + "px";
-		}
-		
-	}
-    */
     
     function checkTime() {
+        commands = editsObj;
 		if (editsObj.videoTimes.length > 0) {
             if(index < editsObj.videoTimes.length)
             {
                 //While there are still annotatins in the video
                 if (editsObj.videoTimes[index] <= video.currentTime) {
                     //If we have passed the time stamp for the next annotation
+                    console.log(index);
+                    console.log(editsObj.fileTypes[index]);
                     if (editsObj.fileTypes[index] == "text") {
                         //If the type is a text file create a overlay and put the text there and pause the video
                         var textsBefore = 0;
@@ -299,6 +190,7 @@ $(document).ready(function () {
 
                     } 
                     else if (editsObj.fileTypes[index] == "image") {
+                        console.log("Call show image");
 
                         if (currentImage != null) {
                             document.getElementById("image-area").removeChild(currentImage);
@@ -316,6 +208,7 @@ $(document).ready(function () {
                         playButton.style.backgroundImage = 'url("images/video.png")';
                     }
                     else if (editsObj.fileTypes[index] == "pdf") {
+                        console.log("Call show pdf");
                         
                         var filesBefore = 0;
                         for(var i = 0; i < index; i++)
@@ -356,6 +249,7 @@ $(document).ready(function () {
                         var addedVideo = document.createElement("video");
                         addedVideo.src = editsObj.filePaths[filesBefore];
                         currentAddedVideo = addedVideo;
+
                         document.getElementById("added-video-area").appendChild(addedVideo);
                         addedVideo.currentTime = startTime;
                         timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
@@ -405,6 +299,7 @@ $(document).ready(function () {
     }
     
     function show_pdf(src) {
+        console.log("Show Pdf");
         var pdf = document.createElement("iframe");
         pdf.src = src;
         currentPlaybackPdf = pdf;
@@ -581,8 +476,10 @@ $(document).ready(function () {
 
             playButton.style.backgroundImage = 'url("images/video.png")';
 
+            /*
             var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
             commands = moddedBackup;
+            commands = editsObj;
             var counter = 0;
             for (var i = 0; i < commands.videoTimes.length; i++) {
                 if (commands.videoTimes[i] < time) {
@@ -590,6 +487,7 @@ $(document).ready(function () {
                 }
             }
 
+            
             for (var z = 0; z < counter; z++) {
                 commands.videoTimes.splice(0, 1);
                 if (commands.fileTypes[0] == "text") {
@@ -599,7 +497,7 @@ $(document).ready(function () {
                     commands.fileTypes.splice(0, 1);
                     commands.filePaths.splice(0, 1);
                 }
-            }
+            }*/
             
             if (currentAddedVideo != null)
         {
@@ -722,32 +620,12 @@ $(document).ready(function () {
     }
     
     renameSubmitButton.addEventListener("click", function () {   
-        if (didSave)
-        {
             hideElements([renameFormDiv]);
             mediaControls.style.display = "block";
             document.getElementById("volume").style.display = "inline";
             volumeBar.style.display = "inline";
             editButton.innerHTML = "Edit";
             editButton.style.display = "inline"; 
-        }
-        else
-        {
-            cancelButton.style.display = "inline";
-            textButton.style.display = 'inline';
-            imageButton.style.display = 'inline';
-            pdfButton.style.display = "inline";
-            videoButton.style.display = "inline";
-            nextFrameButton.style.display = "inline";
-            prevFrameButton.style.display = "inline";
-			next5FrameButton.style.display = "inline";
-			prev5FrameButton.style.display = "inline";
-			mediaControls.style.display = "inline";
-			volumeBar.style.display = "none";
-			muteButton.style.display = "none";
-            renameFormDiv.style.display = "none";
-            didSave = true;
-        }
         
         
         var newName = renameInput.value;
@@ -776,18 +654,9 @@ $(document).ready(function () {
             editButton.style.height = "52%";
             editButton.disabled = false;
             editButton.style.opacity = "1.0";
-            if (!didSave)
-            {
-                // Save file as...
-                save();
-            }
-            
-            else
-            {
             
                 toggleControlsForSaveButton();
                 save();
-            }
             playButton.style.backgroundImage = 'url("images/video.png")';
             index++;
         } 
@@ -796,9 +665,6 @@ $(document).ready(function () {
             // Hide Media controls
             hideElements([mediaControls, editButton, loginButton, deleteButton]);
             
-            // Display edit options
-            if (didSave)
-            {
                 renameButton.style.display = "inline";
                 cancelButton.style.display = "inline";
                 textButton.style.display = 'inline';
@@ -810,11 +676,6 @@ $(document).ready(function () {
 				mediaControls.style.display = "inline";
 				muteButton.style.display = "none";
 				volumeBar.style.display = "none";
-            }
-            else
-            {
-                saveAs();
-            }
 
             // change the edit button to say save
             editButton.innerHTML = "Save";
@@ -836,22 +697,14 @@ $(document).ready(function () {
     
     function save() {
         video.pause();
-                //Displays preview for image
-                if (timelineEdit) {
-                    saveTimelineEdit();
-                }
-                else {
-                    saveEdit();
-                }
+        saveEdit();
+        currentEdit = "";
 
-                currentEdit = "";
-
-
-                // Send to server to save as a txt file
-                $.ajax("looma-video-editor-textConverter.php", {
-                    data: {info: editsObj, location: oldName},
-                    method: "POST"
-                });
+        // Send to server to save as a txt file
+        $.ajax("looma-video-editor-textConverter.php", {
+            data: {info: editsObj, location: oldName},
+            method: "POST"
+        });
     }
     
     function toggleControlsForSaveButton() {
@@ -868,101 +721,6 @@ $(document).ready(function () {
         editButton.innerHTML = "Edit";
     }
     
-    function saveTimelineEdit() {
-        if (currentText != null) {
-            insertText();
-            //currentEdit.readOnly = true;
-            textArea.readOnly = true;
-            textArea.removeChild(currentText);
-            currentText = null;
-            textArea.style.display = "none";
-        }
-        else if (image_src != "") {        
-            // Insert Edit
-            insertSrc(image_src, image_src, "image");
-            
-            if (currentImage != null)
-            {
-                imageArea.removeChild(currentImage);
-                currentImage = null;
-                image_src = "";
-            }
-        }
-        else if (pdf_src != "") {
-            // Save pdf
-            insertSrc(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src, "pdf");
-            if (currentPdf != null)
-            {
-                pdfArea.removeChild(currentImage);
-                currentPdf = null;
-                pdf_src = "";
-            }
-        }
-        else if (video_src != "") {
-            // Save video
-            insertSrc(video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video");
-            if (currentAddedVideo != null)
-            {
-                addedVideoArea.removeChild(currentImage);
-                currentAddedVideo = null;
-                video_src = "";
-            }
-        }
-    }
-    
-    function insertText() {
-        
-        var timeIndex = editsObj.videoTimes.indexOf(video.currentTime);
-        
-        var numTextFiles = 0;
-        for (var i = 0; i < timeIndex; i++) {
-            if (editsObj.fileTypes[i] == "text") {
-                numTextFiles++;
-            }
-        }
-        
-        // index of text file in videoText array
-        var index = numTextFiles;
-        if (index < editsObj.videoText.length - 1) {
-            editsObj.videoText.splice(index + 1, 0, textArea.value);
-        }
-        else {
-            editsObj.videoText.push(textArea.value);
-        }
-        editsObj.videoText.splice(index, 1);
-        
-        console.log("1");
-        show_text_timeline(textArea.value, video.currentTime);
-        timelineImageText = "";
-        timelineEdit = false;
-        //currentText = null;
-    }
-    
-    /**
-    * Replace old information with new information and update timeline
-    */
-    function insertSrc(image_src, src, type) {
-            var index = editsObj.filePaths.indexOf(timelineImagePath);
-            if (index > -1)
-            {
-                if (index < editsObj.filePaths.length - 1)
-                {
-                    editsObj.filePaths.splice(index + 1, 0, src);
-                }
-                else
-                {
-                    editsObj.filePaths.push(src);
-                }
-                // Remove old edit
-                editsObj.filePaths.splice(index, 1);
-
-                show_image_timeline(true, image_src, src, type, video.currentTime);
-                timelineImagePath = "";
-                timelineEdit = false;
-                timelineImageType = "";
-            }
-    }
-    
     function saveEdit() {
        
         if (currentText != null)
@@ -970,8 +728,6 @@ $(document).ready(function () {
             insertVideoTime(video.currentTime);
             insertFileType("text", video.currentTime);
             insertVideoText(currentText.value, video.currentTime);
-            console.log("2");
-            show_text_timeline(currentText.value, video.currentTime);
             edited = true;
             
             // Hide text
@@ -983,7 +739,6 @@ $(document).ready(function () {
             insertVideoTime(video.currentTime);
             insertFileType("image", video.currentTime);
             insertFilePath(image_src, video.currentTime);
-            show_image_timeline(true, image_src, image_src, "image", video.currentTime);
             edited = true;
             image_src = "";
             
@@ -999,7 +754,6 @@ $(document).ready(function () {
             insertVideoTime(video.currentTime);
             insertFileType("pdf", video.currentTime);
             insertFilePath(pdf_src, video.currentTime);
-            show_image_timeline(true, pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src, "pdf", video.currentTime);
             edited = true;
             pdf_src = "";
             
@@ -1021,7 +775,6 @@ $(document).ready(function () {
                 insertAddedVideoTimes(startTime, stopTime, video.currentTime);
             }
                            
-            show_image_timeline(true, video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video", video.currentTime);
             edited = true;
             video_src = "";
             
@@ -1199,18 +952,10 @@ $(document).ready(function () {
     }
     
     function cancelEdit() {
-        // Remove edits
-        timelineEdit = false;
-        timelineImagePath = "";
-        timelineImageTime = -1;
-        timelineImageType = "";
-        timelineImageText = "";
-        currentText = null;
         if (currentEdit == "text")
         {
             if (currentText != null)
             {
-                document.getElementById("timeline-area").removeChild(currentText);
                 currentText = null;
             }
         }
@@ -1279,33 +1024,9 @@ $(document).ready(function () {
         editButton.style.display = "inline";
         
         currentText = textArea;
-        
-        /*
-        // Update current edit state
-        currentEdit = "text";
-            
-        // get text from text area
-        var text = textArea.value;
-            
-        // Store the current video time in the array of video times
-        editsObj.videoTimes.push(video.currentTime);
-        
-        // Store the type of file
-        editsObj.fileTypes.push("text");
-
-        // Push the text onto the array of edited video text
-        editsObj.videoText.push(text);
-        */
 
         // don't show the submit button
         submitButton.style.display = "none";
-        
-        /*
-        //Add timeline display
-        console.log("3");
-        show_text_timeline(textArea.value, video.currentTime);
-        edited = true;
-        */
         
         //If there is an image it removes it
         if (currentImage != null) {
@@ -1364,531 +1085,6 @@ $(document).ready(function () {
         img.style.width = "100%";
         currentImage = img;
         imageArea.appendChild(img);
-    }
-    
-    // Show image previews in timeline
-    function show_image_timeline(isAnEdit, image_src, src, type, time) {
-        // image_src = src for image thumbnail
-        // src = src for actual file
-        if (timelineEdit) {
-            var buttons = document.getElementsByClassName("" + time);
-            var button;
-            for (var i = 0; i < buttons.length; i++) {
-                if (buttons[i].src == timelineImagePath) {
-                    button = buttons[i];
-                }
-            }
-                
-            if (button != null)
-            {
-                var hoverDiv = button.parentElement;
-                var img = hoverDiv.nextElementSibling;
-                img.src = image_src;
-                button.src = src;
-            }
-        }
-        else if (didEditPast) {
-            //didEditPast = false;
-            
-            var newChild;
-            var imageDiv = document.createElement("div");
-            var img = document.createElement("img");
-            var hoverDiv = document.createElement("div");
-            
-            //var button = document.createElement("button");
-
-            // Check to make sure timeline element is not the video thumbnail
-            if (isAnEdit)
-            {
-                var button = document.createElement("button");
-                if (editsObj.videoTimes.length > 0)
-                {
-                    button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
-                    button.src = src;
-                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
-                }
-                else
-                {
-                    button.innerHTML = "";
-                }
-                
-                addTimelineButtonEventListener(button, type);
-                
-                hoverDiv.appendChild(button);
-            }
-
-            hoverDiv.style.display = "none";
-            hoverDiv.style.position = "absolute";
-            hoverDiv.style.top = "0px";
-            hoverDiv.style.left = "0px";
-            imageDiv.appendChild(hoverDiv);
-
-            imageDiv.style.position = "relative";
-            imageDiv.width = timelineImageWidth;
-            imageDiv.height = timelineImageHeight;
-            imageDiv.onmouseover = function() {
-                hoverDiv.style.display = "block";
-            };
-            imageDiv.onmouseout = function() {
-                hoverDiv.style.display = "none";
-            };
-
-            img.src = image_src;
-            img.width = timelineImageWidth;
-            img.height= timelineImageHeight;
-            imageDiv.appendChild(img);
-            newChild = imageDiv;
-            
-            var children = document.getElementById("timeline-area").children;
-            var child = findChild(children, time);
-            document.getElementById("timeline-area").insertBefore(newChild, child);
-            
-        }
-        else {
-        
-            var imageDiv = document.createElement("div");
-            var img = document.createElement("img");
-            var hoverDiv = document.createElement("div");
-            
-            img.src = image_src;
-            img.width = timelineImageWidth;
-            img.height= timelineImageHeight;
-
-            // Check to make sure timeline element is not the video thumbnail
-            if (isAnEdit)
-            {
-                var button = document.createElement("button");
-                if (editsObj.videoTimes.length > 0) {
-                    button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
-                    button.src = src;
-                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
-                }
-                else {
-                    button.innerHTML = "";
-                }
-                
-                addTimelineButtonEventListener(button, type);
-                
-                hoverDiv.appendChild(button);
-            }
-
-            hoverDiv.style.display = "none";
-            hoverDiv.style.position = "absolute";
-            hoverDiv.style.top = "0px";
-            hoverDiv.style.left = "0px";
-            imageDiv.appendChild(hoverDiv);
-
-            imageDiv.style.position = "relative";
-            imageDiv.width = timelineImageWidth;
-            imageDiv.height = timelineImageHeight;
-            imageDiv.onmouseover = function() {
-                hoverDiv.style.display = "block";
-            };
-            imageDiv.onmouseout = function() {
-                hoverDiv.style.display = "none";
-            };
-
-            imageDiv.appendChild(img);
-            document.getElementById("timeline-area").appendChild(imageDiv);
-        }
-    }
-    
-    function addTimelineButtonEventListener(button, type) 
-    {
-        button.addEventListener("click", function()
-        {
-            // Open the edit
-            video.currentTime = this.className;
-            video.pause;
-                    
-            if (type == "text") 
-            {
-                if (currentText != null)
-                {
-                    textArea.style.display = "none";
-                    currentText = null;
-                }
-                // Show text to edit
-                findText(this);
-                toggleTimelineControls();
-                cancelButton.style.display = "none";
-                editButton.style.display = "none";
-                editButton.innerHTML = "Save";
-
-                currentEdit = "text";
-                timelineEdit = true;
-                
-                //textArea = currentText;
-                textArea.value = timelineImageText;
-                // Need to do something with currentText so that cancelButton can remove it from timeline
-
-                // show the text area and submit button
-                textArea.style.display = "inline";
-                submitButton.style.display = "inline";
-
-                //Puts the text on top
-                pdfArea.style.zIndex = basePdfZ;
-                textBoxArea.style.zIndex = overlayZ
-                addedVideoArea.style.zIndex = baseAddedVideoZ;
-                imageArea.style.zIndex = baseImageZ;
-
-            }        
-            else if (type == "image") 
-            {
-                if (currentImage != null)
-                {
-                    imageArea.removeChild(currentImage);
-                    currentImage = null;
-                }
-                // Show Image to edit
-                for (var i = 0; i < editsObj.videoTimes.length; i++)
-                {
-                    if (this.className == editsObj.videoTimes[i] && type == editsObj.fileTypes[i])
-                    {
-                        for (var j = 0; j < editsObj.filePaths.length; j++)
-                        {
-                            if (this.src == editsObj.filePaths[j])
-                            {
-                                timelineImageTime = editsObj.videoTimes[i];
-                                timelineImageType = editsObj.fileTypes[i];
-                                timelineImagePath = editsObj.filePaths[j];
-                            }
-                        } 
-                    }
-                }
-                        
-                toggleTimelineControls();
-                editButton.innerHTML = "Save";
-
-                // Update current edit state
-                currentEdit = "image";
-                timelineEdit = true;
-                //currentImage = img;
-
-                // Show all images for images
-                imagePreviewDiv.style.display = "block";
-
-                //Puts the image on top
-                pdfArea.style.zIndex = basePdfZ;
-                textBoxArea.style.zIndex = baseTextZ
-                addedVideoArea.style.zIndex = baseAddedVideoZ;
-                imageArea.style.zIndex = overlayZ;
-
-                show_image_preview(this.src);
-
-            }
-            else if (type == "pdf") 
-            {
-                if (currentPdf != null)
-                {
-                    pdfArea.removeChild(currentPdf);
-                    currentPdf = null;
-                }
-                // Show Pdf to edit
-                // Show Image to edit
-                for (var i = 0; i < editsObj.videoTimes.length; i++)
-                {
-                    if (this.className == editsObj.videoTimes[i] && type == editsObj.fileTypes[i])
-                    {
-                        for (var j = 0; j < editsObj.filePaths.length; j++)
-                        {
-                            if (this.src == editsObj.filePaths[j])
-                            {
-                                timelineImageTime = editsObj.videoTimes[i];
-                                timelineImageType = editsObj.fileTypes[i];
-                                timelineImagePath = editsObj.filePaths[j];
-                            }
-                        } 
-
-                    }
-                }
-                        
-                toggleTimelineControls();
-                        
-                // Update current edit state
-                currentEdit = "pdf";
-                timelineEdit = true;
-                        
-                pdfPreviewDiv.style.display = "block";
-                        
-                //Puts the pdf on top
-                pdfArea.style.zIndex = overlayZ;
-                textBoxArea.style.zIndex = baseTextZ
-                addedVideoArea.style.zIndex = baseAddedVideoZ;
-                imageArea.style.zIndex = baseImageZ;
-            
-                editButton.innerHTML = "Save";
-                        
-                var pdf = document.createElement("iframe");
-                pdf_src = this.src;
-                pdf.src = pdf_src;
-                currentPdf = pdf;
-                pdfArea.appendChild(pdf);
-            }
-            else if (type == "video") 
-            {
-                if (currentAddedVideo != null)
-                {
-                    addedVideoArea.removeChild(currentAddedVideo);
-                    currentAddedVideo = null;
-                }
-                
-                // Show video to edit
-                for (var i = 0; i < editsObj.videoTimes.length; i++)
-                {
-                    if (this.className == editsObj.videoTimes[i] && type == editsObj.fileTypes[i])
-                    {
-                        for (var j = 0; j < editsObj.filePaths.length; j++)
-                        {
-                            if (this.src == editsObj.filePaths[j])
-                            {
-                                timelineImageTime = editsObj.videoTimes[i];
-                                timelineImageType = editsObj.fileTypes[i];
-                                timelineImagePath = editsObj.filePaths[j];
-                            }
-                        } 
-
-                    }
-                }
-
-                editButton.innerHTML = "Save";
-
-                // Update current edit state
-                currentEdit = "video";
-                timelineEdit = true;
-
-                toggleTimelineControls();
-
-                videoPreviewDiv.style.display = "block";
-
-                //Puts the pdf on top
-                pdfArea.style.zIndex = basePdfZ;
-                textBoxArea.style.zIndex = baseTextZ
-                addedVideoArea.style.zIndex = overlayZ;
-                imageArea.style.zIndex = baseImageZ;
-
-                if (currentAddedVideo != null)
-                {
-                    addedVideoArea.removeChild(currentAddedVideo);
-                }
-
-                editButton.innerHTML = "Save";
-
-                // Display video over video
-                var addedVideo = document.createElement("video");
-                video_src = this.src;
-                addedVideo.src = video_src;
-                currentAddedVideo = addedVideo;
-                document.getElementById("added-video-area").appendChild(addedVideo);
-
-            }
-        });
-    }
-    
-    function findText(button) {
-        for (var i = 0; i < editsObj.videoTimes.length; i++)
-        {
-            if (button.className == editsObj.videoTimes[i] && editsObj.fileTypes[i] == "text")
-            {
-                for (var j = 0; j < editsObj.videoText.length; j++)
-                {
-                    if (button.parentNode.parentNode.getElementsByTagName("p")[0].innerHTML == editsObj.videoText[j]) {
-                        // text in textDiv == videoText stored in txt file
-                        console.log("Found Text File");
-                        timelineImageTime = editsObj.videoTimes[i];
-                        timelineImageText = editsObj.videoText[j];
-                    }
-                } 
-
-            }
-        }
-    }
-    
-    function toggleTimelineControls() {
-         // Hide Controls
-        hideElements([renameButton, editButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton]);
-        
-        cancelButton.style.display = "inline";
-    }
-    
-    function findChild(children, time) {
-        //for (var i = children.length - 1; i > -1; i--)
-        for (var i = 0; i < children.length; i++)
-            {
-                if (children[i].hasChildNodes)
-                {
-                    for (var j = 0; j < children[i].children.length; j++)
-                    {
-                        if (children[i].children[j].hasChildNodes)
-                        {
-                            for (var k = 0; k < children[i].children[j].children.length; k++)
-                            {
-                                if (children[i].children[j].children[k].className > time)
-                                {
-                                    // Add child before here
-                                    console.log("Added Child To Timeline");
-                                    return children[i];
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        return null;
-    }
-    
-    //Displays text box for timeline
-    function show_text_timeline(message, time) {
-        console.log("Show Text Timeline");
-        if (timelineEdit)
-        {
-            var textDiv;
-            var textDivs = document.getElementsByClassName("timeline-text-div");
-            for (var i = 0; i < textDivs.length; i++) {
-                if (textDivs[i].children[1].children[0].className == time) {
-                    // textDivs[i].children[1] is the hoverDiv in the textDiv
-                    textDiv = textDivs[i];
-                }
-            }
-            
-            if (textDiv != null) {
-                // Change text inside of <p> tags
-                textDiv.children[0].innerHTML = message;
-            }
-        }
-        else if (didEditPast)
-        {
-            //didEditPast = false;
-            
-            var newChild;
-            var textDiv = document.createElement("div");
-            var hoverDiv = document.createElement("div");
-            
-            var timelineButton = document.createElement("button");
-            if (editsObj.videoTimes.length > 0)
-            {
-                //timelineButton.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
-                timelineButton.className = time;
-                timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
-            }
-            else
-            {
-                timelineButton.innerHTML = "";
-            }
-
-            addTimelineButtonEventListener(timelineButton, "text");
-
-            hoverDiv.appendChild(timelineButton);
-            hoverDiv.style.backgroundColor = "black";
-            hoverDiv.style.display = "none";
-            hoverDiv.style.position = "absolute";
-            hoverDiv.style.top = "0px";
-            hoverDiv.style.left = "0px";
-            hoverDiv.style.zIndex = "1";
-
-
-            textDiv.className = "timeline-text-div";
-            //textDiv.style.overflow = "none";
-            textDiv.style.position = "relative";
-            textDiv.style.backgroundColor = "white";
-            textDiv.style.color = "black";
-            textDiv.style.width = timelineImageWidth + "px";
-            textDiv.style.height = timelineImageHeight + "px";
-            textDiv.style.zIndex = "0";
-            textDiv.onmouseover = function() {
-                hoverDiv.style.display = "block";
-            };
-            textDiv.onmouseout = function() {
-                hoverDiv.style.display = "none";
-            };
-
-            textDiv.innerHTML = "<p>" + message + "</p>";
-
-
-            // Update current Text
-            var text = document.createElement("textarea");
-            text.value = message;
-            text.style.width = timelineImageWidth + "px";
-            text.style.height = timelineImageHeight + "px";
-            text.style.resize = "none";
-            text.style.color = "black";
-            text.readOnly = "readOnly";
-            currentText = text;
-            //textDiv.appendChild(text);
-            textDiv.appendChild(hoverDiv);
-            newChild = textDiv;
-            
-            var children = document.getElementById("timeline-area").children;
-            //var child = findChild(children, time);
-            var child = findChild(children, time);
-            document.getElementById("timeline-area").insertBefore(newChild, child);
-            
-            // Add video thumbnail after for cleaner User interface
-            //show_image_timeline(false, thumbFile, thumbFile, "null", video.currentTime);
-            
-        }
-        else
-        {
-            var textDiv = document.createElement("div");
-            var hoverDiv = document.createElement("div");
-
-
-            var timelineButton = document.createElement("button");
-            if (editsObj.videoTimes.length > 0)
-            {
-                //timelineButton.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
-                timelineButton.className = time;
-                timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
-            }
-            else
-            {
-                timelineButton.innerHTML = "";
-            }
-
-            addTimelineButtonEventListener(timelineButton, "text");
-
-            hoverDiv.appendChild(timelineButton);
-            hoverDiv.style.backgroundColor = "black";
-            hoverDiv.style.display = "none";
-            hoverDiv.style.position = "absolute";
-            hoverDiv.style.top = "0px";
-            hoverDiv.style.left = "0px";
-            hoverDiv.style.zIndex = "1";
-
-
-            textDiv.className = "timeline-text-div";
-            //textDiv.style.overflow = "none";
-            textDiv.style.position = "relative";
-            textDiv.style.backgroundColor = "white";
-            textDiv.style.color = "black";
-            textDiv.style.width = timelineImageWidth + "px";
-            textDiv.style.height = timelineImageHeight + "px";
-            textDiv.style.zIndex = "0";
-            textDiv.onmouseover = function() {
-                hoverDiv.style.display = "block";
-            };
-            textDiv.onmouseout = function() {
-                hoverDiv.style.display = "none";
-            };
-
-            textDiv.innerHTML = "<p>" + message + "</p>";
-
-
-            // Update current Text
-            var text = document.createElement("textarea");
-            text.value = message;
-            text.style.width = timelineImageWidth + "px";
-            text.style.height = timelineImageHeight + "px";
-            text.style.resize = "none";
-            text.style.color = "black";
-            text.readOnly = "readOnly";
-            currentText = text;
-            //textDiv.appendChild(text);
-            textDiv.appendChild(hoverDiv);
-            document.getElementById("timeline-area").appendChild(textDiv);
-            //document.getElementById("timeline-area").appendChild(text);
-        }
     }
     
     pdfButton.addEventListener("click", function() {

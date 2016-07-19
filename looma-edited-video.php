@@ -111,7 +111,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         <div id="pdf-area"></div>
                         <div id ="added-video-area"></div>
 					</div>
-                    <div id="timeline-area"></div>
 				</div>
 				<div id="video-controls-wrapper">
                     <div id="video-controls">
