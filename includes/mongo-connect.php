@@ -19,5 +19,5 @@
 	$chapters_collection =   $loomaDB -> chapters;
 	$textbooks_collection =  $loomaDB -> textbooks;
 	$dictionary_collection = $loomaDB -> dictionary;
-    $edited-videos_collection = $loomaDB -> edited-videos;
+    $edited_videos_collection = $loomaDB -> edited_videos;
 ?>
