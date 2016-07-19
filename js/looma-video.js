@@ -46,7 +46,7 @@ $(document).ready(function () {
     
     // Edit Controls - Renaming a video
     var renameButton = document.getElementById("rename");
-    var didSave = false;    // Set to true after user saves one time
+    var didSaveOnce = false;    // Set to true after user saves one time
     var didRename = false;
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
@@ -143,6 +143,9 @@ $(document).ready(function () {
     // Playback var
     var endTime;
     var index = 0;
+    
+    // MongoDB
+    var didSaveToDBOnce = false;
     
 	// Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
@@ -324,7 +327,7 @@ $(document).ready(function () {
     }
     
     renameSubmitButton.addEventListener("click", function () {   
-        if (didSave)
+        if (didSaveOnce)
         {
             hideElements([renameFormDiv]);
             mediaControls.style.display = "block";
@@ -348,7 +351,7 @@ $(document).ready(function () {
 			volumeBar.style.display = "none";
 			muteButton.style.display = "none";
             renameFormDiv.style.display = "none";
-            didSave = true;
+            didSaveOnce = true;
         }
         
         
@@ -378,7 +381,7 @@ $(document).ready(function () {
             editButton.style.height = "52%";
             editButton.disabled = false;
             editButton.style.opacity = "1.0";
-            if (!didSave)
+            if (!didSaveOnce)
             {
                 // Save file as...
                 save();
@@ -402,7 +405,7 @@ $(document).ready(function () {
             hideElements([mediaControls, editButton]);
             
             // Display edit options
-            if (didSave)
+            if (didSaveOnce)
             {
                 renameButton.style.display = "inline";
                 cancelButton.style.display = "inline";
@@ -436,7 +439,7 @@ $(document).ready(function () {
         hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, mediaControls, imagePreviewDiv, textArea, videoPreviewDiv, pdfPreviewDiv, editButton, addTimeDiv]);
         
         renameFormDiv.style.display = "block";
-        //didSave = true;  
+        //didSaveOnce = true;  
     }
     
     function save() {
@@ -454,8 +457,11 @@ $(document).ready(function () {
 
                 // Send to server to save as a txt file
                 $.ajax("looma-video-editor-textConverter.php", {
-                    data: {info: editsObj, location: editsObj.fileName},
-                    method: "POST"
+                    data: {info: editsObj, location: editsObj.fileName, doesExist: didSaveToDBOnce},
+                    method: "POST",
+                    complete: function() {
+                        didSaveToDBOnce = true;
+                    }
                 });
     }
     
