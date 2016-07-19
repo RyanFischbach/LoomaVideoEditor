@@ -51,7 +51,7 @@ $(document).ready(function () {
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
     var renameSubmitButton = document.getElementById("rename-form-submit-button");
-    var oldName = editsObj.fileName.substring(0, editsObj.fileName.lastIndexOf("."));
+    var oldName = editsObj.fileName;
     
     // Edit Controls - Cancelling an edit
     var cancelButton = document.getElementById("cancel");
