@@ -695,6 +695,8 @@ $(document).ready(function () {
                 videoButton.style.display = "inline";
                 nextFrameButton.style.display = "inline";
                 prevFrameButton.style.display = "inline";
+                next5FrameButton.style.display = "inline";
+                prev5FrameButton.style.display = "inline";
 				mediaControls.style.display = "inline";
 				muteButton.style.display = "none";
 				volumeBar.style.display = "none";
@@ -1303,13 +1305,13 @@ $(document).ready(function () {
     var mouseDown = false;
     
     nextFrameButton.addEventListener("click", function () {
-        video.currentTime += (3 / 29.97);
+        video.currentTime += (1 / 29.97);
     });
     
 	// prevFrameButton Event Listener
     prevFrameButton.addEventListener("click", function () {
         // Move Backward 1 frames
-		video.currentTime -= (3 / 29.97);
+		video.currentTime -= (1 / 29.97);
     });
     
 	next5FrameButton.addEventListener("click", function () {

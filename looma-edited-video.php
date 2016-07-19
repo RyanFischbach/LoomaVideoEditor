@@ -184,28 +184,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                     <?php keyword('Log In') ?>
                                 </button>
                             </div>
-                            <button type="button" class="media" id="cancel">
-                                <?php keyword('Cancel') ?>
-                            <button type="button" class="media" id="text">
-                                <?php keyword('Text') ?>
-                            </button>
-                            <button type="button" class="media" id="image">
-                                <?php keyword('Image') ?>
-                            </button>
-                            <button type="button" class="media hidden_button" id="pdf">
-                                <?php keyword('Pdf') ?>
-                            </button>
-
-                            <button type="button" class="media hidden_button" id="video-button">
-                                <?php keyword('Video') ?>
-                            </button>
-
-                            <button type="button" class="media hidden_button" id="submit">
-                                <?php keyword('Submit') ?>
-                            </button>
-
-                            <br>
-
+                            
                             <button type="button" class="media hidden_button" id="prev-frame5">
                                 <<<
                                 <?php
@@ -239,6 +218,28 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                 ?>
                             </button>
 
+                            <br>
+                            
+                            <button type="button" class="media" id="cancel">
+                                <?php keyword('Cancel') ?>
+                            <button type="button" class="media" id="text">
+                                <?php keyword('Text') ?>
+                            </button>
+                            <button type="button" class="media" id="image">
+                                <?php keyword('Image') ?>
+                            </button>
+                            <button type="button" class="media hidden_button" id="pdf">
+                                <?php keyword('Pdf') ?>
+                            </button>
+
+                            <button type="button" class="media hidden_button" id="video-button">
+                                <?php keyword('Video') ?>
+                            </button>
+
+                            <button type="button" class="media hidden_button" id="submit">
+                                <?php keyword('Submit') ?>
+                            </button>
+                                
                             <br>
 
                             <button type="button" class="media hidden_button" id="rename">
