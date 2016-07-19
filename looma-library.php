@@ -144,84 +144,90 @@ Modifications: Adds a case for edited videos (.txt files)
 		//TODO: should gather all the filenames into an array and sort it, use (natcasesort() or multisort(), before making the buttons	
 			
 	foreach (new DirectoryIterator($path) as $fileInfo) {
-   		$file =  $fileInfo->getFilename();
-		
-		//DEBUG  echo "   found " . $file . "<br>";
-		
-		//skip ".", "..", and any ".filename" and any filename with '_thumb' in the name
-		if (($file[0]  == ".") || strpos($file, "_thumb") || $file == "thumbnail.png") continue;  
- 
-    	if ($fileInfo -> isFile()) {
-	
-		//this code is also in looma-activities.php - should be a FUNCTION
-		echo "<td>";
-		$ext = $fileInfo -> getExtension();
-		$file = $fileInfo -> getFilename();
-		$base = trim($fileInfo -> getBasename($ext), ".");  //$base is filename w/o the file extension
+        if($path == ../content/edited videos/) {
             
-		//Modified
-        //If the file is a .txt file (used to store edited videos) it gives it the correct display name
-        if(substr($file, strlen($file) - 4) == ".txt")
-        {
-            $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
         }
-        //*Modified
-        else
-        {
-            // look in the database to see if this file has a DISPLAYNAME
-            $query = array('fn' => $file);
-	
-            $projection = array('_id' => 0, 
-						    'dn' => 1, 
-				);		
-            $activity = $activities_collection -> findOne($query, $projection);
+        else {
+        
+            $file =  $fileInfo->getFilename();
 
-            $dn = ($activity && array_key_exists('dn', $activity)) ? $activity['dn'] : $base;
-        }
-            
-        //DEBUG   echo "activity is " . $activity['dn'] . " looked up '" . $file . "' and got '" . $dn . "'";
-		
-			switch (strtolower($ext)) {
-				case "video":
-				case "mp4":
-				case "mov":
-		
-				case "image":
-				case "jpg":
-				case "png":
-				case "gif":
-	
-				case "audio":
-				case "mp3":
-		
-				case "pdf":
+            //DEBUG  echo "   found " . $file . "<br>";
 
-					makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
-					break;
-                //Modified   
-                case "txt":
-                    makeButton($file, $path, $ext, $base, $dn, $path . thumbnail(findName(getJSON($file, $path, $ext))));
-					break;
-                //*Modified
+            //skip ".", "..", and any ".filename" and any filename with '_thumb' in the name
+            if (($file[0]  == ".") || strpos($file, "_thumb") || $file == "thumbnail.png") continue;  
 
-				default:
-					// ignore unknown filetypes
-					// echo "DEBUG: " . $fileInfo -> getFilename() . "unkown filetype in looma-library.php";
-			};  //end SWITCH			
-			echo "</td>";
-			$buttons++; if ($buttons > $maxButtons) {$buttons = 1; echo "</tr><tr>";};
-			
-			}
-			else {  //handle Epaath special case
-				if ($ep) {
-					// display an EPAATH play button
-					echo "<td>";
-					makeButton($file, $path, 'epaath', $file, 'ePaath ' . $file, $path . $file . "/thumbnail.jpg");
-					echo "</td>";
-					$buttons++; if ($buttons > $maxButtons) {$buttons = 1; echo "</tr><tr>";};
-								
-				}
-			} 
+            if ($fileInfo -> isFile()) {
+
+            //this code is also in looma-activities.php - should be a FUNCTION
+            echo "<td>";
+            $ext = $fileInfo -> getExtension();
+            $file = $fileInfo -> getFilename();
+            $base = trim($fileInfo -> getBasename($ext), ".");  //$base is filename w/o the file extension
+
+            //Modified
+            //If the file is a .txt file (used to store edited videos) it gives it the correct display name
+            if(substr($file, strlen($file) - 4) == ".txt")
+            {
+                $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
+            }
+            //*Modified
+            else
+            {
+                // look in the database to see if this file has a DISPLAYNAME
+                $query = array('fn' => $file);
+
+                $projection = array('_id' => 0, 
+                                'dn' => 1, 
+                    );		
+                $activity = $activities_collection -> findOne($query, $projection);
+
+                $dn = ($activity && array_key_exists('dn', $activity)) ? $activity['dn'] : $base;
+            }
+
+            //DEBUG   echo "activity is " . $activity['dn'] . " looked up '" . $file . "' and got '" . $dn . "'";
+
+                switch (strtolower($ext)) {
+                    case "video":
+                    case "mp4":
+                    case "mov":
+
+                    case "image":
+                    case "jpg":
+                    case "png":
+                    case "gif":
+
+                    case "audio":
+                    case "mp3":
+
+                    case "pdf":
+
+                        makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
+                        break;
+                    //Modified   
+                    case "txt":
+                        makeButton($file, $path, $ext, $base, $dn, $path . thumbnail(findName(getJSON($file, $path, $ext))));
+                        break;
+                    //*Modified
+
+                    default:
+                        // ignore unknown filetypes
+                        // echo "DEBUG: " . $fileInfo -> getFilename() . "unkown filetype in looma-library.php";
+                };  //end SWITCH			
+                echo "</td>";
+                $buttons++; if ($buttons > $maxButtons) {$buttons = 1; echo "</tr><tr>";};
+
+                }
+                else {  //handle Epaath special case
+                    if ($ep) {
+                        // display an EPAATH play button
+                        echo "<td>";
+                        makeButton($file, $path, 'epaath', $file, 'ePaath ' . $file, $path . $file . "/thumbnail.jpg");
+                        echo "</td>";
+                        $buttons++; if ($buttons > $maxButtons) {$buttons = 1; echo "</tr><tr>";};
+
+                    }
+                }
+            }   
 		} //end FOREACH file
 		echo "</tr></table>";	
         //Modified
