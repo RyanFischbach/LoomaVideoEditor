@@ -92,7 +92,6 @@ $(document).ready(function () {
     var renameFormDiv = document.getElementById("rename-form-div");
     var renameInput = document.getElementById("rename-text");
     var renameSubmitButton = document.getElementById("rename-form-submit-button");
-    var oldName = editsObj.fileName;
     
     // Edit Controls - Cancelling an edit
     var cancelButton = document.getElementById("cancel");
@@ -651,14 +650,13 @@ $(document).ready(function () {
         
         
         var newName = renameInput.value;
-        editsObj.fileName = newName;
             
         $.ajax("looma-rename-edited-video.php", {
-            data: {oldPath: oldName, newPath: newName},
+            data: {oldPath: editsObj.fileName, newPath: newName},
             method: "POST"
         });
         
-        oldName = newName;
+        editsObj.fileName = newName;
         return true;
     });
 
@@ -726,7 +724,7 @@ $(document).ready(function () {
 
         // Send to server to save as a txt file
         $.ajax("looma-video-editor-textConverter.php", {
-            data: {info: editsObj, location: oldName},
+            data: {info: editsObj, location: editsObj.fileName},
             method: "POST"
         });
     }
