@@ -70,6 +70,16 @@
     overflow-y: auto;
     z-index: 0;
 }
+
+#black-screen {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    background-color: black;
+}
     
 ::-webkit-scrollbar { 
     width:30px;

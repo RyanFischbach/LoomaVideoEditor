@@ -107,6 +107,7 @@ $(document).ready(function () {
     var currentText = null;     // Used for text overlay - displays text over the video
     var currentPdf = null;
     var currentAddedVideo = null;
+    var currentBlackScreen = null;
     
     // Displaying Edits - Overlays
     
@@ -391,6 +392,9 @@ $(document).ready(function () {
                 save();
             }
             playButton.style.backgroundImage = 'url("images/video.png")';
+            if(currentBlackScreen != null) {
+                document.getElementById("video-area").removeChild(currentBlackScreen);
+            }
             index++;
         } 
 		else
@@ -508,6 +512,9 @@ $(document).ready(function () {
                 addedVideoArea.removeChild(currentImage);
                 currentAddedVideo = null;
                 video_src = "";
+            }
+            if(currentBlackScreen != null) {
+                document.getElementById("video-area").removeChild(currentBlackScreen);
             }
         }
     }
@@ -633,6 +640,8 @@ $(document).ready(function () {
                 addedVideoArea.removeChild(currentAddedVideo);
                 currentAddedVideo = null;  
             }
+            
+            
             
         }
     }
@@ -850,6 +859,9 @@ $(document).ready(function () {
                 }
             
             video_src = "";
+            if(currentBlackScreen != null) {
+                document.getElementById("video-area").removeChild(currentBlackScreen);
+            }
         }
         
         currentEdit = "";
@@ -1596,6 +1608,13 @@ $(document).ready(function () {
             addedVideo.src = video_src;
             currentAddedVideo = addedVideo;
             document.getElementById("added-video-area").appendChild(addedVideo);
+            
+            var blackScreen = document.createElement("div");
+            currentBlackScreen = blackScreen
+            blackScreen.id = "black-screen";
+            blackScreen.style.zIndex = overlayZ - 1;
+            document.getElementById("video-area").appendChild(blackScreen);
+            
             //playButton.innerHTML = "Play";
             if (currentAddedVideo != null)
             {
@@ -1736,6 +1755,7 @@ $(document).ready(function () {
             video.currentTime = time;
         
             video.pause();
+            
             var checking = true;
             var i = 0;
             while(checking == true)
@@ -1820,8 +1840,7 @@ $(document).ready(function () {
     
     function checkTime() {
 		if (editsObj.videoTimes.length > 0) {
-            if(index < editsObj.videoTimes.length)
-            {
+            if(index < editsObj.videoTimes.length) {
                 //While there are still annotatins in the video
                 if (editsObj.videoTimes[index] <= video.currentTime) {
                     //If we have passed the time stamp for the next annotation
@@ -1851,7 +1870,7 @@ $(document).ready(function () {
                         var filesBefore = 0;
                         for(var i = 0; i < index; i++)
                         {
-                            if(editsObj.fileTypes[i] == "image" && editsObj.fileTypes[i] == "pdf" && editsObj.fileTypes[i] == "video")
+                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
                                 filesBefore++;
                         }
                         
@@ -1864,7 +1883,7 @@ $(document).ready(function () {
                         var filesBefore = 0;
                         for(var i = 0; i < index; i++)
                         {
-                            if(editsObj.fileTypes[i] == "image" && editsObj.fileTypes[i] == "pdf" && editsObj.fileTypes[i] == "video")
+                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
                                 filesBefore++;
                         }
                         
@@ -1880,7 +1899,7 @@ $(document).ready(function () {
                         var filesBefore = 0;
                         for(var i = 0; i < index; i++)
                         {
-                            if(editsObj.fileTypes[i] == "image" && editsObj.fileTypes[i] == "pdf" && editsObj.fileTypes[i] == "video")
+                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
                                 filesBefore++;
                         }
                         
@@ -1904,6 +1923,12 @@ $(document).ready(function () {
                         addedVideo.currentTime = startTime;
                         timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
                         playButton.style.backgroundImage = 'url("images/video.png")';
+                        
+                        var blackScreen = document.createElement("div");
+                        currentBlackScreen = blackScreen
+                        blackScreen.id = "black-screen";
+                        blackScreen.style.zIndex = overlayZ - 1;
+                        document.getElementById("video-area").appendChild(blackScreen);
                     }
                     index++;
                 }
@@ -1923,6 +1948,10 @@ $(document).ready(function () {
                     currentAddedVideo = null;
                     playButton.style.backgroundImage = 'url("images/video.png")';
                     timeDiv.innerHTML = minuteSecondTime(video.currentTime);
+                    
+                    if(currentBlackScreen != null) {
+                        document.getElementById("video-area").removeChild(currentBlackScreen);
+                    }
                 }
             }
         }
