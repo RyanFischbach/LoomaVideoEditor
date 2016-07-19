@@ -59,6 +59,8 @@ $(document).ready(function () {
     var currentPlaybackPdf = null;
     var currentPlaybackOverlaidVideo = null;
     
+    // Edit Playback
+    var index = 0;
     var endTime;
     
     //Edit Controls
@@ -178,68 +180,71 @@ $(document).ready(function () {
 		}
 	});
 
+    /*
 	function checkTime() {
 		if (commands.videoTimes.length > 0) {
+            if (index < commands.videoTimes.length) {
 			//While there are still annotatins in the video
-			if (commands.videoTimes[0] <= video.currentTime) {
-				//If we have passed the time stamp for the next annotation 
-				//play check the type and delete that time stamp
-				commands.videoTimes.splice(0, 1);
-				if (commands.fileTypes[0] == "text") {
-					//If the type is a text file create a overlay and put the text there and pause the video
-					commands.fileTypes.splice(0, 1);
-					var message = commands.videoText[0];
-					commands.videoText.splice(0, 1);
-					textPlaybackArea.value = message;
-					textPlaybackArea.style.display = 'inline-block';
-					video.pause();
-					playButton.style.backgroundImage = 'url("images/video.png")';
-                    textPlaybackDiv.style.zIndex = 4;
-                    pdfArea.style.zIndex = 3;
-                    
-				} 
-                else if (commands.fileTypes[0] == "image") {
-					commands.fileTypes.splice(0, 1);
+                if (commands.videoTimes[index] <= video.currentTime) {
+                    //If we have passed the time stamp for the next annotation 
+                    //play check the type and delete that time stamp
+                    //commands.videoTimes.splice(0, 1);
+                    if (commands.fileTypes[index] == "text") {
+                        //If the type is a text file create a overlay and put the text there and pause the video
+                        //commands.fileTypes.splice(0, 1);
+                        var message = commands.videoText[0];
+                        //commands.videoText.splice(0, 1);
+                        textPlaybackArea.value = message;
+                        textPlaybackArea.style.display = 'inline-block';
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        textPlaybackDiv.style.zIndex = 4;
+                        pdfArea.style.zIndex = 3;
 
-					if (currentPlaybackImage != null) {
-						document.getElementById("image-area").removeChild(currentPlaybackImage);
-					}
+                    } 
+                    else if (commands.fileTypes[0] == "image") {
+                        //commands.fileTypes.splice(0, 1);
 
-					show_image(commands.filePaths[0], "Image not found");
-					commands.filePaths.splice(0, 1);
-					video.pause();
-					playButton.style.backgroundImage = 'url("images/video.png")';
-				}
-                else if (commands.fileTypes[0] == "pdf") {
-                    //Adds a pdf to pdfArea
-                    commands.fileTypes.splice(0, 1);
-                    show_pdf(commands.filePaths[0]);
-                    commands.filePaths.splice(0, 1);
-                    video.pause();
-					playButton.style.backgroundImage = 'url("images/video.png")';
-                    textPlaybackDiv.style.zIndex = 3;
-                    pdfArea.style.zIndex = 4;
+                        if (currentPlaybackImage != null) {
+                            document.getElementById("image-area").removeChild(currentPlaybackImage);
+                        }
+
+                        show_image(commands.filePaths[0], "Image not found");
+                        //commands.filePaths.splice(0, 1);
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                    }
+                    else if (commands.fileTypes[0] == "pdf") {
+                        //Adds a pdf to pdfArea
+                        //commands.fileTypes.splice(0, 1);
+                        show_pdf(commands.filePaths[0]);
+                        //commands.filePaths.splice(0, 1);
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        textPlaybackDiv.style.zIndex = 3;
+                        pdfArea.style.zIndex = 4;
+                    }
+                    else if (commands.fileTypes[0] == "video") {
+                        //Overlays a video inside of OverlaidVideoArea
+                        //console.log(commands.filePaths[0]);
+                        //commands.fileTypes.splice(0, 1);
+                        video.pause(); 
+                        var startTime = commands.addedVideoTimes[0];
+                        endTime = commands.addedVideoTimes[1];
+                        //var startTime = commands.videoTimes[0];
+                        //endTime = commands.videoTimes[1];
+                        //commands.addedVideoTimes.splice(0, 2);
+                        var overlaidVideo = document.createElement("video");
+                        overlaidVideo.src = commands.filePaths[0];
+                       // commands.filePaths.splice(0, 1);
+                        currentPlaybackOverlaidVideo = overlaidVideo;
+                        document.getElementById("overlaid-video-area").appendChild(overlaidVideo);
+                        overlaidVideo.currentTime = startTime;
+                        timeDiv.innerHTML = minuteSecondTime(currentPlaybackOverlaidVideo.currentTime);
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                    }
                 }
-                else if (commands.fileTypes[0] == "video") {
-                    //Overlays a video inside of OverlaidVideoArea
-                    //console.log(commands.filePaths[0]);
-                    commands.fileTypes.splice(0, 1);
-                    video.pause(); 
-                    var startTime = commands.addedVideoTimes[0];
-                    endTime = commands.addedVideoTimes[1];
-                    //var startTime = commands.videoTimes[0];
-                    //endTime = commands.videoTimes[1];
-                    commands.addedVideoTimes.splice(0, 2);
-                    var overlaidVideo = document.createElement("video");
-                    overlaidVideo.src = commands.filePaths[0];
-                    commands.filePaths.splice(0, 1);
-                    currentPlaybackOverlaidVideo = overlaidVideo;
-                    document.getElementById("overlaid-video-area").appendChild(overlaidVideo);
-                    overlaidVideo.currentTime = startTime;
-                    timeDiv.innerHTML = minuteSecondTime(currentPlaybackOverlaidVideo.currentTime);
-                    playButton.style.backgroundImage = 'url("images/video.png")';
-                }
-			}
+            }
 		}
         if(currentPlaybackOverlaidVideo != null) {
             if(currentPlaybackOverlaidVideo.paused == false) {
@@ -254,6 +259,124 @@ $(document).ready(function () {
                 if(currentPlaybackOverlaidVideo.currentTime >= endTime) {
                     document.getElementById("overlaid-video-area").removeChild(currentPlaybackOverlaidVideo);
                     currentPlaybackOverlaidVideo = null;
+                    playButton.style.backgroundImage = 'url("images/video.png")';
+                    timeDiv.innerHTML = minuteSecondTime(video.currentTime);
+                }
+            }
+        }
+		window.requestAnimationFrame(checkTime);
+		//Fullscreen Stuff
+		if (!isFullscreen) {
+			var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
+			videoArea.style.width = parseInt(vidWidth) + "px";
+		}
+		
+	}
+    */
+    
+    function checkTime() {
+		if (editsObj.videoTimes.length > 0) {
+            if(index < editsObj.videoTimes.length)
+            {
+                //While there are still annotatins in the video
+                if (editsObj.videoTimes[index] <= video.currentTime) {
+                    //If we have passed the time stamp for the next annotation
+                    if (editsObj.fileTypes[index] == "text") {
+                        //If the type is a text file create a overlay and put the text there and pause the video
+                        var textsBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "text")
+                                textsBefore++;
+                        }
+                        var message = editsObj.videoText[textsBefore];
+                        textArea.value = message;
+                        textArea.style.display = 'inline-block';
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        textArea.style.zIndex = overlayZ;
+                        pdfArea.style.zIndex = basePdfZ;
+
+                    } 
+                    else if (editsObj.fileTypes[index] == "image") {
+
+                        if (currentImage != null) {
+                            document.getElementById("image-area").removeChild(currentImage);
+                        }
+                        
+                        var filesBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                                filesBefore++;
+                        }
+                        
+                        show_image(editsObj.filePaths[filesBefore], "Image not found");
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                    }
+                    else if (editsObj.fileTypes[index] == "pdf") {
+                        
+                        var filesBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                                filesBefore++;
+                        }
+                        
+                        //Adds a pdf to pdfArea
+                        show_pdf(editsObj.filePaths[filesBefore]);
+                        video.pause();
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        textArea.style.zIndex = baseTextZ;
+                        pdfArea.style.zIndex = overlayZ;
+                    }
+                    else if (editsObj.fileTypes[index] == "video") {
+                        
+                        var filesBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                                filesBefore++;
+                        }
+                        
+                        //Overlays a video inside of OverlaidVideoArea
+                        console.log(editsObj.filePaths[filesBefore]);
+                        video.pause();
+                        
+                        var videosBefore = 0;
+                        for(var i = 0; i < index; i++)
+                        {
+                            if(editsObj.fileTypes[i] == "video")
+                                videosBefore += 2;
+                        }
+                        
+                        var startTime = editsObj.addedVideoTimes[videosBefore];
+                        endTime = editsObj.addedVideoTimes[videosBefore + 1];
+                        var addedVideo = document.createElement("video");
+                        addedVideo.src = editsObj.filePaths[filesBefore];
+                        currentAddedVideo = addedVideo;
+                        document.getElementById("added-video-area").appendChild(addedVideo);
+                        addedVideo.currentTime = startTime;
+                        timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
+                        playButton.style.backgroundImage = 'url("images/video.png")';
+                    }
+                    index++;
+                }
+            }
+		}
+        if(currentAddedVideo != null) {
+            if(currentAddedVideo.paused == false) {
+                // Calculate the slider value
+                var value = (100 / currentAddedVideo.duration) * currentAddedVideo.currentTime;
+
+                // Update the slider value
+                seekBar.value = value;
+                
+                timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
+                if(currentAddedVideo.currentTime >= endTime) {
+                    document.getElementById("added-video-area").removeChild(currentAddedVideo);
+                    currentAddedVideo = null;
                     playButton.style.backgroundImage = 'url("images/video.png")';
                     timeDiv.innerHTML = minuteSecondTime(video.currentTime);
                 }
@@ -477,6 +600,46 @@ $(document).ready(function () {
                     commands.filePaths.splice(0, 1);
                 }
             }
+            
+            if (currentAddedVideo != null)
+        {
+            var time = currentAddedVideo.duration * (seekBar.value / 100);
+            currentAddedVideo.currentTime = time;
+            currentAddedVideo.pause();
+        }
+        else
+        {
+            // Calculate the new time
+            var time = video.duration * (seekBar.value / 100);
+
+            // Update the video time
+            video.currentTime = time;
+        
+            video.pause();
+            var checking = true;
+            var i = 0;
+            while(checking == true)
+            {
+                if(i < editsObj.videoTimes.length)
+                {
+                    if(time <= editsObj.videoTimes[i])
+                    {    
+                        index = i;
+                        console.log(i);
+                        checking = false;
+                    }
+                    else
+                    {    
+                        i++
+                    }
+                }
+                else
+                {
+                    checking = false;
+                    i = editsObj.videoTimes.length;
+                }
+            }
+        }
         }
 	});
 
