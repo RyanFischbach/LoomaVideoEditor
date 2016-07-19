@@ -11,17 +11,39 @@ Attribution: File copied fronm looma-video.js
  */
 
 var editsObj = {
-	fileTypes: commands.fileTypes
-	, videoName: commands.videoName
-    , fileName: commands.fileName
-	, videoTimes: commands.videoTimes
-	, videoText: commands.videoText
-	, filePaths: commands.filePaths
-    , addedVideoTimes: commands.addedVideoTimes
+	fileTypes: []
+	, videoName: ""
+    , fileName: ""
+	, videoTimes: []
+	, videoText: []
+	, filePaths: []
+    , addedVideoTimes: []
 , }
 
 'use strict';
 $(document).ready(function () {
+    
+    if (commands.fileTypes != null) {
+        editsObj.fileTypes = commands.fileTypes;
+    }
+    if (commands.videoName != null) {
+        editsObj.videoName = commands.videoName;
+    }
+    if (commands.fileName != null) {
+        editsObj.fileName = commands.fileName;
+    }
+    if (commands.videoTimes != null) {
+        editsObj.videoTimes = commands.videoTimes;
+    }
+    if (commands.videoText != null) {
+        editsObj.videoText = commands.videoText;
+    }
+    if (commands.filePaths != null) {
+        editsObj.filePaths = commands.filePaths;
+    }
+    if (commands.addedVideoTimes != null) {
+        editsObj.addedVideoTimes = commands.addedVideoTimes;
+    }
 	
 
 	// Video
@@ -44,7 +66,7 @@ $(document).ready(function () {
     var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 
 	//var videoArea = document.getElementById("video-area");
-	var textPlaybackDiv = document.getElementById("text-box-area");
+	//var textPlaybackDiv = document.getElementById("text-box-area");
 	var textPlaybackArea = document.getElementById("text-playback");
     //var pdfArea = document.getElementById("pdf-area");
 
@@ -170,8 +192,6 @@ $(document).ready(function () {
                 //While there are still annotatins in the video
                 if (editsObj.videoTimes[index] <= video.currentTime) {
                     //If we have passed the time stamp for the next annotation
-                    console.log(index);
-                    console.log(editsObj.fileTypes[index]);
                     if (editsObj.fileTypes[index] == "text") {
                         //If the type is a text file create a overlay and put the text there and pause the video
                         var textsBefore = 0;
@@ -396,7 +416,9 @@ $(document).ready(function () {
                 playButton.style.backgroundImage = 'url("images/pause.png")';
 
                 //Stop showing the textbox
+                console.log("hide text");
                 textPlaybackArea.style.display = "none";
+                textArea.style.display = "none";
 
                 //Keeps checking for new things
                 window.requestAnimationFrame(checkTime);
@@ -725,6 +747,7 @@ $(document).ready(function () {
        
         if (currentText != null)
         {
+            console.log("save text");
             insertVideoTime(video.currentTime);
             insertFileType("text", video.currentTime);
             insertVideoText(currentText.value, video.currentTime);
