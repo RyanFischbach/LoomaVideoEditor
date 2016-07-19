@@ -144,6 +144,7 @@ $(document).ready(function () {
     var currentText = null;     // Used for text overlay - displays text over the video
     var currentPdf = null;
     var currentAddedVideo = null;
+    var currentBlackScreen = null;
     
     // Displaying Edits - Overlays
     
@@ -273,6 +274,12 @@ $(document).ready(function () {
                         addedVideo.currentTime = startTime;
                         timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
                         playButton.style.backgroundImage = 'url("images/video.png")';
+                        
+                        var blackScreen = document.createElement("div");
+                        currentBlackScreen = blackScreen
+                        blackScreen.id = "black-screen";
+                        blackScreen.style.zIndex = overlayZ - 1;
+                        document.getElementById("video-area").appendChild(blackScreen);
                     }
                     index++;
                 }
@@ -292,6 +299,10 @@ $(document).ready(function () {
                     currentAddedVideo = null;
                     playButton.style.backgroundImage = 'url("images/video.png")';
                     timeDiv.innerHTML = minuteSecondTime(video.currentTime);
+                    
+                    if(currentBlackScreen != null) {
+                        document.getElementById("video-area").removeChild(currentBlackScreen);
+                    }
                 }
             }
         }
@@ -521,11 +532,11 @@ $(document).ready(function () {
             }*/
             
             if (currentAddedVideo != null)
-        {
-            var time = currentAddedVideo.duration * (seekBar.value / 100);
-            currentAddedVideo.currentTime = time;
-            currentAddedVideo.pause();
-        }
+            {
+                var time = currentAddedVideo.duration * (seekBar.value / 100);
+                currentAddedVideo.currentTime = time;
+                currentAddedVideo.pause();
+            }
         else
         {
             // Calculate the new time
@@ -678,6 +689,12 @@ $(document).ready(function () {
                 toggleControlsForSaveButton();
                 save();
             playButton.style.backgroundImage = 'url("images/video.png")';
+            
+            if(currentBlackScreen != null) {
+                document.getElementById("video-area").removeChild(currentBlackScreen);
+            }
+            
+            
             index++;
         } 
 		else
@@ -1164,6 +1181,12 @@ $(document).ready(function () {
         imageArea.style.zIndex = baseImageZ;
         pdfArea.style.zIndex = basePdfZ;
         addedVideoArea.style.zIndex = overlayZ;
+        
+        var blackScreen = document.createElement("div");
+        currentBlackScreen = blackScreen
+        blackScreen.id = "black-screen";
+        blackScreen.style.zIndex = overlayZ - 1;
+        document.getElementById("video-area").appendChild(blackScreen);
     });
     
     // Functions for showing video previews for selecting a video
