@@ -144,7 +144,7 @@ Modifications: Adds a case for edited videos (.txt files)
 		//TODO: should gather all the filenames into an array and sort it, use (natcasesort() or multisort(), before making the buttons	
 			
 	foreach (new DirectoryIterator($path) as $fileInfo) {
-        if($path == ../content/edited videos/) {
+        if($path == "../content/edited videos/") {
             
         }
         else {
