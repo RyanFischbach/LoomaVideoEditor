@@ -291,9 +291,11 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 
 					<script>
-						var videoName = "<?php echo $filename; ?>";
-						editsObj.videoName = videoName;
-                        editsObj.fileName = videoName.substr(0, videoName.lastIndexOf("."));
+						var name = "<?php echo $filename; ?>";
+						editsObj.videoName = name;
+                        editsObj.fileName = name.substr(0, name.lastIndexOf("."));
+                        videoPath = "<?php echo $filepath; ?>";
+                        console.log(videoPath);
 					</script>
 
 	</body>

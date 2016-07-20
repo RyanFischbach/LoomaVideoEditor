@@ -11,6 +11,8 @@ Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
  */
 
 // Arrays of Edited Video Information
+var videoPath;
+
 var editsObj = {
 	fileTypes: []
 	, videoName: ""
@@ -358,7 +360,7 @@ $(document).ready(function () {
         var newName = renameInput.value;
         var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));    
         $.ajax("looma-rename-edited-video.php", {
-            data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName},
+            data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
             method: "POST"
         });
         
@@ -458,7 +460,7 @@ $(document).ready(function () {
                 // Send to server to save as a txt file
                 var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
                 $.ajax("looma-video-editor-textConverter.php", {
-                    data: {info: editsObj, vn: videoName, location: editsObj.fileName, doesExist: didSaveToDBOnce},
+                    data: {info: editsObj, vn: videoName, vp: videoPath, location: editsObj.fileName, doesExist: didSaveToDBOnce},
                     method: "POST",
                     complete: function() {
                         didSaveToDBOnce = true;

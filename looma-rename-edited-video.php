@@ -45,7 +45,8 @@ include ('includes/mongo-connect.php');
             "dn" => $newDn,
             "fn" => $newName,
             "JSON" => $strJSON,
-            "vn" => $_REQUEST['vn']
+            "vn" => $_REQUEST['vn'],
+            "vp" => $_REQUEST['vp']
         );
         $edited_videos_collection->update($fileToUpdate, $fieldsToUpdate);
     }

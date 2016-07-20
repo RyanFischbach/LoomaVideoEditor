@@ -42,7 +42,8 @@ if ($fileDoesExist == "true" || $fileToUpdate != "")
         "dn" => $dn,
         "fn" => $fileName,
         "JSON" => $strJSON,
-        "vn" => $_REQUEST['vn']
+        "vn" => $_REQUEST['vn'],
+        "vp" => $_REQUEST['vp']
     );
     $edited_videos_collection->update($fileToUpdate, $fieldsToUpdate);
 }
@@ -53,7 +54,8 @@ else
         "dn" => $dn,
         "fn" => $fileName,
         "JSON" => $strJSON,
-        "vn" => $_REQUEST['vn']
+        "vn" => $_REQUEST['vn'],
+        "vp" => $_REQUEST['vp']
     );
     $edited_videos_collection->insert($toInsert);
 }
