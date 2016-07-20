@@ -38,6 +38,7 @@ $(document).ready(function () {
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("volume");
 	var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
+    var fullscreenControlButton = document.getElementById("fullscreen-control");
     
     // Media Controls - Sliders
 	var seekBar = document.getElementById("seek-bar");
@@ -221,11 +222,13 @@ $(document).ready(function () {
 		{
 			fullscreenPlayPauseButton.style.display = "inline";
 			isFullscreen = true;
+            fullscreenControlButton.style.bottom = 5;
 		}
 		else
 		{
 			fullscreenPlayPauseButton.style.display = "none";
 			isFullscreen = false;
+            fullscreenControlButton.style.bottom = initial;
 		}
 	});
 
@@ -252,15 +255,18 @@ $(document).ready(function () {
 	
 	// Event listener for the play pause button that appears when in fullscreen
 	fullscreenPlayPauseButton.addEventListener("click", function() {
-		if(video.paused)
+		if(!video.paused)
 		{
-			playVideo(video);
+            pauseVideo(video);
             window.requestAnimationFrame(checkTime);
+            fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
+            fullscreen
 		}
 		else
 		{
-			pauseVideo(video);
+            playVideo(video);
             window.requestAnimationFrame(checkTime);
+            fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
 		}
 	});
     

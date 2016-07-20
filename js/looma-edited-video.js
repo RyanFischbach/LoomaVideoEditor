@@ -168,6 +168,7 @@ $(document).ready(function () {
 	
 	var isFullscreen = false;
 	$('#fullscreen-control').click(function (e) {
+		e.preventDefault();
 		if(!isFullscreen)
 		{
 		isFullscreen = true;
