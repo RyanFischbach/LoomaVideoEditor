@@ -74,8 +74,8 @@ Modifications: Adds a case for edited videos (.txt files)
 							  data-fn='" .  $file . 
 						   "' data-fp='" .  $path .
 						   "' data-ft='" .  $ext .
-                           "' data-dn='" .  $dn .
-                           "' data-content='" . $json .
+                           "' data-dn='" .  urlencode($dn) .
+                           "' data-content='" . urlencode($json) .
 						   "' data-zm='" .  160 .
 						   "' data-pg='1" .
 						   "'>";
