@@ -60,26 +60,4 @@ else
     $edited_videos_collection->insert($toInsert);
 }
 
-
-/*
-if ()
-{
-    $toInsert = array(
-        "ft" => "txt",
-        "dn" => $dn,
-        "fn" => $fileName,
-        "JSON" => $strJSON,
-    );
-    $activities_collection->insert($toInsert);
-}
-
-$activities_collection.update(
-    {"dn": $dn},
-    $toInsert,
-    {
-        upsert: true
-    }   
-);
-*/
-
 ?>

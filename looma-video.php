@@ -256,7 +256,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 				<!--Opens the pictures folder when you want to pick a picture-->
 				<div id="image-previews">
-					<!-- include ('looma-video-editor-imageViewer.php') -->
 					<?php
                         $folder = "pictures";
                         include ('includes/video-editor-file-viewer.php');

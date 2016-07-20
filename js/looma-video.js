@@ -459,7 +459,7 @@ $(document).ready(function () {
 
                 // Send to server to save as a txt file
                 var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
-                $.ajax("looma-video-editor-textConverter.php", {
+                $.ajax("looma-video-db-save.php", {
                     data: {info: editsObj, vn: videoName, vp: videoPath, location: editsObj.fileName, doesExist: didSaveToDBOnce},
                     method: "POST",
                     complete: function() {
@@ -490,6 +490,7 @@ $(document).ready(function () {
             textArea.removeChild(currentText);
             currentText = null;
             textArea.style.display = "none";
+            textBoxArea.style.display = "none";
         }
         else if (image_src != "") {        
             // Insert Edit
@@ -1140,6 +1141,7 @@ $(document).ready(function () {
                     
             if (type == "text") 
             {
+                textArea.readOnly = false;
                 if (currentText != null)
                 {
                     textArea.style.display = "none";
