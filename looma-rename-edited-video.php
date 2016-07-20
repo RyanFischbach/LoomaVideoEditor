@@ -19,6 +19,7 @@ include ('includes/mongo-connect.php');
 
     //$newName = str_replace(' ', '_', $newName);
 
+/*
     $this_dir = dirname(__FILE__);
 
     // admin's parent dir path can be represented by admin/..
@@ -32,6 +33,7 @@ include ('includes/mongo-connect.php');
     {
         print "renamed to " . $newPath;
     }
+    */
 
     // Save to DB
     $newDn = str_replace('_', ' ', $newName . "_Edited");

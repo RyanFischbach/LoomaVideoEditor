@@ -17,6 +17,7 @@ $fileName = $_REQUEST['location'];
 $strJSON = json_encode($_REQUEST['info']);
 $fileDoesExist = $_REQUEST['doesExist'];
 
+/*
 $this_dir = dirname(__FILE__);
 
 // admin's parent dir path can be represented by admin/..
@@ -29,6 +30,7 @@ $target_path = $parent_dir . '/content/videos/' . $fileName . '.txt';
 $myFile = fopen($target_path, 'w') or die("can't open file");
 fwrite($myFile, $strJSON);
 fclose($myFile);
+*/
 
 // Save File to DB
 $dn = str_replace('_', ' ', $fileName . "_Edited");

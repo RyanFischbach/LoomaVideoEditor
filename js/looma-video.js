@@ -222,12 +222,12 @@ $(document).ready(function () {
 	fullscreenPlayPauseButton.addEventListener("click", function() {
 		if(video.paused)
 		{
-			video.play();
+			playVideo(video);
             window.requestAnimationFrame(checkTime);
 		}
 		else
 		{
-			video.pause();
+			pauseVideo(video);
             window.requestAnimationFrame(checkTime);
 		}
 	});
@@ -385,7 +385,7 @@ $(document).ready(function () {
                 toggleControlsForSaveButton();
                 save();
             }
-            playButton.style.backgroundImage = 'url("images/video.png")';
+            pauseVideo(video);
             if(currentBlackScreen != null) {
                 document.getElementById("video-area").removeChild(currentBlackScreen);
             }
@@ -419,10 +419,7 @@ $(document).ready(function () {
             // change the edit button to say save
             editButton.innerHTML = "Save";
 
-            video.pause();
-
-            // change the play-pause button to say play
-            playButton.style.backgroundImage = 'url("images/video.png")';
+            pauseVideo(video);
         }
 
     });
@@ -435,7 +432,6 @@ $(document).ready(function () {
     }
     
     function save() {
-        video.pause();
                 //Displays preview for image
                 if (timelineEdit) {
                     saveTimelineEdit();
@@ -486,12 +482,8 @@ $(document).ready(function () {
             // Insert Edit
             insertSrc(image_src, image_src, "image");
             
-            if (currentImage != null)
-            {
-                imageArea.removeChild(currentImage);
-                currentImage = null;
-                image_src = "";
-            }
+            removeCurrentImage();
+            image_src = "";
         }
         else if (pdf_src != "") {
             // Save pdf
@@ -1825,11 +1817,11 @@ $(document).ready(function () {
     seekBar.addEventListener("mouseup", function () {
         if(currentAddedVideo != null)
         {
-            currentAddedVideo.play();
+            playVideo(currentAddedVideo);
         }
         else
         {
-            video.play();
+            playVideo(video);
         }
     });
 
@@ -1856,8 +1848,7 @@ $(document).ready(function () {
                         var message = editsObj.videoText[textsBefore];
                         textArea.value = message;
                         textArea.style.display = 'inline-block';
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        pauseVideo(video);
                         textArea.style.zIndex = overlayZ;
                         pdfArea.style.zIndex = basePdfZ;
 
@@ -1876,8 +1867,7 @@ $(document).ready(function () {
                         }
                         
                         show_image(editsObj.filePaths[filesBefore], "Image not found");
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        pauseVideo(video);
                     }
                     else if (editsObj.fileTypes[index] == "pdf") {
                         
@@ -1890,8 +1880,7 @@ $(document).ready(function () {
                         
                         //Adds a pdf to pdfArea
                         show_pdf(editsObj.filePaths[filesBefore]);
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
+                        pauseVideo(video);
                         textArea.style.zIndex = baseTextZ;
                         pdfArea.style.zIndex = overlayZ;
                     }
@@ -1905,8 +1894,7 @@ $(document).ready(function () {
                         }
                         
                         //Overlays a video inside of OverlaidVideoArea
-                        console.log(editsObj.filePaths[filesBefore]);
-                        video.pause();
+                        pauseVideo(video);
                         
                         var videosBefore = 0;
                         for(var i = 0; i < index; i++)
