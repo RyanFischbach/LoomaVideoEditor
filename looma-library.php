@@ -49,10 +49,6 @@ Modifications: Adds a case for edited videos (.txt files)
 						   "' data-ft='" .  $ext . 
 						   "' data-zm='" .  160 .
 						   "' data-pg='1" .
-                           //Modified
-                           //If the file is a .txt file (used to store edited videos) it pulls the information from the file
-                           "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
-                           //*Modified
 						   "'>";
 					   
 				//text and tooltip for BUTTON		   
@@ -62,6 +58,33 @@ Modifications: Adds a case for edited videos (.txt files)
 							data-placement='top' 
 							title='" . $file . "'>" . 
 						    "<img src='" . $thumb . "'>" . 
+							$dn . "</span>";
+					   
+				//finish BUTTON
+				echo "</button>";	
+					   
+		};  //end makeButton()
+        
+        function makeEditedVideoButton($dn, $path, $ext, $file, $json) {
+			
+				//DEBUG   echo "making button with path= $path  file= $file   ext= $ext"; //DEBUG 
+			
+				echo "<button class='activity play img' 
+							  data-fn='" .  $file . 
+						   "' data-fp='" .  $path .
+						   "' data-ft='" .  $ext . 
+                           "' data-content='" . $json .
+						   "' data-zm='" .  160 .
+						   "' data-pg='1" .
+						   "'>";
+					   
+				//text and tooltip for BUTTON		   
+				echo "<span class='displayname' 
+							class='btn btn-default'
+							data-toggle='tooltip' 
+							data-placement='top' 
+							title='" . $file . "'>" . 
+						    "<img src='" . $path . $file . "_thumb.jpg" . "'>" . 
 							$dn . "</span>";
 					   
 				//finish BUTTON
@@ -145,7 +168,16 @@ Modifications: Adds a case for edited videos (.txt files)
 			
 	foreach (new DirectoryIterator($path) as $fileInfo) {
         if($path == "../content/edited videos/") {
+            $editedVideos = $edited_videos_collection->find();
             
+            foreach ($editedVideos as $doc) {
+                $dn = $doc['dn'];
+                $file = $doc['vn'];
+                $path = $doc['vp'];
+                $ext = "evi";
+                $json = $doc['JSON'];
+                makeEditedVideoButton($dn, $path, $ext, $file, $json);
+            }
         }
         else {
         
@@ -164,6 +196,7 @@ Modifications: Adds a case for edited videos (.txt files)
             $file = $fileInfo -> getFilename();
             $base = trim($fileInfo -> getBasename($ext), ".");  //$base is filename w/o the file extension
 
+            /*   
             //Modified
             //If the file is a .txt file (used to store edited videos) it gives it the correct display name
             if(substr($file, strlen($file) - 4) == ".txt")
@@ -171,18 +204,22 @@ Modifications: Adds a case for edited videos (.txt files)
                 $dn = str_replace('_', ' ', substr($file, 0, strlen($file) - 4) . "_Edited");
             }
             //*Modified
-            else
-            {
-                // look in the database to see if this file has a DISPLAYNAME
-                $query = array('fn' => $file);
+            */    
+                
+            //else
+            //{
+                
+            // look in the database to see if this file has a DISPLAYNAME
+            $query = array('fn' => $file);
 
-                $projection = array('_id' => 0, 
-                                'dn' => 1, 
-                    );		
-                $activity = $activities_collection -> findOne($query, $projection);
+            $projection = array('_id' => 0,                           
+                'dn' => 1, 
+            );		
+            $activity = $activities_collection -> findOne($query, $projection);
 
-                $dn = ($activity && array_key_exists('dn', $activity)) ? $activity['dn'] : $base;
-            }
+            $dn = ($activity && array_key_exists('dn', $activity)) ? $activity['dn'] : $base;
+                
+            //}
 
             //DEBUG   echo "activity is " . $activity['dn'] . " looked up '" . $file . "' and got '" . $dn . "'";
 
@@ -203,11 +240,6 @@ Modifications: Adds a case for edited videos (.txt files)
 
                         makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
                         break;
-                    //Modified   
-                    case "txt":
-                        makeButton($file, $path, $ext, $base, $dn, $path . thumbnail(findName(getJSON($file, $path, $ext))));
-                        break;
-                    //*Modified
 
                     default:
                         // ignore unknown filetypes
