@@ -652,8 +652,9 @@ $(document).ready(function () {
             else
             {
                 // Time is in between two other times
-                for (var i = 0; i < length; i++) {
-                    if (time < editsObj.videoTimes[i]) {
+                for (var i = 0; i < length; i++)
+                {
+                    if (time <= editsObj.videoTimes[i]) {
                         //didEditPast = true;
                         editsObj.videoTimes.splice(i, 0, time);
                         i += length;
@@ -674,7 +675,7 @@ $(document).ready(function () {
     */
     function insertFileType(fileType, time) {
         if (editsObj.fileTypes.length > 0) {
-            var index = editsObj.videoTimes.indexOf(time);
+            var index = editsObj.videoTimes.lastIndexOf(time);
             editsObj.fileTypes.splice(index, 0, fileType);
         }
         else {
@@ -686,7 +687,7 @@ $(document).ready(function () {
     function insertVideoText(text, time) {
         if (editsObj.videoText.length > 0)
         {
-            var timeIndex = editsObj.videoTimes.indexOf(time);
+            var timeIndex = editsObj.videoTimes.lastIndexOf(time);
             var numTextFiles = 0;
 
             for (var i = 0; i < timeIndex; i++)
@@ -721,7 +722,7 @@ $(document).ready(function () {
     function insertFilePath(filePath, time) {
         if (editsObj.filePaths.length > 0) {
             // Get index from time
-            var index = editsObj.videoTimes.indexOf(time);
+            var index = editsObj.videoTimes.lastIndexOf(time);
             
             // Find how many text files were added before this file
             var textCount = 0;
@@ -748,7 +749,7 @@ $(document).ready(function () {
     function insertAddedVideoTimes(start, stop, time) {
         if (editsObj.addedVideoTimes.length > 0)
         {
-            var timeIndex = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
+            var timeIndex = editsObj.videoTimes[editsObj.videoTimes.lastIndexOf(time)];
             var numVideos = 0;
             for (var i = 0; i < editsObj.fileTypes.length; i++)
             {
