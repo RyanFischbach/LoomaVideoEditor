@@ -378,6 +378,7 @@ $(document).ready(function () {
         
         
         var newName = renameInput.value;
+        //newName = $('<div/>').text(renameInput.value).html();
         var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));    
         $.ajax("looma-rename-edited-video.php", {
             data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
@@ -508,9 +509,8 @@ $(document).ready(function () {
             //currentEdit.readOnly = true;
             textArea.readOnly = true;
             textArea.removeChild(currentText);
-            currentText = null;
-            textArea.style.display = "none";
-            textBoxArea.style.display = "none";
+            removeCurrentText();
+            //textBoxArea.style.display = "none";
         }
         else if (image_src != "") {        
             // Insert Edit
@@ -920,32 +920,10 @@ $(document).ready(function () {
         
         currentText = textArea;
         
-        /*
-        // Update current edit state
-        currentEdit = "text";
-            
-        // get text from text area
-        var text = textArea.value;
-            
-        // Store the current video time in the array of video times
-        editsObj.videoTimes.push(video.currentTime);
         
-        // Store the type of file
-        editsObj.fileTypes.push("text");
-
-        // Push the text onto the array of edited video text
-        editsObj.videoText.push(text);
-        */
-
         // don't show the submit button
         submitButton.style.display = "none";
         
-        /*
-        //Add timeline display
-        console.log("3");
-        show_text_timeline(textArea.value, video.currentTime);
-        edited = true;
-        */
         
         //If there is an image it removes it
         if (currentImage != null) {
@@ -1332,7 +1310,6 @@ $(document).ready(function () {
                 {
                     if (button.parentNode.parentNode.getElementsByTagName("p")[0].innerHTML == editsObj.videoText[j]) {
                         // text in textDiv == videoText stored in txt file
-                        console.log("Found Text File");
                         timelineImageTime = editsObj.videoTimes[i];
                         timelineImageText = editsObj.videoText[j];
                     }
