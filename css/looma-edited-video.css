@@ -193,7 +193,9 @@ button#default-start-stop-time{
     overflow-y: hidden;
     display: none;
     white-space: nowrap;
-    height: 20%;
+    position: absolute;
+    height: 21.2%;
+    width: 100vw;
 }
 
 #pdf-previews {
@@ -201,7 +203,9 @@ button#default-start-stop-time{
     overflow-y: hidden;
     display: none;
     white-space: nowrap;
-    height: 20%;
+    position: absolute;
+    height: 21.2%;
+    width: 100vw;
 }
 
 #video-previews {
@@ -209,7 +213,9 @@ button#default-start-stop-time{
     overflow-y: hidden;
     display: none;
     white-space: nowrap;
-    height: 20%;
+    position: absolute;
+    height: 21.2%;
+    width: 100vw;
 }
 
 
