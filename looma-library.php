@@ -46,7 +46,8 @@ Modifications: Adds a case for edited videos (.txt files)
 				echo "<button class='activity play img' 
 							  data-fn='" .  $file . 
 						   "' data-fp='" .  $path .
-						   "' data-ft='" .  $ext . 
+						   "' data-ft='" .  $ext .
+                           "' data-dn='" .  $dn .
 						   "' data-zm='" .  160 .
 						   "' data-pg='1" .
 						   "'>";
@@ -72,7 +73,8 @@ Modifications: Adds a case for edited videos (.txt files)
 				echo "<button class='activity play img' 
 							  data-fn='" .  $file . 
 						   "' data-fp='" .  $path .
-						   "' data-ft='" .  $ext . 
+						   "' data-ft='" .  $ext .
+                           "' data-dn='" .  $dn .
                            "' data-content='" . $json .
 						   "' data-zm='" .  160 .
 						   "' data-pg='1" .

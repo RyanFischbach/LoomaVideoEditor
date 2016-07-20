@@ -9,7 +9,6 @@ File: looma-delete-edited-video.php
 Description: When called it deletes the edited video file passed to it
 -->
 <?php
-    $file = $_REQUEST["fileSrc"];
-    $file = substr($file, 0, strlen($file) - 4) . '.txt';
-    unlink($file);
+    include ('includes/mongo-connect.php');
+    $array = $edited_videos_collection->remove(array('dn' => $_REQUEST['displayName']));
 ?>

@@ -622,7 +622,7 @@ $(document).ready(function () {
     deleteButton.addEventListener("click", function () {
         $.ajax({
             url:'looma-delete-edited-video.php', 
-            data: {fileSrc: fileSrc}, 
+            data: {displayName: displayName}, 
             method:'POST',
         });
         window.location = 'looma-library.php';

@@ -89,7 +89,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 				//Sends the information from the .txt file to js
 				var commands = <?php echo $_REQUEST['txt']; ?>;
 				var commandsBackup = <?php echo $_REQUEST['txt']; ?>;
-                var fileSrc = "<?php echo $_REQUEST['fp'] . $_REQUEST['fn']; ?>";
+                var displayName = "<?php echo $_REQUEST['dn'];?>";
 			</script>
 
 			<link rel="stylesheet" type="text/css" href="css/looma-edited-video.css">

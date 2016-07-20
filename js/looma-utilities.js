@@ -48,7 +48,7 @@ LOOMA.playMedia = function (button) {
         //Sends the filename, location and the information in the file
 		window.location = 'looma-edited-video.php?fn=' + button.getAttribute('data-fn') +
 			'&fp=' + button.getAttribute('data-fp') +
-			'&txt=' + button.getAttribute('data-content');
+			'&txt=' + button.getAttribute('data-content') + '&dn=' + button.getAttribute('data-dn');
 		break;
 
 	case "image":
