@@ -33,10 +33,11 @@ fclose($myFile);
 // Save File to DB
 $dn = str_replace('_', ' ', $fileName . "_Edited");
 
-if ($fileDoesExist == "true")
+$query = array("fn" => $fileName);
+$fileToUpdate = $edited_videos_collection->findOne($query);
+
+if ($fileDoesExist == "true" || $fileToUpdate != "")
 {
-    $query = array("dn" => $dn);
-    $fileToUpdate = $edited_videos_collection->findOne($query);
     $fieldsToUpdate = array(
         "dn" => $dn,
         "fn" => $fileName,
@@ -46,7 +47,6 @@ if ($fileDoesExist == "true")
 }
 else
 {
-    print ("ELSE");
     // Create new entry
     $toInsert = array(
         "ft" => "txt",
