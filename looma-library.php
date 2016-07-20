@@ -81,7 +81,7 @@ Modifications: Adds a case for edited videos (.txt files)
 						   "'>";
 					   
 				//text and tooltip for BUTTON		   
-				echo "<span class='displayname' 
+				echo "<span class='displayname'
 							class='btn btn-default'
 							data-toggle='tooltip' 
 							data-placement='top' 
@@ -173,12 +173,16 @@ Modifications: Adds a case for edited videos (.txt files)
             $editedVideos = $edited_videos_collection->find();
             
             foreach ($editedVideos as $doc) {
+                echo "<td>";
                 $dn = $doc['dn'];
                 $file = $doc['vn'];
                 $path = $doc['vp'];
                 $ext = "evi";
                 $json = $doc['JSON'];
                 makeEditedVideoButton($dn, $path, $ext, $file, $json);
+                
+                echo "</td>";
+                $buttons++; if ($buttons > $maxButtons) {$buttons = 1; echo "</tr><tr>";};
             }
         }
         else {
