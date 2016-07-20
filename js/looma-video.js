@@ -149,6 +149,38 @@ $(document).ready(function () {
     // MongoDB
     var didSaveToDBOnce = false;
     
+    // Important Functions
+    // Important Functions - Video
+    function playVideo(vid) {
+        // Play the video
+        vid.play();
+        // Update the button text to 'Pause'
+        playButton.style.backgroundImage = 'url("images/pause.png")';    
+    }
+    
+    function pauseVideo(vid) {
+        vid.pause();
+        playButton.style.backgroundImage = 'url("images/video.png")';
+    }
+    
+    // Important Functions - Displaying Edits - Media Overlays
+    function removeCurrentImage() {
+        if(currentImage != null) {
+            imageArea.removeChild(currentImage);
+            currentImage = null;
+        }
+    }
+    
+    function removeCurrentPdf() {
+        if(currentPdf != null) {
+            pdfArea.removeChild(currentPdf);
+            currentPdf = null;
+        }
+    }
+    
+    
+    // Event Listeners
+    
 	// Fullscreen Button
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
@@ -164,9 +196,6 @@ $(document).ready(function () {
 			isFullscreen = false;
 		}
 	});
-    
-
-	// Event Listeners
 
 	// Video Event Listener
 	video.addEventListener('loadeddata', function () {
@@ -220,47 +249,27 @@ $(document).ready(function () {
             //Stop showing the textbox
             textArea.style.display = "none";
             
-            if(currentImage != null) {
-                document.getElementById("image-area").removeChild(currentImage);
-				currentImage = null;
-            }
+            removeCurrentImage();
             
-            if(currentPdf != null) {
-                pdfArea.removeChild(currentPdf);
-		        currentPdf = null
-            }
+            removeCurrentPdf();
         }
 	});
     
     function toggleCurrentAddedVideo() {
         if (currentAddedVideo.paused == true) 
             {
-                // Play the video
-                currentAddedVideo.play();
-
-                // Update the button text to 'Pause'
-                playButton.style.backgroundImage = 'url("images/pause.png")';
-                
-                
+                playVideo(currentAddedVideo); 
             } 
             else 
             {
-                // Pause the video
-                currentAddedVideo.pause();
-
-                // Update the button text to 'Play'
-                playButton.style.backgroundImage = 'url("images/video.png")';
+                pauseVideo(currentAddedVideo);
             }
     }
     
     function toggleVideo() {
         if (video.paused == true)
-            {
-                // Play the video
-                video.play();
-
-                // Update the button text to 'Pause'
-                playButton.style.backgroundImage = 'url("images/pause.png")';
+        {
+                playVideo(video);
 
                 //When the user hits play after making an edit it adds the thumbnail of the video to the timeline
                 if (edited == true)
@@ -271,29 +280,10 @@ $(document).ready(function () {
                         edited = false;
                     }
                 }
-                /*
-                //If an image is showing it removes it
-                if (currentImage != null)
-                {
-				    imageArea.removeChild(currentImage);
-				    currentImage = null;
-                }
-                //If a pdf is showing it removes it
-                if(currentPdf != null) {
-                    document.getElementById("pdf-area").removeChild(currentPdf);
-                    document.getElementById("pdf-area").style.zIndex = 3;
-				    currentPdf = null;
-                }
-                textArea.style.display = "none";
-                */
-            }
+        }
             else 
             {
-                // Pause the video
-                video.pause();
-
-                // Update the button text to 'Play'
-                playButton.style.backgroundImage = 'url("images/video.png")';
+                pauseVideo(video);
             }
     }
 
