@@ -162,6 +162,9 @@ $(document).ready(function () {
     var textArea = document.getElementById("comments");
     var addedVideoArea = document.getElementById("added-video-area");
     var videoArea = document.getElementById("video-area");
+    
+    //True if an edit is displaying
+    var editUp = false;
 	
 	var isFullscreen = false;
 	$('#fullscreen-control').click(function (e) {
@@ -189,99 +192,101 @@ $(document).ready(function () {
 		if (editsObj.videoTimes.length > 0) {
             if(index < editsObj.videoTimes.length)
             {
-                //While there are still annotatins in the video
-                if (editsObj.videoTimes[index] <= video.currentTime) {
-                    //If we have passed the time stamp for the next annotation
-                    if (editsObj.fileTypes[index] == "text") {
-                        //If the type is a text file create a overlay and put the text there and pause the video
-                        var textsBefore = 0;
-                        for(var i = 0; i < index; i++)
-                        {
-                            if(editsObj.fileTypes[i] == "text")
-                                textsBefore++;
-                        }
-                        var message = editsObj.videoText[textsBefore];
-                        textArea.value = message;
-                        textArea.style.display = 'inline-block';
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
-                        textArea.style.zIndex = overlayZ;
-                        pdfArea.style.zIndex = basePdfZ;
+                if(editUp == false) {
+                    //While there are still annotatins in the video
+                    if (editsObj.videoTimes[index] <= video.currentTime) {
+                        //If we have passed the time stamp for the next annotation
+                        if (editsObj.fileTypes[index] == "text") {
+                            //If the type is a text file create a overlay and put the text there and pause the video
+                            var textsBefore = 0;
+                            for(var i = 0; i < index; i++)
+                            {
+                                if(editsObj.fileTypes[i] == "text")
+                                    textsBefore++;
+                            }
+                            var message = editsObj.videoText[textsBefore];
+                            textArea.value = message;
+                            textArea.style.display = 'inline-block';
+                            video.pause();
+                            playButton.style.backgroundImage = 'url("images/video.png")';
+                            textArea.style.zIndex = overlayZ;
+                            pdfArea.style.zIndex = basePdfZ;
 
-                    } 
-                    else if (editsObj.fileTypes[index] == "image") {
-                        console.log("Call show image");
+                        } 
+                        else if (editsObj.fileTypes[index] == "image") {
+                            console.log("Call show image");
 
-                        if (currentImage != null) {
-                            document.getElementById("image-area").removeChild(currentImage);
-                        }
-                        
-                        var filesBefore = 0;
-                        for(var i = 0; i < index; i++)
-                        {
-                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
-                                filesBefore++;
-                        }
-                        
-                        show_image(editsObj.filePaths[filesBefore], "Image not found");
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
-                    }
-                    else if (editsObj.fileTypes[index] == "pdf") {
-                        console.log("Call show pdf");
-                        
-                        var filesBefore = 0;
-                        for(var i = 0; i < index; i++)
-                        {
-                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
-                                filesBefore++;
-                        }
-                        
-                        //Adds a pdf to pdfArea
-                        show_pdf(editsObj.filePaths[filesBefore]);
-                        video.pause();
-                        playButton.style.backgroundImage = 'url("images/video.png")';
-                        textArea.style.zIndex = baseTextZ;
-                        pdfArea.style.zIndex = overlayZ;
-                    }
-                    else if (editsObj.fileTypes[index] == "video") {
-                        
-                        var filesBefore = 0;
-                        for(var i = 0; i < index; i++)
-                        {
-                            if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
-                                filesBefore++;
-                        }
-                        
-                        //Overlays a video inside of OverlaidVideoArea
-                        console.log(editsObj.filePaths[filesBefore]);
-                        video.pause();
-                        
-                        var videosBefore = 0;
-                        for(var i = 0; i < index; i++)
-                        {
-                            if(editsObj.fileTypes[i] == "video")
-                                videosBefore += 2;
-                        }
-                        
-                        var startTime = editsObj.addedVideoTimes[videosBefore];
-                        endTime = editsObj.addedVideoTimes[videosBefore + 1];
-                        var addedVideo = document.createElement("video");
-                        addedVideo.src = editsObj.filePaths[filesBefore];
-                        currentAddedVideo = addedVideo;
+                            if (currentImage != null) {
+                                document.getElementById("image-area").removeChild(currentImage);
+                            }
 
-                        document.getElementById("added-video-area").appendChild(addedVideo);
-                        addedVideo.currentTime = startTime;
-                        timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
-                        playButton.style.backgroundImage = 'url("images/video.png")';
-                        
-                        var blackScreen = document.createElement("div");
-                        currentBlackScreen = blackScreen
-                        blackScreen.id = "black-screen";
-                        blackScreen.style.zIndex = overlayZ - 1;
-                        document.getElementById("video-area").appendChild(blackScreen);
+                            var filesBefore = 0;
+                            for(var i = 0; i < index; i++)
+                            {
+                                if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                                    filesBefore++;
+                            }
+
+                            show_image(editsObj.filePaths[filesBefore], "Image not found");
+                            video.pause();
+                            playButton.style.backgroundImage = 'url("images/video.png")';
+                        }
+                        else if (editsObj.fileTypes[index] == "pdf") {
+                            console.log("Call show pdf");
+
+                            var filesBefore = 0;
+                            for(var i = 0; i < index; i++)
+                            {
+                                if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                                    filesBefore++;
+                            }
+
+                            //Adds a pdf to pdfArea
+                            show_pdf(editsObj.filePaths[filesBefore]);
+                            video.pause();
+                            playButton.style.backgroundImage = 'url("images/video.png")';
+                            textArea.style.zIndex = baseTextZ;
+                            pdfArea.style.zIndex = overlayZ;
+                        }
+                        else if (editsObj.fileTypes[index] == "video") {
+
+                            var filesBefore = 0;
+                            for(var i = 0; i < index; i++)
+                            {
+                                if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                                    filesBefore++;
+                            }
+
+                            //Overlays a video inside of OverlaidVideoArea
+                            console.log(editsObj.filePaths[filesBefore]);
+                            video.pause();
+
+                            var videosBefore = 0;
+                            for(var i = 0; i < index; i++)
+                            {
+                                if(editsObj.fileTypes[i] == "video")
+                                    videosBefore += 2;
+                            }
+
+                            var startTime = editsObj.addedVideoTimes[videosBefore];
+                            endTime = editsObj.addedVideoTimes[videosBefore + 1];
+                            var addedVideo = document.createElement("video");
+                            addedVideo.src = editsObj.filePaths[filesBefore];
+                            currentAddedVideo = addedVideo;
+
+                            document.getElementById("added-video-area").appendChild(addedVideo);
+                            addedVideo.currentTime = startTime;
+                            timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
+                            playButton.style.backgroundImage = 'url("images/video.png")';
+
+                            var blackScreen = document.createElement("div");
+                            currentBlackScreen = blackScreen
+                            blackScreen.id = "black-screen";
+                            blackScreen.style.zIndex = overlayZ - 1;
+                            document.getElementById("video-area").appendChild(blackScreen);
+                        }
+                        editUp = true;
                     }
-                    index++;
                 }
             }
 		}
@@ -441,6 +446,12 @@ $(document).ready(function () {
                     pdfArea.removeChild(currentPlaybackPdf);
 				    currentPlaybackPdf = null;
                 }
+                if(editUp == true)
+                {
+                    index++;
+                    editUp = false;
+                }
+                
             } 
             else {
                 // Pause the video
