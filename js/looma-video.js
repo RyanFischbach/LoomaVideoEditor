@@ -150,31 +150,63 @@ $(document).ready(function () {
     var didSaveToDBOnce = false;
     
     // Important Functions
-    // Important Functions - Video
-    function playVideo(vid) {
-        // Play the video
-        vid.play();
-        // Update the button text to 'Pause'
-        playButton.style.backgroundImage = 'url("images/pause.png")';    
+    
+    // Important Functions - Changing CSS
+    function hideElements (elements)
+    {
+        for (var x = 0; x < elements.length; x++)
+        {
+            elements[x].style.display = "none";
+        }
+    }
+    function hideAllElements()
+    {
+        hideElements([mediaControls, editButton, cancelButton, textButton, imageButton, pdfButton, videoButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, submitButton, addTimeDiv, next5FrameButton, nextFrameButton, prev5FrameButton, prevFrameButton]);
     }
     
-    function pauseVideo(vid) {
+    // Important Functions - Video
+    function playVideo(vid)
+    {
+        vid.play();
+        playButton.style.backgroundImage = 'url("images/pause.png")';    
+    }
+    function pauseVideo(vid)
+    {
         vid.pause();
         playButton.style.backgroundImage = 'url("images/video.png")';
     }
     
     // Important Functions - Displaying Edits - Media Overlays
-    function removeCurrentImage() {
-        if(currentImage != null) {
+    function removeCurrentText() {
+        if (currentText != null)
+        {
+            currentText = null;
+            textArea.style.display = "none";
+            textBoxArea.style.display = "none";
+        }
+    }
+    function removeCurrentImage()
+    {
+        if (currentImage != null)
+        {
             imageArea.removeChild(currentImage);
             currentImage = null;
         }
     }
-    
-    function removeCurrentPdf() {
-        if(currentPdf != null) {
+    function removeCurrentPdf()
+    {
+        if (currentPdf != null)
+        {
             pdfArea.removeChild(currentPdf);
             currentPdf = null;
+        }
+    }
+    function removeCurrentAddedVideo()
+    {
+        if (currentAddedVideo != null)
+        {
+            addedVideoArea.removeChild(currentAddedVideo);
+            currentAddedVideo = null;
         }
     }
     
@@ -310,14 +342,6 @@ $(document).ready(function () {
         renameFormDiv.style.display = "block";
     });
     
-    function hideElements (elements)
-    {
-        for (var x = 0; x < elements.length; x++)
-        {
-            elements[x].style.display = "none";
-        }
-    }
-    
     renameSubmitButton.addEventListener("click", function () {   
         if (didSaveOnce)
         {
@@ -390,6 +414,10 @@ $(document).ready(function () {
                 document.getElementById("video-area").removeChild(currentBlackScreen);
             }
             index++;
+            removeCurrentText();
+            removeCurrentImage();
+            removeCurrentPdf();
+            removeCurrentAddedVideo();
         } 
 		else
 		{
@@ -1119,17 +1147,18 @@ $(document).ready(function () {
         button.addEventListener("click", function()
         {
             // Open the edit
+            hideAllElements();
+            removeCurrentText();
+            removeCurrentImage();
+            removeCurrentPdf();
+            removeCurrentAddedVideo();
             video.currentTime = this.className;
-            video.pause;
+            pauseVideo(video);
                     
             if (type == "text") 
             {
+                currentEdit = "text";
                 textArea.readOnly = false;
-                if (currentText != null)
-                {
-                    textArea.style.display = "none";
-                    currentText = null;
-                }
                 // Show text to edit
                 findText(this);
                 toggleTimelineControls();
@@ -1137,7 +1166,6 @@ $(document).ready(function () {
                 editButton.style.display = "none";
                 editButton.innerHTML = "Save";
 
-                currentEdit = "text";
                 timelineEdit = true;
                 
                 //textArea = currentText;
@@ -1157,11 +1185,7 @@ $(document).ready(function () {
             }        
             else if (type == "image") 
             {
-                if (currentImage != null)
-                {
-                    imageArea.removeChild(currentImage);
-                    currentImage = null;
-                }
+                currentEdit = "image";
                 // Show Image to edit
                 for (var i = 0; i < editsObj.videoTimes.length; i++)
                 {
@@ -1183,7 +1207,6 @@ $(document).ready(function () {
                 editButton.innerHTML = "Save";
 
                 // Update current edit state
-                currentEdit = "image";
                 timelineEdit = true;
                 //currentImage = img;
 
@@ -1201,11 +1224,7 @@ $(document).ready(function () {
             }
             else if (type == "pdf") 
             {
-                if (currentPdf != null)
-                {
-                    pdfArea.removeChild(currentPdf);
-                    currentPdf = null;
-                }
+                currentEdit = "pdf";
                 // Show Pdf to edit
                 // Show Image to edit
                 for (var i = 0; i < editsObj.videoTimes.length; i++)
@@ -1228,7 +1247,6 @@ $(document).ready(function () {
                 toggleTimelineControls();
                         
                 // Update current edit state
-                currentEdit = "pdf";
                 timelineEdit = true;
                         
                 pdfPreviewDiv.style.display = "block";
@@ -1248,13 +1266,8 @@ $(document).ready(function () {
                 pdfArea.appendChild(pdf);
             }
             else if (type == "video") 
-            {
-                if (currentAddedVideo != null)
-                {
-                    addedVideoArea.removeChild(currentAddedVideo);
-                    currentAddedVideo = null;
-                }
-                
+            {   
+                currentEdit = "video";
                 // Show video to edit
                 for (var i = 0; i < editsObj.videoTimes.length; i++)
                 {
@@ -1276,7 +1289,6 @@ $(document).ready(function () {
                 editButton.innerHTML = "Save";
 
                 // Update current edit state
-                currentEdit = "video";
                 timelineEdit = true;
 
                 toggleTimelineControls();
@@ -1293,8 +1305,6 @@ $(document).ready(function () {
                 {
                     addedVideoArea.removeChild(currentAddedVideo);
                 }
-
-                editButton.innerHTML = "Save";
 
                 // Display video over video
                 var addedVideo = document.createElement("video");
