@@ -11,10 +11,13 @@ Description: Renames an edited video
 <!doctype html>
 
 <?php
+include ('includes/mongo-connect.php');
+
     $newName = $_REQUEST['newPath'];
     $oldName = $_REQUEST['oldPath'];
+    $strJSON = $_REQUEST['info'];
 
-    $newName = str_replace(' ', '_', $newName);
+    //$newName = str_replace(' ', '_', $newName);
 
     $this_dir = dirname(__FILE__);
 
@@ -28,5 +31,22 @@ Description: Renames an edited video
     if (rename($oldPath, $newPath))
     {
         print "renamed to " . $newPath;
+    }
+
+    // Save to DB
+    $newDn = str_replace('_', ' ', $newName . "_Edited");
+
+    $query = array("fn" => $oldName);
+    $fileToUpdate = $edited_videos_collection->findOne($query);
+
+    if ($fileToUpdate != "")
+    {
+        $fieldsToUpdate = array(
+            "dn" => $newDn,
+            "fn" => $newName,
+            "JSON" => $strJSON,
+            "vn" => $_REQUEST['vn']
+        );
+        $edited_videos_collection->update($fileToUpdate, $fieldsToUpdate);
     }
 ?>

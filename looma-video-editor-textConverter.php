@@ -41,7 +41,8 @@ if ($fileDoesExist == "true" || $fileToUpdate != "")
     $fieldsToUpdate = array(
         "dn" => $dn,
         "fn" => $fileName,
-        "JSON" => $strJSON
+        "JSON" => $strJSON,
+        "vn" => $_REQUEST['vn']
     );
     $edited_videos_collection->update($fileToUpdate, $fieldsToUpdate);
 }
@@ -49,10 +50,10 @@ else
 {
     // Create new entry
     $toInsert = array(
-        "ft" => "txt",
         "dn" => $dn,
         "fn" => $fileName,
-        "JSON" => $strJSON
+        "JSON" => $strJSON,
+        "vn" => $_REQUEST['vn']
     );
     $edited_videos_collection->insert($toInsert);
 }

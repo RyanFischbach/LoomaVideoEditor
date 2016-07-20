@@ -356,9 +356,9 @@ $(document).ready(function () {
         
         
         var newName = renameInput.value;
-            
+        var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));    
         $.ajax("looma-rename-edited-video.php", {
-            data: {oldPath: editsObj.fileName, newPath: newName},
+            data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName},
             method: "POST"
         });
         
@@ -456,8 +456,9 @@ $(document).ready(function () {
 
 
                 // Send to server to save as a txt file
+                var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
                 $.ajax("looma-video-editor-textConverter.php", {
-                    data: {info: editsObj, location: editsObj.fileName, doesExist: didSaveToDBOnce},
+                    data: {info: editsObj, vn: videoName, location: editsObj.fileName, doesExist: didSaveToDBOnce},
                     method: "POST",
                     complete: function() {
                         didSaveToDBOnce = true;
