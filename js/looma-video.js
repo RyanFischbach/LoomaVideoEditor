@@ -222,6 +222,12 @@ $(document).ready(function () {
             currentAddedVideo = null;
         }
     }
+    function removeCurrentBlackScreen()
+    {
+        if(currentBlackScreen != null) {
+                document.getElementById("video-area").removeChild(currentBlackScreen);
+            }
+    }
     
     
     // Event Listeners
@@ -908,9 +914,7 @@ $(document).ready(function () {
                 }
             
             video_src = "";
-            if(currentBlackScreen != null) {
-                document.getElementById("video-area").removeChild(currentBlackScreen);
-            }
+            removeCurrentBlackScreen();
         }
         
         currentEdit = "";
@@ -1154,6 +1158,7 @@ $(document).ready(function () {
         button.addEventListener("click", function()
         {
             pauseVideo(video);
+            enableButton(editButton);
             enableButton(imageButton);
             enableButton(textButton);
             enableButton(pdfButton);
@@ -1164,6 +1169,7 @@ $(document).ready(function () {
             removeCurrentImage();
             removeCurrentPdf();
             removeCurrentAddedVideo();
+            removeCurrentBlackScreen();
             video.currentTime = this.className;
             pauseVideo(video);
                     
