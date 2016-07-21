@@ -456,6 +456,8 @@ $(document).ready(function () {
                 videoButton.style.display = "inline";
                 nextFrameButton.style.display = "inline";
                 prevFrameButton.style.display = "inline";
+                next5FrameButton.style.display = "inline";
+                prev5FrameButton.style.display = "inline";
 				mediaControls.style.display = "inline";
 				muteButton.style.display = "none";
 				volumeBar.style.display = "none";
