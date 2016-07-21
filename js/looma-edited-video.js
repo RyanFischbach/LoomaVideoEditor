@@ -846,26 +846,34 @@ $(document).ready(function () {
     function insertVideoTime(time)
     {
         var length = editsObj.videoTimes.length;
+        console.log("INSERT VIDEO TIME");
         if (length > 0)
         {
-            if (time > editsObj.videoTimes[length - 1])
+            console.log("editsObj.videoTImes.length > 0");
+            if (time >= editsObj.videoTimes[length - 1])
             {
+                console.log("TIME >= editsObj.videoTimes[length - 1]");
                 editsObj.videoTimes.push(time);    
             }
             else
             {
+                console.log("TIME BETWEEN TWO OTHER TIMES");
                 // Time is in between two other times
-                for (var i = 0; i < length; i++) {
-                    if (time < editsObj.videoTimes[i]) {
+                for (var i = length - 1; i > -1; i--)
+                {
+                    console.log("Index: " + i);
+                    if (time >= editsObj.videoTimes[i]) {
                         //didEditPast = true;
                         editsObj.videoTimes.splice(i, 0, time);
-                        i += length;
+                        break;
+                        //i += length;
                     }
                 }
             }
         }
         else
         {
+            console.log("editsObj.videoTimes.length <= 0");
             // Empty array
             editsObj.videoTimes.push(time);
         }
