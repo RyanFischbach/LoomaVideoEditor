@@ -356,6 +356,7 @@ $(document).ready(function () {
     
     renameButton.addEventListener("click", function () {
         // Rename video
+        pauseVideo(video);
         hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, prev5FrameButton, next5FrameButton]);
         renameFormDiv.style.display = "block";
     });
@@ -824,6 +825,7 @@ $(document).ready(function () {
     }
     
     cancelButton.addEventListener("click", function () {
+        pauseVideo(video);
         mediaControls.style.height = "20%";
         editControls.style.height = "10%";
         cancelButton.style.height = "52%";
@@ -917,6 +919,7 @@ $(document).ready(function () {
     
 	// Event listener for the text button
 	textButton.addEventListener("click", function () {
+        pauseVideo(video);
 		//Hide Controls
         hideElements([renameButton, cancelButton, pdfButton, textButton, imageButton, videoButton, editButton, mediaControls, nextFrameButton, next5FrameButton, prev5FrameButton, prevFrameButton]);
 
@@ -958,6 +961,7 @@ $(document).ready(function () {
     
     // Event listener for image button
     imageButton.addEventListener("click", function () {
+        pauseVideo(video);
 
         // Hide Controls
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton,
@@ -1152,6 +1156,7 @@ $(document).ready(function () {
     {
         button.addEventListener("click", function()
         {
+            pauseVideo(video);
             enableButton(imageButton);
             enableButton(textButton);
             enableButton(pdfButton);
@@ -1536,6 +1541,7 @@ $(document).ready(function () {
     }
     
     pdfButton.addEventListener("click", function() {
+        pauseVideo(video);
        // Hide controls
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, 
 					 prev5FrameButton]);
@@ -1576,6 +1582,7 @@ $(document).ready(function () {
     }
     
     videoButton.addEventListener("click", function () {
+        pauseVideo(video);
         // Hide controls
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton]);
         
@@ -1724,15 +1731,6 @@ $(document).ready(function () {
             }
         }
     });
-    
-    // nextFrameButton Event Listener\
-    /*
-    nextFrameButton.addEventListener("click", function () {
-        // Move Forward 1 frames
-        video.currentTime += (1 / 29.97);
-    });*/
-    
-    var mouseDown = false;
     
     nextFrameButton.addEventListener("click", function () {
         video.currentTime += (1 / 29.97);
