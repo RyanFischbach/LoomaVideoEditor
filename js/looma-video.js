@@ -406,7 +406,10 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {
-            disableButton(editButton);
+            disableButton(textButton);
+            disableButton(imageButton);
+            disableButton(pdfButton);
+            disableButton(videoButton);
             // Set timeDiv back to normal video time
             timeDiv.innerHTML = minuteSecondTime(video.currentTime);
             seekBar.value = (100 / video.duration) * video.currentTime;
@@ -1147,6 +1150,10 @@ $(document).ready(function () {
     {
         button.addEventListener("click", function()
         {
+            enableButton(imageButton);
+            enableButton(textButton);
+            enableButton(pdfButton);
+            enableButton(videoButton);
             // Open the edit
             hideAllElements();
             removeCurrentText();
@@ -1792,13 +1799,19 @@ $(document).ready(function () {
 
     // Update the seek bar as the video plays
     video.addEventListener("timeupdate", function () {
-        enableButton(editButton);
+        enableButton(textButton);
+        enableButton(imageButton);
+        enableButton(pdfButton);
+        enableButton(videoButton);
         // Disable Edit Button if an edit has already been made here
         for (var i = 0; i < editsObj.videoTimes.length; i++)
         {
             if (video.currentTime == editsObj.videoTimes[i])
             {
-                disableButton(editButton);
+                disableButton(textButton);
+                disableButton(imageButton);
+                disableButton(pdfButton);
+                disableButton(videoButton);
                 break;
             }
         }
