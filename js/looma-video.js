@@ -275,14 +275,13 @@ $(document).ready(function () {
 	fullscreenPlayPauseButton.addEventListener("click", function() {
 		if(!video.paused)
 		{
-            pauseVideo(video);
+            video.pause();
             window.requestAnimationFrame(checkTime);
             fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
-            fullscreen
 		}
 		else
 		{
-            playVideo(video);
+            video.play();
             window.requestAnimationFrame(checkTime);
             fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
 		}

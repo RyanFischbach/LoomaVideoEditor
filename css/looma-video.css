@@ -88,8 +88,8 @@
 button#fullscreen-control {
 	position: absolute;
 	opacity: 0.4;
-	right:5%;
-    bottom: 5;
+	right: 5%;
+    bottom: 5%;
 	height: 10vh;
 	width:  10vh;
 	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREEN */

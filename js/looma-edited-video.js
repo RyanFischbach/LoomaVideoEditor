@@ -64,6 +64,7 @@ $(document).ready(function () {
 	
 	// Make fullscreenPlayPauseButton invisible when not in fullscreen
     var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
+	var fullscreenButton = document.getElementById("fullscreen-control");
 
 	//var videoArea = document.getElementById("video-area");
 	//var textPlaybackDiv = document.getElementById("text-box-area");
@@ -174,19 +175,19 @@ $(document).ready(function () {
 		e.preventDefault();
 		if(!isFullscreen)
 		{
-		isFullscreen = true;
-		fullscreenPlayPauseButton.style.display = "";
 		e.preventDefault();
 		screenfull.toggle(videoArea);
+		isFullscreen = true;
+		fullscreenPlayPauseButton.style.display = "block";
 		videoArea.className = "fullscreen";
 		videoArea.style.width = "100%";
 		}
 		else
 		{
-		isFullscreen = false;
-		fullscreenPlayPauseButton.style.display = "none";
 		e.preventDefault();
 		screenfull.toggle(videoArea);
+		isFullscreen = false;
+		fullscreenPlayPauseButton.style.display = "none";
 		videoArea.className = "";
 		}
 	});
