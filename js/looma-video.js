@@ -165,6 +165,18 @@ $(document).ready(function () {
         hideElements([mediaControls, editButton, cancelButton, textButton, imageButton, pdfButton, videoButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, submitButton, addTimeDiv, next5FrameButton, nextFrameButton, prev5FrameButton, prevFrameButton]);
     }
     
+    function disableButton(button)
+    {
+        button.disabled = true;
+        button.style.opacity = "0.7";
+    }
+    
+    function enableButton(button)
+    {
+        button.disabled = false;
+        button.style.opacity = "1.0";
+    }
+    
     // Important Functions - Video
     function playVideo(vid)
     {
@@ -393,7 +405,8 @@ $(document).ready(function () {
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
-        {   
+        {
+            disableButton(editButton);
             // Set timeDiv back to normal video time
             timeDiv.innerHTML = minuteSecondTime(video.currentTime);
             seekBar.value = (100 / video.duration) * video.currentTime;
@@ -402,8 +415,6 @@ $(document).ready(function () {
             editControls.style.height = "10%";
             cancelButton.style.height = "52%";
             editButton.style.height = "52%";
-            editButton.disabled = false;
-            editButton.style.opacity = "1.0";
             if (!didSaveOnce)
             {
                 // Save file as...
@@ -556,9 +567,8 @@ $(document).ready(function () {
         }
         
         // index of text file in videoText array
-        var index = numTextFiles;
         if (index < editsObj.videoText.length - 1) {
-            editsObj.videoText.splice(index + 1, 0, textArea.value);
+            editsObj.videoText.splice(numTextFiles, 0, textArea.value);
         }
         else {
             editsObj.videoText.push(textArea.value);
@@ -1716,13 +1726,13 @@ $(document).ready(function () {
     var mouseDown = false;
     
     nextFrameButton.addEventListener("click", function () {
-        video.currentTime += (3 / 29.97);
+        video.currentTime += (1 / 29.97);
     });
     
 	// prevFrameButton Event Listener
     prevFrameButton.addEventListener("click", function () {
         // Move Backward 1 frames
-		video.currentTime -= (3 / 29.97);
+		video.currentTime -= (1 / 29.97);
     });
     
 	next5FrameButton.addEventListener("click", function () {
@@ -1782,6 +1792,18 @@ $(document).ready(function () {
 
     // Update the seek bar as the video plays
     video.addEventListener("timeupdate", function () {
+        enableButton(editButton);
+        // Disable Edit Button if an edit has already been made here
+        for (var i = 0; i < editsObj.videoTimes.length; i++)
+        {
+            if (video.currentTime == editsObj.videoTimes[i])
+            {
+                disableButton(editButton);
+                break;
+            }
+        }
+        
+        
         // Calculate the slider value
         var value = (100 / video.duration) * video.currentTime;
 
