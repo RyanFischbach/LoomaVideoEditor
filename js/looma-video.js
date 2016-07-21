@@ -281,11 +281,11 @@ $(document).ready(function () {
             window.requestAnimationFrame(checkTime);
 			if (video.paused)
 			{
-				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';	
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';	
 			}
 			else
 			{
-				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';	
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';	
 			}
         }
         else 
@@ -303,11 +303,11 @@ $(document).ready(function () {
 			
 			if (video.paused)
 			{
-				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';	
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';	
 			}
 			else
 			{
-				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';	
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';	
 			}
         }
 	});
