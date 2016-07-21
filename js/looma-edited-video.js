@@ -745,9 +745,11 @@ $(document).ready(function () {
             editButton.style.height = "52%";
             editButton.disabled = false;
             editButton.style.opacity = "1.0";
+        
+            searchArea.style.display = "none";
             
-                toggleControlsForSaveButton();
-                save();
+            toggleControlsForSaveButton();
+            save();
             playButton.style.backgroundImage = 'url("images/video.png")';
             
             if(currentBlackScreen != null) {
@@ -1034,6 +1036,8 @@ $(document).ready(function () {
         editButton.style.opacity = "1.0";
         toggleControlsForCancelButton();
         video.pause();
+        
+        searchArea.style.display = "none";
         
         cancelEdit();
         
