@@ -222,6 +222,9 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             
                             <button type="button" class="media" id="cancel">
                                 <?php keyword('Cancel') ?>
+                            <form class="media" id="search-box" style="display: none">
+								<textarea name="search" id="search" placeholder="Search for..."></textarea>
+							</form>
                             <button type="button" class="media" id="text">
                                 <?php keyword('Text') ?>
                             </button>

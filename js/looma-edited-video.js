@@ -98,7 +98,10 @@ $(document).ready(function () {
     
     // Edit Controls - Adding Text
     var textButton = document.getElementById("text");
-
+    
+    //Edit Controls - Searching
+    var searchArea = document.getElementById("search-box");
+    
     // Edit Controls - Selecting Images
     var imageButton = document.getElementById("image");
     var submitButton = document.getElementById("submit");
@@ -274,8 +277,9 @@ $(document).ready(function () {
                             var addedVideo = document.createElement("video");
                             addedVideo.src = editsObj.filePaths[filesBefore];
                             currentAddedVideo = addedVideo;
-
+                            
                             document.getElementById("added-video-area").appendChild(addedVideo);
+                            document.getElementById("added-video-area").style.zIndex = overlayZ;
                             addedVideo.currentTime = startTime;
                             timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
                             playButton.style.backgroundImage = 'url("images/video.png")';
@@ -302,6 +306,7 @@ $(document).ready(function () {
                 timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
                 if(currentAddedVideo.currentTime >= endTime) {
                     document.getElementById("added-video-area").removeChild(currentAddedVideo);
+                    document.getElementById("added-video-area").style.zIndex = baseAddedVideoZ;
                     currentAddedVideo = null;
                     playButton.style.backgroundImage = 'url("images/video.png")';
                     timeDiv.innerHTML = minuteSecondTime(video.currentTime);
@@ -1103,6 +1108,7 @@ $(document).ready(function () {
         // Hide Controls
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton,
 					 prev5FrameButton]);
+        
         
         // Update current edit state
         currentEdit = "image";
