@@ -274,18 +274,42 @@ $(document).ready(function () {
 	
 	// Event listener for the play pause button that appears when in fullscreen
 	fullscreenPlayPauseButton.addEventListener("click", function() {
-		if(!video.paused)
-		{
-            video.pause();
+		 if(currentAddedVideo != null)
+        {
+            // Play or Pause the Current Added Video
+            toggleCurrentAddedVideo();
             window.requestAnimationFrame(checkTime);
-            fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
-		}
-		else
-		{
-            video.play();
+			if (video.paused)
+			{
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';	
+			}
+			else
+			{
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';	
+			}
+        }
+        else 
+        {
+            // Play or pause the video
+            toggleVideo();
             window.requestAnimationFrame(checkTime);
-            fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
-		}
+            
+            //Stop showing the textbox
+            textArea.style.display = "none";
+            
+            removeCurrentImage();
+            
+            removeCurrentPdf();
+			
+			if (video.paused)
+			{
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';	
+			}
+			else
+			{
+				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';	
+			}
+        }
 	});
     
 	// Play Button Event Listener

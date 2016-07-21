@@ -356,58 +356,7 @@ $(document).ready(function () {
 
 	// Event listener for the play pause button that appears when in fullscreen
 	fullscreenPlayPauseButton.addEventListener("click", function() {
-	if(currentPlaybackOverlaidVideo != null) {
-            if (currentPlaybackOverlaidVideo.paused == true) {
-                // Play the video
-                currentPlaybackOverlaidVideo.play();
-				
-				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
-                
-                //Keeps checking for new things
-                window.requestAnimationFrame(checkTime);
-            } 
-            else {
-                // Pause the video
-                currentPlaybackOverlaidVideo.pause();
-				
-				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
-                
-                //Keeps checking for new things
-                window.requestAnimationFrame(checkTime);
-            }
-        }
-        else {
-            if (video.paused == true) {
-                // Play the video
-                video.play();
-				
-				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
-                //Stop showing the textbox or the image
-                textPlaybackArea.style.display = "none";
-
-                //Keeps checking for new things
-                window.requestAnimationFrame(checkTime);
-
-                if(currentPlaybackImage != null) {
-				    document.getElementById("image-area").removeChild(currentPlaybackImage);
-				    currentPlaybackImage = null;
-                }
-                if(currentPlaybackPdf != null) {
-                    pdfArea.removeChild(currentPlaybackPdf);
-				    currentPlaybackPdf = null;
-                }
-            } 
-            else {
-                // Pause the video
-                video.pause();
-				fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
-            }
-        }    
-	});	
-	
-	// Event listener for the play/pause button
-	playButton.addEventListener("click", function () {
-        if(currentPlaybackOverlaidVideo != null) {
+	 if(currentPlaybackOverlaidVideo != null) {
             if (currentPlaybackOverlaidVideo.paused == true) {
                 // Play the video
                 currentPlaybackOverlaidVideo.play();
@@ -424,6 +373,71 @@ $(document).ready(function () {
 
                 // Update the button text to 'Play'
                 playButton.style.backgroundImage = 'url("images/video.png")';
+                
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
+            }
+        }
+        else {
+            if (video.paused == true) {
+                // Play the video
+                video.play();
+
+                // Update the button text to 'Pause'
+                fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
+
+                //Stop showing the textbox
+                console.log("hide text");
+                textPlaybackArea.style.display = "none";
+                textArea.style.display = "none";
+
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
+
+                if(currentPlaybackImage != null) {
+				    document.getElementById("image-area").removeChild(currentPlaybackImage);
+				    currentPlaybackImage = null;
+                }
+                if(currentPlaybackPdf != null) {
+                    pdfArea.removeChild(currentPlaybackPdf);
+				    currentPlaybackPdf = null;
+                }
+                if(editUp == true)
+                {
+                    index++;
+                    editUp = false;
+                }
+                
+            } 
+            else {
+                // Pause the video
+                video.pause();
+
+                // Update the button text to 'Play'
+                fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
+            }
+        }
+	});	
+	
+	// Event listener for the play/pause button
+	playButton.addEventListener("click", function () {
+        if(currentPlaybackOverlaidVideo != null) {
+            if (currentPlaybackOverlaidVideo.paused == true) {
+                // Play the video
+                currentPlaybackOverlaidVideo.play();
+
+                // Update the button text to 'Pause'
+               fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
+                
+                //Keeps checking for new things
+                window.requestAnimationFrame(checkTime);
+            } 
+            else {
+                // Pause the video
+                currentPlaybackOverlaidVideo.pause();
+
+                // Update the button text to 'Play'
+                fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
                 
                 //Keeps checking for new things
                 window.requestAnimationFrame(checkTime);
