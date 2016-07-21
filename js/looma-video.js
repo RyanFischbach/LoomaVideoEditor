@@ -1757,6 +1757,7 @@ $(document).ready(function () {
 
     // Event listener for the seek bar
     seekBar.addEventListener("change", function () {
+        
         if (currentAddedVideo != null)
         {
             var time = currentAddedVideo.duration * (seekBar.value / 100);
@@ -1765,6 +1766,12 @@ $(document).ready(function () {
         }
         else
         {
+            // Remove All Overlays
+            removeCurrentText();
+            removeCurrentImage();
+            removeCurrentPdf();
+            removeCurrentAddedVideo();
+            removeCurrentBlackScreen();
             // Calculate the new time
             var time = video.duration * (seekBar.value / 100);
 
