@@ -101,7 +101,9 @@ $(document).ready(function () {
     var textButton = document.getElementById("text");
     
     //Edit Controls - Searching
-    var searchArea = document.getElementById("search-box");
+    var searchArea = document.getElementById("search-area");
+    var searchBox = document.getElementById("search-box");
+    var message = "";
     
     // Edit Controls - Selecting Images
     var imageButton = document.getElementById("image");
@@ -214,7 +216,7 @@ $(document).ready(function () {
                             textArea.style.display = 'inline-block';
                             video.pause();
                             playButton.style.backgroundImage = 'url("images/video.png")';
-                            textArea.style.zIndex = overlayZ;
+                            textBoxArea.style.zIndex = overlayZ;
                             pdfArea.style.zIndex = basePdfZ;
 
                         } 
@@ -250,7 +252,7 @@ $(document).ready(function () {
                             show_pdf(editsObj.filePaths[filesBefore]);
                             video.pause();
                             playButton.style.backgroundImage = 'url("images/video.png")';
-                            textArea.style.zIndex = baseTextZ;
+                            textBoxArea.style.zIndex = baseTextZ;
                             pdfArea.style.zIndex = overlayZ;
                         }
                         else if (editsObj.fileTypes[index] == "video") {
@@ -346,6 +348,32 @@ $(document).ready(function () {
         pdf.src = src;
         currentPlaybackPdf = pdf;
         pdfArea.appendChild(pdf);
+    }
+    
+    function updateSearch (type) {
+        var i = 0;
+        var changed = false;
+        if(type == "image") {
+            while(changed == false && i < imageOptionButtons.length) {
+                var newMessage = searchBox.value;
+                if (newMessage != message) {
+                    message = newMessage;
+                    changed = true
+                }
+                else {
+                    if(imageOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                    {
+                        imageOptionButtons[i].style.display = "none";
+                    }
+                    else
+                    {
+                        imageOptionButtons[i].style.display = "";
+                    }
+                }
+                i++;
+            }
+        }
+        requestAnimationFrame(function() {updateSearch(type)});
     }
 
 
@@ -1124,6 +1152,11 @@ $(document).ready(function () {
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton,
 					 prev5FrameButton]);
         
+        searchArea.style.display = "inline";
+        document.getElementById("linebreak").style.display = "none";
+        
+        imageOptionButtons = Array.from(imageOptionButtons);
+        updateSearch("image");
         
         // Update current edit state
         currentEdit = "image";

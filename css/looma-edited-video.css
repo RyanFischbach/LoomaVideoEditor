@@ -6,7 +6,7 @@ div#text-box-area {
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 15;
+    z-index: 5;
 }
 				
 #text-playback {
@@ -194,7 +194,6 @@ button#default-start-stop-time{
     display: none;
     white-space: nowrap;
     position: absolute;
-    height: 21.2%;
     width: 100vw;
 }
 

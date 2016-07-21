@@ -126,6 +126,7 @@ button#rename {
 #cancel {
     height: 50%;
     display: none;
+    vertical-align: top;
     margin-top: 0px;
 }
     
@@ -235,7 +236,7 @@ button#default-start-stop-time{
     overflow-y: hidden;
     display: none;
     white-space: nowrap;
-    height: 20%;
+    height: 22.8%;
 }
 
 #pdf-previews {
@@ -252,6 +253,11 @@ button#default-start-stop-time{
     display: none;
     white-space: nowrap;
     height: 20%;
+}
+
+#search-box {
+    resize: none;
+    color: black;
 }
 
 
