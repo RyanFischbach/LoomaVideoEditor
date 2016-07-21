@@ -499,7 +499,7 @@ $(document).ready(function () {
                 currentPlaybackOverlaidVideo.muted = false;
 
                 // Update the button text
-                muteButton.style.backgroundImage = 'url("images/auido.png")';
+                muteButton.style.backgroundImage = 'url("images/audio.png")';
 		    }
         }
         else {
