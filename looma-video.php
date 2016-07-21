@@ -219,6 +219,12 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 						<?php $TKW['Edit'] = 'सम्पादन'; $TKW['Save'] = 'सुरक्षित' ?>
 							<?php keyword('Edit'); ?>
 					</button>
+                    
+                    <div id="login-div">
+                        <button type="button" class="media" id="login">
+                            <?php keyword('Log In') ?>
+                        </button>
+                    </div>
 
 					<button type="button" class="media hidden_button" id="text">
 						<?php 

@@ -46,6 +46,7 @@ $(document).ready(function () {
     
     //Edit Controls
     var editControls = document.getElementById("edit-controls");
+    var loginButton = document.getElementById("login");
     
     // Edit Controls - Renaming a video
     var renameButton = document.getElementById("rename");
@@ -359,6 +360,19 @@ $(document).ready(function () {
 		}
 	});
     
+    loginButton.addEventListener("click", function () {
+        if (loginButton.innerHTML == "Log Out")
+        {
+            loginButton.innerHTML = "Log In";
+            editButton.style.display = "none";
+        }
+        else
+        {
+            loginButton.innerHTML = "Log Out";
+            editButton.style.display = "inline";
+        }
+    });
+    
     renameButton.addEventListener("click", function () {
         // Rename video
         pauseVideo(video);
@@ -412,6 +426,7 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {
+            loginButton.style.display = "inline";
             disableButton(textButton);
             disableButton(imageButton);
             disableButton(pdfButton);
@@ -449,7 +464,7 @@ $(document).ready(function () {
 		else
 		{
             // Hide Media controls
-            hideElements([mediaControls, editButton]);
+            hideElements([mediaControls, editButton, loginButton]);
             
             // Display edit options
             if (didSaveOnce)
@@ -1986,9 +2001,7 @@ $(document).ready(function () {
                     playButton.style.backgroundImage = 'url("images/video.png")';
                     timeDiv.innerHTML = minuteSecondTime(video.currentTime);
                     
-                    if(currentBlackScreen != null) {
-                        document.getElementById("video-area").removeChild(currentBlackScreen);
-                    }
+                    removeCurrentBlackScreen();
                 }
             }
         }

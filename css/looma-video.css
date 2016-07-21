@@ -107,11 +107,6 @@ button#rename {
     height: 70%;
 }
 
-#edit-controls {
-    height: 10%;
-}
-
-
 #rename {
     height: 52%;
     display: none;
@@ -136,7 +131,7 @@ button#rename {
     
 #edit {
     height: 50%;
-    display: inline;
+    display: none;
     margin-top:0px;
     transform: translateX(3px);
 }
@@ -336,4 +331,21 @@ button#delete {
 input#seek-bar
 {
 	display: inline;
+}
+
+div#edit-controls
+{
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    position: relative;
+}
+
+div#login-div {
+    float: left;
+}
+
+button#login {
+    height: 100%;
+    width: 100%;
 }
