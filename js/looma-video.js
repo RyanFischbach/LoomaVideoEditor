@@ -1487,6 +1487,8 @@ $(document).ready(function () {
             textDiv.style.height = timelineImageHeight + "px";
             textDiv.style.zIndex = "0";
             textDiv.style.textOverflow = "ellipsis";
+            textDiv.style.overflowWrap = "break-word";
+            textDiv.style.fontSize = "xmall";
             textDiv.style.overflowY = "hidden";
             textDiv.onmouseover = function() {
                 hoverDiv.style.display = "block";
