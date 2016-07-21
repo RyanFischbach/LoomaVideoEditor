@@ -523,11 +523,8 @@ $(document).ready(function () {
     function saveTimelineEdit() {
         if (currentText != null) {
             insertText();
-            //currentEdit.readOnly = true;
             textArea.readOnly = true;
-            textArea.removeChild(currentText);
             removeCurrentText();
-            //textBoxArea.style.display = "none";
         }
         else if (image_src != "") {        
             // Insert Edit
@@ -541,8 +538,7 @@ $(document).ready(function () {
             insertSrc(pdf_src.substr(0, pdf_src.length - 4) + "_thumb.jpg", pdf_src, "pdf");
             if (currentPdf != null)
             {
-                pdfArea.removeChild(currentImage);
-                currentPdf = null;
+                removeCurrentPdf();
                 pdf_src = "";
             }
         }
@@ -551,8 +547,7 @@ $(document).ready(function () {
             insertSrc(video_src.substr(0, video_src.length - 4) + "_thumb.jpg", video_src, "video");
             if (currentAddedVideo != null)
             {
-                addedVideoArea.removeChild(currentImage);
-                currentAddedVideo = null;
+                removeCurrentAddedVideo();
                 video_src = "";
             }
             if(currentBlackScreen != null) {
@@ -573,19 +568,23 @@ $(document).ready(function () {
         }
         
         // index of text file in videoText array
-        if (index < editsObj.videoText.length - 1) {
-            editsObj.videoText.splice(numTextFiles, 0, textArea.value);
+        if (numTextFiles < editsObj.videoText.length - 1)
+        {
+            editsObj.videoText.splice(numTextFiles, 0, currentText.value);
+            console.log(editsObj.videoText);
         }
-        else {
-            editsObj.videoText.push(textArea.value);
+        else
+        {
+            editsObj.videoText.push(currentText.value);
+            editsObj.videoText.splice(numTextFiles, 1);
         }
-        editsObj.videoText.splice(index, 1);
+        //editsObj.videoText.splice(numTextFiles, 1);
         
         console.log("1");
-        show_text_timeline(textArea.value, video.currentTime);
+        show_text_timeline(currentText.value, video.currentTime);
         timelineImageText = "";
         timelineEdit = false;
-        //currentText = null;
+        console.log(editsObj.videoText);
     }
     
     /**
@@ -944,6 +943,7 @@ $(document).ready(function () {
         editButton.style.display = "inline";
         
         currentText = textArea;
+        //timelineImageText = textArea.value;
         
         
         // don't show the submit button
@@ -951,10 +951,7 @@ $(document).ready(function () {
         
         
         //If there is an image it removes it
-        if (currentImage != null) {
-            imageArea.removeChild(currentImage);
-            currentImage = null;
-        }
+        removeCurrentImage();
         // return true for some reason
         return true;
     });
@@ -1173,22 +1170,23 @@ $(document).ready(function () {
             if (type == "text") 
             {
                 currentEdit = "text";
-                textArea.readOnly = false;
                 // Show text to edit
                 findText(this);
                 toggleTimelineControls();
                 cancelButton.style.display = "none";
-                editButton.style.display = "none";
                 editButton.innerHTML = "Save";
 
                 timelineEdit = true;
                 
                 //textArea = currentText;
                 textArea.value = timelineImageText;
+                textArea.readOnly = false;
                 // Need to do something with currentText so that cancelButton can remove it from timeline
 
                 // show the text area and submit button
                 textArea.style.display = "inline";
+                //currentText = textArea;
+                textBoxArea.style.display = "block";
                 submitButton.style.display = "inline";
 
                 //Puts the text on top
