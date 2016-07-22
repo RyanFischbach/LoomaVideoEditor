@@ -877,8 +877,8 @@ $(document).ready(function () {
             // Set other changes back to normal
             mediaControls.style.height = "20%";
             editControls.style.height = "10%";
-            cancelButton.style.height = "52%";
-            editButton.style.height = "52%";
+            cancelButton.style.height = "50%";
+            editButton.style.height = "50%";
             editButton.disabled = false;
             editButton.style.opacity = "1.0";
         
@@ -1216,8 +1216,8 @@ $(document).ready(function () {
         mediaControls.style.height = "20%";
         loginButton.style.display = "inline";
         editControls.style.height = "10%";
-        cancelButton.style.height = "52%";
-        editButton.style.height = "52%";
+        cancelButton.style.height = "50%";
+        editButton.style.height = "50%";
         editButton.disabled = false;
         editButton.style.opacity = "1.0";
         toggleControlsForCancelButton();

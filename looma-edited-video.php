@@ -173,24 +173,30 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                     </button>
                                 </div>
                             </div>
+                        
+                            <button type="button" class="media" id="cancel">
+                                <?php keyword('Cancel') ?>
+                            </button>
+                            
+                            <form class="media" id="search-area" style="display: none">
+				                <input name="search" id="search-box" placeholder="Search for..."/>
+							</form>
+                            
                             <button type="button" class="media" id="delete">
                                 <?php tooltip('Delete') ?>
                             </button>
                             <button type ="button" class="media" id="edit">
                                 <?php keyword('Edit') ?>
                             </button>
+                            
                             <div id="login-div">
                                 <button type="button" class="media" id="login">
                                     <?php keyword('Log In') ?>
                                 </button>
                             </div>
                             
-                            <button type="button" class="media" id="cancel">
-                                <?php keyword('Cancel') ?>
-                            </button>
-                            
                             <button type="button" class="media hidden_button" id="prev-frame5">
-                                <<<
+                                &lt;&lt;&lt;
                                 <?php
                                     $TKW['Previous Frame'] = 'अघिल्लो फ्रेम';
                                     tooltip('Previous Frame')
@@ -198,7 +204,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             </button>
 
                             <button type="button" class="media hidden_button" id="prev-frame">
-                                <
+                                &lt;
                                 <?php
                                     $TKW['Previous Frame'] = 'अघिल्लो फ्रेम';
                                     tooltip('Previous Frame')
@@ -228,9 +234,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                 <?php keyword('Rename') ?>
                             </button>
                             
-                            <form class="media" id="search-area" style="display: none">
-				                <input name="search" id="search-box" placeholder="Search for..."/>
-							</form>
                             <button type="button" class="media" id="text">
                                 <?php keyword('Text') ?>
                             </button>

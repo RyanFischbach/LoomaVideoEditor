@@ -69,12 +69,14 @@ div#video-controls-wrapper {
 
 button#delete {
     display: none;
+    float: center;
 }
 button#edit {
     display: none;
+    float: center;
 }
 #rename {
-    height: 52%;
+    height: 50%;
     display: none;
     float: left;
     margin-top: 0px;
@@ -97,26 +99,32 @@ button#edit {
     margin-left: 20px;
 }
 
+#search-area {
+    float: right;
+    margin-top: 0px;
+    margin-right: 20px;
+}
+
 #text {
-    height: 52%;
+    height: 50%;
     display:none;
     margin-top:0px;
 }
 
 #image {
-    height: 52%;
+    height: 50%;
     display: none;
     margin-top: 0px;
 }
 
 #pdf {
-    height: 52%;
+    height: 50%;
     display: none;
     margin-top: 0px;
 }
 
 #submit {
-    height: 52%;
+    height: 50%;
     transform: translateY(50%);
     display: none;
     margin-top: 0px;
@@ -124,22 +132,22 @@ button#edit {
 
 
 button#prev-frame {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
 button#next-frame {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
 button#next-frame5 {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
 button#prev-frame5 {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
@@ -181,7 +189,7 @@ button#default-start-stop-time{
 }
 
 #video-button {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
@@ -197,7 +205,7 @@ button#default-start-stop-time{
     white-space: nowrap;
     position: absolute;
     width: 100vw;
-    height: 335.5%;
+    height: 400%;
 }
 
 #pdf-previews {
