@@ -90,6 +90,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 				var commands = <?php echo $_REQUEST['txt']; ?>;
 				var commandsBackup = <?php echo $_REQUEST['txt']; ?>;
                 var displayName = "<?php echo addslashes($_REQUEST['dn']);?>";
+                videoPath = "<?php echo $filepath; ?>";
 			</script>
 
 			<link rel="stylesheet" type="text/css" href="css/looma-edited-video.css">

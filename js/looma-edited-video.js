@@ -9,6 +9,7 @@ filename: looma-edited-video.js
 Description: Controls all interactions with an edited video, called by looma-edited-video.php
 Attribution: File copied fronm looma-video.js
  */
+var videoPath;
 
 var editsObj = {
 	fileTypes: []
@@ -171,7 +172,89 @@ $(document).ready(function () {
     
     //True if an edit is displaying
     var editUp = false;
+    
+    // MongoDB
+    var didSaveToDBOnce = false;
 	
+    // Important Functions
+    
+    // Important Functions - Changing CSS
+    function hideElements (elements)
+    {
+        for (var x = 0; x < elements.length; x++)
+        {
+            elements[x].style.display = "none";
+        }
+    }
+    function hideAllElements()
+    {
+        hideElements([mediaControls, editButton, cancelButton, textButton, imageButton, pdfButton, videoButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, submitButton, addTimeDiv, next5FrameButton, nextFrameButton, prev5FrameButton, prevFrameButton]);
+    }
+    
+    function disableButton(button)
+    {
+        button.disabled = true;
+        button.style.opacity = "0.7";
+    }
+    
+    function enableButton(button)
+    {
+        button.disabled = false;
+        button.style.opacity = "1.0";
+    }
+    
+    // Important Functions - Video
+    function playVideo(vid)
+    {
+        vid.play();
+        playButton.style.backgroundImage = 'url("images/pause.png")';    
+    }
+    function pauseVideo(vid)
+    {
+        vid.pause();
+        playButton.style.backgroundImage = 'url("images/video.png")';
+    }
+    
+    // Important Functions - Displaying Edits - Media Overlays
+    function removeCurrentText() {
+        if (currentText != null)
+        {
+            currentText = null;
+            textArea.style.display = "none";
+            textBoxArea.style.display = "none";
+        }
+    }
+    function removeCurrentImage()
+    {
+        if (currentImage != null)
+        {
+            imageArea.removeChild(currentImage);
+            currentImage = null;
+        }
+    }
+    function removeCurrentPdf()
+    {
+        if (currentPdf != null)
+        {
+            pdfArea.removeChild(currentPdf);
+            currentPdf = null;
+        }
+    }
+    function removeCurrentAddedVideo()
+    {
+        if (currentAddedVideo != null)
+        {
+            addedVideoArea.removeChild(currentAddedVideo);
+            currentAddedVideo = null;
+        }
+    }
+    function removeCurrentBlackScreen()
+    {
+        if(currentBlackScreen != null) {
+                document.getElementById("video-area").removeChild(currentBlackScreen);
+            }
+    }
+    
 	var isFullscreen = false;
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
@@ -699,13 +782,13 @@ $(document).ready(function () {
         renameFormDiv.style.display = "block";
     });
     
-    function hideElements (elements)
-    {
-        for (var x = 0; x < elements.length; x++)
-        {
-            elements[x].style.display = "none";
-        }
-    }
+//    function hideElements (elements)
+//    {
+//        for (var x = 0; x < elements.length; x++)
+//        {
+//            elements[x].style.display = "none";
+//        }
+//    }
     
     renameSubmitButton.addEventListener("click", function () {   
             hideElements([renameFormDiv]);
@@ -718,8 +801,13 @@ $(document).ready(function () {
         
         var newName = renameInput.value;
             
+//        $.ajax("looma-rename-edited-video.php", {
+//            data: {oldPath: editsObj.fileName, newPath: newName},
+//            method: "POST"
+//        });
+        var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
         $.ajax("looma-rename-edited-video.php", {
-            data: {oldPath: editsObj.fileName, newPath: newName},
+            data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
             method: "POST"
         });
         
@@ -798,10 +886,18 @@ $(document).ready(function () {
         currentEdit = "";
 
         // Send to server to save as a txt file
-        $.ajax("looma-video-editor-textConverter.php", {
-            data: {info: editsObj, location: editsObj.fileName},
-            method: "POST"
-        });
+//        $.ajax("looma-video-editor-textConverter.php", {
+//            data: {info: editsObj, location: editsObj.fileName},
+//            method: "POST"
+//        });
+        var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
+                $.ajax("looma-video-db-save.php", {
+                    data: {info: editsObj, vn: videoName, vp: videoPath, location: editsObj.fileName, doesExist: didSaveToDBOnce},
+                    method: "POST",
+                    complete: function() {
+                        didSaveToDBOnce = true;
+                    }
+                });
     }
     
     function toggleControlsForSaveButton() {
@@ -887,6 +983,46 @@ $(document).ready(function () {
     }
     
     /**
+    * Inserts a video time into the editsObj.videoTimes array
+    */
+//    function insertVideoTime(time)
+//    {
+//        var length = editsObj.videoTimes.length;
+//        console.log("INSERT VIDEO TIME");
+//        if (length > 0)
+//        {
+//            console.log("editsObj.videoTImes.length > 0");
+//            if (time >= editsObj.videoTimes[length - 1])
+//            {
+//                console.log("TIME >= editsObj.videoTimes[length - 1]");
+//                editsObj.videoTimes.push(time);    
+//            }
+//            else
+//            {
+//                console.log("TIME BETWEEN TWO OTHER TIMES");
+//                // Time is in between two other times
+//                for (var i = length - 1; i > -1; i--)
+//                {
+//                    console.log("Index: " + i);
+//                    if (time >= editsObj.videoTimes[i]) {
+//                        //didEditPast = true;
+//                        editsObj.videoTimes.splice(i, 0, time);
+//                        break;
+//                        //i += length;
+//                    }
+//                }
+//            }
+//        }
+//        else
+//        {
+//            console.log("editsObj.videoTimes.length <= 0");
+//            // Empty array
+//            editsObj.videoTimes.push(time);
+//        }
+//        
+//    }
+    
+     /**
     * Inserts a video time into the editsObj.videoTimes array
     */
     function insertVideoTime(time)
