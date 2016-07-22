@@ -113,9 +113,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         <div id ="added-video-area"></div>
 					</div>
 				</div>
-				<div id="video-controls-wrapper">
-                    <div id="video-controls">
-                        <div id="media-controls">
+                <div id="media-controls">
                             <br>
                             <button id="fullscreen-control"></button>
 
@@ -133,8 +131,8 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             </button>
                             <input type="range" class="video" id="volume-bar" min="0" max="1" step="0.1" value="0.5" style="display:inline-block">
                             <br>
-                        </div>
-                        <div id="edit-controls">
+                </div>
+                <div id="edit-controls">
                             <div id="rename-form-div">
                                 <p> Save As </p>
 
@@ -142,7 +140,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                     <input type="text" id="rename-text" />
                                 </form>
 
-                                <br>
                                 <button type="button" class="media hidden_button" id="rename-form-submit-button">
                                     <?php keyword("Submit") ?>
                                 </button>
@@ -251,11 +248,13 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             <button type="button" class="media hidden_button" id="submit">
                                 <?php keyword('Submit') ?>
                             </button>
-                                
-                                <br>
+                            
+                            <br>
                                 
                                 <!--Opens the pictures folder when you want to pick a picture-->
-				<div id="image-previews">
+                            
+                </div>
+                        <div id="image-previews">
 					<!-- include ('looma-video-editor-imageViewer.php') -->
 					<?php
                         $folder = "pictures";
@@ -277,11 +276,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         include ('includes/video-editor-file-viewer.php');
                     ?>
 				</div>
-                            
-                        </div>
-                    </div>
-					<!--<br><button type="button" id"mute"> </button> -->
-				</div>
+                
 			</div> <!-- End of main container -->
 			<?php include ('includes/toolbar.php'); ?>
 				<?php include ('includes/js-includes.php'); ?>
