@@ -881,6 +881,7 @@ $(document).ready(function () {
     }
     
     function save() {
+        console.log("SAVVVVVVVVVEEEEEEEEEEEEEEEE");
         video.pause();
         saveEdit();
         currentEdit = "";

@@ -137,6 +137,8 @@ $(document).ready(function () {
     var timelineImageText = ""; // For displaying text when user clicks on button in timeline
     var didEditPast = false; // True when user went back in time and added an edit
     
+    var timelineArea = document.getElementById("timeline-area");
+    
     // Other var for timeline
 	var timelineImageHeight;
 	var timelineImageWidth;
@@ -259,7 +261,7 @@ $(document).ready(function () {
 		videoArea.style.width = parseInt(vidWidth) + "px";
 
 		var videoPlayer = document.getElementById("video-player");
-		var timelineArea = document.getElementById("timeline-area");
+		//var timelineArea = document.getElementById("timeline-area");
         
         //Makes the timline area fills the space to the left of the video
 		timelineArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
@@ -432,6 +434,8 @@ $(document).ready(function () {
             didSaveOnce = true;
         }
         
+        timelineArea.style.visibility = "visible";
+        
         
         var newName = renameInput.value;
         //newName = $('<div/>').text(renameInput.value).html();
@@ -450,6 +454,7 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {
+            timelineArea.style.visibility = "hidden";
             loginButton.style.display = "inline";
             disableButton(textButton);
             disableButton(imageButton);
@@ -506,11 +511,13 @@ $(document).ready(function () {
 				mediaControls.style.display = "inline";
 				muteButton.style.display = "none";
 				volumeBar.style.display = "none";
+                timelineArea.style.visibility = "visible";
             }
             else
             {
                 saveAs();
             }
+            
 
             // change the edit button to say save
             editButton.innerHTML = "Save";

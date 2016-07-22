@@ -69,6 +69,7 @@
     text-align: left;
     overflow-y: auto;
     z-index: 0;
+    visibility: hidden;
 }
 
 #black-screen {
