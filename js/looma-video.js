@@ -156,7 +156,7 @@ $(document).ready(function () {
     // Important Functions
     
     // Important Functions - Changing CSS
-    function hideElements (elements)
+    function hideElements(elements)
     {
         for (var x = 0; x < elements.length; x++)
         {
@@ -167,7 +167,13 @@ $(document).ready(function () {
     {
         hideElements([mediaControls, editButton, cancelButton, textButton, imageButton, pdfButton, videoButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, submitButton, addTimeDiv, next5FrameButton, nextFrameButton, prev5FrameButton, prevFrameButton]);
     }
-    
+    displayElementsInline(elements)
+    {
+        for (var i = 0; i < elements.length; i++)
+        {
+            elements[i].style.display = "inline";
+        }
+    }
     function disableButton(button)
     {
         button.disabled = true;
@@ -418,16 +424,7 @@ $(document).ready(function () {
         }
         else
         {
-            cancelButton.style.display = "inline";
-            textButton.style.display = 'inline';
-            imageButton.style.display = 'inline';
-            pdfButton.style.display = "inline";
-            videoButton.style.display = "inline";
-            nextFrameButton.style.display = "inline";
-            prevFrameButton.style.display = "inline";
-			next5FrameButton.style.display = "inline";
-			prev5FrameButton.style.display = "inline";
-			mediaControls.style.display = "inline";
+            displayElementsInline([cancelButton, textButton, imageButton, pdfButton, videoButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, mediaControls]);
 			volumeBar.style.display = "none";
 			muteButton.style.display = "none";
             renameFormDiv.style.display = "none";
