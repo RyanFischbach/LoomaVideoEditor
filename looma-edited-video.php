@@ -123,7 +123,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 
                             <div id="time"></div>
 
-                            <br>
                             <button type="button" class="media" id="play-pause">
                                 <?php tooltip('Play/Pause'); ?>
                             </button>
