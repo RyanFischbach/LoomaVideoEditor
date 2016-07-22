@@ -143,9 +143,6 @@ $(document).ready(function () {
 	var timelineImageHeight;
 	var timelineImageWidth;
     
-    // Fulscreen var
-	var isFullscreen = false;
-    
     // Playback var
     var endTime;
     var index = 0;
@@ -241,23 +238,28 @@ $(document).ready(function () {
     
     // Event Listeners
     
-	// Fullscreen Button
+		var isFullscreen = false;
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
-		screenfull.toggle(video);
 		if(!isFullscreen)
 		{
-			fullscreenPlayPauseButton.style.display = "inline";
-			isFullscreen = true;
-            fullscreenControlButton.style.bottom = 5;
+		e.preventDefault();
+		screenfull.toggle(videoArea);
+		isFullscreen = true;
+		fullscreenPlayPauseButton.style.display = "block";
+		videoArea.className = "fullscreen";
+		videoArea.style.width = "100%";
 		}
 		else
 		{
-			fullscreenPlayPauseButton.style.display = "none";
-			isFullscreen = false;
-            fullscreenControlButton.style.bottom = initial;
+		e.preventDefault();
+		screenfull.toggle(videoArea);
+		isFullscreen = false;
+		fullscreenPlayPauseButton.style.display = "none";
+		videoArea.className = "";
 		}
 	});
+    
 
 	// Video Event Listener
 	video.addEventListener('loadeddata', function () {
