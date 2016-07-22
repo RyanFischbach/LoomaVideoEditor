@@ -1341,7 +1341,6 @@ $(document).ready(function () {
 					 prev5FrameButton]);
         
         searchArea.style.display = "inline";
-        document.getElementById("linebreak").style.display = "none";
         
         imageOptionButtons = Array.from(imageOptionButtons);
         

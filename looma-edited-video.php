@@ -218,7 +218,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                 ?>
                             </button>
 
-                            <br id="linebreak">
+                            <br>
                             
                             <button type="button" class="media" id="cancel">
                                 <?php keyword('Cancel') ?>
