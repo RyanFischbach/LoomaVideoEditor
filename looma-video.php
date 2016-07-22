@@ -214,6 +214,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                 keyword('Cancel');
                             ?>
 					</button>
+                        
+                    <form class="media" id="search-area" style="display: none">
+                        <input name="search" id="search-box" placeholder="Search for..."/>
+				    </form>
 
 					<button type="button" class="media hidden_button" id="edit">
 						<?php $TKW['Edit'] = 'सम्पादन'; $TKW['Save'] = 'सुरक्षित' ?>

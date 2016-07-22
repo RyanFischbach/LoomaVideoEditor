@@ -64,6 +64,11 @@ $(document).ready(function () {
     
     // Edit Controls - Adding Text
     var textButton = document.getElementById("text");
+    
+    //Edit Controls - Searching
+    var searchArea = document.getElementById("search-area");
+    var searchBox = document.getElementById("search-box");
+    var message = "";
 
     // Edit Controls - Selecting Images
     var imageButton = document.getElementById("image");
@@ -164,7 +169,7 @@ $(document).ready(function () {
     {
         hideElements([mediaControls, editButton, cancelButton, textButton, imageButton, pdfButton, videoButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, submitButton, addTimeDiv, next5FrameButton, nextFrameButton, prev5FrameButton, prevFrameButton]);
     }
-    displayElementsInline(elements)
+    function displayElementsInline(elements)
     {
         for (var i = 0; i < elements.length; i++)
         {
@@ -455,6 +460,9 @@ $(document).ready(function () {
         {
             timelineArea.style.visibility = "hidden";
             loginButton.style.display = "inline";
+            
+            searchArea.style.display = "none";
+            
             disableButton(textButton);
             disableButton(imageButton);
             disableButton(pdfButton);
@@ -775,6 +783,79 @@ $(document).ready(function () {
         }
         
     }
+    
+    searchBox.addEventListener ("input", function() {
+        var i = 0;
+        var changed = false;
+        if(imagePreviewDiv.style.display != "none") {
+            while(changed == false && i < imageOptionButtons.length) {
+                var newMessage = searchBox.value;
+                if (newMessage != message) {
+                    message = newMessage;
+                }
+                if(imageOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                {
+                    imageOptionButtons[i].style.display = "none";
+                }
+                else
+                {
+                    imageOptionButtons[i].style.display = "";
+                }
+                i++;
+            }
+        }
+        if(pdfPreviewDiv.style.display != "none") {
+            while(changed == false && i < pdfOptionButtons.length) {
+                var newMessage = searchBox.value;
+                if (newMessage != message) {
+                    message = newMessage;
+                }
+                if(pdfOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                {
+                    pdfOptionButtons[i].style.display = "none";
+                }
+                else
+                {
+                    pdfOptionButtons[i].style.display = "";
+                }
+                i++;
+            }
+        }
+        if(pdfPreviewDiv.style.display != "none") {
+            while(changed == false && i < pdfOptionButtons.length) {
+                var newMessage = searchBox.value;
+                if (newMessage != message) {
+                    message = newMessage;
+                }
+                if(pdfOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                {
+                    pdfOptionButtons[i].style.display = "none";
+                }
+                else
+                {
+                    pdfOptionButtons[i].style.display = "";
+                }
+                i++;
+            }
+        }
+        if(videoPreviewDiv.style.display != "none") {
+            while(changed == false && i < videoOptionButtons.length) {
+                var newMessage = searchBox.value;
+                if (newMessage != message) {
+                    message = newMessage;
+                }
+                if(videoOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                {
+                    videoOptionButtons[i].style.display = "none";
+                }
+                else
+                {
+                    videoOptionButtons[i].style.display = "";
+                }
+                i++;
+            }
+        }
+    });
 
     /**
     * Must be called after insertVideoTime is called and must be called with insertFilePath
@@ -883,6 +964,8 @@ $(document).ready(function () {
         editButton.style.opacity = "1.0";
         toggleControlsForCancelButton();
         video.pause();
+        
+        searchArea.style.display = "none";
         
         cancelEdit();
         
@@ -1011,6 +1094,8 @@ $(document).ready(function () {
         // Hide Controls
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton,
 					 prev5FrameButton]);
+        
+        searchArea.style.display = "inline";
         
         // Update current edit state
         currentEdit = "image";
@@ -1594,6 +1679,8 @@ $(document).ready(function () {
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, 
 					 prev5FrameButton]);
         
+        searchArea.style.display = "inline";
+        
         // Update current edit state
         currentEdit = "pdf";
         
@@ -1633,6 +1720,8 @@ $(document).ready(function () {
         pauseVideo(video);
         // Hide controls
         hideElements([renameButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton]);
+        
+        searchArea.style.display = "inline";
         
         // Update current edit state
         currentEdit = "video";

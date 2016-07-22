@@ -237,7 +237,7 @@ button#default-start-stop-time{
     overflow-y: hidden;
     display: none;
     white-space: nowrap;
-    height: 21.2%;
+    height: 20%;
 }
 
 #pdf-previews {
