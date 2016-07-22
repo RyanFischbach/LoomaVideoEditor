@@ -420,6 +420,7 @@ $(document).ready(function () {
     });
     
     renameSubmitButton.addEventListener("click", function () {   
+        
         if (didSaveOnce)
         {
             hideElements([renameFormDiv]);
@@ -440,8 +441,12 @@ $(document).ready(function () {
         
         timelineArea.style.visibility = "visible";
         
-        
-        var newName = renameInput.value;
+        if(renameInput.value == "") {
+            newName = editsObj.videoName.substr(0, editsObj.videoName.length-4);
+        }
+        else {
+            var newName = renameInput.value;
+        }
         //newName = $('<div/>').text(renameInput.value).html();
         var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));    
         $.ajax("looma-rename-edited-video.php", {
