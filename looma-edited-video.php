@@ -185,6 +185,10 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                 </button>
                             </div>
                             
+                            <button type="button" class="media" id="cancel">
+                                <?php keyword('Cancel') ?>
+                            </button>
+                            
                             <button type="button" class="media hidden_button" id="prev-frame5">
                                 <<<
                                 <?php
@@ -219,10 +223,11 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             </button>
 
                             <br>
-                            
-                            <button type="button" class="media" id="cancel">
-                                <?php keyword('Cancel') ?>
+                                
+                                <button type="button" class="media hidden_button" id="rename">
+                                <?php keyword('Rename') ?>
                             </button>
+                            
                             <form class="media" id="search-area" style="display: none">
 				                <input name="search" id="search-box" placeholder="Search for..."/>
 							</form>
@@ -244,11 +249,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                 <?php keyword('Submit') ?>
                             </button>
                                 
-                            <br>
-
-                            <button type="button" class="media hidden_button" id="rename">
-                                <?php keyword('Rename') ?>
-                            </button>
+                                <br>
                                 
                                 <!--Opens the pictures folder when you want to pick a picture-->
 				<div id="image-previews">

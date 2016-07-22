@@ -76,9 +76,9 @@ button#edit {
 #rename {
     height: 52%;
     display: none;
+    float: left;
     margin-top: 0px;
-    float: right;
-    margin-right: 20px;
+    margin-left: 20px;
 }
 
 #rename-form-div {
@@ -92,7 +92,9 @@ button#edit {
 #cancel {
     height: 50%;
     display: none;
+    float: left;
     margin-top: 0px;
+    margin-left: 20px;
 }
 
 #text {
@@ -195,7 +197,7 @@ button#default-start-stop-time{
     white-space: nowrap;
     position: absolute;
     width: 100vw;
-    height: 238.3%;
+    height: 335.5%;
 }
 
 #pdf-previews {
@@ -204,7 +206,7 @@ button#default-start-stop-time{
     display: none;
     white-space: nowrap;
     position: absolute;
-    height: 237.9%;
+    height: 335.5%;
     width: 100vw;
 }
 
@@ -214,7 +216,7 @@ button#default-start-stop-time{
     display: none;
     white-space: nowrap;
     position: absolute;
-    height: 238.3%;
+    height: 335.5%;
     width: 100vw;
 }
 

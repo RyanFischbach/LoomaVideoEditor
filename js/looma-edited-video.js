@@ -869,7 +869,8 @@ $(document).ready(function () {
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
-        {   
+        {  
+            loginButton.style.display = "inline";
             // Set timeDiv back to normal video time
             timeDiv.innerHTML = minuteSecondTime(video.currentTime);
             seekBar.value = (100 / video.duration) * video.currentTime;
@@ -1213,6 +1214,7 @@ $(document).ready(function () {
     
     cancelButton.addEventListener("click", function () {
         mediaControls.style.height = "20%";
+        loginButton.style.display = "inline";
         editControls.style.height = "10%";
         cancelButton.style.height = "52%";
         editButton.style.height = "52%";
