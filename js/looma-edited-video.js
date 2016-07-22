@@ -350,31 +350,27 @@ $(document).ready(function () {
         pdfArea.appendChild(pdf);
     }
     
-    function updateSearch (type) {
+    searchBox.addEventListener ("input", function() {
         var i = 0;
         var changed = false;
-        if(type == "image") {
+        if(imagePreviewDiv.style.display != "none") {
             while(changed == false && i < imageOptionButtons.length) {
                 var newMessage = searchBox.value;
                 if (newMessage != message) {
                     message = newMessage;
-                    changed = true
                 }
-                else {
-                    if(imageOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
-                    {
-                        imageOptionButtons[i].style.display = "none";
-                    }
-                    else
-                    {
-                        imageOptionButtons[i].style.display = "";
-                    }
+                if(imageOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                {
+                    imageOptionButtons[i].style.display = "none";
+                }
+                else
+                {
+                    imageOptionButtons[i].style.display = "";
                 }
                 i++;
             }
         }
-        requestAnimationFrame(function() {updateSearch(type)});
-    }
+    });
 
 
 	video.addEventListener('loadeddata', function () {
@@ -1160,7 +1156,6 @@ $(document).ready(function () {
         document.getElementById("linebreak").style.display = "none";
         
         imageOptionButtons = Array.from(imageOptionButtons);
-        updateSearch("image");
         
         // Update current edit state
         currentEdit = "image";
