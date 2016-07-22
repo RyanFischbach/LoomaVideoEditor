@@ -852,10 +852,6 @@ $(document).ready(function () {
         
         var newName = renameInput.value;
             
-//        $.ajax("looma-rename-edited-video.php", {
-//            data: {oldPath: editsObj.fileName, newPath: newName},
-//            method: "POST"
-//        });
         var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
         $.ajax("looma-rename-edited-video.php", {
             data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
@@ -938,11 +934,8 @@ $(document).ready(function () {
         saveEdit();
         currentEdit = "";
 
-        // Send to server to save as a txt file
-//        $.ajax("looma-video-editor-textConverter.php", {
-//            data: {info: editsObj, location: editsObj.fileName},
-//            method: "POST"
-//        });
+        // Send to server to save 
+
         var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
                 $.ajax("looma-video-db-save.php", {
                     data: {info: editsObj, vn: videoName, vp: videoPath, location: editsObj.fileName, doesExist: didSaveToDBOnce},
@@ -1038,42 +1031,6 @@ $(document).ready(function () {
     /**
     * Inserts a video time into the editsObj.videoTimes array
     */
-//    function insertVideoTime(time)
-//    {
-//        var length = editsObj.videoTimes.length;
-//        console.log("INSERT VIDEO TIME");
-//        if (length > 0)
-//        {
-//            console.log("editsObj.videoTImes.length > 0");
-//            if (time >= editsObj.videoTimes[length - 1])
-//            {
-//                console.log("TIME >= editsObj.videoTimes[length - 1]");
-//                editsObj.videoTimes.push(time);    
-//            }
-//            else
-//            {
-//                console.log("TIME BETWEEN TWO OTHER TIMES");
-//                // Time is in between two other times
-//                for (var i = length - 1; i > -1; i--)
-//                {
-//                    console.log("Index: " + i);
-//                    if (time >= editsObj.videoTimes[i]) {
-//                        //didEditPast = true;
-//                        editsObj.videoTimes.splice(i, 0, time);
-//                        break;
-//                        //i += length;
-//                    }
-//                }
-//            }
-//        }
-//        else
-//        {
-//            console.log("editsObj.videoTimes.length <= 0");
-//            // Empty array
-//            editsObj.videoTimes.push(time);
-//        }
-//        
-//    }
     
      /**
     * Inserts a video time into the editsObj.videoTimes array
@@ -1084,11 +1041,14 @@ $(document).ready(function () {
         console.log("INSERT VIDEO TIME");
         if (length > 0)
         {
-            console.log("editsObj.videoTImes.length > 0");
             if (time >= editsObj.videoTimes[length - 1])
             {
                 console.log("TIME >= editsObj.videoTimes[length - 1]");
                 editsObj.videoTimes.push(time);    
+            }
+            else if (time < editsObj.videoTimes[0])
+            {
+                editsObj.videoTimes.unshift(time);
             }
             else
             {
@@ -1112,6 +1072,7 @@ $(document).ready(function () {
             // Empty array
             editsObj.videoTimes.push(time);
         }
+        console.log("VIDEO TIMES: " + editsObj.videoTimes);
         
     }
 
