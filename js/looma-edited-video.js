@@ -453,6 +453,57 @@ $(document).ready(function () {
                 i++;
             }
         }
+        if(pdfPreviewDiv.style.display != "none") {
+            while(changed == false && i < pdfOptionButtons.length) {
+                var newMessage = searchBox.value;
+                if (newMessage != message) {
+                    message = newMessage;
+                }
+                if(pdfOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                {
+                    pdfOptionButtons[i].style.display = "none";
+                }
+                else
+                {
+                    pdfOptionButtons[i].style.display = "";
+                }
+                i++;
+            }
+        }
+        if(pdfPreviewDiv.style.display != "none") {
+            while(changed == false && i < pdfOptionButtons.length) {
+                var newMessage = searchBox.value;
+                if (newMessage != message) {
+                    message = newMessage;
+                }
+                if(pdfOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                {
+                    pdfOptionButtons[i].style.display = "none";
+                }
+                else
+                {
+                    pdfOptionButtons[i].style.display = "";
+                }
+                i++;
+            }
+        }
+        if(videoPreviewDiv.style.display != "none") {
+            while(changed == false && i < videoOptionButtons.length) {
+                var newMessage = searchBox.value;
+                if (newMessage != message) {
+                    message = newMessage;
+                }
+                if(videoOptionButtons[i].children[0].childNodes[1].data.toLowerCase().indexOf(message.toLowerCase()) == -1)
+                {
+                    videoOptionButtons[i].style.display = "none";
+                }
+                else
+                {
+                    videoOptionButtons[i].style.display = "";
+                }
+                i++;
+            }
+        }
     });
 
 
@@ -1345,6 +1396,7 @@ $(document).ready(function () {
         // Update current edit state
         currentEdit = "pdf";
         
+        searchArea.style.display = "inline";
         pdfPreviewDiv.style.display = "block";
         
         //Puts PDFs on top
@@ -1384,6 +1436,7 @@ $(document).ready(function () {
         // Update current edit state
         currentEdit = "video";
         
+        searchArea.style.display = "inline";
         videoPreviewDiv.style.display = "block";
         
         // Put added video on top
