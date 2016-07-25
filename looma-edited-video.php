@@ -227,7 +227,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 
                             <br>
                                 
-                                <button type="button" class="media hidden_button" id="rename">
+                            <button type="button" class="media hidden_button" id="rename">
                                 <?php keyword('Rename') ?>
                             </button>
                             
