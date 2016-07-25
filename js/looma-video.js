@@ -946,7 +946,6 @@ $(document).ready(function () {
     cancelButton.addEventListener("click", function () {
         pauseVideo(video);
         displayElementsInline([loginButton, document.getElementById("volume"), volumeBar, muteButton]);
-        timelineArea.style.visibility = "hidden";
         mediaControls.style.height = "20%";
         editControls.style.height = "10%";
         cancelButton.style.height = "52%";
