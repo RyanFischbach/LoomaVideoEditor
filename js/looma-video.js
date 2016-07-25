@@ -152,6 +152,7 @@ $(document).ready(function () {
     // Playback var
     var endTime;
     var index = 0;
+    var removeCounter = 0;
     
     // MongoDB
     var didSaveToDBOnce = false;
@@ -1284,7 +1285,7 @@ $(document).ready(function () {
     function deleteButtonEventListener(button, type) 
     {
         button.addEventListener("click", function() {
-            var index = button.id;
+            var index = button.id - removeCounter;
             
             if(type == "text")
             {
@@ -1363,6 +1364,12 @@ $(document).ready(function () {
                     didSaveToDBOnce = true;
                 }
             });
+            
+            //Reset view to normal
+            displayElementsInline([loginButton, document.getElementById("volume"), volumeBar, muteButton]);
+            toggleControlsForCancelButton();
+            cancelEdit();
+            removeCounter++;
         });
     }
     
