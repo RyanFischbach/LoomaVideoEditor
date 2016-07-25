@@ -1,37 +1,36 @@
-#video-area {
+div#video-area {
     height: 100%;
     position: relative;
     margin: auto;
-    z-index: 1;
+    z-index: 0; /* 1 */
 }
     
-#text-box-area {
+div#text-box-area {
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 4;
+    z-index: 5; /* 4 */
     height: 100%;
     width: 100%;
     margin: auto;
 }
 
+#text-playback {
+    display: none;
+    resize: none;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    color: black;
+    font: 22px/30px sans-serif;
+}
+
+
 #text-box {
     height: 100%;
     width: 100%;
 }
-    
-#comments {
-    display: none;
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 0%;
-    font: 22px/30px sans-serif;
-    resize: none;
-    height: 100%;
-    width: 100%;
-}
-    
+
 #image-area {
     position: absolute;
     top: 0px;
@@ -51,12 +50,25 @@
     width: 100%;
     margin: auto;
 }
+    
+#comments {
+    display: none;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 0%;
+    font: 22px/30px sans-serif;
+    resize: none;
+    height: 100%;
+    width: 100%;
+}
+    
 
 #added-video-area {
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 3;
+    z-index: 4; /* 3 */
     height: 100%;
     width: 100%;
     margin: auto;
@@ -101,6 +113,12 @@ button#fullscreen-control {
 }
 
 button#rename {
+    height: 50%;
+    display: none;
+    float: left;
+    margin-top: 0;
+    margin-left: 20px;
+    margin-right: 2px;
 	left: 5%;
 }
 
@@ -109,7 +127,7 @@ button#rename {
 }
 
 #rename {
-    height: 52%;
+    height: 50%;
     display: none;
     margin-top: 0px;
     float: right;
@@ -127,38 +145,41 @@ button#rename {
 #cancel {
     height: 50%;
     display: none;
+    float: left;
+    margin-left: 20px;
     vertical-align: top;
     margin-top: 0px;
 }
     
-#edit {
+button#edit {
     height: 50%;
     display: none;
     margin-top:0px;
+    float: center;
     transform: translateX(3px);
 }
 
 
 #text {
-    height: 52%;
+    height: 50%;
     display:none;
     margin-top:0px;
 }
 
 #image {
-    height: 52%;
+    height: 50%;
     display: none;
     margin-top: 0px;
 }
 
 #pdf {
-    height: 52%;
+    height: 50%;
     display: none;
     margin-top: 0px;
 }
 
 #submit {
-    height: 52%;
+    height: 50%;
     transform: translateY(50%);
     display: none;
     margin-top: 0px;
@@ -166,22 +187,22 @@ button#rename {
 
 
 button#prev-frame {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
 button#next-frame {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
 button#next-frame5 {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
 button#prev-frame5 {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
@@ -223,7 +244,7 @@ button#default-start-stop-time{
 }
 
 #video-button {
-    height: 52%;
+    height: 50%;
     display: none;
 }
 
@@ -238,6 +259,8 @@ button#default-start-stop-time{
     display: none;
     white-space: nowrap;
     height: 20%;
+    position: absolute;
+    width: 100vw;
 }
 
 #pdf-previews {
@@ -246,6 +269,8 @@ button#default-start-stop-time{
     display: none;
     white-space: nowrap;
     height: 20%;
+    position: absolute;
+    width: 100vw;
 }
 
 #video-previews {
@@ -254,6 +279,14 @@ button#default-start-stop-time{
     display: none;
     white-space: nowrap;
     height: 20%;
+    position: absolute;
+    width: 100vw;
+}
+
+#search-area {
+    float: right;
+    margin-top 0;
+    margin-right: 20px;
 }
 
 #search-box {
@@ -298,7 +331,7 @@ button#fullscreen-playpause {
 	position: absolute;
     display: none;
 	opacity: 0.4;
-	bottom:5%;
+	bottom:11%; /* 5*/
 	left:5%;
 	height: 10vh;
 	width:  10vh;
@@ -334,6 +367,8 @@ button#delete {
 	height: 5vh;
 	width:  5vh;
 	background-repeat: no-repeat;
+    display: none;
+    float: center;
 }
 input#seek-bar
 {

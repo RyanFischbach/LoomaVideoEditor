@@ -99,6 +99,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 							<form class="media hidden_button" id="text-box">
 								<textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
 							</form>
+                            <textarea name="text-playback" id="text-playback" readonly="true"></textarea>
 						</div>
 						<div id="image-area"></div>
 						<div id="pdf-area"></div>
