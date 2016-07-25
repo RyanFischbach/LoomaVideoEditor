@@ -1,4 +1,4 @@
-#video-area {
+/*#video-area {
     z-index: 0;
 }
 				
@@ -25,7 +25,7 @@ div#text-box-area {
     left: 0px;
     height: 100%;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
 }
                 
 #pdf-area {
@@ -34,7 +34,7 @@ div#text-box-area {
     left: 0px;
     height: 100%;
     width: 100%;
-    z-index: 4;
+    z-index: 3;
 }
 
 #overlaid-video-area {
@@ -43,7 +43,7 @@ div#text-box-area {
     left: 0px;
     height: 100%;
     width: 100%;
-    z-index: 2;
+    z-index: 4;
 }
 
 div#video-controls-wrapper {
@@ -252,11 +252,11 @@ button#fullscreen-control {
     bottom: 11%;
 	height: 10vh;
 	width:  10vh;
-	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREEN */
+	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREEN *//*
     background-image: url("../images/fullscreen2.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-	background-color:rgba(200,200,200,0.3);  /*transparent light gray*/
+	background-color:rgba(200,200,200,0.3);  /*transparent light gray*//*
 }
 
 button#fullscreen-playpause {
@@ -266,11 +266,11 @@ button#fullscreen-playpause {
 	left: 5%;
 	height: 10vh;
 	width:  10vh;
-	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREEN */
+	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREEN *//*
     background-image: url("../images/video.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-	background-color:rgba(200,200,200,0.3);  /*transparent light gray*/
+	background-color:rgba(200,200,200,0.3);  /*transparent light gray*//*
 }
 
 button.img img {
@@ -293,4 +293,4 @@ button.img.play, button.img.activity{
     text-align: left;
     overflow-y: auto;
     z-index: 0;
-}
+}*/
