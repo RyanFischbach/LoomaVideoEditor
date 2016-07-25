@@ -267,6 +267,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 				<!--Opens the pictures folder when you want to pick a picture-->
 				<div id="image-previews">
 					<?php
+                        $type = "image";
                         $folder = "pictures";
                         include ('includes/video-editor-file-viewer.php');
                     ?>
@@ -275,14 +276,16 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 				<!--Opens the pdf folder when you want to pick a pdf-->
 				<div id="pdf-previews">
 					<?php
-                        $folder = "pdfs";
+                        $type = "pdf";
+                    $folder = "pdfs";
                         include ('includes/video-editor-file-viewer.php');
                     ?>
 				</div>
 
 				<div id="video-previews">
 					<?php
-                        $folder = "videos";
+                        $type = "video";
+                    $folder = "videos";
                         include ('includes/video-editor-file-viewer.php');
                     ?>
 				</div>
