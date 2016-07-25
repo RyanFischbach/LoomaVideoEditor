@@ -443,6 +443,8 @@ $(document).ready(function () {
             didSaveOnce = true;
         }
         
+        renameButton.style.display = "inline";
+        
         timelineArea.style.visibility = "visible";
         
         if(renameInput.value == "") {

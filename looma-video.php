@@ -206,6 +206,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                                 tooltip('Next Frame')
                             ?>
 					</button>
+                    
+                    <button type="button" class="media hidden_button" id="rename">
+						<?php keyword('Rename') ?>
+					</button>
 						
 					<br>
 						
@@ -259,9 +263,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 					<br>
 
-					<button type="button" class="media hidden_button" id="rename">
-						<?php keyword('Rename') ?>
-					</button>
 
 				</div>
 
