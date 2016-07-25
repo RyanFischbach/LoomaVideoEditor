@@ -141,6 +141,7 @@ $(document).ready(function () {
     var timelineImagePath = ""; // For displaying the image when user clicks on button in timeline
     var timelineImageText = ""; // For displaying text when user clicks on button in timeline
     var didEditPast = false; // True when user went back in time and added an edit
+    var deleteButtonId = 0;
     
     var timelineArea = document.getElementById("timeline-area");
     
@@ -1182,20 +1183,28 @@ $(document).ready(function () {
             if (isAnEdit)
             {
                 var button = document.createElement("button");
+                var deleteButton = document.createElement("button");
                 if (editsObj.videoTimes.length > 0)
                 {
                     button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
                     button.src = src;
                     button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
+                    deleteButton.id = deleteButtonId;
+                    deleteButtonId++;
+                    deleteButton.innerHTML = "Delete";
+                    deleteButton.src = src;
                 }
                 else
                 {
                     button.innerHTML = "";
+                    deleteButton.innerHTML = "";
                 }
                 
                 addTimelineButtonEventListener(button, type);
+                deleteButtonEventListener(deleteButton, type);
                 
                 hoverDiv.appendChild(button);
+                hoverDiv.appendChild(deleteButton);
             }
 
             hoverDiv.style.display = "none";
@@ -1239,18 +1248,28 @@ $(document).ready(function () {
             if (isAnEdit)
             {
                 var button = document.createElement("button");
-                if (editsObj.videoTimes.length > 0) {
-                    button.className = editsObj.videoTimes[editsObj.videoTimes.length - 1];
+                var deleteButton = document.createElement("button");
+                if (editsObj.videoTimes.length > 0)
+                {
+                    button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
                     button.src = src;
-                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.length - 1]);
+                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
+                    deleteButton.id = deleteButtonId;
+                    deleteButtonId++;
+                    deleteButton.innerHTML = "Delete";
+                    deleteButton.src = src;
                 }
-                else {
+                else
+                {
                     button.innerHTML = "";
+                    deleteButton.innerHTML = "";
                 }
                 
                 addTimelineButtonEventListener(button, type);
+                deleteButtonEventListener(deleteButton, type);
                 
                 hoverDiv.appendChild(button);
+                hoverDiv.appendChild(deleteButton);
             }
 
             hoverDiv.style.display = "none";
@@ -1287,6 +1306,91 @@ $(document).ready(function () {
             seconds = "0" + seconds;
         }
         return minutes + ":" + seconds;
+    }
+    
+    function deleteButtonEventListener(button, type) 
+    {
+        button.addEventListener("click", function() {
+            var index = button.id;
+            
+            if(type == "text")
+            {
+                var textsBefore = 0;
+                for(var i = 0; i < editsObj.fileTypes.length; i++)
+                {
+                    if(editsObj.fileTypes[i] == "text")
+                    {
+                        textsBefore++;
+                    }
+                }
+                editsObj.videoText.splice(textsBefore, 1);
+                editsObj.videoTimes.splice(index, 1);
+                editsObj.fileTypes.splice(index, 1);
+                
+            }
+            else if(type == "image")
+            {
+                var filesBefore = 0;
+                for(var i = 0; i < index; i++)
+                {
+                    if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                    {
+                       filesBefore++;
+                    }
+                }
+                editsObj.filePaths.splice(filesBefore, 1);
+                editsObj.videoTimes.splice(index, 1);
+                editsObj.fileTypes.splice(index, 1);
+            }
+            else if(type == "pdf")
+            {
+                var filesBefore = 0;
+                for(var i = 0; i < index; i++)
+                {
+                    if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                    {
+                       filesBefore++;
+                    }
+                }
+                editsObj.filePaths.splice(filesBefore, 1);
+                editsObj.videoTimes.splice(index, 1);
+                editsObj.fileTypes.splice(index, 1);
+            }
+            else if(type == "video")
+            {
+                var filesBefore = 0;
+                for(var i = 0; i < index; i++)
+                {
+                    if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                    {
+                       filesBefore++;
+                    }
+                }
+                editsObj.filePaths.splice(filesBefore, 1);
+                
+                var videosBefore = 0;
+                for(var i = 0; i < index; i++)
+                {
+                    if(editsObj.fileTypes[i] == "video")
+                    {
+                        videosBefore += 2;
+                    }
+                }
+                editsObj.addedVideoTimes.splice(videosBefore, 2);
+                editsObj.videoTimes.splice(index, 1);
+                editsObj.fileTypes.splice(index, 1);
+            }
+            //button.parentElement.parentElement.parentElement.style = "none";
+            $(button.parentElement.parentElement).remove();
+            var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
+             $.ajax("looma-video-db-save.php", {
+                data: {info: editsObj, vn: videoName, vp: videoPath, location: editsObj.fileName, doesExist: didSaveToDBOnce},
+                    method: "POST",
+                    complete: function() {
+                    didSaveToDBOnce = true;
+                }
+            });
+        });
     }
     
     function addTimelineButtonEventListener(button, type) 
