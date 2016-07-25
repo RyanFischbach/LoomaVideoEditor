@@ -405,11 +405,13 @@ $(document).ready(function () {
         {
             loginButton.innerHTML = "Log In";
             editButton.style.display = "none";
+            pauseVideo(video);
         }
         else
         {
             loginButton.innerHTML = "Log Out";
             editButton.style.display = "inline";
+            pauseVideo(video);
         }
     });
     
@@ -464,7 +466,6 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {
-            timelineArea.style.visibility = "hidden";
             loginButton.style.display = "inline";
             
             searchArea.style.display = "none";
@@ -511,17 +512,7 @@ $(document).ready(function () {
             // Display edit options
             if (didSaveOnce)
             {
-                renameButton.style.display = "inline";
-                cancelButton.style.display = "inline";
-                textButton.style.display = 'inline';
-                imageButton.style.display = 'inline';
-                pdfButton.style.display = "inline";
-                videoButton.style.display = "inline";
-                nextFrameButton.style.display = "inline";
-                prevFrameButton.style.display = "inline";
-                next5FrameButton.style.display = "inline";
-                prev5FrameButton.style.display = "inline";
-				mediaControls.style.display = "inline";
+                displayElementsInline([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, mediaControls]);
 				muteButton.style.display = "none";
 				volumeBar.style.display = "none";
                 timelineArea.style.visibility = "visible";
@@ -576,9 +567,7 @@ $(document).ready(function () {
             
         // Redisplay media controls
         mediaControls.style.display = "block";
-        document.getElementById("volume").style.display = "inline";
-        volumeBar.style.display = "inline";
-        muteButton.style.display = "inline";
+        displayElementsInline([document.getElementById("volume"), volumeBar, muteButton]);
         
         // change the edit button to say edit
         editButton.innerHTML = "Edit";
@@ -683,7 +672,6 @@ $(document).ready(function () {
             insertVideoTime(video.currentTime);
             insertFileType("text", video.currentTime);
             insertVideoText(currentText.value, video.currentTime);
-            console.log("2");
             show_text_timeline(currentText.value, video.currentTime);
             edited = true;
             
@@ -756,22 +744,17 @@ $(document).ready(function () {
     function insertVideoTime(time)
     {
         var length = editsObj.videoTimes.length;
-        console.log("INSERT VIDEO TIME");
         if (length > 0)
         {
-            console.log("editsObj.videoTImes.length > 0");
             if (time >= editsObj.videoTimes[length - 1])
             {
-                console.log("TIME >= editsObj.videoTimes[length - 1]");
                 editsObj.videoTimes.push(time);    
             }
             else
             {
-                console.log("TIME BETWEEN TWO OTHER TIMES");
                 // Time is in between two other times
                 for (var i = length - 1; i > -1; i--)
                 {
-                    console.log("Index: " + i);
                     if (time >= editsObj.videoTimes[i]) {
                         //didEditPast = true;
                         editsObj.videoTimes.splice(i, 0, time);
@@ -962,8 +945,8 @@ $(document).ready(function () {
     
     cancelButton.addEventListener("click", function () {
         pauseVideo(video);
+        displayElementsInline([loginButton, document.getElementById("volume"), volumeBar, muteButton]);
         timelineArea.style.visibility = "hidden";
-        loginButton.style.display = "inline";
         mediaControls.style.height = "20%";
         editControls.style.height = "10%";
         cancelButton.style.height = "52%";
@@ -978,10 +961,7 @@ $(document).ready(function () {
         cancelEdit();
         
         // Redisplay media controls
-            mediaControls.style.display = "block";
-            document.getElementById("volume").style.display = "inline";
-            volumeBar.style.display = "inline";
-            muteButton.style.display = "inline";
+        mediaControls.style.display = "block";
         playButton.style.backgroundImage = 'url("images/video.png")';
     });
     
@@ -1065,8 +1045,7 @@ $(document).ready(function () {
 		textArea.value = "";
 
 		// show the text area and submit button
-		textArea.style.display = "inline";
-		submitButton.style.display = "inline";
+        displayElementsInline([textArea, submitButton]);
         
         //Puts textArea on top
         imageArea.style.zIndex = baseImageZ;
@@ -1078,20 +1057,15 @@ $(document).ready(function () {
     // Event listener for submit button
     submitButton.addEventListener("click", function () {
         // Redisplay Edit Controls
-        cancelButton.style.display = "inline";
-        editButton.style.display = "inline";
+        displayElementsInline([cancelButton, editButton]);
         
         currentText = textArea;
-        //timelineImageText = textArea.value;
-        
         
         // don't show the submit button
         submitButton.style.display = "none";
         
-        
-        //If there is an image it removes it
         removeCurrentImage();
-        // return true for some reason
+    
         return true;
     });
     
