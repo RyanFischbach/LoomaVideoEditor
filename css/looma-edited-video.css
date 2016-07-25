@@ -76,7 +76,8 @@ button#edit {
     display: none;
     float: left;
     margin-top: 0px;
-    margin-left: 2px;
+    margin-left: 20px;
+    margin-right: 2px;
 }
 
 #rename-form-div {

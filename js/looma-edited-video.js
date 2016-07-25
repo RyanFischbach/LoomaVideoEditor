@@ -579,10 +579,10 @@ $(document).ready(function () {
 	
 	// Event listener for the play/pause button
 	playButton.addEventListener("click", function () {
-        if(currentPlaybackOverlaidVideo != null) {
-            if (currentPlaybackOverlaidVideo.paused == true) {
+        if(currentAddedVideo != null) {
+            if (currentAddedVideo.paused == true) {
                 // Play the video
-                currentPlaybackOverlaidVideo.play();
+                currentAddedVideo.play();
 
                 // Update the button text to 'Pause'
                fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
@@ -592,7 +592,7 @@ $(document).ready(function () {
             } 
             else {
                 // Pause the video
-                currentPlaybackOverlaidVideo.pause();
+                currentAddedVideo.pause();
 
                 // Update the button text to 'Play'
                 fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
