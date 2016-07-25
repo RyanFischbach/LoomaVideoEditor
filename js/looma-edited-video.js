@@ -35,6 +35,7 @@ $(document).ready(function () {
     }
     if (commands.videoTimes != null) {
         editsObj.videoTimes = commands.videoTimes;
+        console.log(editsObj.videoTimes);
     }
     if (commands.videoText != null) {
         editsObj.videoText = commands.videoText;
@@ -179,24 +180,49 @@ $(document).ready(function () {
     // Important Functions
     
     // Important Functions - Changing CSS
-    function hideElements (elements)
+    function hideElements(elements)
     {
-        for (var x = 0; x < elements.length; x++)
+        for (var i = 0; i < elements.length; i++)
         {
-            elements[x].style.display = "none";
+            elements[i].style.display = "none";
         }
     }
     function hideAllElements()
     {
         hideElements([mediaControls, editButton, cancelButton, textButton, imageButton, pdfButton, videoButton, imagePreviewDiv, pdfPreviewDiv, videoPreviewDiv, submitButton, addTimeDiv, next5FrameButton, nextFrameButton, prev5FrameButton, prevFrameButton]);
     }
-    
+    function displayElementsInline(elements)
+    {
+        for (var i = 0; i < elements.length; i++)
+        {
+            elements[i].style.display = "inline";
+        }
+    }
+    function hidePlayback()
+    {
+        textPlaybackArea.style.display = "none";
+        textArea.style.display = "none";
+
+
+        if(currentPlaybackImage != null) {
+            document.getElementById("image-area").removeChild(currentPlaybackImage);
+            currentPlaybackImage = null;
+        }
+        if(currentPlaybackPdf != null) {
+            pdfArea.removeChild(currentPlaybackPdf);
+            currentPlaybackPdf = null;
+        }
+        if(editUp == true)
+        {
+            index++;
+            editUp = false;
+        }
+    }
     function disableButton(button)
     {
         button.disabled = true;
         button.style.opacity = "0.7";
     }
-    
     function enableButton(button)
     {
         button.disabled = false;
@@ -608,28 +634,8 @@ $(document).ready(function () {
 
                 // Update the button text to 'Pause'
                 playButton.style.backgroundImage = 'url("images/pause.png")';
-
-                //Stop showing the textbox
-                console.log("hide text");
-                textPlaybackArea.style.display = "none";
-                textArea.style.display = "none";
-
-                //Keeps checking for new things
+                hidePlayback();
                 window.requestAnimationFrame(checkTime);
-
-                if(currentPlaybackImage != null) {
-				    document.getElementById("image-area").removeChild(currentPlaybackImage);
-				    currentPlaybackImage = null;
-                }
-                if(currentPlaybackPdf != null) {
-                    pdfArea.removeChild(currentPlaybackPdf);
-				    currentPlaybackPdf = null;
-                }
-                if(editUp == true)
-                {
-                    index++;
-                    editUp = false;
-                }
                 
             } 
             else {
@@ -697,29 +703,6 @@ $(document).ready(function () {
             video.currentTime = time;
 
             playButton.style.backgroundImage = 'url("images/video.png")';
-
-            /*
-            var moddedBackup = JSON.parse(JSON.stringify(commandsBackup));
-            commands = moddedBackup;
-            commands = editsObj;
-            var counter = 0;
-            for (var i = 0; i < commands.videoTimes.length; i++) {
-                if (commands.videoTimes[i] < time) {
-                    counter++;
-                }
-            }
-
-            
-            for (var z = 0; z < counter; z++) {
-                commands.videoTimes.splice(0, 1);
-                if (commands.fileTypes[0] == "text") {
-                    commands.fileTypes.splice(0, 1);
-                    commands.videoText.splice(0, 1);
-                } else {
-                    commands.fileTypes.splice(0, 1);
-                    commands.filePaths.splice(0, 1);
-                }
-            }*/
             
             if (currentAddedVideo != null)
             {
@@ -765,6 +748,27 @@ $(document).ready(function () {
 
 	// Update the seek bar as the video plays
 	video.addEventListener("timeupdate", function () {
+        enableButton(textButton);
+        enableButton(imageButton);
+        enableButton(pdfButton);
+        enableButton(videoButton);
+        // Disable Edit Button if an edit has already been made here
+        var done = false;
+        var i = 0;
+        while (i < editsObj.videoTimes.length && !done)
+        {
+            if (video.currentTime == editsObj.videoTimes[i] || currentPlaybackImage != null)
+            {
+                console.log("DISABLE");
+                disableButton(textButton);
+                disableButton(imageButton);
+                disableButton(pdfButton);
+                disableButton(videoButton);
+                done = true;
+            }
+            i++;
+        }
+        
         // Calculate the slider value
         var value = (100 / video.duration) * video.currentTime;
         
@@ -800,12 +804,14 @@ $(document).ready(function () {
         if (loginButton.innerHTML == "Log Out") {
             loginButton.innerHTML = "Log In";
             deleteButton.style.display = "none";
-            editButton.style.display = "none"
+            editButton.style.display = "none";
+            pauseVideo(video);
         }
         else {
             loginButton.innerHTML = "Log Out";
             deleteButton.style.display = "inline";
             editButton.style.display = "inline";
+            pauseVideo(video);
         }
     });
     
@@ -818,28 +824,11 @@ $(document).ready(function () {
         window.location = 'looma-library.php';
     });
     
-    // Edit
-    function hideElements (elements)
-    {
-        for (var x = 0; x < elements.length; x++)
-        {
-            elements[x].style.display = "none";
-        }
-    }
-    
     renameButton.addEventListener("click", function () {
         // Rename video
         hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, prev5FrameButton, next5FrameButton]);
         renameFormDiv.style.display = "block";
     });
-    
-//    function hideElements (elements)
-//    {
-//        for (var x = 0; x < elements.length; x++)
-//        {
-//            elements[x].style.display = "none";
-//        }
-//    }
     
     renameSubmitButton.addEventListener("click", function () {   
             hideElements([renameFormDiv]);
@@ -865,8 +854,13 @@ $(document).ready(function () {
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
-        {  
-            loginButton.style.display = "inline";
+        {
+            disableButton(textButton);
+            disableButton(imageButton);
+            disableButton(pdfButton);
+            disableButton(videoButton);
+            
+            displayElementsInline([loginButton]);
             // Set timeDiv back to normal video time
             timeDiv.innerHTML = minuteSecondTime(video.currentTime);
             seekBar.value = (100 / video.duration) * video.currentTime;
@@ -875,8 +869,7 @@ $(document).ready(function () {
             editControls.style.height = "10%";
             cancelButton.style.height = "50%";
             editButton.style.height = "50%";
-            editButton.disabled = false;
-            editButton.style.opacity = "1.0";
+            enableButton(editButton);
         
             searchArea.style.display = "none";
             
@@ -884,9 +877,7 @@ $(document).ready(function () {
             save();
             playButton.style.backgroundImage = 'url("images/video.png")';
             
-            if(currentBlackScreen != null) {
-                document.getElementById("video-area").removeChild(currentBlackScreen);
-            }
+            removeCurrentBlackScreen();
             
             
             index++;
@@ -1541,31 +1532,28 @@ $(document).ready(function () {
         }
     });
     
-    // nextFrameButton Event Listener\
-    /*
-    nextFrameButton.addEventListener("click", function () {
-        // Move Forward 1 frames
-        video.currentTime += (1 / 29.97);
-    });*/
-    
-    var mouseDown = false;
+    // nextFrameButton Event Listener
     
     nextFrameButton.addEventListener("click", function () {
         video.currentTime += (1 / 29.97);
+        hidePlayback();
     });
     
 	// prevFrameButton Event Listener
     prevFrameButton.addEventListener("click", function () {
         // Move Backward 1 frames
 		video.currentTime -= (1 / 29.97);
+        hidePlayback();
     });
     
 	next5FrameButton.addEventListener("click", function () {
 		video.currentTime += (10 / 29.97);
+        hidePlayback();
 	});
 	
 	prev5FrameButton.addEventListener("click", function () {
         video.currentTime -= (10 / 29.97);
+        hidePlayback();
     });
 	
     
