@@ -300,6 +300,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                 
 			</div> <!-- End of main container -->
 			<?php include ('includes/toolbar.php'); ?>
-				<?php include ('includes/js-includes.php'); ?>
+            <?php include ('includes/js-includes.php'); ?>
 					<script src="js/looma-screenfull.js"></script>
 					<script src="js/looma-edited-video.js"></script>

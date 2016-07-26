@@ -183,6 +183,16 @@ $(document).ready(function () {
     // MongoDB
     var didSaveToDBOnce = false;
     
+    if (commands == null)
+    {
+        loginButton.innerHTML = "Log Out";
+        editButton.style.display = "inline";
+    }
+    else
+    {
+        didSaveOnce = true;
+    }
+    
     // Important Functions
     
     // Important Functions - Changing CSS
