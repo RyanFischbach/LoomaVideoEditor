@@ -9,7 +9,6 @@ filename: looma-edited-video.js
 Description: Controls all interactions with an edited video, called by looma-edited-video.php
 Attribution: File copied fronm looma-video.js
  */
-var videoPath;
 
 var editsObj = {
 	fileTypes: []
@@ -24,27 +23,30 @@ var editsObj = {
 'use strict';
 $(document).ready(function () {
     
-    if (commands.fileTypes != null) {
-        editsObj.fileTypes = commands.fileTypes;
-    }
-    if (commands.videoName != null) {
-        editsObj.videoName = commands.videoName;
-    }
-    if (commands.fileName != null) {
-        editsObj.fileName = commands.fileName;
-    }
-    if (commands.videoTimes != null) {
-        editsObj.videoTimes = commands.videoTimes;
-        console.log(editsObj.videoTimes);
-    }
-    if (commands.videoText != null) {
-        editsObj.videoText = commands.videoText;
-    }
-    if (commands.filePaths != null) {
-        editsObj.filePaths = commands.filePaths;
-    }
-    if (commands.addedVideoTimes != null) {
-        editsObj.addedVideoTimes = commands.addedVideoTimes;
+    if (commands != "null)
+    {
+        if (commands.fileTypes != null) {
+            editsObj.fileTypes = commands.fileTypes;
+        }
+        if (commands.videoName != null) {
+            editsObj.videoName = commands.videoName;
+        }
+        if (commands.fileName != null) {
+            editsObj.fileName = commands.fileName;
+        }
+        if (commands.videoTimes != null) {
+            editsObj.videoTimes = commands.videoTimes;
+            console.log(editsObj.videoTimes);
+        }
+        if (commands.videoText != null) {
+            editsObj.videoText = commands.videoText;
+        }
+        if (commands.filePaths != null) {
+            editsObj.filePaths = commands.filePaths;
+        }
+        if (commands.addedVideoTimes != null) {
+            editsObj.addedVideoTimes = commands.addedVideoTimes;
+        }
     }
 	
 

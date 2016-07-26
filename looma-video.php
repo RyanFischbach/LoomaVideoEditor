@@ -34,6 +34,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
             return file_get_contents($realpath . $file, $realpath, null, 0);
         }
 
+
         function makeButton($file, $path, $ext, $base, $dn, $thumb)
         {
             // Copied from looma library
@@ -69,6 +70,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
         };  //end makeButton()
 
+
 ?>
 
 	<link rel="stylesheet" type="text/css" href="css/looma-video.css">
@@ -84,6 +86,8 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 	    ?>
 			<script>
 				//Converts thumbFile to js
+                var fileName = "<?php echo $filename ?>";
+                var filePath = "<?php echo $filepath ?>";
 				var thumbFile = <?php echo json_encode($thumbFile); ?>;
 			</script>
 
@@ -95,6 +99,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 							<?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
 								<?php echo '<source id="video-source" src="' . $filepath . $filename . '" type="video/mp4">' ?>
 						</video>
+                        <!--
 						<div id="text-box-area">
 							<form class="media hidden_button" id="text-box">
 								<textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
@@ -104,8 +109,10 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 						<div id="image-area"></div>
 						<div id="pdf-area"></div>
 						<div id="added-video-area"></div>
+-->
 					</div>
-					<div id="timeline-area"></div>
+                    <!--
+					<div id="timeline-area"></div> -->
 				</div>
 
 				<div id="media-controls">
@@ -113,14 +120,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					<button id="fullscreen-control"></button>
 
 					<button id="fullscreen-playpause"></button>
-
-					<!--
-					
-					<button id="scroll-right"></button>
-					
-					<button id="scroll-left"></button>
-    -->
-
+                    
 					<div id="time"></div>
 
 					<button type="button" class="media" id="play-pause">
@@ -141,7 +141,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 				</div>
 
 				<div id="edit-controls">
-
+                    <!--
 					<div id="rename-form-div">
 						<p> Save As </p>
 
@@ -151,21 +151,21 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 						<br>
 						<button type="button" class="media hidden_button" id="rename-form-submit-button">
-							<?php keyword("Submit") ?>
+							php keyword("Submit") ?>
 						</button>
 					</div>
 
 					<div id="add-time-div">
 						<div id="add-start-stop-time-div">
 							<button type="button" class="media hidden_button" id="start-time">
-								<?php
+								php
                                     $TKW['Set Start Time'] = 'समय सुरु सेट';
                                     keyword('Set Start Time')
                                 ?>
 							</button>
 
 							<button type="button" class="media hidden_button" id="stop-time">
-								<?php
+								php
                                     $TKW['Set Stop Time'] = 'स्टप समय सेट';
                                     keyword('Set Stop Time')
                                 ?>
@@ -174,7 +174,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 						<div id="default-start-stop-time-div">
 							<button type="button" class="media hidden_button" id="default-start-stop-time">
-								<?php
+								php
                                     $TKW['Default'] = 'पूर्वनिर्धारित';
                                     keyword('Default');
                                 ?>
@@ -183,16 +183,16 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					</div>
 
 					<button type="button" class="media hidden_button" id="prev-frame5">
-						&lt;&lt;&lt; <?php $TKW[ 'Previous Frame']='अघिल्लो फ्रेम' ; tooltip( 'Previous Frame') ?>
+						&lt;&lt;&lt; php $TKW[ 'Previous Frame']='अघिल्लो फ्रेम' ; tooltip( 'Previous Frame') ?>
 					</button>
 
 					<button type="button" class="media hidden_button" id="prev-frame">
-						&lt; <?php $TKW[ 'Previous Frame']='अघिल्लो फ्रेम' ; tooltip( 'Previous Frame') ?>
+						&lt; php $TKW[ 'Previous Frame']='अघिल्लो फ्रेम' ; tooltip( 'Previous Frame') ?>
 					</button>
 
 					<button type="button" class="media hidden_button" id="next-frame">
 						&gt;
-						<?php
+						php
                                 $TKW['Next Frame'] = 'अर्को फ्रेम';
                                 tooltip('Next Frame')
                             ?>
@@ -201,7 +201,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 					<button type="button" class="media hidden_button" id="next-frame5">
 						&gt;&gt;&gt;
-						<?php
+						php
                                 $TKW['Next Frame'] = 'अर्को फ्रेम';
                                 tooltip('Next Frame')
                             ?>
@@ -214,7 +214,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 					<br>
 						
 					<button type="button" class="media hidden_button" id="cancel">
-						<?php
+						php
                                 $TKW['Cancel'] = 'रद्द';
                                 keyword('Cancel');
                             ?>
@@ -223,6 +223,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                     <form class="media" id="search-area" style="display: none">
                         <input name="search" id="search-box" placeholder="Search for..."/>
 				    </form>
+    -->
 
 					<button type="button" class="media hidden_button" id="edit">
 						<?php $TKW['Edit'] = 'सम्पादन'; $TKW['Save'] = 'सुरक्षित' ?>
@@ -234,63 +235,69 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             <?php keyword('Log In') ?>
                         </button>
                     </div>
-
+<!--
 					<button type="button" class="media hidden_button" id="text">
-						<?php 
+						php 
                                 $TKW['Text'] = 'पाठ';
                                 keyword('Text');
                             ?>
 					</button>
 
 					<button type="button" class="media hidden_button" id="image">
-						<?php
+						php
                                 $TKW['Image'] = 'छवि';
                                 keyword('Image') 
                             ?>
 					</button>
 
 					<button type="button" class="media hidden_button" id="pdf">
-						<?php keyword('Pdf') ?>
+						php keyword('Pdf') ?>
 					</button>
 
 					<button type="button" class="media hidden_button" id="video-button">
-						<?php keyword('Video') ?>
+						php keyword('Video') ?>
 					</button>
 
 					<button type="button" class="media hidden_button" id="submit">
-						<?php keyword('Submit') ?>
+						php keyword('Submit') ?>
 					</button>
 
 					<br>
+-->
 
 
 				</div>
 
 				<!--Opens the pictures folder when you want to pick a picture-->
+                <!--
 				<div id="image-previews">
-					<?php
+					php
                         $type = "image";
                         $folder = "pictures";
                         include ('includes/video-editor-file-viewer.php');
                     ?>
 				</div>
+    -->
 
 				<!--Opens the pdf folder when you want to pick a pdf-->
+                <!--
 				<div id="pdf-previews">
-					<?php
+					php
                         $type = "pdf";
                     $folder = "pdfs";
                         include ('includes/video-editor-file-viewer.php');
                     ?>
 				</div>
-
+-->
+                <!--
 				<div id="video-previews">
-					<?php
+					php
                         $type = "video";
                     $folder = "videos";
                         include ('includes/video-editor-file-viewer.php');
                     ?>
 				</div>
+                -->
 
 
 			</div>
@@ -303,7 +310,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 					<!-- Update Video Name in looma-video.js -->
 
-
+<!--
 					<script>
 						var name = "<?php echo $filename; ?>";
 						editsObj.videoName = name;
@@ -311,5 +318,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                         videoPath = "<?php echo $filepath; ?>";
                         console.log(videoPath);
 					</script>
+-->
 
 	</body>

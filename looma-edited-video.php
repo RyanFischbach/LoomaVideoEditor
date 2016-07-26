@@ -19,8 +19,14 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
     include ('includes/header.php');
 
     function thumbnail ($fn) {
-            return substr($fn, 0, strlen($fn) - 4) + "_thumb";
-    } //end function THUMBNAIL
+				//given a CONTENT filename, generate the corresponding THUMBNAIL filename
+				//find the last '.' in the filename, insert '_thumb.jpg' after the dot
+				//returns "" if no '.' found
+				//example: input 'aaa.bbb.mp4' returns 'aaa.bbb_thumb.jpg' - this is the looma standard for naming THUMBNAILS
+		 		$dot = strrpos($fn, ".");
+				if ( ! ($dot === false)) { return substr_replace($fn, "_thumb.jpg", $dot, 10);}
+				else return "";
+			} //end function THUMBNAIL
 ?>
 
 	<link rel="stylesheet" type="text/css" href="css/looma-video.css">
@@ -30,8 +36,18 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 	<body>
 		<?php
             //Sets the filepath and filename
-            $filepath = $_REQUEST['fp']; 
-            $filename = findName($_REQUEST['txt']);
+            $dn = $_REQUEST['dn'];
+            $filepath = $_REQUEST['fp'];
+            if ($dn != "null")
+            {
+                $filename = findName($_REQUEST['txt']);
+            }
+            else
+            {
+                print "FN " . $_REQUEST['fn'];
+                $filename = $_REQUEST['fn'];
+            }
+            $thumbFile = $filepath . thumbnail($filename);
         
             //Finds the name of an edited video based of the text inside the file
             function findName($txt)
@@ -89,8 +105,13 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 				//Sends the information from the .txt file to js
 				var commands = <?php echo $_REQUEST['txt']; ?>;
 				var commandsBackup = <?php echo $_REQUEST['txt']; ?>;
-                var displayName = "<?php echo addslashes($_REQUEST['dn']);?>";
-                videoPath = "<?php echo $filepath; ?>";
+                if ("<?php echo $_REQUEST['dn'] ?>" != "null")
+                {
+                    var displayName = "<?php echo addslashes($_REQUEST['dn']);?>";
+                }
+                var videoPath = "<?php echo $filepath; ?>";
+                var vn = "<?php echo $filename ?>";
+                var thumbFile = <?php echo json_encode($thumbFile); ?>;
 			</script>
 
 			<link rel="stylesheet" type="text/css" href="css/looma-edited-video.css">
@@ -112,6 +133,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         <div id="pdf-area"></div>
                         <div id ="added-video-area"></div>
 					</div>
+                    <div id="timeline-area"></div>
 				</div>
                 <div id="media-controls">
                             <br>
@@ -281,4 +303,4 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 			<?php include ('includes/toolbar.php'); ?>
 				<?php include ('includes/js-includes.php'); ?>
 					<script src="js/looma-screenfull.js"></script>
-					<script src="js/looma-edited-video.js"></script>
+					<script src="js/looma-video-enhancer.js"></script>
