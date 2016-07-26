@@ -328,9 +328,75 @@ $(document).ready(function () {
         {
             if(editsObj.videoTimes[0] > 0)
             {
-                show_image_timeline(false, thumbFile, thumbFile, "null", video.currentTime);
+                show_image_timeline(false, thumbFile, thumbFile, "null", 0);
             }
             
+            for(var i = 0; i < editsObj.videoTimes.length; i++)
+            {
+                if(editsObj.fileTypes[i] == "text")
+                {
+                    var textsBefore = 0;
+                    for(var x = 0; x < i; x++)
+                    {
+                        if(editsObj.fileTypes[i] == "text")
+                        {
+                            textsBefore++;
+                        }
+                    }
+                    show_text_timeline(editsObj.videoText[textsBefore], editsObj.videoTimes[i]);
+                }
+                else if(editsObj.fileTypes[i] == "image")
+                {
+                    console.log("image");
+                    var filesBefore = 0;
+                    for(var x = 0; x < i; x++)
+                    {
+                        if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                        {
+                            filesBefore++;
+                        }
+                    }
+                     var imgLoc = editsObj.filePaths[filesBefore];
+                    show_image_timeline(true, imgLoc, imgLoc, "image", editsObj.videoTimes[i]);
+                    
+                }
+                else if(editsObj.fileTypes[i] == "pdf")
+                {
+                    console.log("pdf");
+                    var filesBefore = 0;
+                    for(var x = 0; x < i; x++)
+                    {
+                        if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                        {
+                            filesBefore++;
+                        }   
+                    }
+                    var pdfLoc = editsObj.filePaths[filesBefore];
+                    show_image_timeline(true, pdfLoc.substr(0, pdfLoc.length - 4) + "_thumb.jpg", pdfLoc, "pdf", editsObj.videoTimes[i]);
+                }
+                else if(editsObj.fileTypes[i] == "video")
+                {
+                    console.log("video");
+                    var filesBefore = 0;
+                    for(var x = 0; x < i; x++)
+                    {
+                        if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                        {
+                            filesBefore++;
+                        }
+                    }
+                    var videoLoc = editsObj.filePaths[filesBefore];
+                    show_image_timeline(true, videoLoc.substr(0, videoLoc.length - 4) + "_thumb.jpg", videoLoc, "video", editsObj.videoTimes[i]);
+                    
+                }
+                if(i < editsObj.videoTimes.length - 1)
+                {
+                    if((editsObj.videoTimes[i+1] - editsObj.videoTimes[i]) > 1)
+                    {
+                        show_image_timeline(false, thumbFile, thumbFile, "null", -1);
+                    }
+                }
+            }
         }
 	});
 
