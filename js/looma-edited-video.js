@@ -535,7 +535,16 @@ $(document).ready(function () {
         renameFormDiv.style.display = "block";
     });
     
-    renameSubmitButton.addEventListener("click", function () {   
+    renameSubmitButton.addEventListener("click", function () { 
+        renameButton.style.display = "inline";
+        
+        timelineArea.style.visibility = "visible";
+        if(renameInput.value == "") {
+            newName = editsObj.videoName.substr(0, editsObj.videoName.length-4);
+        }
+        else {
+            var newName = renameInput.value;
+        }
         
         if (didSaveOnce)
         {
@@ -545,6 +554,12 @@ $(document).ready(function () {
             volumeBar.style.display = "inline";
             editButton.innerHTML = "Edit";
             editButton.style.display = "inline"; 
+            var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));    
+        $.ajax("looma-rename-edited-video.php", {
+            data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
+            method: "POST"
+        });
+        
         }
         else
         {
@@ -555,23 +570,8 @@ $(document).ready(function () {
             didSaveOnce = true;
         }
         
-        renameButton.style.display = "inline";
         
-        timelineArea.style.visibility = "visible";
-        
-        if(renameInput.value == "") {
-            newName = editsObj.videoName.substr(0, editsObj.videoName.length-4);
-        }
-        else {
-            var newName = renameInput.value;
-        }
         //newName = $('<div/>').text(renameInput.value).html();
-        var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));    
-        $.ajax("looma-rename-edited-video.php", {
-            data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
-            method: "POST"
-        });
-        
         editsObj.fileName = newName;
         
         return true;
