@@ -44,7 +44,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
             }
             else
             {
-                print "FN " . $_REQUEST['fn'];
                 $filename = $_REQUEST['fn'];
             }
             $thumbFile = $filepath . thumbnail($filename);

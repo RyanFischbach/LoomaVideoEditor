@@ -153,10 +153,12 @@ button#rename {
     
 button#edit {
     height: 50%;
+    width: 20%;
     display: none;
     margin-top:0px;
-    float: center;
-    transform: translateX(3px);
+    float: right;
+    margin-right: 39.9vw;
+    /*transform: translateX(3px);*/
 }
 
 

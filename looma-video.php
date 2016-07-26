@@ -99,20 +99,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 							<?php echo 'poster="' . $filepath . thumbnail($filename) . '">'; ?>
 								<?php echo '<source id="video-source" src="' . $filepath . $filename . '" type="video/mp4">' ?>
 						</video>
-                        <!--
-						<div id="text-box-area">
-							<form class="media hidden_button" id="text-box">
-								<textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
-							</form>
-                            <textarea name="text-playback" id="text-playback" readonly="true"></textarea>
-						</div>
-						<div id="image-area"></div>
-						<div id="pdf-area"></div>
-						<div id="added-video-area"></div>
--->
 					</div>
-                    <!--
-					<div id="timeline-area"></div> -->
 				</div>
 
 				<div id="media-controls">
@@ -141,93 +128,9 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 				</div>
 
 				<div id="edit-controls">
-                    <!--
-					<div id="rename-form-div">
-						<p> Save As </p>
-
-						<form autocomplete="off">
-							<input type="text" id="rename-text" />
-						</form>
-
-						<br>
-						<button type="button" class="media hidden_button" id="rename-form-submit-button">
-							php keyword("Submit") ?>
-						</button>
-					</div>
-
-					<div id="add-time-div">
-						<div id="add-start-stop-time-div">
-							<button type="button" class="media hidden_button" id="start-time">
-								php
-                                    $TKW['Set Start Time'] = 'समय सुरु सेट';
-                                    keyword('Set Start Time')
-                                ?>
-							</button>
-
-							<button type="button" class="media hidden_button" id="stop-time">
-								php
-                                    $TKW['Set Stop Time'] = 'स्टप समय सेट';
-                                    keyword('Set Stop Time')
-                                ?>
-							</button>
-						</div>
-
-						<div id="default-start-stop-time-div">
-							<button type="button" class="media hidden_button" id="default-start-stop-time">
-								php
-                                    $TKW['Default'] = 'पूर्वनिर्धारित';
-                                    keyword('Default');
-                                ?>
-							</button>
-						</div>
-					</div>
-
-					<button type="button" class="media hidden_button" id="prev-frame5">
-						&lt;&lt;&lt; php $TKW[ 'Previous Frame']='अघिल्लो फ्रेम' ; tooltip( 'Previous Frame') ?>
-					</button>
-
-					<button type="button" class="media hidden_button" id="prev-frame">
-						&lt; php $TKW[ 'Previous Frame']='अघिल्लो फ्रेम' ; tooltip( 'Previous Frame') ?>
-					</button>
-
-					<button type="button" class="media hidden_button" id="next-frame">
-						&gt;
-						php
-                                $TKW['Next Frame'] = 'अर्को फ्रेम';
-                                tooltip('Next Frame')
-                            ?>
-					</button>
-
-
-					<button type="button" class="media hidden_button" id="next-frame5">
-						&gt;&gt;&gt;
-						php
-                                $TKW['Next Frame'] = 'अर्को फ्रेम';
-                                tooltip('Next Frame')
-                            ?>
-					</button>
-                    
-                    <button type="button" class="media hidden_button" id="rename">
-						<?php keyword('Rename') ?>
-					</button>
-						
-					<br>
-						
-					<button type="button" class="media hidden_button" id="cancel">
-						php
-                                $TKW['Cancel'] = 'रद्द';
-                                keyword('Cancel');
-                            ?>
-					</button>
-                        
-                    <form class="media" id="search-area" style="display: none">
-                        <input name="search" id="search-box" placeholder="Search for..."/>
-				    </form>
-    -->
 
 					<button type="button" class="media hidden_button" id="edit">
-						<?php $TKW['Edit'] = 'सम्पादन'; $TKW['Save'] = 'सुरक्षित' ?>
-							<?php keyword('Edit'); ?>
+							<?php keyword('Create Edited Video'); ?>
 					</button>
                     
                     <div id="login-div">
@@ -235,89 +138,13 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
                             <?php keyword('Log In') ?>
                         </button>
                     </div>
-<!--
-					<button type="button" class="media hidden_button" id="text">
-						php 
-                                $TKW['Text'] = 'पाठ';
-                                keyword('Text');
-                            ?>
-					</button>
-
-					<button type="button" class="media hidden_button" id="image">
-						php
-                                $TKW['Image'] = 'छवि';
-                                keyword('Image') 
-                            ?>
-					</button>
-
-					<button type="button" class="media hidden_button" id="pdf">
-						php keyword('Pdf') ?>
-					</button>
-
-					<button type="button" class="media hidden_button" id="video-button">
-						php keyword('Video') ?>
-					</button>
-
-					<button type="button" class="media hidden_button" id="submit">
-						php keyword('Submit') ?>
-					</button>
-
-					<br>
--->
-
-
 				</div>
-
-				<!--Opens the pictures folder when you want to pick a picture-->
-                <!--
-				<div id="image-previews">
-					php
-                        $type = "image";
-                        $folder = "pictures";
-                        include ('includes/video-editor-file-viewer.php');
-                    ?>
-				</div>
-    -->
-
-				<!--Opens the pdf folder when you want to pick a pdf-->
-                <!--
-				<div id="pdf-previews">
-					php
-                        $type = "pdf";
-                    $folder = "pdfs";
-                        include ('includes/video-editor-file-viewer.php');
-                    ?>
-				</div>
--->
-                <!--
-				<div id="video-previews">
-					php
-                        $type = "video";
-                    $folder = "videos";
-                        include ('includes/video-editor-file-viewer.php');
-                    ?>
-				</div>
-                -->
-
-
 			</div>
-			<!--Adds the toolbar to the video player screen-->
-			<?php include ('includes/toolbar.php'); ?>
-				<?php include ('includes/js-includes.php'); ?>
-					<script src="js/looma-screenfull.js"></script>
-
-					<script src="js/looma-video.js"></script>
-
-					<!-- Update Video Name in looma-video.js -->
-
-<!--
-					<script>
-						var name = "<?php echo $filename; ?>";
-						editsObj.videoName = name;
-                        editsObj.fileName = name.substr(0, name.lastIndexOf("."));
-                        videoPath = "<?php echo $filepath; ?>";
-                        console.log(videoPath);
-					</script>
--->
+        
+        <!--Adds the toolbar to the video player screen-->
+        <?php include ('includes/toolbar.php'); ?>
+        <?php include ('includes/js-includes.php'); ?>
+        <script src="js/looma-screenfull.js"></script>
+        <script src="js/looma-video.js"></script>
 
 	</body>
