@@ -338,7 +338,7 @@ $(document).ready(function () {
                     var textsBefore = 0;
                     for(var x = 0; x < i; x++)
                     {
-                        if(editsObj.fileTypes[i] == "text")
+                        if(editsObj.fileTypes[x] == "text")
                         {
                             textsBefore++;
                         }
@@ -351,7 +351,7 @@ $(document).ready(function () {
                     var filesBefore = 0;
                     for(var x = 0; x < i; x++)
                     {
-                        if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                        if(editsObj.fileTypes[x] == "image" || editsObj.fileTypes[x] == "pdf" || editsObj.fileTypes[x] == "video")
                         {
                             filesBefore++;
                         }
@@ -366,7 +366,7 @@ $(document).ready(function () {
                     var filesBefore = 0;
                     for(var x = 0; x < i; x++)
                     {
-                        if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                        if(editsObj.fileTypes[x] == "image" || editsObj.fileTypes[x] == "pdf" || editsObj.fileTypes[x] == "video")
                         {
                             filesBefore++;
                         }   
@@ -380,7 +380,7 @@ $(document).ready(function () {
                     var filesBefore = 0;
                     for(var x = 0; x < i; x++)
                     {
-                        if(editsObj.fileTypes[i] == "image" || editsObj.fileTypes[i] == "pdf" || editsObj.fileTypes[i] == "video")
+                        if(editsObj.fileTypes[x] == "image" || editsObj.fileTypes[x] == "pdf" || editsObj.fileTypes[x] == "video")
                         {
                             filesBefore++;
                         }
