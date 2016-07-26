@@ -140,7 +140,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 
                             <button id="fullscreen-playpause"></button>
 
-                            <div id="time"></div>
+                            <div id="time" class="title"></div>
 
                             <button type="button" class="media" id="play-pause">
                                 <?php tooltip('Play/Pause'); ?>
@@ -302,4 +302,4 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 			<?php include ('includes/toolbar.php'); ?>
 				<?php include ('includes/js-includes.php'); ?>
 					<script src="js/looma-screenfull.js"></script>
-					<script src="js/looma-video-enhancer.js"></script>
+					<script src="js/looma-edited-video.js"></script>
