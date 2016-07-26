@@ -278,6 +278,20 @@ $(document).ready(function () {
             }
     }
     
+    // Important Functions - Timeline Functions
+    function getFilesBefore(index)
+    {
+        var filesBefore = 0;
+        for(var x = 0; x < index; x++)
+        {
+            if(editsObj.fileTypes[x] == "image" || editsObj.fileTypes[x] == "pdf" || editsObj.fileTypes[x] == "video")
+            {
+                filesBefore++;
+            }   
+        }
+        return filesBefore;
+    }
+    
     
     // Event Listeners
     
@@ -348,44 +362,21 @@ $(document).ready(function () {
                 else if(editsObj.fileTypes[i] == "image")
                 {
                     console.log("image");
-                    var filesBefore = 0;
-                    for(var x = 0; x < i; x++)
-                    {
-                        if(editsObj.fileTypes[x] == "image" || editsObj.fileTypes[x] == "pdf" || editsObj.fileTypes[x] == "video")
-                        {
-                            filesBefore++;
-                        }
-                    }
-                     var imgLoc = editsObj.filePaths[filesBefore];
+                     var imgLoc = editsObj.filePaths[getFilesBefore(i)];
                     show_image_timeline(true, imgLoc, imgLoc, "image", editsObj.videoTimes[i]);
                     
                 }
                 else if(editsObj.fileTypes[i] == "pdf")
                 {
                     console.log("pdf");
-                    var filesBefore = 0;
-                    for(var x = 0; x < i; x++)
-                    {
-                        if(editsObj.fileTypes[x] == "image" || editsObj.fileTypes[x] == "pdf" || editsObj.fileTypes[x] == "video")
-                        {
-                            filesBefore++;
-                        }   
-                    }
-                    var pdfLoc = editsObj.filePaths[filesBefore];
+                    var pdfLoc = editsObj.filePaths[getFilesBefore(i)];
                     show_image_timeline(true, pdfLoc.substr(0, pdfLoc.length - 4) + "_thumb.jpg", pdfLoc, "pdf", editsObj.videoTimes[i]);
                 }
                 else if(editsObj.fileTypes[i] == "video")
                 {
                     console.log("video");
                     var filesBefore = 0;
-                    for(var x = 0; x < i; x++)
-                    {
-                        if(editsObj.fileTypes[x] == "image" || editsObj.fileTypes[x] == "pdf" || editsObj.fileTypes[x] == "video")
-                        {
-                            filesBefore++;
-                        }
-                    }
-                    var videoLoc = editsObj.filePaths[filesBefore];
+                    var videoLoc = editsObj.filePaths[getFilesBefore(i)];
                     show_image_timeline(true, videoLoc.substr(0, videoLoc.length - 4) + "_thumb.jpg", videoLoc, "video", editsObj.videoTimes[i]);
                     
                 }
