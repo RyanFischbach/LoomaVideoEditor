@@ -7,7 +7,7 @@ Revision: Looma Video Editor 0.1
 
 filename: looma-video.js
 Description: videoplayer controls for videoplayer.php
-Attribution: heavily borrowed from Matt West (blog.teamtreehouse.com)
+Attribution: slightly borrowed from Matt West (blog.teamtreehouse.com)
  */
 
 // Arrays of Edited Video Information
@@ -312,6 +312,16 @@ $(document).ready(function () {
 		timelineImageWidth = timelineArea.offsetWidth - 30;
         //There can be 6 rows of images before a scrollbar is created
 		timelineImageHeight = timelineArea.offsetHeight / 3;
+        
+        //Updates timeline if edits already exist
+        if (editsObj.videoTimes.length > 0)
+        {
+            if(editsObj.videoTimes[0] > 0)
+            {
+                show_image_timeline(false, thumbFile, thumbFile, "null", video.currentTime);
+            }
+            
+        }
 	});
 
 	
