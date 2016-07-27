@@ -527,13 +527,11 @@ $(document).ready(function () {
     renameButton.addEventListener("click", function () {
         // Rename video
         pauseVideo(video);
-        hideElements([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, prev5FrameButton, next5FrameButton]);
+        hideElements([mediaControls, renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, submitButton, nextFrameButton, prevFrameButton, prev5FrameButton, next5FrameButton]);
         renameFormDiv.style.display = "block";
     });
     
     renameSubmitButton.addEventListener("click", function () { 
-        renameButton.style.display = "inline";
-        
         timelineArea.style.visibility = "visible";
         if(renameInput.value == "") {
             newName = editsObj.videoName.substr(0, editsObj.videoName.length-4);
@@ -550,25 +548,29 @@ $(document).ready(function () {
             volumeBar.style.display = "inline";
             editButton.innerHTML = "Edit";
             editButton.style.display = "inline"; 
-            var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));    
+            var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf(".")); 
+            console.log(editsObj.fileName);
         $.ajax("looma-rename-edited-video.php", {
             data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
-            method: "POST"
+            method: "POST",
+            complete: function() {
+                editsObj.fileName = newName;
+            }
         });
         
         }
         else
         {
-            displayElementsInline([cancelButton, textButton, imageButton, pdfButton, videoButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, mediaControls]);
+            displayElementsInline([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, mediaControls]);
 			volumeBar.style.display = "none";
 			muteButton.style.display = "none";
             renameFormDiv.style.display = "none";
             didSaveOnce = true;
+            editsObj.fileName = newName;
         }
         
         
         //newName = $('<div/>').text(renameInput.value).html();
-        editsObj.fileName = newName;
         
         return true;
     });
