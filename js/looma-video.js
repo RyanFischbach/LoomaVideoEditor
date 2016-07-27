@@ -35,6 +35,8 @@ $(document).ready(function () {
     var editButton = document.getElementById("edit");
     var loginButton = document.getElementById("login");
     
+    var videoArea = document.getElementById("video-area");
+    
     var isFullscreen = false;
 	$('#fullscreen-control').click(function (e) {
 		e.preventDefault();
