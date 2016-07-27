@@ -73,6 +73,7 @@ $(document).ready(function () {
     //Edit Controls
     var editControls = document.getElementById("edit-controls");
     var loginButton = document.getElementById("login");
+    var videoDelete = document.getElementById("delete");
     
     // Edit Controls - Renaming a video
     var renameButton = document.getElementById("rename");
@@ -187,6 +188,8 @@ $(document).ready(function () {
     {
         loginButton.innerHTML = "Log Out";
         editButton.style.display = "inline";
+        if(commands != null)
+            videoDelete.style.display = "inline";
     }
     else
     {
@@ -509,12 +512,14 @@ $(document).ready(function () {
         {
             loginButton.innerHTML = "Log In";
             editButton.style.display = "none";
+            videoDelete.style.display = "none";
             pauseVideo(video);
         }
         else
         {
             loginButton.innerHTML = "Log Out";
             editButton.style.display = "inline";
+            videoDelete.style.display = "inline"
             pauseVideo(video);
         }
     });
@@ -609,11 +614,14 @@ $(document).ready(function () {
             removeCurrentImage();
             removeCurrentPdf();
             removeCurrentAddedVideo();
+            
+            if(commands != null)
+                videoDelete.style.display = "inline";
         } 
 		else
 		{
             // Hide Media controls
-            hideElements([mediaControls, editButton, loginButton]);
+            hideElements([mediaControls, editButton, loginButton, videoDelete]);
             
             // Display edit options
             if (didSaveOnce)
@@ -1082,6 +1090,10 @@ $(document).ready(function () {
 
         // change the edit button to say edit
         editButton.innerHTML = "Edit";
+        
+        // Shows delete button
+        if(commands != null)
+            videoDelete.style.display = "inline";
     }
     
     function cancelEdit() {
@@ -2346,5 +2358,14 @@ $(document).ready(function () {
         currentPdf = pdf;
         pdfArea.appendChild(pdf);
     }
+    
+    videoDelete.addEventListener("click", function() {
+         $.ajax({
+            url:'looma-delete-edited-video.php', 
+            data: {displayName: displayName}, 
+            method:'POST',
+        });
+        window.location = 'looma-library.php';
+    });
    
 });
