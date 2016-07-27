@@ -156,8 +156,9 @@ button#edit {
     width: 20%;
     display: none;
     margin-top:0px;
-    float: right;
-    margin-right: 39.9vw;
+    /*float: right;*/
+    margin: 0 auto;
+    /*margin-right: 39.9vw;*/
     /*transform: translateX(3px);*/
 }
 
