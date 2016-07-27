@@ -1754,21 +1754,26 @@ $(document).ready(function () {
             var hoverDiv = document.createElement("div");
             
             var timelineButton = document.createElement("button");
+            var deleteButton = document.createElement("button");
             if (editsObj.videoTimes.length > 0)
             {
                 //timelineButton.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
                 timelineButton.className = time;
                 timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
+                deleteButton.id = deleteButtonId;
+                deleteButtonId++;
+                deleteButton.innerHTML = "Delete";
             }
             else
             {
                 timelineButton.innerHTML = "";
+                deleteButton.innerHTML = "";
             }
 
             addTimelineButtonEventListener(timelineButton, "text");
 
             hoverDiv.appendChild(timelineButton);
-            hoverDiv.style.backgroundColor = "black";
+            hoverDiv.appendChild(deleteButton);
             hoverDiv.style.display = "none";
             hoverDiv.style.position = "absolute";
             hoverDiv.style.top = "0px";
@@ -1823,21 +1828,26 @@ $(document).ready(function () {
 
 
             var timelineButton = document.createElement("button");
+            var deleteButton = document.createElement("button");
             if (editsObj.videoTimes.length > 0)
             {
                 //timelineButton.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
                 timelineButton.className = time;
                 timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
+                deleteButton.id = deleteButtonId;
+                deleteButtonId++;
+                deleteButton.innerHTML = "Delete";
             }
             else
             {
                 timelineButton.innerHTML = "";
+                deleteButton.innerHTML
             }
 
             addTimelineButtonEventListener(timelineButton, "text");
 
             hoverDiv.appendChild(timelineButton);
-            hoverDiv.style.backgroundColor = "black";
+            hoverDiv.appendChild(deleteButton);
             hoverDiv.style.display = "none";
             hoverDiv.style.position = "absolute";
             hoverDiv.style.top = "0px";
