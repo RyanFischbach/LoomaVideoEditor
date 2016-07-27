@@ -10,68 +10,10 @@ Description: Accesses files for the video editor. Mainly copied from looma-libra
 
 <?php
 include ('includes/mongo-connect.php');
+
 /*
-if ($type == "image")
-{
-    $pngs = $activities_collection->find(array("ft" => "png"));
-    $jpgs = $activities_collection->find(array("ft" => "jpg"));
-    $gifs = $activities_collection->find(array("ft" => "gif"));
-    foreach($pngs as $png)
-    {
-        $dn = $png['dn'];
-        $file = $png['fn'];
-        $base = substr($file, strrpos($file, "."));
-        $ext = "png";
-        $path = "../content/pictures/";
-        makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
-    }
-    foreach($jpgs as $jpg)
-    {
-        $dn = $jpg['dn'];
-        $file = $jpg['fn'];
-        $base = substr($file, strrpos($file, "."));
-        $ext = "jpg";
-        $path = "../content/pictures/";
-        makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
-    }
-    foreach($gifs as $gif)
-    {
-        $dn = $gif['dn'];
-        $file = $gif['fn'];
-        $base = substr($file, strrpos($file, "."));
-        $ext = "gif";
-        $path = "../content/pictures/";
-        makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
-    }
-}
-else if ($type == "pdf")
-{
-    $pdfs = $activities_collection->find(array("ft" => "pdf"));
-    foreach($pdfs as $pdf)
-    {
-        $dn = $pdf['dn'];
-        $file = $pdf['fn'];
-        $base = substr($file, strrpos($file, "."));
-        $ext = "pdf";
-        $path = "../content/pdfs/";
-        makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");    
-    }
-}
-else if ($type == "video")
-{
-    $videos = $activities_collection->find(array("ft" => "mp4"));
-    foreach($videos as $video)
-    {
-        $dn = $video['dn'];
-        $file = $video['fn'];
-        $base = substr($file, strrpos($file, "."));
-        $ext = "mp4";
-        $path = "../content/videos/";
-        makeButton($file, $path, $ext, $base, $dn, $path . $base . "_thumb.jpg");
-    }
-}
+This path is hardwired. The $folder variable is declared in looma-edited-video.php
 */
-                       
 $path = '../content/' . $folder . '/';
 $fileArr = array();
                                 
