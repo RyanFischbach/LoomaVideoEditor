@@ -112,7 +112,6 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 
 					<button type="button" class="media" id="play-pause">
 						<?php
-                            $TKW['Play/Pause'] = 'प्ले / पज';
                             keyword('Play/Pause');
                         ?>
 					</button>

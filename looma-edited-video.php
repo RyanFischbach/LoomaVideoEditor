@@ -172,14 +172,12 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                 <div id="add-start-stop-time-div">
                                     <button type="button" class="media hidden_button" id="start-time">
                                         <?php
-                                            $TKW['Set Start Time'] = 'समय सुरु सेट';
                                             keyword('Set Start Time')
                                         ?>
                                     </button>
 
                                     <button type="button" class="media hidden_button" id="stop-time">
                                         <?php
-                                            $TKW['Set Stop Time'] = 'स्टप समय सेट';
                                             keyword('Set Stop Time')
                                         ?>
                                     </button>
@@ -187,7 +185,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                                 <div id="default-start-stop-time-div">
                                     <button type="button" class="media hidden_button" id="default-start-stop-time">
                                         <?php
-                                            $TKW['Default'] = 'पूर्वनिर्धारित';
                                             keyword('Default');
                                         ?>
                                     </button>
@@ -218,7 +215,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             <button type="button" class="media hidden_button" id="prev-frame5">
                                 &lt;&lt;&lt;
                                 <?php
-                                    $TKW['Previous Frame'] = 'अघिल्लो फ्रेम';
                                     tooltip('Previous Frame')
                                 ?>
                             </button>
@@ -226,7 +222,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             <button type="button" class="media hidden_button" id="prev-frame">
                                 &lt;
                                 <?php
-                                    $TKW['Previous Frame'] = 'अघिल्लो फ्रेम';
                                     tooltip('Previous Frame')
                                 ?>
                             </button>
@@ -234,7 +229,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             <button type="button" class="media hidden_button" id="next-frame">
                                 >
                                 <?php
-                                    $TKW['Next Frame'] = 'अर्को फ्रेम';
                                     tooltip('Next Frame')
                                 ?>
                             </button>
@@ -243,7 +237,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                              <button type="button" class="media hidden_button" id="next-frame5">
                                 >>>
                                 <?php
-                                    $TKW['Next Frame'] = 'अर्को फ्रेम';
                                     tooltip('Next Frame')
                                 ?>
                             </button>

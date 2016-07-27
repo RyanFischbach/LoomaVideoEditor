@@ -124,7 +124,21 @@ Description:  functions and translation array for Keywords used in Looma 2
 			"Divide" => "भाग",
 			"Pick an old drawing:" => "पुरानो रेखाचित्र छान्नुहोस्",
 			"File saved" => "फाइल बचत",
-			"Back to the Paint page" => "फिर्ता रंग पृष्ठमा"
+			"Back to the Paint page" => "फिर्ता रंग पृष्ठमा",
+            "Next Frame" => "अर्को फ्रेम",
+            "Play/Pause" => "प्ले / पज",
+            "Create Edited Video" => "सम्पादित भिडियो सिर्जना",
+            "Log In" => "लग - इन",
+            "Previous Frame" => "अघिल्लो फ्रेम",
+            "Set Start Time" => "समय सुरु सेट",
+            "Set Stop Time" => "स्टप समय सेट",
+            "Default" => "पूर्वनिर्धारित",
+            "Cancel" => "रद्द",
+            "Delete" => "मेटाउन",
+            "Edit" => "सम्पादन",
+            "Rename" => "पुन: नामकरण",
+            "Text" => "पाठ",
+            "Image" => "छवि"
 	); //end array TKW
 
 function keyword($english) {
