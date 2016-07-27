@@ -1771,6 +1771,7 @@ $(document).ready(function () {
             }
 
             addTimelineButtonEventListener(timelineButton, "text");
+            deleteButtonEventListener(deleteButton, "text");
 
             hoverDiv.appendChild(timelineButton);
             hoverDiv.appendChild(deleteButton);
@@ -1845,6 +1846,7 @@ $(document).ready(function () {
             }
 
             addTimelineButtonEventListener(timelineButton, "text");
+            deleteButtonEventListener(deleteButton, "text");
 
             hoverDiv.appendChild(timelineButton);
             hoverDiv.appendChild(deleteButton);
