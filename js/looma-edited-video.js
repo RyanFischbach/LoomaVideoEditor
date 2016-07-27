@@ -1936,6 +1936,7 @@ $(document).ready(function () {
     for (var i = 0; i < videoOptionButtons.length; i++)
     {
         videoOptionButtons[i].addEventListener("click", function () {
+            searchArea.style.display = "none";
             mediaControls.style.height = "10%";
             editControls.style.height = "20%";
             cancelButton.style.height = "25%";
@@ -2295,6 +2296,7 @@ $(document).ready(function () {
                         currentBlackScreen = blackScreen
                         blackScreen.id = "black-screen";
                         blackScreen.style.zIndex = overlayZ - 1;
+                        addedVideoArea.style.zIndex = overlayZ;
                         document.getElementById("video-area").appendChild(blackScreen);
                     }
                     index++;

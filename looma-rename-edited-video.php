@@ -15,7 +15,7 @@ include ('includes/mongo-connect.php');
 
     $newName = $_REQUEST['newPath'];
     $oldName = $_REQUEST['oldPath'];
-    $strJSON = $_REQUEST['info'];
+    $strJSON = json_encode($_REQUEST['info']);
 
     //$newName = str_replace(' ', '_', $newName);
 
