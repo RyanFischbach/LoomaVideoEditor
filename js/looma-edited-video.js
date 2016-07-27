@@ -2258,6 +2258,7 @@ $(document).ready(function () {
                         textArea.value = message;
                         textArea.style.display = 'inline-block';
                         pauseVideo(video);
+						fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
                         textArea.style.zIndex = overlayZ;
                         pdfArea.style.zIndex = basePdfZ;
 
