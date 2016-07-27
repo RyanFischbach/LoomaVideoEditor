@@ -270,7 +270,7 @@ button#fullscreen-playpause {
     background-image: url("../images/video.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-	background-color:rgba(200,200,200,0.3);  /*transparent light gray*//*
+	background-color:rgba(200,200,200,1);  /*transparent light gray*//*
 }
 
 button.img img {

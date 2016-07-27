@@ -2277,6 +2277,7 @@ $(document).ready(function () {
                         
                         show_image(editsObj.filePaths[filesBefore], "Image not found");
                         pauseVideo(video);
+						fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
                     }
                     else if (editsObj.fileTypes[index] == "pdf") {
                         
@@ -2292,6 +2293,7 @@ $(document).ready(function () {
                         pauseVideo(video);
                         textArea.style.zIndex = baseTextZ;
                         pdfArea.style.zIndex = overlayZ;
+						fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
                     }
                     else if (editsObj.fileTypes[index] == "video") {
                         
@@ -2304,6 +2306,7 @@ $(document).ready(function () {
                         
                         //Overlays a video inside of OverlaidVideoArea
                         pauseVideo(video);
+						fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
                         
                         var videosBefore = 0;
                         for(var i = 0; i < index; i++)
@@ -2321,6 +2324,7 @@ $(document).ready(function () {
                         addedVideo.currentTime = startTime;
                         timeDiv.innerHTML = minuteSecondTime(currentAddedVideo.currentTime);
                         playButton.style.backgroundImage = 'url("images/video.png")';
+						fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
                         
                         var blackScreen = document.createElement("div");
                         currentBlackScreen = blackScreen
