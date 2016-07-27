@@ -26,31 +26,7 @@ var editsObj = {
 'use strict';
 $(document).ready(function () {
     
-    if (commands != null)
-    {
-        if (commands.fileTypes != null) {
-            editsObj.fileTypes = commands.fileTypes;
-        }
-        if (commands.videoName != null) {
-            editsObj.videoName = commands.videoName;
-        }
-        if (commands.fileName != null) {
-            editsObj.fileName = commands.fileName;
-        }
-        if (commands.videoTimes != null) {
-            editsObj.videoTimes = commands.videoTimes;
-            console.log(editsObj.videoTimes);
-        }
-        if (commands.videoText != null) {
-            editsObj.videoText = commands.videoText;
-        }
-        if (commands.filePaths != null) {
-            editsObj.filePaths = commands.filePaths;
-        }
-        if (commands.addedVideoTimes != null) {
-            editsObj.addedVideoTimes = commands.addedVideoTimes;
-        }
-    }
+    
 
 	// Video
 	var video = document.getElementById("video");
@@ -184,18 +160,6 @@ $(document).ready(function () {
     // MongoDB
     var didSaveToDBOnce = false;
     
-    if (commands == null)
-    {
-        loginButton.innerHTML = "Log Out";
-        editButton.style.display = "inline";
-        if(commands != null)
-            videoDelete.style.display = "inline";
-    }
-    else
-    {
-        didSaveOnce = true;
-    }
-    
     // Important Functions
     
     // Important Functions - Changing CSS
@@ -295,6 +259,46 @@ $(document).ready(function () {
         return filesBefore;
     }
     
+    if (commands != null)
+    {
+        didSaveOnce = true;
+        if (commands.fileTypes != null) {
+            editsObj.fileTypes = commands.fileTypes;
+        }
+        if (commands.videoName != null) {
+            editsObj.videoName = commands.videoName;
+        }
+        if (commands.fileName != null) {
+            editsObj.fileName = commands.fileName;
+        }
+        if (commands.videoTimes != null) {
+            editsObj.videoTimes = commands.videoTimes;
+            console.log(editsObj.videoTimes);
+            if (editsObj.videoTimes.indexOf("0") > -1)
+            {
+                disableButton(textButton);
+                disableButton(imageButton);
+                disableButton(pdfButton);
+                disableButton(videoButton);
+                disableOneTime = true;
+            }
+        }
+        if (commands.videoText != null) {
+            editsObj.videoText = commands.videoText;
+        }
+        if (commands.filePaths != null) {
+            editsObj.filePaths = commands.filePaths;
+        }
+        if (commands.addedVideoTimes != null) {
+            editsObj.addedVideoTimes = commands.addedVideoTimes;
+        }
+    }
+    else (commands == null)
+    {
+        loginButton.innerHTML = "Log Out";
+        editButton.style.display = "inline";
+        videoDelete.style.display = "inline";
+    }
     
     // Event Listeners
     
