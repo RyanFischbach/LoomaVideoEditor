@@ -16,7 +16,7 @@ var videoPath;
 var editsObj = {
 	fileTypes: []
 	, videoName: vn
-    , fileName: ""
+    , fileName: fn
 	, videoTimes: []
 	, videoText: []
 	, filePaths: []

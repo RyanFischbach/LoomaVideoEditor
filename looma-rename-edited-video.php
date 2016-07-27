@@ -36,7 +36,7 @@ include ('includes/mongo-connect.php');
     */
 
     // Save to DB
-    $newDn = str_replace('_', ' ', $newName . "_Edited");
+    $newDn = str_replace('_', ' ', $newName);
 
     $query = array("fn" => $oldName);
     $fileToUpdate = $edited_videos_collection->findOne($query);

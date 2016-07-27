@@ -33,7 +33,7 @@ fclose($myFile);
 */
 
 // Save File to DB
-$dn = str_replace('_', ' ', $fileName . "_Edited");
+$dn = str_replace('_', ' ', $fileName);
 
 $query = array("fn" => $fileName);
 $fileToUpdate = $edited_videos_collection->findOne($query);
