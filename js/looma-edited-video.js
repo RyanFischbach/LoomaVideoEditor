@@ -1249,7 +1249,9 @@ $(document).ready(function () {
     function show_image_timeline(isAnEdit, image_src, src, type, time) {
         // image_src = src for image thumbnail
         // src = src for actual file
+        
         if (timelineEdit) {
+            //If you clicked on the edit from the timeline
             var buttons = document.getElementsByClassName("" + time);
             var button;
             for (var i = 0; i < buttons.length; i++) {
@@ -1267,76 +1269,77 @@ $(document).ready(function () {
             }
         }
         else if (didEditPast) {
-            //didEditPast = false;
+            //If you scrolled back using the seek bar and then created an edit
             
             var newChild;
             var imageDiv = document.createElement("div");
             var img = document.createElement("img");
             var hoverDiv = document.createElement("div");
             
-            //var button = document.createElement("button");
-
             // Check to make sure timeline element is not the video thumbnail
             if (isAnEdit)
             {
+                //Creates a button for editing the edit and a button to delete the edit
                 var button = document.createElement("button");
                 var deleteButton = document.createElement("button");
-                if (editsObj.videoTimes.length > 0)
-                {
-                    button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
-                    button.src = src;
-                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
-                    deleteButton.id = deleteButtonId;
-                    deleteButtonId++;
-                    deleteButton.innerHTML = "Delete";
-                    deleteButton.src = src;
-                }
-                else
-                {
-                    button.innerHTML = "";
-                    deleteButton.innerHTML = "";
-                }
+                button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
+                button.src = src;
+                button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
+                deleteButton.id = deleteButtonId;
+                deleteButtonId++;
+                deleteButton.innerHTML = "Delete";
+                deleteButton.src = src;
                 
+                //Creates event listeners for both of the buttons
                 addTimelineButtonEventListener(button, type);
                 deleteButtonEventListener(deleteButton, type);
                 
+                //Adds the buttons to a div that only shows up when scrolled over
                 hoverDiv.appendChild(button);
                 hoverDiv.appendChild(deleteButton);
             }
-
+            
+            //Styles the hoverDiv
             hoverDiv.style.display = "none";
             hoverDiv.style.position = "absolute";
             hoverDiv.style.top = "0px";
             hoverDiv.style.left = "0px";
             imageDiv.appendChild(hoverDiv);
-
+            
+            //Sets the style of the div containing the image
             imageDiv.style.position = "relative";
             imageDiv.width = timelineImageWidth;
             imageDiv.height = timelineImageHeight;
+            
+            //When the imageDiv is hovered over it displays the hoverDiv
             imageDiv.onmouseover = function() {
                 hoverDiv.style.display = "block";
             };
             imageDiv.onmouseout = function() {
                 hoverDiv.style.display = "none";
             };
-
+            
+            //Sets the image for the timeline
             img.src = image_src;
             img.width = timelineImageWidth;
             img.height= timelineImageHeight;
             imageDiv.appendChild(img);
             newChild = imageDiv;
             
+             //Inserts the imageDiv in the right place in time
             var children = document.getElementById("timeline-area").children;
             var child = findChild(children, time);
             document.getElementById("timeline-area").insertBefore(newChild, child);
             
         }
         else {
-        
+            //Added an edit normally
+            
             var imageDiv = document.createElement("div");
             var img = document.createElement("img");
             var hoverDiv = document.createElement("div");
             
+            //Sets the image for the timeline
             img.src = image_src;
             img.width = timelineImageWidth;
             img.height= timelineImageHeight;
@@ -1344,47 +1347,47 @@ $(document).ready(function () {
             // Check to make sure timeline element is not the video thumbnail
             if (isAnEdit)
             {
+                //Creates a button for editing the edit and a button to delete the edit
                 var button = document.createElement("button");
                 var deleteButton = document.createElement("button");
-                if (editsObj.videoTimes.length > 0)
-                {
-                    button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
-                    button.src = src;
-                    button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
-                    deleteButton.id = deleteButtonId;
-                    deleteButtonId++;
-                    deleteButton.innerHTML = "Delete";
-                    deleteButton.src = src;
-                }
-                else
-                {
-                    button.innerHTML = "";
-                    deleteButton.innerHTML = "";
-                }
+                button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
+                button.src = src;
+                button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
+                deleteButton.id = deleteButtonId;
+                deleteButtonId++;
+                deleteButton.innerHTML = "Delete";
+                deleteButton.src = src;
                 
+                //Creates event listeners for both of the buttons
                 addTimelineButtonEventListener(button, type);
                 deleteButtonEventListener(deleteButton, type);
                 
+                //Adds the buttons to a div that only shows up when scrolled over
                 hoverDiv.appendChild(button);
                 hoverDiv.appendChild(deleteButton);
             }
 
+            //Styles the hoverDiv
             hoverDiv.style.display = "none";
             hoverDiv.style.position = "absolute";
             hoverDiv.style.top = "0px";
             hoverDiv.style.left = "0px";
             imageDiv.appendChild(hoverDiv);
 
+            //Sets the style of the div containing the image
             imageDiv.style.position = "relative";
             imageDiv.width = timelineImageWidth;
             imageDiv.height = timelineImageHeight;
+            
+            //When the imageDiv is hovered over it displays the hoverDiv
             imageDiv.onmouseover = function() {
                 hoverDiv.style.display = "block";
             };
             imageDiv.onmouseout = function() {
                 hoverDiv.style.display = "none";
             };
-
+            
+            //Adds the image to the div and adds the div to the timeline
             imageDiv.appendChild(img);
             document.getElementById("timeline-area").appendChild(imageDiv);
         }
@@ -1736,7 +1739,7 @@ $(document).ready(function () {
         if (timelineEdit)
         {
             //If you clicked on the edit from the timeline
-            //Changes what the timeline says if you change the message in a text div
+            //Changes the text in the timeline to match the text in the edit
             var textDiv;
             var textDivs = document.getElementsByClassName("timeline-text-div");
             for (var i = 0; i < textDivs.length; i++) {
@@ -1803,7 +1806,7 @@ $(document).ready(function () {
                 hoverDiv.style.display = "none";
             };
 
-            //Adds the hoverDiv the the textDiv
+            //Adds the hoverDiv the textDiv
             textDiv.appendChild(hoverDiv); 
             newChild = textDiv;
             
