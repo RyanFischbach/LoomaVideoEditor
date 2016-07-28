@@ -1735,6 +1735,8 @@ $(document).ready(function () {
     function show_text_timeline(message, time) {
         if (timelineEdit)
         {
+            //If you clicked on the edit from the timeline
+            //Changes what the timeline says if you change the message in a text div
             var textDiv;
             var textDivs = document.getElementsByClassName("timeline-text-div");
             for (var i = 0; i < textDivs.length; i++) {
@@ -1751,32 +1753,26 @@ $(document).ready(function () {
         }
         else if (didEditPast)
         {
-            //didEditPast = false;
+            //If you scrolled back using the seek bar and then created an edit
             
             var newChild;
             var textDiv = document.createElement("div");
             var hoverDiv = document.createElement("div");
             
+            //Creates a button for editing the edit and a button to delete the edit
             var timelineButton = document.createElement("button");
             var deleteButton = document.createElement("button");
-            if (editsObj.videoTimes.length > 0)
-            {
-                //timelineButton.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
-                timelineButton.className = time;
-                timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
-                deleteButton.id = deleteButtonId;
-                deleteButtonId++;
-                deleteButton.innerHTML = "Delete";
-            }
-            else
-            {
-                timelineButton.innerHTML = "";
-                deleteButton.innerHTML = "";
-            }
-
+            timelineButton.className = time;
+            timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
+            deleteButton.id = deleteButtonId;
+            deleteButtonId++;
+            deleteButton.innerHTML = "Delete";
+            
+            //Creates event listeners for both of the buttons
             addTimelineButtonEventListener(timelineButton, "text");
             deleteButtonEventListener(deleteButton, "text");
-
+            
+            //Adds the buttons to a div that only shows up when scrolled over and styles it
             hoverDiv.appendChild(timelineButton);
             hoverDiv.appendChild(deleteButton);
             hoverDiv.style.display = "none";
@@ -1785,84 +1781,8 @@ $(document).ready(function () {
             hoverDiv.style.left = "0px";
             hoverDiv.style.zIndex = "1";
 
-
+            //Sets the style of the div containting the words and displays them inside
             textDiv.className = "timeline-text-div";
-            //textDiv.style.overflow = "none";
-            textDiv.style.position = "relative";
-            textDiv.style.backgroundColor = "white";
-            textDiv.style.color = "black";
-            textDiv.style.width = timelineImageWidth + "px";
-            textDiv.style.height = timelineImageHeight + "px";
-            textDiv.style.zIndex = "0";
-            textDiv.onmouseover = function() {
-                hoverDiv.style.display = "block";
-            };
-            textDiv.onmouseout = function() {
-                hoverDiv.style.display = "none";
-            };
-
-            textDiv.innerHTML = "<p>" + message + "</p>";
-
-
-            // Update current Text
-            var text = document.createElement("textarea");
-            text.value = message;
-            text.style.width = timelineImageWidth + "px";
-            text.style.height = timelineImageHeight + "px";
-            text.style.resize = "none";
-            text.style.color = "black";
-            text.readOnly = "readOnly";
-            currentText = text;
-            //textDiv.appendChild(text);
-            textDiv.appendChild(hoverDiv);
-            newChild = textDiv;
-            
-            var children = document.getElementById("timeline-area").children;
-            //var child = findChild(children, time);
-            var child = findChild(children, time);
-            document.getElementById("timeline-area").insertBefore(newChild, child);
-            
-            // Add video thumbnail after for cleaner User interface
-            //show_image_timeline(false, thumbFile, thumbFile, "null", video.currentTime);
-            
-        }
-        else
-        {
-            var textDiv = document.createElement("div");
-            var hoverDiv = document.createElement("div");
-
-
-            var timelineButton = document.createElement("button");
-            var deleteButton = document.createElement("button");
-            if (editsObj.videoTimes.length > 0)
-            {
-                //timelineButton.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
-                timelineButton.className = time;
-                timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
-                deleteButton.id = deleteButtonId;
-                deleteButtonId++;
-                deleteButton.innerHTML = "Delete";
-            }
-            else
-            {
-                timelineButton.innerHTML = "";
-                deleteButton.innerHTML
-            }
-
-            addTimelineButtonEventListener(timelineButton, "text");
-            deleteButtonEventListener(deleteButton, "text");
-
-            hoverDiv.appendChild(timelineButton);
-            hoverDiv.appendChild(deleteButton);
-            hoverDiv.style.display = "none";
-            hoverDiv.style.position = "absolute";
-            hoverDiv.style.top = "0px";
-            hoverDiv.style.left = "0px";
-            hoverDiv.style.zIndex = "1";
-
-
-            textDiv.className = "timeline-text-div";
-            //textDiv.style.overflow = "none";
             textDiv.style.position = "relative";
             textDiv.style.backgroundColor = "white";
             textDiv.style.color = "black";
@@ -1873,6 +1793,9 @@ $(document).ready(function () {
             textDiv.style.overflowWrap = "break-word";
             textDiv.style.fontSize = "xmall";
             textDiv.style.overflowY = "hidden";
+            textDiv.innerHTML = "<p>" + message + "</p>";
+            
+            //When the textDiv is hovered over it displays it the hoverDiv
             textDiv.onmouseover = function() {
                 hoverDiv.style.display = "block";
             };
@@ -1880,22 +1803,68 @@ $(document).ready(function () {
                 hoverDiv.style.display = "none";
             };
 
+            //Adds the hoverDiv the the textDiv
+            textDiv.appendChild(hoverDiv); 
+            newChild = textDiv;
+            
+            //Inserts the timeline textDiv in the right place before any timeline images that come after it 
+            var children = document.getElementById("timeline-area").children;
+            var child = findChild(children, time);
+            document.getElementById("timeline-area").insertBefore(newChild, child);
+        }
+        else
+        {
+            //Added an edit normally
+            var textDiv = document.createElement("div");
+            var hoverDiv = document.createElement("div");
+            
+            //Creates a button for editing the edit and a button to delete the edit
+            var timelineButton = document.createElement("button");
+            var deleteButton = document.createElement("button");
+            timelineButton.className = time;
+            timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
+            deleteButton.id = deleteButtonId;
+            deleteButtonId++;
+            deleteButton.innerHTML = "Delete";
+            
+            //Creates event listeners for both of the buttons
+            addTimelineButtonEventListener(timelineButton, "text");
+            deleteButtonEventListener(deleteButton, "text");
+            
+            //Adds the buttons to a div that only shows up when scrolled over and styles it
+            hoverDiv.appendChild(timelineButton);
+            hoverDiv.appendChild(deleteButton);
+            hoverDiv.style.display = "none";
+            hoverDiv.style.position = "absolute";
+            hoverDiv.style.top = "0px";
+            hoverDiv.style.left = "0px";
+            hoverDiv.style.zIndex = "1";
+
+            //Sets the style of the div containting the words and displays them inside
+            textDiv.className = "timeline-text-div";
+            textDiv.style.position = "relative";
+            textDiv.style.backgroundColor = "white";
+            textDiv.style.color = "black";
+            textDiv.style.width = timelineImageWidth + "px";
+            textDiv.style.height = timelineImageHeight + "px";
+            textDiv.style.zIndex = "0";
+            textDiv.style.textOverflow = "ellipsis";
+            textDiv.style.overflowWrap = "break-word";
+            textDiv.style.fontSize = "xmall";
+            textDiv.style.overflowY = "hidden";
             textDiv.innerHTML = "<p>" + message + "</p>";
-
-
-            // Update current Text
-            var text = document.createElement("textarea");
-            text.value = message;
-            text.style.width = timelineImageWidth + "px";
-            text.style.height = timelineImageHeight + "px";
-            text.style.resize = "none";
-            text.style.color = "black";
-            text.readOnly = "readOnly";
-            currentText = text;
-            //textDiv.appendChild(text);
+            
+            //When the textDiv is hovered over it displays it the hoverDiv
+            textDiv.onmouseover = function() {
+                hoverDiv.style.display = "block";
+            };
+            textDiv.onmouseout = function() {
+                hoverDiv.style.display = "none";
+            };
+            
+            //Adds the hoverDiv to the textDiv and adds the textDiv to the timeline
             textDiv.appendChild(hoverDiv);
             document.getElementById("timeline-area").appendChild(textDiv);
-            //document.getElementById("timeline-area").appendChild(text);
         }
     }
     
