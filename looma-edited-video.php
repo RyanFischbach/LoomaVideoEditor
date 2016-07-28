@@ -10,7 +10,7 @@ Description: Edited Video viewer page for Looma 2
 
 Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 						 data-fp="content/videos/"
-						 data-txt="{"fileTypes":["],"videoName":"A_Day_On_Earth.mp4","videoTimes":[""],"filePaths":[""]}">
+						 data-txt="{"fileTypes":[""],"videoName":"A_Day_On_Earth.mp4","videoTimes":[""],"filePaths":[""]}">
 			VIDEO TEST</button>
 	And: $("button#testvideo").click(LOOMA.playMedia);
 -->
@@ -36,6 +36,8 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 <body>
     <?php
             //Sets the filepath and filename
+            //$dn being null means that the request came from looma-video.js and
+            //looma-utilities.js
             $dn = $_REQUEST['dn'];
             $filepath = $_REQUEST['fp'];
             if ($dn != "null")
@@ -130,6 +132,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 							</form>
 							<textarea name="text-playback" id="text-playback" readonly="true"></textarea>
 						</div>
+                        <!-- Along with text-playback ^ these divs are where the edits are added -->
 						<div id="image-area"></div>
                         <div id="pdf-area"></div>
                         <div id ="added-video-area"></div>
@@ -156,6 +159,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             <br>
                 </div>
                 <div id="edit-controls">
+                    <!-- All of the buttons that the user uses to edit a video -->
                     <div id="rename-form-div">
                         <p> Save As </p>
 

@@ -6,7 +6,8 @@ Date: 2016 07
 Revision: Looma Video Editor 1.0
 
 filename: looma-video.js
-Description: videoplayer controls for videoplayer.php
+Description: Can play an unedited video reroutes the user to looma-edited-video.php if
+they want to edit a video
 Attribution: slightly borrowed from Matt West (blog.teamtreehouse.com)
  */
 
@@ -42,20 +43,22 @@ $(document).ready(function () {
 		e.preventDefault();
 		if(!isFullscreen)
 		{
-		e.preventDefault();
-		screenfull.toggle(videoArea);
-		isFullscreen = true;
-		fullscreenPlayPauseButton.style.display = "block";
-		videoArea.className = "fullscreen";
-		videoArea.style.width = "100%";
+            //If it is not fullscreen make it fullscreen
+            e.preventDefault();
+            screenfull.toggle(videoArea);
+            isFullscreen = true;
+            fullscreenPlayPauseButton.style.display = "block";
+            videoArea.className = "fullscreen";
+            videoArea.style.width = "100%";
 		}
 		else
 		{
-		e.preventDefault();
-		screenfull.toggle(videoArea);
-		isFullscreen = false;
-		fullscreenPlayPauseButton.style.display = "none";
-		videoArea.className = "";
+            //Otherwise un-fullscreen it
+            e.preventDefault();
+            screenfull.toggle(videoArea);
+            isFullscreen = false;
+            fullscreenPlayPauseButton.style.display = "none";
+            videoArea.className = "";
 		}
 	});
     
@@ -72,6 +75,7 @@ $(document).ready(function () {
     
     function minuteSecondTime (time)
     {
+        //Converts all time to minutes:seconds
         var timeAsString = "" + time;
         var seconds = timeAsString.substring(0, timeAsString.indexOf("."));
         var minutes = Math.floor(Number(seconds) / 60);

@@ -6,13 +6,8 @@ Owner: VillageTech Solutions (villagetechsolutions.org)
 Date: 2016 07
 Revision: Looma Video Editor 1.0
 File: video.php
-Description: Video viewer/editor page for Looma 2
-
-Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
-						 data-fp="resources/videos/"
-						 data-ft="video">
-			VIDEO TEST</button>
-	And: $("button#testvideo").click(LOOMA.playMedia);
+Description: Can play an unedited video reroutes the user to looma-edited-video.php if
+they want to edit a video
 -->
 <?php $page_title = 'Looma Video Player';
 	  include ('includes/header.php');
@@ -25,51 +20,7 @@ Usage: 	<button id="testvideo" data-fn="galaxies.mp4"
 		 		$dot = strrpos($fn, ".");
 				if ( ! ($dot === false)) { return substr_replace($fn, "_thumb.jpg", $dot, 10);}
 				else return "";
-			} //end function THUMBNAIL
-        
-
-        function getJSON($file, $path, $ext) {
-            //Gets the path of the .txt file and return the information inside
-            $realpath = realpath($path) . '/';
-            return file_get_contents($realpath . $file, $realpath, null, 0);
-        }
-
-
-        function makeButton($file, $path, $ext, $base, $dn, $thumb)
-        {
-            // Copied from looma library
-            //DEBUG   echo "making button with path= $path  file= $file   ext= $ext"; //DEBUG 
-            
-            // ignore edited videos which are txt files
-            if ($ext != "txt")
-            {
-			
-            echo "<button class='activity play img' 
-                          data-fn='" .  $file . 
-                       "' data-fp='" .  $path .
-                       "' data-ft='" .  $ext . 
-                       "' data-zm='" .  160 .
-                       "' data-pg='1" .
-                       //If the file is a .txt file (used to store edited videos) it pulls the information from the file
-                       "' data-txt='" . ($ext == "txt" ? getJSON($file, $path, $ext) : null) .
-                                    "'>";
-					   
-            //text and tooltip for BUTTON		  
-            echo "<span class='displayname' 
-                        class='btn btn-default'
-                        data-toggle='tooltip' 
-                        data-placement='top' 
-                        title='" . $file . "'>" . 
-                  "<img src='" . $thumb . "'>" . 
-                                 $dn . "</span>";
-
-            //finish BUTTON
-            echo "</button>";
-            
-            }
-
-        };  //end makeButton()
-
+      } //end function THUMBNAIL
 
 ?>
 

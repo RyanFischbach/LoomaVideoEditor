@@ -66,16 +66,18 @@ Modifications: Adds a case for edited videos (.txt files)
 					   
 		};  //end makeButton()
         
-        function makeEditedVideoButton($dn, $path, $ext, $file, $json) {
-			
-				//DEBUG   echo "making button with path= $path  file= $file   ext= $ext"; //DEBUG 
+       //*********************************************************************
+		//Looma edited video changes
+		function makeEditedVideoButton($dn, $path, $ext, $file, $json) {
+				//Makes the buttons for edited video because they require different information to be sent
+				//echos button with path= $path  file= $file   ext= $ext
 			
 				echo "<button class='activity play img' 
 							  data-fn='" .  $file . 
 						   "' data-fp='" .  $path .
 						   "' data-ft='" .  $ext .
-                           "' data-dn='" .  urlencode($dn) .
-                           "' data-content='" . urlencode($json) .
+                           			   "' data-dn='" .  urlencode($dn) .
+                           			   "' data-content='" . urlencode($json) .
 						   "' data-zm='" .  160 .
 						   "' data-pg='1" .
 						   "'>";
@@ -92,15 +94,9 @@ Modifications: Adds a case for edited videos (.txt files)
 				//finish BUTTON
 				echo "</button>";	
 					   
-		};  //end makeButton()
-	   
-        //Modified
-        function getJSON($file, $path, $ext) {
-            //Gets the path of the .txt file and return the information inside
-            $realpath = realpath($path) . '/';
-            return file_get_contents($realpath . $file, $realpath, null, 0);
-        }
-        //*Modified
+		};  //end makeEditedVideoButton()
+		//End of changes looma edited video
+		//**************************************************************************
         
 		function isEpaath($fp) {
 		
@@ -169,23 +165,30 @@ Modifications: Adds a case for edited videos (.txt files)
 		//TODO: should gather all the filenames into an array and sort it, use (natcasesort() or multisort(), before making the buttons	
 			
 	foreach (new DirectoryIterator($path) as $fileInfo) {
-        if($path == "../content/edited videos/") {
+        //****************************************************************
+		//Modifed by looma edited video
+		if($path == "../content/edited videos/") {
+			//If the folder being filled is the edited videos it fills it using
+			//all of the entries from the edited_videos collection in the database
             $editedVideos = $edited_videos_collection->find();
             
-            foreach ($editedVideos as $doc) {
-                echo "<td>";
-                $dn = $doc['dn'];
-                $file = $doc['vn'];
-                $path = $doc['vp'];
-                $ext = "evi";
-                $json = $doc['JSON'];
-                makeEditedVideoButton($dn, $path, $ext, $file, $json);
+        	 foreach ($editedVideos as $doc) {
+           	        echo "<td>";
+            		$dn = $doc['dn'];
+                    $file = $doc['vn'];
+                    $path = $doc['vp'];
+                    $ext = "evi";
+                    $json = $doc['JSON'];
+                    makeEditedVideoButton($dn, $path, $ext, $file, $json);
                 
-                echo "</td>";
-                $buttons++; if ($buttons > $maxButtons) {$buttons = 1; echo "</tr><tr>";};
+                    echo "</td>";
+                    $buttons++; if ($buttons > $maxButtons) {$buttons = 1; echo "</tr><tr>";};
             }
         }
-        else {
+		else {
+			//Otherwise it just fills the folder normally
+			//End of modifications
+			//************************************************
         
             $file =  $fileInfo->getFilename();
 
@@ -265,20 +268,11 @@ Modifications: Adds a case for edited videos (.txt files)
 
                     }
                 }
-            }   
+            //****** End tag for inserted else
+            }  
+            //******
 		} //end FOREACH file
-		echo "</tr></table>";	
-        //Modified
-        //Finds the name of an edited video based of the text inside the file
-        function findName($txt)
-        {
-            //Finds the videoName from inside the text file
-            $startLoc = strpos($txt, "videoName") + 12;
-            $endLoc = strpos(substr($txt, $startLoc), '"') + $startLoc;
-            $len = $endLoc - $startLoc;
-            return substr($txt, $startLoc, $len);
-        }
-        //*Modified
+		echo "</tr></table>";
 ?>
 
 

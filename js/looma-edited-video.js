@@ -261,6 +261,7 @@ $(document).ready(function () {
     
     if (commands != null)
     {
+        //If the file comes from the database and not looma-video.js
         didSaveOnce = true;
         if (commands.fileTypes != null) {
             editsObj.fileTypes = commands.fileTypes;
@@ -307,20 +308,20 @@ $(document).ready(function () {
 		e.preventDefault();
 		if(!isFullscreen)
 		{
-		e.preventDefault();
-		screenfull.toggle(videoArea);
-		isFullscreen = true;
-		fullscreenPlayPauseButton.style.display = "block";
-		videoArea.className = "fullscreen";
-		videoArea.style.width = "100%";
+            e.preventDefault();
+            screenfull.toggle(videoArea);
+            isFullscreen = true;
+            fullscreenPlayPauseButton.style.display = "block";
+            videoArea.className = "fullscreen";
+            videoArea.style.width = "100%";
 		}
 		else
 		{
-		e.preventDefault();
-		screenfull.toggle(videoArea);
-		isFullscreen = false;
-		fullscreenPlayPauseButton.style.display = "none";
-		videoArea.className = "";
+            e.preventDefault();
+            screenfull.toggle(videoArea);
+            isFullscreen = false;
+            fullscreenPlayPauseButton.style.display = "none";
+            videoArea.className = "";
 		}
 	});
     
@@ -344,7 +345,7 @@ $(document).ready(function () {
         //There can be 6 rows of images before a scrollbar is created
 		timelineImageHeight = timelineArea.offsetHeight / 3;
         
-        //Updates timeline if edits already exist
+        //Adds edits to timeline if they are prexisting
         if (editsObj.videoTimes.length > 0)
         {
             if(editsObj.videoTimes[0] > 0)
