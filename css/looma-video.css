@@ -4,6 +4,90 @@ div#video-area {
     margin: auto;
     z-index: 0; /* 1 */
 }
+
+video {
+    height: 100%;
+}
+
+button#fullscreen-control {
+	position: absolute;
+	opacity: 0.4;
+	right: 5%;
+    bottom: 5%;
+	height: 10vh;
+	width:  10vh;
+	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREENf */
+    background-image: url("../images/fullscreen2.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+	background-color:rgba(200,200,200,.5);  /*transparent light gray*/
+}
+
+.fullscreen video {width: 100%}
+
+:-webkit-full-screen {
+    background-color: black;
+}
+
+button#fullscreen-playpause {
+	position: absolute;
+    display: none;
+	opacity: 0.4;
+	bottom:11%; /* 5*/
+	left:5%;
+	height: 10vh;
+	width:  10vh;
+	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREEN */
+    background-image: url("../images/video.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+	background-color:rgba(200,200,200,1);  /*transparent light gray*/
+}
+
+button#play-pause {
+    background-image: url("../images/video.png");
+   	background-size: 100% 100%;
+	background-color:rgba(255,255,255,1);
+	height: 5vh;
+	width:  5vh;
+	background-repeat: no-repeat;
+    color: transparent;
+}
+
+button#volume {
+	background-image: url("../images/audio.png");
+   	background-size: 100% 100%;
+	background-color:rgba(255,255,255,1); 
+	height: 5vh;
+	width:  5vh;
+	background-repeat: no-repeat;
+    color: transparent;
+}
+
+div#edit-controls
+{
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    position: relative;
+}
+
+div#login-div {
+    float: left;
+}
+
+button#login {
+    height: 100%;
+    width: 100%;
+}
+
+button#edit {
+    height: 50%;
+    width: 20%;
+    display: none;
+    margin-top:0px;
+    margin: 0 auto;
+}
     
 div#text-box-area {
     position: absolute;
@@ -97,20 +181,6 @@ div#text-box-area {
 ::-webkit-scrollbar { 
     width:30px;
 }
-    
-button#fullscreen-control {
-	position: absolute;
-	opacity: 0.4;
-	right: 5%;
-    bottom: 5%;
-	height: 10vh;
-	width:  10vh;
-	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREENf */
-    background-image: url("../images/fullscreen2.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-	background-color:rgba(200,200,200,.5);  /*transparent light gray*/
-}
 
 button#rename {
     height: 50%;
@@ -150,18 +220,6 @@ button#rename {
     vertical-align: top;
     margin-top: 0px;
 }
-    
-button#edit {
-    height: 50%;
-    width: 20%;
-    display: none;
-    margin-top:0px;
-    /*float: right;*/
-    margin: 0 auto;
-    /*margin-right: 39.9vw;*/
-    /*transform: translateX(3px);*/
-}
-
 
 #text {
     height: 50%;
@@ -322,47 +380,6 @@ button.img.play, button.img.activity{
     margin-right: 10px;
 }
 
-video {height: 100% }
-
-.fullscreen video {width: 100%}
-
-:-webkit-full-screen {
-    background-color: black;
-}
-
-button#fullscreen-playpause {
-	position: absolute;
-    display: none;
-	opacity: 0.4;
-	bottom:11%; /* 5*/
-	left:5%;
-	height: 10vh;
-	width:  10vh;
-	z-index:2147483647; /*this is 2^31-1 which is the z-index browsers use for FULLSCREEN */
-    background-image: url("../images/video.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-	background-color:rgba(200,200,200,1);  /*transparent light gray*/
-}
-button#play-pause {
-    background-image: url("../images/video.png");
-   	background-size: 100% 100%;
-	background-color:rgba(255,255,255,1);
-	height: 5vh;
-	width:  5vh;
-	background-repeat: no-repeat;
-    color: transparent;
-}
-
-button#volume {
-	background-image: url("../images/audio.png");
-   	background-size: 100% 100%;
-	background-color:rgba(255,255,255,1); 
-	height: 5vh;
-	width:  5vh;
-	background-repeat: no-repeat;
-    color: transparent;
-}
 button#delete {
 	background-image: url("../images/trash.png");
    	background-size: 100% 100%;
@@ -376,23 +393,6 @@ button#delete {
 input#seek-bar
 {
 	display: inline;
-}
-
-div#edit-controls
-{
-    width: 100%;
-    height: 10%;
-    text-align: center;
-    position: relative;
-}
-
-div#login-div {
-    float: left;
-}
-
-button#login {
-    height: 100%;
-    width: 100%;
 }
 
 #comments {
