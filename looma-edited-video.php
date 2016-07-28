@@ -26,15 +26,15 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 		 		$dot = strrpos($fn, ".");
 				if ( ! ($dot === false)) { return substr_replace($fn, "_thumb.jpg", $dot, 10);}
 				else return "";
-			} //end function THUMBNAIL
+    } //end function THUMBNAIL
 ?>
 
-	<link rel="stylesheet" type="text/css" href="css/looma-video.css">
+<link rel="stylesheet" type="text/css" href="css/looma-video.css">
 
-	</head>
+</head>
 
-	<body>
-		<?php
+<body>
+    <?php
             //Sets the filepath and filename
             $dn = $_REQUEST['dn'];
             $filepath = $_REQUEST['fp'];
@@ -98,7 +98,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
             }
 
         };  //end makeButton()
-        ?>   
+    ?>   
         
 			<script>
 				//Sends the information from the .txt file to js
@@ -156,129 +156,126 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                             <br>
                 </div>
                 <div id="edit-controls">
-                            <div id="rename-form-div">
-                                <p> Save As </p>
+                    <div id="rename-form-div">
+                        <p> Save As </p>
 
-                                <form autocomplete="off">
-                                    <input type="text" id="rename-text" />
-                                </form>
+                        <form autocomplete="off">
+                            <input type="text" id="rename-text" />
+                        </form>
 
-                                <button type="button" class="media hidden_button" id="rename-form-submit-button">
-                                    <?php keyword("Submit") ?>
-                                </button>
-                            </div>
+                        <button type="button" class="media hidden_button" id="rename-form-submit-button">
+                            <?php keyword("Submit") ?>
+                        </button>
+                    </div>
                     
-                            <div id="add-time-div">
-                                <div id="add-start-stop-time-div">
-                                    <button type="button" class="media hidden_button" id="start-time">
-                                        <?php
-                                            keyword('Set Start Time')
-                                        ?>
-                                    </button>
+                    <div id="add-time-div">
+                        <div id="add-start-stop-time-div">
+                            <button type="button" class="media hidden_button" id="start-time">
+                                <?php
+                                    keyword('Set Start Time')
+                                ?>
+                            </button>
 
-                                    <button type="button" class="media hidden_button" id="stop-time">
-                                        <?php
-                                            keyword('Set Stop Time')
-                                        ?>
-                                    </button>
-                                </div>
-                                <div id="default-start-stop-time-div">
-                                    <button type="button" class="media hidden_button" id="default-start-stop-time">
-                                        <?php
-                                            keyword('Default');
-                                        ?>
-                                    </button>
-                                </div>
-                            </div>
+                            <button type="button" class="media hidden_button" id="stop-time">
+                                <?php
+                                    keyword('Set Stop Time')
+                                ?>
+                            </button>
+                        </div>
+                        <div id="default-start-stop-time-div">
+                            <button type="button" class="media hidden_button" id="default-start-stop-time">
+                                <?php
+                                    keyword('Default');
+                                ?>
+                            </button>
+                        </div>
+                    </div>
                         
-                            <button type="button" class="media" id="cancel">
-                                <?php keyword('Cancel') ?>
-                            </button>
+                    <button type="button" class="media" id="cancel">
+                        <?php keyword('Cancel') ?>
+                    </button>
                             
-                            <form class="media" id="search-area" style="display: none">
-				                <input name="search" id="search-box" placeholder="Search for..."/>
-							</form>
+                    <form class="media" id="search-area" style="display: none">
+				        <input name="search" id="search-box" placeholder="Search for..."/>
+                    </form>
                             
-                            <button type="button" class="media" id="delete">
-                                <?php tooltip('Delete') ?>
-                            </button>
-                            <button type ="button" class="media" id="edit">
-                                <?php keyword('Edit') ?>
-                            </button>
+                    <button type="button" class="media" id="delete">
+                        <?php tooltip('Delete') ?>
+                    </button>
+                    <button type ="button" class="media" id="edit">
+                        <?php keyword('Edit') ?>
+                    </button>
                             
-                            <div id="login-div">
-                                <button type="button" class="media" id="login">
-                                    <?php keyword('Log In') ?>
-                                </button>
-                            </div>
+                    <div id="login-div">
+                        <button type="button" class="media" id="login">
+                            <?php keyword('Log In') ?>
+                        </button>
+                    </div>
                             
-                            <button type="button" class="media hidden_button" id="prev-frame5">
-                                &lt;&lt;&lt;
-                                <?php
-                                    tooltip('Previous Frame')
-                                ?>
-                            </button>
+                    <button type="button" class="media hidden_button" id="prev-frame5">
+                        &lt;&lt;&lt;
+                        <?php
+                            tooltip('Previous Frame')
+                        ?>
+                    </button>
 
-                            <button type="button" class="media hidden_button" id="prev-frame">
-                                &lt;
-                                <?php
-                                    tooltip('Previous Frame')
-                                ?>
-                            </button>
+                    <button type="button" class="media hidden_button" id="prev-frame">
+                        &lt;
+                        <?php
+                            tooltip('Previous Frame')
+                        ?>
+                    </button>
 
-                            <button type="button" class="media hidden_button" id="next-frame">
-                                >
-                                <?php
-                                    tooltip('Next Frame')
-                                ?>
-                            </button>
+                    <button type="button" class="media hidden_button" id="next-frame">
+                        >
+                        <?php
+                            tooltip('Next Frame')
+                        ?>
+                    </button>
 
 
-                             <button type="button" class="media hidden_button" id="next-frame5">
-                                >>>
-                                <?php
-                                    tooltip('Next Frame')
-                                ?>
-                            </button>
+                    <button type="button" class="media hidden_button" id="next-frame5">
+                        >>>
+                        <?php
+                            tooltip('Next Frame')
+                        ?>
+                    </button>
 
-                            <br>
+                    <br>
                                 
-                            <button type="button" class="media hidden_button" id="rename">
-                                <?php keyword('Rename') ?>
-                            </button>
+                    <button type="button" class="media hidden_button" id="rename">
+                        <?php keyword('Rename') ?>
+                    </button>
                             
-                            <button type="button" class="media" id="text">
-                                <?php keyword('Text') ?>
-                            </button>
-                            <button type="button" class="media" id="image">
-                                <?php keyword('Image') ?>
-                            </button>
-                            <button type="button" class="media hidden_button" id="pdf">
-                                <?php keyword('Pdf') ?>
-                            </button>
+                    <button type="button" class="media" id="text">
+                        <?php keyword('Text') ?>
+                    </button>
+                    <button type="button" class="media" id="image">
+                        <?php keyword('Image') ?>
+                    </button>
+                    <button type="button" class="media hidden_button" id="pdf">
+                        <?php keyword('Pdf') ?>
+                    </button>
 
-                            <button type="button" class="media hidden_button" id="video-button">
-                                <?php keyword('Video') ?>
-                            </button>
+                    <button type="button" class="media hidden_button" id="video-button">
+                        <?php keyword('Video') ?>
+                    </button>
 
-                            <button type="button" class="media hidden_button" id="submit">
-                                <?php keyword('Submit') ?>
-                            </button>
+                    <button type="button" class="media hidden_button" id="submit">
+                        <?php keyword('Submit') ?>
+                    </button>
                             
-                            <br>
-                                
-                                <!--Opens the pictures folder when you want to pick a picture-->
-                            
+                    <br>
                 </div>
-                        <div id="image-previews">
-					<!-- include ('looma-video-editor-imageViewer.php') -->
+                <div id="image-previews">
+                    <!-- Opens pictures folder when you want to select an image -->
 					<?php
                         $folder = "pictures";
                         include ('includes/video-editor-file-viewer.php');
                     ?>
 				</div>
 
-				<!--Opens the pdf folder when you want to pick a pdf-->
+				<!-- Opens the pdfs folder when you want to select a pdf-->
 				<div id="pdf-previews">
 					<?php
                         $folder = "pdfs";
@@ -287,6 +284,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 				</div>
 
 				<div id="video-previews">
+                    <!-- Opens the videos folder when you want to select a video -->
 					<?php
                         $folder = "videos";
                         include ('includes/video-editor-file-viewer.php');
@@ -296,5 +294,6 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 			</div> <!-- End of main container -->
 			<?php include ('includes/toolbar.php'); ?>
             <?php include ('includes/js-includes.php'); ?>
-					<script src="js/looma-screenfull.js"></script>
-					<script src="js/looma-edited-video.js"></script>
+        
+            <script src="js/looma-screenfull.js"></script>
+            <script src="js/looma-edited-video.js"></script>
