@@ -241,8 +241,9 @@ $(document).ready(function () {
     function removeCurrentBlackScreen()
     {
         if(currentBlackScreen != null) {
-                document.getElementById("video-area").removeChild(currentBlackScreen);
-            }
+            videoArea.removeChild(currentBlackScreen);
+            currentBlackScreen = null;
+        }
     }
     
     // Important Functions - Timeline Functions
@@ -613,9 +614,7 @@ $(document).ready(function () {
                 save();
             }
             pauseVideo(video);
-            if(currentBlackScreen != null) {
-                document.getElementById("video-area").removeChild(currentBlackScreen);
-            }
+            removeCurrentBlackScreen();
             index++;
             removeCurrentText();
             removeCurrentImage();
@@ -1973,7 +1972,7 @@ $(document).ready(function () {
             currentBlackScreen = blackScreen
             blackScreen.id = "black-screen";
             blackScreen.style.zIndex = overlayZ - 1;
-            document.getElementById("video-area").appendChild(blackScreen);
+            videoArea.appendChild(blackScreen);
             
             //playButton.innerHTML = "Play";
             if (currentAddedVideo != null)
