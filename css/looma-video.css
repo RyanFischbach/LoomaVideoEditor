@@ -64,6 +64,18 @@ button#volume {
     color: transparent;
 }
 
+div#title-area {
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    text-align: center;
+    z-index: 0;
+}
+
+#title {
+    word-break: break-all;
+}
+
 div#edit-controls
 {
     width: 100%;

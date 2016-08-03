@@ -13,6 +13,9 @@ Attribution: slightly borrowed from Matt West (blog.teamtreehouse.com)
 
 'use strict';
 $(document).ready(function () {
+    // Title
+    document.getElementById("title").innerHTML = fileName;
+    
     // Video
 	var video = document.getElementById("video");
     
@@ -92,6 +95,13 @@ $(document).ready(function () {
 		var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
 		var videoArea = document.getElementById("video-area");
 		videoArea.style.width = parseInt(vidWidth) + "px";
+
+		var videoPlayer = document.getElementById("video-player");
+        var titleArea = document.getElementById("title-area");
+        
+        //Makes the timline area fills the space to the left of the video
+		titleArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
+		titleArea.style.height = video.offsetHeight + "px";
 	});
     
     fullscreenPlayPauseButton.addEventListener("click", function() {

@@ -52,6 +52,9 @@ they want to edit a video
 						</video>
 					</div>
 				</div>
+                <div id="title-area">
+                    <h3 id="title"></h3>
+                </div>
 
 				<div id="media-controls">
 
