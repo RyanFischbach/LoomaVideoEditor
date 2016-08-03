@@ -723,9 +723,7 @@ $(document).ready(function () {
                 removeCurrentAddedVideo();
                 video_src = "";
             }
-            if(currentBlackScreen != null) {
-                document.getElementById("video-area").removeChild(currentBlackScreen);
-            }
+            removeCurrentBlackScreen();
         }
     }
     
