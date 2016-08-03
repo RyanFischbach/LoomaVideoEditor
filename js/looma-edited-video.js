@@ -20,8 +20,8 @@ var editsObj = {
 	, videoTimes: []
 	, videoText: []
 	, filePaths: []
-    , addedVideoTimes: []
-, }
+    , addedVideoTimes: [] 
+}
 
 'use strict';
 $(document).ready(function () {
@@ -549,48 +549,63 @@ $(document).ready(function () {
     
     renameSubmitButton.addEventListener("click", function () { 
         timelineArea.style.visibility = "visible";
-        var newName;
-        if(renameInput.value == "") {
-            newName = editsObj.videoName.substr(0, editsObj.videoName.length-4);
-        }
-        else {
-            newName = renameInput.value;
-        }
-        
-        if (didSaveOnce)
-        {
-            hideElements([renameFormDiv]);
-            mediaControls.style.display = "block";
-            document.getElementById("volume").style.display = "inline";
-            volumeBar.style.display = "inline";
-            editButton.innerHTML = "Edit";
-            editButton.style.display = "inline"; 
-            var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf(".")); 
-        $.ajax("looma-rename-edited-video.php", {
-            data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
-            method: "POST",
-            complete: function() {
-                editsObj.fileName = newName;
-                document.getElementById("title").innerHTML = newName;
+         if(renameInput.value == "" || renameInput.value.length > 12)
+            {
+                //newName = editsObj.videoName.substr(0, editsObj.videoName.length-4);
+                document.getElementById("rename-error-prompt").style.display = "inline";
             }
-        });
-        
-        }
-        else
-        {
-            displayElementsInline([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, mediaControls]);
-			volumeBar.style.display = "none";
-			muteButton.style.display = "none";
-            renameFormDiv.style.display = "none";
-            didSaveOnce = true;
-            editsObj.fileName = newName;
-            document.getElementById("title").innerHTML = editsObj.fileName;
-        }
-        
+            else 
+            {
+                document.getElementById("rename-error-prompt").style.display = "none";
+                var newName = renameInput.value;
+
+                if (didSaveOnce)
+                {
+                    hideElements([renameFormDiv]);
+                    mediaControls.style.display = "block";
+                    document.getElementById("volume").style.display = "inline";
+                    volumeBar.style.display = "inline";
+                    editButton.innerHTML = "Edit";
+                    editButton.style.display = "inline"; 
+                    var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf(".")); 
+                    $.ajax("looma-rename-edited-video.php", {
+                        data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
+                        method: "POST",
+                        complete: function() {
+                            editsObj.fileName = newName;
+                            document.getElementById("title").innerHTML = newName;
+                        }
+                    });
+                }
+                else
+                {
+                    displayElementsInline([renameButton, cancelButton, textButton, imageButton, pdfButton, videoButton, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton, mediaControls]);
+                    volumeBar.style.display = "none";
+                    muteButton.style.display = "none";
+                    renameFormDiv.style.display = "none";
+                    
+                    editsObj.fileName = newName;
+                    var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
+                    $.ajax("looma-video-db-save.php", {
+                        data: {info: editsObj, vn: videoName, vp: videoPath, location: editsObj.fileName, doesExist: didSaveToDBOnce},
+                        method: "POST",
+                        complete: function() {
+                            didSaveToDBOnce = true;
+                        }
+                    });
+                    document.getElementById("title").innerHTML = newName;
+                }
+            }
         
         //newName = $('<div/>').text(renameInput.value).html();
         
         return true;
+    });
+    
+    renameInput.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
     });
 
 	// Event listener for the edit button

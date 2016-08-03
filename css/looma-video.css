@@ -200,14 +200,15 @@ button#rename {
     float: left;
     margin-top: 0;
     margin-left: 20px;
-    margin-right: 2px;
-	left: 5%;
+    /*margin-right: 2px;
+	left: 5%;*/
 }
 
 #video-player {
     height: 70%;
 }
 
+/*
 #rename {
     height: 50%;
     display: none;
@@ -215,8 +216,13 @@ button#rename {
     float: right;
     margin-right: 20px;
 }
+*/
 
 #rename-form-div {
+    display: none;
+}
+
+#rename-error-prompt {
     display: none;
 }
 

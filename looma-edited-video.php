@@ -165,8 +165,9 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                     <!-- All of the buttons that the user uses to edit a video -->
                     <div id="rename-form-div">
                         <p> Save As </p>
+                        <p id="rename-error-prompt"> Please enter a name for that is 1 to 12 characters long </p>
 
-                        <form autocomplete="off">
+                        <form id="rename-form" autocomplete="off">
                             <input type="text" id="rename-text" />
                         </form>
 
