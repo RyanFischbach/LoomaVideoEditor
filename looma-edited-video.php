@@ -138,6 +138,9 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         <div id ="added-video-area"></div>
 					</div>
                     <div id="timeline-area"></div>
+                    <div id="title-area">
+                        <h3 id="title"></h3>
+                    </div>
 				</div>
                 <div id="media-controls">
                             <br>

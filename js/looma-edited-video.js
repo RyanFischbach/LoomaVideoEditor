@@ -25,9 +25,15 @@ var editsObj = {
 
 'use strict';
 $(document).ready(function () {
+    // Title
+    if (fn != "null") {
+        document.getElementById("title").innerHTML = fn;    
+    }
+    else
+    {
+        document.getElementById("title").innerHTML = "New Edited Video";
+    }
     
-    
-
 	// Video
 	var video = document.getElementById("video");
     
@@ -335,7 +341,11 @@ $(document).ready(function () {
 		videoArea.style.width = parseInt(vidWidth) + "px";
 
 		var videoPlayer = document.getElementById("video-player");
-		//var timelineArea = document.getElementById("timeline-area");
+		var titleArea = document.getElementById("title-area");
+        
+        //Makes the title area fill the space to the right of the video
+		titleArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
+		titleArea.style.height = video.offsetHeight + "px";
         
         //Makes the timline area fills the space to the left of the video
 		timelineArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
@@ -539,11 +549,12 @@ $(document).ready(function () {
     
     renameSubmitButton.addEventListener("click", function () { 
         timelineArea.style.visibility = "visible";
+        var newName;
         if(renameInput.value == "") {
             newName = editsObj.videoName.substr(0, editsObj.videoName.length-4);
         }
         else {
-            var newName = renameInput.value;
+            newName = renameInput.value;
         }
         
         if (didSaveOnce)
@@ -555,12 +566,12 @@ $(document).ready(function () {
             editButton.innerHTML = "Edit";
             editButton.style.display = "inline"; 
             var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf(".")); 
-            console.log(editsObj.fileName);
         $.ajax("looma-rename-edited-video.php", {
             data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
             method: "POST",
             complete: function() {
                 editsObj.fileName = newName;
+                document.getElementById("title").innerHTML = newName;
             }
         });
         
@@ -573,6 +584,7 @@ $(document).ready(function () {
             renameFormDiv.style.display = "none";
             didSaveOnce = true;
             editsObj.fileName = newName;
+            document.getElementById("title").innerHTML = editsObj.fileName;
         }
         
         

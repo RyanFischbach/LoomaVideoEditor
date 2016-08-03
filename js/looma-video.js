@@ -99,7 +99,7 @@ $(document).ready(function () {
 		var videoPlayer = document.getElementById("video-player");
         var titleArea = document.getElementById("title-area");
         
-        //Makes the timline area fills the space to the left of the video
+        //Makes the title area fill the space to the right of the video
 		titleArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
 		titleArea.style.height = video.offsetHeight + "px";
 	});
