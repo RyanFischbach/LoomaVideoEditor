@@ -118,7 +118,8 @@ div#text-box-area {
     height: 100%;
     width: 100%;
     color: black;
-    font: 22px/30px sans-serif;
+    font: 35px/42px sans-serif;
+    text-align: center;
 }
 
 
@@ -153,7 +154,7 @@ div#text-box-area {
     color: black;
     border: none;
     padding: 0%;
-    font: 22px/30px sans-serif;
+    font: 35px/42px sans-serif;
     resize: none;
     height: 100%;
     width: 100%;
@@ -414,5 +415,6 @@ input#seek-bar
 }
 
 #comments {
-    font-size: 40px;
+    font-size: 32px/40px;
+    text-align: center;
 }
