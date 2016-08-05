@@ -164,8 +164,8 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                 <div id="edit-controls">
                     <!-- All of the buttons that the user uses to edit a video -->
                     <div id="rename-form-div">
-                        <p> Save As </p>
-                        <p id="rename-error-prompt"> Please enter a name for that is 1 to 12 characters long </p>
+                        <p> Enter a name for your new edited video. The name must be 1 to 12 characters long. </p>
+                        <p id="rename-error-prompt"> Error: The name you entered is not 1 to 12 characters long </p>
 
                         <form id="rename-form" autocomplete="off">
                             <input type="text" id="rename-text" />
