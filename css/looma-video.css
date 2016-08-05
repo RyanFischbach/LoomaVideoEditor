@@ -64,6 +64,9 @@ button#volume {
     color: transparent;
 }
 
+/*
+Titles and Descriptions
+*/
 div#title-area {
     top: 0px;
     right: 0px;
@@ -72,10 +75,58 @@ div#title-area {
     z-index: 0;
 }
 
+div#title-div {
+    height: 50%;
+    width: 100%;
+}
+
 #title {
     word-break: break-all;
 }
 
+div#description-div {
+    height: 50%;
+    width: 100%;
+}
+
+#edit-description {
+    word-break: break-all;
+    display: none;
+}
+
+#save-description {
+    word-break: break-all;
+    display: none;
+}
+
+#cancel-description {
+    word-break: break-all;
+    display: none;
+}
+
+#text-description {
+    word-break: break-all;
+    display: none;
+}
+
+#image-description {
+    word-break: break-all;
+    display: none;
+}
+
+#pdf-description {
+    word-break: break-all;
+    display: none;
+}
+
+#video-description {
+    word-break: break-all;
+    display: none;
+}
+
+/*
+Edit Controls
+*/
 div#edit-controls
 {
     width: 100%;

@@ -139,7 +139,18 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 					</div>
                     <div id="timeline-area"></div>
                     <div id="title-area">
-                        <h3 id="title"></h3>
+                        <div id="title-div">
+                            <h3 id="title"></h3>
+                        </div>
+                        <div id="description-div">
+                            <p id="edit-description">Edit the video</p>
+                            <p id="save-description">Save changes</p>
+                            <p id="cancel-description">Cancel the edit</p>
+                            <p id="text-description">Add text to the video</p>
+                            <p id="image-description">Add an image to the video</p>
+                            <p id="pdf-description">Add a pdf the video</p>
+                            <p id="video-description">Add a video to the video</p>
+                        </div>
                     </div>
 				</div>
                 <div id="media-controls">

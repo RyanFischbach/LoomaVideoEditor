@@ -34,6 +34,15 @@ $(document).ready(function () {
         document.getElementById("title").innerHTML = "New Edited Video";
     }
     
+    // Descriptions
+    var editDesc = document.getElementById("edit-description");
+    var saveDesc = document.getElementById("save-description");
+    var cancelDesc = document.getElementById("cancel-description");
+    var textDesc = document.getElementById("text-description");
+    var imageDesc = document.getElementById("image-description");
+    var pdfDesc = document.getElementById("pdf-description");
+    var addedVideoDesc = document.getElementById("video-description");
+    
 	// Video
 	var video = document.getElementById("video");
     
@@ -591,6 +600,7 @@ $(document).ready(function () {
                         method: "POST",
                         complete: function() {
                             didSaveToDBOnce = true;
+                            didSaveOnce = true;
                         }
                     });
                     document.getElementById("title").innerHTML = newName;
@@ -607,7 +617,21 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
-
+    
+    editButton.onmouseover = function() {
+        if (editButton.innerHTML == "Save")
+        {
+            saveDesc.style.display = 'inline';
+        }
+        else
+        {
+            editDesc.style.display = 'inline';
+        }
+    }
+    editButton.onmouseout = function() {
+        editDesc.style.display = 'none';
+        saveDesc.style.display = "none";
+    }
 	// Event listener for the edit button
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
@@ -704,6 +728,7 @@ $(document).ready(function () {
                     method: "POST",
                     complete: function() {
                         didSaveToDBOnce = true;
+                        didSaveOnce = true;
                     }
                 });
     }
@@ -1088,6 +1113,13 @@ $(document).ready(function () {
         }
     }
     
+    cancelButton.onmouseover = function() {
+        cancelDesc.style.display = 'inline';
+    }
+    cancelButton.onmouseout = function() {
+        cancelDesc.style.display = 'none';
+    }
+    
     cancelButton.addEventListener("click", function () {
         pauseVideo(video);
         displayElementsInline([loginButton, document.getElementById("volume"), volumeBar, muteButton]);
@@ -1183,6 +1215,13 @@ $(document).ready(function () {
         currentEdit = "";
     }
     
+    textButton.onmouseover = function() {
+        textDesc.style.display = 'inline';
+    }
+    textButton.onmouseout = function() {
+        textDesc.style.display = 'none';
+    }
+    
 	// Event listener for the text button
 	textButton.addEventListener("click", function () {
         pauseVideo(video);
@@ -1216,6 +1255,13 @@ $(document).ready(function () {
     
         return true;
     });
+    
+    imageButton.onmouseover = function() {
+        imageDesc.style.display = 'inline';
+    }
+    imageButton.onmouseout = function() {
+        imageDesc.style.display = 'none';
+    }
     
     // Event listener for image button
     imageButton.addEventListener("click", function () {
@@ -1514,6 +1560,7 @@ $(document).ready(function () {
                     method: "POST",
                     complete: function() {
                     didSaveToDBOnce = true;
+                    didSaveOnce = true;
                 }
             });
             
@@ -1897,6 +1944,13 @@ $(document).ready(function () {
         }
     }
     
+    pdfButton.onmouseover = function() {
+        pdfDesc.style.display = 'inline';
+    }
+    pdfButton.onmouseout = function() {
+        pdfDesc.style.display = 'none';
+    }
+    
     pdfButton.addEventListener("click", function() {
         pauseVideo(video);
        // Hide controls
@@ -1938,6 +1992,13 @@ $(document).ready(function () {
             currentPdf = pdf;
             pdfArea.appendChild(pdf);
         });
+    }
+    
+    videoButton.onmouseover = function() {
+        addedVideoDesc.style.display = 'inline';
+    }
+    videoButton.onmouseout = function() {
+        addedVideoDesc.style.display = 'none';
     }
     
     videoButton.addEventListener("click", function () {
