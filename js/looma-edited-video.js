@@ -672,9 +672,7 @@ $(document).ready(function () {
             removeCurrentPdf();
             removeCurrentAddedVideo();
             
-            if(commands != null) { 
-                videoDelete.style.display = "inline";
-            }
+            videoDelete.style.display = "inline";
         } 
 		else
 		{
@@ -1813,7 +1811,7 @@ $(document).ready(function () {
     
     function toggleTimelineControls() {
          // Hide Controls
-        hideElements([renameButton, editButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton]);
+        hideElements([videoDelete, renameButton, editButton, pdfButton, textButton, imageButton, videoButton, mediaControls, nextFrameButton, prevFrameButton, next5FrameButton, prev5FrameButton]);
         
         cancelButton.style.display = "inline";
     }
