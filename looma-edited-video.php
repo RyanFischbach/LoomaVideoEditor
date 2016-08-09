@@ -128,7 +128,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
 						</video>
 						<div id="text-box-area">
                             <form class="media hidden_button" id="text-box">
-								<textarea name="comments" id="comments" placeholder="Enter text..."></textarea>
+								<textarea name="comments" id="comments" placeholder="Enter text..." autofocus></textarea>
 							</form>
 							<textarea name="text-playback" id="text-playback" readonly="true"></textarea>
 						</div>
