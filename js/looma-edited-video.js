@@ -672,8 +672,9 @@ $(document).ready(function () {
             removeCurrentPdf();
             removeCurrentAddedVideo();
             
-            if(commands != null)
+            if(commands != null) { 
                 videoDelete.style.display = "inline";
+            }
         } 
 		else
 		{
@@ -923,24 +924,156 @@ $(document).ready(function () {
             else
             {
                 // Time is in between two other times
-                for (var i = length - 1; i > -1; i--)
+                var done = false;
+                var i = length - 1;
+                while (!done && i > -1)
                 {
                     if (time >= editsObj.videoTimes[i]) {
                         //didEditPast = true;
                         editsObj.videoTimes.splice(i, 0, time);
-                        break;
+                        done = true;
                         //i += length;
                     }
+                    else if (time < editsObj.videoTimes[i] && i == 0) {
+                        editsObj.videoTimes.unshift(time);
+                        done = true;
+                    }
+                    i--;
                 }
             }
         }
         else
         {
-            console.log("editsObj.videoTimes.length <= 0");
             // Empty array
             editsObj.videoTimes.push(time);
         }
         
+    }
+    
+     /**
+    * Must be called after insertVideoTime is called and must be called with insertFilePath
+    */
+    function insertFileType(fileType, time) {
+        if (editsObj.fileTypes.length > 0) {
+            var index = editsObj.videoTimes.lastIndexOf(time);
+            if (index == 0)
+            {
+                editsObj.fileTypes.unshift(fileType);
+            }
+            else
+            {
+                editsObj.fileTypes.splice(index, 0, fileType);    
+            }
+        }
+        else {
+            // Empty Array
+            editsObj.fileTypes.push(fileType);
+        }
+    }
+    
+    function insertVideoText(text, time) {
+        if (editsObj.videoText.length > 0)
+        {
+            var timeIndex = editsObj.videoTimes.lastIndexOf(time);
+            var numTextFiles = 0;
+
+            for (var i = 0; i < timeIndex; i++)
+            {
+                if (editsObj.fileTypes[i] == "text")
+                {
+                    numTextFiles++;
+                }
+            }
+            
+            if (numTextFiles < editsObj.videoText.length && numTextFiles == 0)
+            {
+                editsObj.videoText.unshift(text);
+            }
+            else if (numTextFiles < editsObj.videoText.length)
+            {
+                editsObj.videoText.splice(numTextFiles, 0, text);    
+            }
+            else
+            {
+                // Append text to array
+                editsObj.videoText.push(text);
+            }
+        }
+        else
+        {
+            // Empty array
+            editsObj.videoText.push(text);
+        }
+        
+    }
+
+    /**
+    * Must be called after insertVideoTime is called and must be called with insertFileType
+    */
+    function insertFilePath(filePath, time) {
+        if (editsObj.filePaths.length > 0) {
+            // Get index from time
+            var timeIndex = editsObj.videoTimes.lastIndexOf(time);
+            
+            // Find how many text files were added before this file
+            var textCount = 0;
+            for (var i = 0; i < timeIndex; i++) {
+                if (editsObj.fileTypes[i] == "text") {
+                    textCount++;
+                }
+            }
+            
+            // Subtract number of text files from index because text files are not included in filePaths
+            var index = timeIndex - textCount;
+            
+            if (index == 0)
+            {
+                editsObj.filePaths.unshift(filePath);
+            }
+            else
+            {
+                editsObj.filePaths.splice(index, 0, filePath);
+            }
+        }
+        else {
+            // Empty array
+            editsObj.filePaths.push(filePath);
+        }
+    }
+    
+    /**
+    * Must be called for all added videos
+    */
+    function insertAddedVideoTimes(start, stop, time) {
+        if (editsObj.addedVideoTimes.length > 0)
+        {
+            var timeIndex = editsObj.videoTimes[editsObj.videoTimes.lastIndexOf(time)];
+            var numVideos = 0;
+            for (var i = 0; i < timeIndex; i++)
+            {
+                if (editsObj.fileTypes[i] == "video")
+                {
+                    numVideos++;    
+                }
+            }
+            // Get proper index for addedVideoTimes array
+            var index = numVideos * 2;
+            if (index == 0)
+            {
+                editsObj.addedVideoTimes.unshift(stop);
+                editsObj.addedVideoTimes.unshift(start);
+            }
+            else
+            {
+                editsObj.addedVideoTimes.splice(index, 0, start, stop);
+            }
+        }
+        else
+        {
+            // Empty array
+            editsObj.addedVideoTimes.push(start);
+            editsObj.addedVideoTimes.push(stop);
+        }
     }
     
     searchBox.addEventListener ("input", function() {
@@ -1015,103 +1148,6 @@ $(document).ready(function () {
             }
         }
     });
-
-    /**
-    * Must be called after insertVideoTime is called and must be called with insertFilePath
-    */
-    function insertFileType(fileType, time) {
-        if (editsObj.fileTypes.length > 0) {
-            var index = editsObj.videoTimes.lastIndexOf(time);
-            editsObj.fileTypes.splice(index, 0, fileType);
-        }
-        else {
-            // Empty Array
-            editsObj.fileTypes.push(fileType);
-        }
-    }
-    
-    function insertVideoText(text, time) {
-        if (editsObj.videoText.length > 0)
-        {
-            var timeIndex = editsObj.videoTimes.lastIndexOf(time);
-            var numTextFiles = 0;
-
-            for (var i = 0; i < timeIndex; i++)
-            {
-                if (editsObj.fileTypes[i] == "text")
-                {
-                    numTextFiles++;
-                }
-            }
-            
-            if (numTextFiles < editsObj.videoText.length)
-            {
-                editsObj.videoText.splice(numTextFiles, 0, text);    
-            }
-            else
-            {
-                // Append text to array
-                editsObj.videoText.push(text);
-            }
-        }
-        else
-        {
-            // Empty array
-            editsObj.videoText.push(text);
-        }
-        
-    }
-
-    /**
-    * Must be called after insertVideoTime is called and must be called with insertFileType
-    */
-    function insertFilePath(filePath, time) {
-        if (editsObj.filePaths.length > 0) {
-            // Get index from time
-            var index = editsObj.videoTimes.lastIndexOf(time);
-            
-            // Find how many text files were added before this file
-            var textCount = 0;
-            for (var i = 0; i < editsObj.fileTypes.length; i++) {
-                if (editsObj.fileTypes[i] == "text") {
-                    textCount++;
-                }
-            }
-            
-            // Subtract number of text files from index because text files are not included in filePaths
-            index = index - textCount;
-            
-            editsObj.filePaths.splice(index, 0, filePath);
-        }
-        else {
-            // Empty array
-            editsObj.filePaths.push(filePath);
-        }
-    }
-    
-    /**
-    * Must be called for all added videos
-    */
-    function insertAddedVideoTimes(start, stop, time) {
-        if (editsObj.addedVideoTimes.length > 0)
-        {
-            var timeIndex = editsObj.videoTimes[editsObj.videoTimes.lastIndexOf(time)];
-            var numVideos = 0;
-            for (var i = 0; i < editsObj.fileTypes.length; i++)
-            {
-                numVideos++;
-            }
-            // Get proper index for addedVideoTimes array
-            var index = 
-            editsObj.addedVideoTimes.splice(index, 0, start, stop);
-        }
-        else
-        {
-            // Empty array
-            editsObj.addedVideoTimes.push(start);
-            editsObj.addedVideoTimes.push(stop);
-        }
-    }
     
     cancelButton.onmouseover = function() {
         cancelDesc.style.display = 'inline';
@@ -1321,6 +1357,8 @@ $(document).ready(function () {
         // image_src = src for image thumbnail
         // src = src for actual file
         
+        console.log("edit past " + didEditPast);
+        
         if (timelineEdit) {
             // If you clicked on the edit from the timeline
             // Gets all of the elements that are displayed at the same time
@@ -1354,6 +1392,8 @@ $(document).ready(function () {
                 //Creates a button for editing the edit and a button to delete the edit
                 var button = document.createElement("button");
                 var deleteButton = document.createElement("button");
+                console.log("time " + time);
+                //console.log(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
                 button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
                 button.src = src;
                 button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
@@ -1557,11 +1597,7 @@ $(document).ready(function () {
             var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
              $.ajax("looma-video-db-save.php", {
                 data: {info: editsObj, vn: videoName, vp: videoPath, location: editsObj.fileName, doesExist: didSaveToDBOnce},
-                    method: "POST",
-                    complete: function() {
-                    didSaveToDBOnce = true;
-                    didSaveOnce = true;
-                }
+                    method: "POST"
             });
             
             //Reset view to normal
