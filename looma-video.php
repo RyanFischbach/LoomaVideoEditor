@@ -82,7 +82,7 @@ they want to edit a video
 
 				<div id="edit-controls">
 
-					<button type="button" class="media hidden_button" id="edit">
+					<button type="button" class="media hidden_button" id="create-edit">
 							<?php keyword('Create Edited Video'); ?>
 					</button>
                     

@@ -34,10 +34,18 @@ $(document).ready(function () {
         document.getElementById("title").innerHTML = "New Edited Video";
     }
     
+    // Videos folder button
+    var videosFolderButton = document.getElementById("open-videos-folder");
+    
     // Descriptions
+    var videosFolderDesc = document.getElementById("open-videos-folder-description");
     var editDesc = document.getElementById("edit-description");
     var saveDesc = document.getElementById("save-description");
     var cancelDesc = document.getElementById("cancel-description");
+    var nextFrameDesc = document.getElementById("next-frame-description");
+    var next5FrameDesc = document.getElementById("next5-frame-description");
+    var prevFrameDesc = document.getElementById("prev-frame-description");
+    var prev5FrameDesc = document.getElementById("prev5-frame-description");
     var textDesc = document.getElementById("text-description");
     var imageDesc = document.getElementById("image-description");
     var pdfDesc = document.getElementById("pdf-description");
@@ -541,6 +549,17 @@ $(document).ready(function () {
 		}
 	});
     
+    videosFolderButton.onmouseover = function() {
+        videosFolderDesc.style.display = 'inline';
+    }
+    videosFolderButton.onmouseout = function() {
+        videosFolderDesc.style.display = 'none';
+    }
+    
+    videosFolderButton.addEventListener("click", function () {
+        window.location = 'looma-library.php?fp=../content/videos/';
+    });
+    
     loginButton.addEventListener("click", function () {
         if (loginButton.innerHTML == "Log Out")
         {
@@ -645,6 +664,7 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {
+            videosFolderButton.className = "media";
             loginButton.style.display = "inline";
             
             searchArea.style.display = "none";
@@ -685,6 +705,7 @@ $(document).ready(function () {
         } 
 		else
 		{
+            videosFolderButton.className = "hidden";
             // Hide Media controls
             hideElements([mediaControls, editButton, loginButton, videoDelete]);
             
@@ -1165,6 +1186,7 @@ $(document).ready(function () {
     
     cancelButton.addEventListener("click", function () {
         pauseVideo(video);
+        videosFolderButton.className = "media";
         displayElementsInline([loginButton, document.getElementById("volume"), volumeBar, muteButton]);
         mediaControls.style.height = "20%";
         editControls.style.height = "10%";
@@ -2203,19 +2225,48 @@ $(document).ready(function () {
         video.currentTime += (1 / 29.97);
     });
     
+    nextFrameButton.onmouseover = function() {
+        nextFrameDesc.style.display = 'inline';
+    }
+    nextFrameButton.onmouseout = function() {
+        nextFrameDesc.style.display = 'none';
+    }
+    
+    
 	// prevFrameButton Event Listener
     prevFrameButton.addEventListener("click", function () {
         // Move Backward 1 frames
 		video.currentTime -= (1 / 29.97);
     });
     
+    prevFrameButton.onmouseover = function() {
+        prevFrameDesc.style.display = 'inline';
+    }
+    prevFrameButton.onmouseout = function() {
+        prevFrameDesc.style.display = 'none';
+    }
+    
 	next5FrameButton.addEventListener("click", function () {
 		video.currentTime += (10 / 29.97);
 	});
+    
+    next5FrameButton.onmouseover = function() {
+        next5FrameDesc.style.display = 'inline';
+    }
+    next5FrameButton.onmouseout = function() {
+        next5FrameDesc.style.display = 'none';
+    }
 	
 	prev5FrameButton.addEventListener("click", function () {
         video.currentTime -= (10 / 29.97);
     });
+    
+    prev5FrameButton.onmouseover = function() {
+        prev5FrameDesc.style.display = 'inline';
+    }
+    prev5FrameButton.onmouseout = function() {
+        prev5FrameDesc.style.display = 'none';
+    }
 	
 
     // Event listener for the seek bar

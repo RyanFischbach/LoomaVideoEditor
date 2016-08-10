@@ -36,7 +36,7 @@ $(document).ready(function () {
     var fullscreenPlayPauseButton = document.getElementById("fullscreen-playpause");
 	var fullscreenButton = document.getElementById("fullscreen-control");
     
-    var editButton = document.getElementById("edit");
+    var editButton = document.getElementById("create-edit");
     var loginButton = document.getElementById("login");
     
     var videoArea = document.getElementById("video-area");

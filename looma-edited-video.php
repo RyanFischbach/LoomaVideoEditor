@@ -142,10 +142,18 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         <div id="title-div">
                             <h3 id="title"></h3>
                         </div>
+                        <button type="button" class="media" id="open-videos-folder">
+                            <?php keyword('Open Videos Folder') ?>
+                        </button>
                         <div id="description-div">
+                            <p id="open-videos-folder-description">Leave current edit and go to the videos folder</p>
                             <p id="edit-description">Edit the video</p>
                             <p id="save-description">Save changes</p>
                             <p id="cancel-description">Cancel the edit</p>
+                            <p id="next-frame-description" style="display:none;">Move forward by 1 frame</p>
+                            <p id="next5-frame-description" style="display:none;">Move forward by 5 frames</p>
+                            <p id ="prev-frame-description" style="display:none;">Move backward by 1 frame</p>
+                            <p id="prev5-frame-description" style="display:none;">Move backward by 5 frames</p>
                             <p id="text-description">Add text to the video</p>
                             <p id="image-description">Add an image to the video</p>
                             <p id="pdf-description">Add a pdf the video</p>
