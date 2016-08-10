@@ -1355,8 +1355,6 @@ $(document).ready(function () {
         // image_src = src for image thumbnail
         // src = src for actual file
         
-        console.log("edit past " + didEditPast);
-        
         if (timelineEdit) {
             // If you clicked on the edit from the timeline
             // Gets all of the elements that are displayed at the same time
@@ -1390,14 +1388,13 @@ $(document).ready(function () {
                 //Creates a button for editing the edit and a button to delete the edit
                 var button = document.createElement("button");
                 var deleteButton = document.createElement("button");
-                console.log("time " + time);
                 //console.log(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
                 button.className = editsObj.videoTimes[editsObj.videoTimes.indexOf(time)];
                 button.src = src;
                 button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
                 deleteButton.id = deleteButtonId;
                 deleteButtonId++;
-                deleteButton.innerHTML = "Delete";
+                deleteButton.innerHTML = "X";
                 deleteButton.src = src;
                 
                 //Creates event listeners for both of the buttons
@@ -1414,6 +1411,7 @@ $(document).ready(function () {
             hoverDiv.style.position = "absolute";
             hoverDiv.style.top = "0px";
             hoverDiv.style.left = "0px";
+            hoverDiv.style.width = "50%";
             imageDiv.appendChild(hoverDiv);
             
             //Sets the style of the div containing the image
@@ -1443,11 +1441,20 @@ $(document).ready(function () {
             
         }
         else {
+            console.log(timelineImageWidth);
             //Added an edit normally
             
             var imageDiv = document.createElement("div");
             var img = document.createElement("img");
             var hoverDiv = document.createElement("div");
+            
+            //Styles the hoverDiv
+            hoverDiv.style.display = "none";
+            hoverDiv.style.position = "absolute";
+            hoverDiv.style.top = "0px";
+            hoverDiv.style.left = "0px";
+            hoverDiv.style.width = "50%";
+            imageDiv.appendChild(hoverDiv);
             
             //Sets the image for the timeline
             img.src = image_src;
@@ -1465,7 +1472,7 @@ $(document).ready(function () {
                 button.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
                 deleteButton.id = deleteButtonId;
                 deleteButtonId++;
-                deleteButton.innerHTML = "Delete";
+                deleteButton.innerHTML = "X";
                 deleteButton.src = src;
                 
                 //Creates event listeners for both of the buttons
@@ -1477,17 +1484,9 @@ $(document).ready(function () {
                 hoverDiv.appendChild(deleteButton);
             }
 
-            //Styles the hoverDiv
-            hoverDiv.style.display = "none";
-            hoverDiv.style.position = "absolute";
-            hoverDiv.style.top = "0px";
-            hoverDiv.style.left = "0px";
-            imageDiv.appendChild(hoverDiv);
-
             //Sets the style of the div containing the image
             imageDiv.style.position = "relative";
             imageDiv.width = timelineImageWidth;
-            imageDiv.height = timelineImageHeight;
             
             //When the imageDiv is hovered over it displays the hoverDiv
             imageDiv.onmouseover = function() {
@@ -1876,7 +1875,7 @@ $(document).ready(function () {
             timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
             deleteButton.id = deleteButtonId;
             deleteButtonId++;
-            deleteButton.innerHTML = "Delete";
+            deleteButton.innerHTML = "X";
             
             //Creates event listeners for both of the buttons
             addTimelineButtonEventListener(timelineButton, "text");
@@ -1890,6 +1889,7 @@ $(document).ready(function () {
             hoverDiv.style.top = "0px";
             hoverDiv.style.left = "0px";
             hoverDiv.style.zIndex = "1";
+            hoverDiv.style.width = "50%";
 
             //Sets the style of the div containting the words and displays them inside
             textDiv.className = "timeline-text-div";
@@ -1935,7 +1935,7 @@ $(document).ready(function () {
             timelineButton.innerHTML = minuteSecondTime(editsObj.videoTimes[editsObj.videoTimes.indexOf(time)]);
             deleteButton.id = deleteButtonId;
             deleteButtonId++;
-            deleteButton.innerHTML = "Delete";
+            deleteButton.innerHTML = "X";
             
             //Creates event listeners for both of the buttons
             addTimelineButtonEventListener(timelineButton, "text");
@@ -1949,6 +1949,7 @@ $(document).ready(function () {
             hoverDiv.style.top = "0px";
             hoverDiv.style.left = "0px";
             hoverDiv.style.zIndex = "1";
+            hoverDiv.style.width = "50%";
 
             //Sets the style of the div containting the words and displays them inside
             textDiv.className = "timeline-text-div";
