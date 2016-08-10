@@ -310,7 +310,7 @@ $(document).ready(function () {
             editsObj.addedVideoTimes = commands.addedVideoTimes;
         }
     }
-    else (commands == null)
+    else
     {
         loginButton.innerHTML = "Log Out";
         editButton.style.display = "inline";
