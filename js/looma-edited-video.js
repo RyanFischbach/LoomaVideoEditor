@@ -330,6 +330,15 @@ $(document).ready(function () {
             fullscreenPlayPauseButton.style.display = "block";
             videoArea.className = "fullscreen";
             videoArea.style.width = "100%";
+            
+            if (video.paused == true)
+            {
+                fullscreenPlayPauseButton.style.backgroundImage = 'url("images/video.png")';
+            }
+            else
+            {
+                fullscreenPlayPauseButton.style.backgroundImage = 'url("images/pause.png")';
+            }
 		}
 		else
 		{
