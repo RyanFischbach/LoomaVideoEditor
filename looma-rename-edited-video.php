@@ -19,29 +19,13 @@ include ('includes/mongo-connect.php');
 
     //$newName = str_replace(' ', '_', $newName);
 
-/*
-    $this_dir = dirname(__FILE__);
-
-    // admin's parent dir path can be represented by admin/..
-    $parent_dir = realpath($this_dir . '/..');
-
-    // concatenate the target path from the parent dir path
-    $oldPath = $parent_dir . '/content/videos/' . $oldName . '.txt';
-    $newPath = $parent_dir . '/content/videos/' . $newName . '.txt';
-    
-    if (rename($oldPath, $newPath))
-    {
-        print "renamed to " . $newPath;
-    }
-    */
-
     // Save to DB
     $newDn = str_replace('_', ' ', $newName);
 
     $query = array("fn" => $oldName);
     $fileToUpdate = $edited_videos_collection->findOne($query);
 
-    if ($fileToUpdate != "")
+    if ($_REQUEST_['doesExist'] == "true" || $fileToUpdate != "")
     {
         $fieldsToUpdate = array(
             "dn" => $newDn,

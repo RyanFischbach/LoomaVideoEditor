@@ -606,14 +606,13 @@ $(document).ready(function () {
                     editButton.innerHTML = "Edit";
                     editButton.style.display = "inline"; 
                     loginButton.style.display = "inline";
-                    var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf(".")); 
+                    var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf("."));
+                    var oldName = editsObj.fileName;
+                    editsObj.fileName = newName;
+                    document.getElementById("title").innerHTML = newName;
                     $.ajax("looma-rename-edited-video.php", {
-                        data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
+                        data: {info: editsObj, oldPath: oldName, newPath: newName, vn: videoName, vp: videoPath, doesExist: didSaveOnce},
                         method: "POST",
-                        complete: function() {
-                            editsObj.fileName = newName;
-                            document.getElementById("title").innerHTML = newName;
-                        }
                     });
                 }
                 else
