@@ -1550,8 +1550,16 @@ $(document).ready(function () {
     function deleteButtonEventListener(button, type) 
     {
         button.addEventListener("click", function() {
-            var index = button.id - removeCounter;
             
+            LOOMA.confirm(LOOMA.generateTranslatableSpans("Do you want to delete this edit?", "तपाईं यो सम्पादन मेटाउन चाहनुहुन्छ?"), deleteEdit(button, type), function () {});
+        
+        });
+    }
+    
+    function deleteEdit(button, type)
+    {
+        var index = button.id - removeCounter;
+        
             if(type == "text")
             {
                 var textsBefore = 0;
@@ -1632,7 +1640,7 @@ $(document).ready(function () {
             toggleControlsForCancelButton();
             cancelEdit();
             removeCounter++;
-        });
+                
     }
     
     /*
