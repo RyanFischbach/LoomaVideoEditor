@@ -187,7 +187,7 @@ Usage: 	<button id="testvideo" data-fn="A_Day_On_Earth_Edited.txt"
                         <p id="rename-error-prompt"> Error: The name you entered is not 1 to 12 characters long </p>
 
                         <form id="rename-form" autocomplete="off">
-                            <input type="text" id="rename-text" />
+                            <input type="text" id="rename-text" autofocus />
                         </form>
 
                         <button type="button" class="media hidden_button" id="rename-form-submit-button">
