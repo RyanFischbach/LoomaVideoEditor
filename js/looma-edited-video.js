@@ -2536,12 +2536,15 @@ $(document).ready(function () {
     }
     
     videoDelete.addEventListener("click", function() {
-         $.ajax({
+        LOOMA.confirm(LOOMA.generateTranslatableSpans("Do you want to delete this file?", "यो फाइल मेटाउन चाहनुहुन्छ?"),
+        function () {
+            $.ajax({
             url:'looma-delete-edited-video.php', 
             data: {displayName: displayName}, 
             method:'POST',
         });
         window.location = 'looma-library.php';
+        }, function () {});
     });
    
 });

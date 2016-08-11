@@ -109,9 +109,169 @@ LOOMA.notice = function (id, secs) {
 	}, secs * 1000);
 }; //end notice()
 
-LOOMA.confirm = function (text, btn1, btn2) {}; //TODO: generate a popup with text=text and two buttons with bnt1, btn2 labels.
-//return T or F depending on which button is clicked
-// use #notice CSS styling from looma.css
+/********************************************************************************************
+ Beginning of Looma Alerts functions
+ Description: Creates a styled translatable popup interface.
+ NOTES: All methods support prompts/alerts in either text or html. If using either, any text can be converted into
+ Looma's translatable spans using the provided LOOMA.generateTranslatableSpans() button.
+
+ Programmer name: Thomas Woodside, Charlie Donnelly, and Sam Rosenberg
+ Email: thomas.woodside@gmail.com, charlie.donnelly@menloschool.org, sam.rosenberg@menloschool.org
+ Owner: VillageTech Solutions (villagetechsolutions.org)
+ Date: 7/5/16
+ Revision: 0.4
+ */
+
+
+/**
+ * Makes the entire screen minus modal transparent and checks for clicks outside the modal
+ */
+LOOMA.makeTransparent = function() {
+    setTimeout(function() {
+        var container = $('#main-container-horizontal');
+        $(container).addClass('all-transparent');
+        $(container).click(function() {
+            console.log("makeTransparent");
+            LOOMA.closePopup();
+            $(container).removeClass('all-transparent');
+            $(container).off('click');
+        });
+    }, 10);
+};  // End of makeTransparent
+
+/**
+ * This function creates a popup message box that can be dismissed by the user.
+ * @param msg - The message the user is presented.
+ * @param time (optional)- a delay in seconds after which the popup is automatically closed
+ * */
+var popupInterval;
+LOOMA.alert = function(msg, time){
+    LOOMA.closePopup();
+    LOOMA.makeTransparent();
+    $(document.body).append("<div class= 'popup clicked-dismissal'>" +
+        "<button class='popup-button' id='dismiss-popup'><b>X</b></button>"+ msg +
+        "<button id ='close-popup' class ='popup-button'>" + LOOMA.generateTranslatableSpans("OK", "ठिक छ") + "</button></div>");
+    LOOMA.fadeInPopup();
+    if (time) {
+        var timeLeft = time - 1;
+        var popupButton = $('#close-popup');
+        popupButton.html(LOOMA.generateTranslatableSpans("OK (" + Math.round(timeLeft + 1) + ")",
+            "ठिक छ(" + Math.round(timeLeft + 1) + ")"));
+        clearInterval(popupInterval);
+        popupInterval = setInterval(function() {
+            if (timeLeft <= 0) {
+                clearInterval(popupInterval);
+                LOOMA.closePopup();
+            }
+            timeLeft -= 1;
+            popupButton.html(LOOMA.generateTranslatableSpans("OK (" + Math.round(timeLeft + 1) + ")",
+                "ठिक छ(" + Math.round(timeLeft + 1) + ")"));
+        },1000);
+    }
+    $('#close-popup').click(function() {
+        clearInterval(popupInterval);
+        LOOMA.closePopup();
+    });
+    $('#dismiss-popup').click(function() {
+        clearInterval(popupInterval);
+        LOOMA.closePopup();
+    });
+};
+
+/**
+ * Prompts the user to confirm a message.
+ * @param msg - The message the user is presented in question format.
+ * @param confirmed - A function to call if the user confirms
+ * @param canceled - A function to call if the user cancels
+ * */
+LOOMA.confirm = function(msg, confirmed, canceled) {
+    LOOMA.closePopup();
+    LOOMA.makeTransparent();
+    $(document.body).append("<div class='popup confirmation'>" +
+        "<button class='popup-button' id='dismiss-popup'><b>X</b></button> " + msg +
+        "<button id='cancel-popup' class='popup-button'>" + LOOMA.generateTranslatableSpans("cancel", "रद्द गरेर") + "</button>" +
+        "<button id='confirm-popup' class='popup-button'>"+ LOOMA.generateTranslatableSpans("confirm", "निश्चय गर्नुहोस्") +"</button></div>");
+    LOOMA.fadeInPopup();
+    $('#confirm-popup').click(function() {
+        LOOMA.closePopup();
+        confirmed();
+    });
+    $('#dismiss-popup, #cancel-popup').click(function() {
+        LOOMA.closePopup();
+        canceled();
+    });
+};
+
+/**
+ /**
+ * Prompts the user to enter text.
+ * @param msg - The message the user is presented, prompting them to enter text.
+ * @param confirmed - A function where the user's text response will be sent if the user confirms.
+ * @param canceled - A function to be called if the user cancels.
+ * */
+LOOMA.prompt = function(msg, confirmed, canceled) {
+    LOOMA.closePopup();
+    LOOMA.makeTransparent();
+    $(document.body).append("<div class='popup textEntry'>" +
+        "<button class='popup-button' id='dismiss-popup'><b>X</b></button>" + msg +
+        "<textarea id='popup-textarea'></textarea>" +
+        "<button id='confirm-popup' class='popup-button'>"+ LOOMA.generateTranslatableSpans("OK", "ठिक छ") +"</button></div>");
+
+    // keyPress();
+    LOOMA.fadeInPopup();
+
+    $('#confirm-popup').click(function() {
+        confirmed($('#popup-textarea').val());
+        LOOMA.closePopup();
+    });
+    $('#dismiss-popup').click(function() {
+        LOOMA.closePopup();
+        canceled();
+    });
+};
+
+/**
+ * Removes any popups on the page.
+ * */
+LOOMA.closePopup = function() {
+    $('#main-container-horizontal').off("click").removeClass('all-transparent');
+    $('.popup').remove();
+};
+
+/**
+ * Fades in the popup
+ * */
+LOOMA.fadeInPopup = function () {
+    console.log("fadeInPopup");
+    $( ".popup" ).fadeIn();
+};
+
+/**
+ * Generates translatable spans given english and native translations. You will need to know the native translation;
+ * this program doesn't do any translation.
+ * @param english
+ * @param native
+ * */
+LOOMA.generateTranslatableSpans = function(english, native){
+    var language = LOOMA.readStore('language', 'local');
+    if (language == "english") {
+        return "<span class='english-keyword'>" + english +
+            "<span class='xlat'>" + native + "</span>" + "</span>" +
+            "<span class='native-keyword' hidden>"
+            + native +
+            "<span class='xlat'>" + english + "</span>" +
+            "</span>";
+    }
+    return "<span class='english-keyword' hidden>" + english +
+        "<span class='xlat'>" + native + "</span>" + "</span>" +
+        "<span class='native-keyword'>"
+        + native +
+        "<span class='xlat'>" + english + "</span>" +
+        "</span>";
+};
+/* 
+ END OF LOOMA ALERTS FUNCTIONS
+ */
 
 LOOMA.capitalize = function (string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
