@@ -79,6 +79,7 @@ $(document).ready(function () {
     var didSaveOnce = false;    // Set to true after user saves one time
     var didRename = false;
     var renameFormDiv = document.getElementById("rename-form-div");
+    var renameForm = document.getElementById("rename-form");
     var renameInput = document.getElementById("rename-text");
     var renameSubmitButton = document.getElementById("rename-form-submit-button");
     
@@ -604,6 +605,7 @@ $(document).ready(function () {
                     volumeBar.style.display = "inline";
                     editButton.innerHTML = "Edit";
                     editButton.style.display = "inline"; 
+                    loginButton.style.display = "inline";
                     var videoName = editsObj.videoName.substring(0, editsObj.videoName.lastIndexOf(".")); 
                     $.ajax("looma-rename-edited-video.php", {
                         data: {info: editsObj, oldPath: editsObj.fileName, newPath: newName, vn: videoName, vp: videoPath},
@@ -642,7 +644,12 @@ $(document).ready(function () {
     
     renameInput.addEventListener('keypress', function(event) {
         if (event.keyCode == 13) {
-            event.preventDefault();
+            renameForm.submit();
+            return false;
+        }
+        else
+        {
+            return true;
         }
     });
     
@@ -664,7 +671,6 @@ $(document).ready(function () {
 	editButton.addEventListener("click", function () {
 		if (editButton.innerHTML == "Save") 
         {
-            videosFolderButton.className = "media";
             loginButton.style.display = "inline";
             
             searchArea.style.display = "none";
@@ -705,7 +711,6 @@ $(document).ready(function () {
         } 
 		else
 		{
-            videosFolderButton.className = "hidden";
             // Hide Media controls
             hideElements([mediaControls, editButton, loginButton, videoDelete]);
             
@@ -1186,7 +1191,6 @@ $(document).ready(function () {
     
     cancelButton.addEventListener("click", function () {
         pauseVideo(video);
-        videosFolderButton.className = "media";
         displayElementsInline([loginButton, document.getElementById("volume"), volumeBar, muteButton]);
         mediaControls.style.height = "20%";
         editControls.style.height = "10%";
