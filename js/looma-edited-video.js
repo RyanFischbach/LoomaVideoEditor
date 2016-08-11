@@ -586,6 +586,17 @@ $(document).ready(function () {
     });
     
     renameSubmitButton.addEventListener("click", function () { 
+        submitRenameInfo();
+        return true;
+    });
+    
+    $(renameForm).submit(function(ev) {
+        ev.preventDefault(); // to stop the form from submitting
+        submitRenameInfo();
+        return true;
+    });
+    
+    function submitRenameInfo() {
         timelineArea.style.visibility = "visible";
          if(renameInput.value == "" || renameInput.value.length > 12)
             {
@@ -635,22 +646,7 @@ $(document).ready(function () {
                     document.getElementById("title").innerHTML = newName;
                 }
             }
-        
-        //newName = $('<div/>').text(renameInput.value).html();
-        
-        return true;
-    });
-    
-    renameInput.addEventListener('keypress', function(event) {
-        if (event.keyCode == 13) {
-            renameForm.submit();
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    });
+    }
     
     editButton.onmouseover = function() {
         if (editButton.innerHTML == "Save")
