@@ -436,6 +436,39 @@ $(document).ready(function () {
             }
         }
 	});
+    
+    // Dynamically resize timelineArea and titleArea
+    $(window).resize(function() {
+         //Sets the video-area to the size of the video by finding the calculated width of the video
+		var vidWidth = window.getComputedStyle(video).getPropertyValue("width");
+		var videoArea = document.getElementById("video-area");
+		videoArea.style.width = parseInt(vidWidth) + "px";
+
+		var videoPlayer = document.getElementById("video-player");
+		var titleArea = document.getElementById("title-area");
+        
+        //Makes the title area fill the space to the right of the video
+		titleArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
+		titleArea.style.height = video.offsetHeight + "px";
+        
+        //Makes the timline area fills the space to the left of the video
+		timelineArea.style.width = ((videoPlayer.offsetWidth / 2) - (video.offsetWidth / 2)) + "px";
+		timelineArea.style.height = video.offsetHeight + "px";
+        
+        //The timeline puts 1 image across leaving 30px for the scrollbar
+		timelineImageWidth = timelineArea.offsetWidth - 30;
+        //There can be 6 rows of images before a scrollbar is created
+		timelineImageHeight = timelineArea.offsetHeight / 3;
+        
+        if (timelineArea.hasChildNodes)
+        {
+            for (var i = 0; i < timelineArea.childNodes.length; i++)
+            {
+                timelineArea.childNodes[i].style.width = timelineImageWidth + "px";
+                timelineArea.childNodes[i].style.height = timelineImageHeight + "px";
+            }
+        }
+    });
 
 	
 	// Event listener for the play pause button that appears when in fullscreen
@@ -1448,14 +1481,11 @@ $(document).ready(function () {
             }
             
             //Sets the style of the div containing the image
-            imageDiv.style.position = "relative";
-            imageDiv.width = timelineImageWidth;
-            imageDiv.height = timelineImageHeight;
+            styleTimelineImageDiv(imageDiv);
             
             //Sets the image for the timeline
             img.src = image_src;
-            img.width = timelineImageWidth;
-            img.height= timelineImageHeight;
+            styleTimelineImage(img);
             imageDiv.appendChild(img);
             newChild = imageDiv;
             
@@ -1476,11 +1506,6 @@ $(document).ready(function () {
             //Styles the hoverDiv
             styleTimelineHoverDiv(hoverDiv);
             imageDiv.appendChild(hoverDiv);
-            
-            //Sets the image for the timeline
-            img.src = image_src;
-            img.width = timelineImageWidth;
-            img.height= timelineImageHeight;
 
             // Check to make sure timeline element is not the video thumbnail
             if (isAnEdit)
@@ -1508,8 +1533,7 @@ $(document).ready(function () {
             }
 
             //Sets the style of the div containing the image
-            imageDiv.style.position = "relative";
-            imageDiv.width = timelineImageWidth;
+            styleTimelineImageDiv(imageDiv);
             
             //When the imageDiv is hovered over it displays the hoverDiv
             imageDiv.onmouseover = function() {
@@ -1518,6 +1542,10 @@ $(document).ready(function () {
             imageDiv.onmouseout = function() {
                 hoverDiv.style.display = "none";
             };
+            
+            //Sets the image for the timeline
+            img.src = image_src;
+            styleTimelineImage(img);
             
             //Adds the image to the div and adds the div to the timeline
             imageDiv.appendChild(img);
@@ -1538,6 +1566,19 @@ $(document).ready(function () {
             seconds = "0" + seconds;
         }
         return minutes + ":" + seconds;
+    }
+    
+    function styleTimelineImageDiv(imageDiv)
+    {
+        imageDiv.style.position = "relative";
+        imageDiv.style.height = timelineImageHeight + "px";
+        imageDiv.style.width = timelineImageWidth + "px";
+    }
+    
+    function styleTimelineImage(img)
+    {
+        img.style.width = '100%';
+        img.style.height= '100%';
     }
     
     function styleTimelineHoverDiv(hoverDiv)
