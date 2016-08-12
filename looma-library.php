@@ -95,6 +95,13 @@ Modifications: Adds a case for edited videos (.txt files)
 				echo "</button>";	
 					   
 		};  //end makeEditedVideoButton()
+        
+        // Check to make sure the folder edited videos exists
+        if (!file_exists("../content/edited videos/")) {
+            // Create "edited videos" folder
+            mkdir("../content/edited videos/", 0777, true);
+        }
+        
 		//End of changes looma edited video
 		//**************************************************************************
         
